@@ -1,0 +1,13 @@
+{
+  "source": "大阪取引所(OSE)「先物・オプション清算値段等」CSV https://www.jpx.co.jp/markets/derivatives/settlement-price/index.html",
+  "notes": "毎営業日、金の限日先物(スポット相当・spotPrice)と、標準先物のうち直近限月(残存日数が最も少ないもの・nearestPrice)の清算値段を記録したもの。nearestPriceとspotPriceの差は「市場が限月日までの変化として織り込んでいる予想」を表す。限月日(nearestTargetDate)が来たら、その日のspotPriceを『実際の結果』としてnearestPriceと突き合わせ、予想と実際の差を答え合わせする(同じ取引所・同じ商品基準どうしの比較なので、当サイトが集計する店頭買取価格と直接比べるより公平)。当サイト独自の予想は一切含まない。",
+  "entries": [
+    {
+      "date": "2026-09-04",
+      "spotPrice": 22616,
+      "nearestContract": "FUT_GLD_261027",
+      "nearestTargetDate": "2026-10-27",
+      "nearestPrice": 22575
+    }
+  ]
+}

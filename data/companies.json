@@ -1,0 +1,959 @@
+[
+  {
+    "id": "otakaraya",
+    "name": "おたからや",
+    "officialUrl": "https://www.otakaraya.jp/",
+    "priceSourceUrl": "https://www.otakaraya.jp/gold/souba/",
+    "tier": "major",
+    "storeCount": 1980,
+    "regions": [
+      "全国"
+    ],
+    "trustScore": 5,
+    "trustNotes": "全国約1,980店舗という国内最大級のFC網。価格は全国一律で公表。",
+    "priceData": {
+      "prices": {
+        "k24": 24348,
+        "k22": 22384,
+        "k21_6": 21844,
+        "k20": 19979,
+        "k18": 18383,
+        "k14": 14236,
+        "k10": 9867,
+        "k9": 8860,
+        "pt1000": 9519,
+        "pt950": 9034,
+        "pt900": 8821,
+        "pt850": 8288,
+        "ag": 350
+      },
+      "updatedAt": "2026-09-03"
+    },
+    "scrapeMethod": "html",
+    "notes": "価格は計算ツールの<select id=\"rateSimulation--select\">内option要素のvalue属性(円)から取得。",
+    "priceCaveat": "フランチャイズ加盟店が中心のため、実際の買取価格は掲載の参考相場と店舗ごとに異なる場合があります。",
+    "googleReview": {
+      "avgRating": 4.81,
+      "totalReviewCount": 2256,
+      "sampleSize": 5,
+      "sampledAt": "2026-09-03",
+      "sampledStores": [
+        "買取専門店 おたからや アクタ西宮店",
+        "買取専門店 おたからや グルメシティ今津店",
+        "高価買取 おたからや 名古屋本店",
+        "高価買取 おたからや 福岡天神本店",
+        "買取専門店おたからや澄川駅前店"
+      ]
+    }
+  },
+  {
+    "id": "nanboya",
+    "name": "なんぼや",
+    "officialUrl": "https://nanboya.com/",
+    "priceSourceUrl": "https://nanboya.com/ajax/metals-market-prices.json",
+    "tier": "major",
+    "storeCount": null,
+    "regions": [
+      "全国"
+    ],
+    "trustScore": 5,
+    "trustNotes": "大手ブランド買取グループ(バリューホールディングス系)。全国的な知名度・出張/宅配買取網あり。",
+    "priceData": {
+      "prices": {
+        "k24": 21602,
+        "k22": 19854,
+        "k20": 17886,
+        "k18": 16396,
+        "k14": 12421,
+        "k10": 8705
+      },
+      "updatedAt": "2025-11-02"
+    },
+    "scrapeMethod": "json",
+    "notes": "robots.txtでJSON(/ajax/metals-market-prices.json)がAllow指定。ただしClaudeBotはサイト全体Disallowのため、scraperのUser-Agentは自社名義のものを使用すること。",
+    "googleReview": {
+      "avgRating": 4.84,
+      "totalReviewCount": 4696,
+      "sampleSize": 5,
+      "sampledAt": "2026-09-03",
+      "sampledStores": [
+        "なんぼや 東京駅前店",
+        "なんぼや 梅田本店",
+        "なんぼや 名古屋サンロード店",
+        "なんぼや 福岡天神店",
+        "なんぼや 札幌大通店"
+      ]
+    }
+  },
+  {
+    "id": "komehyo",
+    "name": "コメ兵",
+    "officialUrl": "https://komehyo.jp/",
+    "priceSourceUrl": "https://komehyo.jp/kaitori/gold/souba/",
+    "tier": "major",
+    "storeCount": null,
+    "regions": [
+      "全国"
+    ],
+    "trustScore": 5,
+    "trustNotes": "1947年創業、東証プライム上場のリユース大手。LBMA公表価格を基準に日次価格を公開。",
+    "priceData": {
+      "prices": {
+        "k24": 22090,
+        "k22": 19144,
+        "k21_6": 18653,
+        "k20": 17672,
+        "k18": 16935,
+        "k14": 11904,
+        "k10": 8345,
+        "k9": 7118,
+        "pt1000": 7948,
+        "pt950": 7754,
+        "pt900": 7657,
+        "pt850": 7367,
+        "ag": 224
+      },
+      "updatedAt": "2026-09-03"
+    },
+    "scrapeMethod": "html",
+    "notes": "価格は<select id=\"js-simulation-metal\">内option要素のdata-price属性(円)から取得。他社と比べやや低めの水準だったため、次回スクレイパー実行時に再確認すること。",
+    "googleReview": {
+      "avgRating": 4.55,
+      "totalReviewCount": 3865,
+      "sampleSize": 5,
+      "sampledAt": "2026-09-03",
+      "sampledStores": [
+        "KOMEHYO GINZA",
+        "KOMEHYO梅田店",
+        "KOMEHYO名古屋本店 本館",
+        "KOMEHYO FUKUOKA TENJIN (コメ兵 福岡天神店)",
+        "KOMEHYO さっぽろ東急百貨店"
+      ]
+    }
+  },
+  {
+    "id": "kaitori-daikichi",
+    "name": "買取大吉",
+    "officialUrl": "https://www.kaitori-daikichi.jp/",
+    "priceSourceUrl": "https://www.kaitori-daikichi.jp/list_gold/today_gold.json",
+    "tier": "major",
+    "storeCount": null,
+    "regions": [
+      "全国"
+    ],
+    "trustScore": 4,
+    "trustNotes": "FC展開の全国チェーン。公式サイトでは参考相場を全国一律で日次公表。",
+    "priceData": {
+      "prices": {
+        "k24": 24270,
+        "k22": 22313,
+        "k21_6": 21775,
+        "k20": 19915,
+        "k18": 18325,
+        "k14": 14190,
+        "k10": 9835,
+        "k9": 8832,
+        "pt1000": 9611,
+        "pt950": 9121,
+        "pt900": 8906,
+        "pt850": 8368,
+        "ag": 352
+      },
+      "updatedAt": "2026-09-04"
+    },
+    "scrapeMethod": "json",
+    "notes": "価格表示ページ(/list/gold/k18/souba/)はJSで書き換える方式で静的HTML取得は信頼できなかったが、ページが裏で叩いている実際のJSON API(list_gold/today_gold.json)をブラウザのNetworkタブで特定し、直接取得する方式に切り替えた。scrap(地金化した貴金属)区分の価格を採用し、他社と条件を揃えている。",
+    "priceCaveat": "フランチャイズ加盟店が中心のため、実際の買取価格は掲載の参考相場と店舗ごとに異なる場合があります。",
+    "googleReview": {
+      "avgRating": 4.66,
+      "totalReviewCount": 1264,
+      "sampleSize": 4,
+      "sampledAt": "2026-09-03",
+      "sampledStores": [
+        "買取大吉 今津駅前店",
+        "買取大吉 ホワイティうめだ店",
+        "買取大吉 名西店",
+        "買取大吉サッポロファクトリー前店"
+      ]
+    }
+  },
+  {
+    "id": "e-daikoku",
+    "name": "大黒屋",
+    "officialUrl": "https://kaitori.e-daikoku.com/",
+    "priceSourceUrl": "https://kaitori.e-daikoku.com/brand/genre/gold.html",
+    "tier": "major",
+    "storeCount": null,
+    "regions": [
+      "全国"
+    ],
+    "trustScore": 4,
+    "trustNotes": "老舗の質屋・買取チェーン。全国展開、手数料なしを訴求。",
+    "priceData": {
+      "prices": {},
+      "updatedAt": null
+    },
+    "scrapeMethod": "pending",
+    "notes": "ブラウザで実機確認した結果、価格表ページの全ての純度は数値ではなく文字通り「ASK」(お問い合わせください)と表示されており、ネットワーク通信にもJSON等のAPIエンドポイントは存在しなかった。HTML内に残る古いJSコメント文字列(K24=7,170円など)はDOM上のid(k24/k18等)が実際のページに存在しない、参照されていない死んだコードと確認済み。計算機能や査定シミュレーターもなく、LINE/メールで写真を送って個別に見積もりを受け取る方式のみ。つまり大黒屋は1g単価を自社サイトで公開していないため、自動取得できる数値データがそもそも存在しない。",
+    "googleReview": {
+      "avgRating": 4.74,
+      "totalReviewCount": 874,
+      "sampleSize": 2,
+      "sampledAt": "2026-09-03",
+      "sampledStores": [
+        "大黒屋 質大阪駅前第四ビル店",
+        "大黒屋 質札幌店"
+      ]
+    }
+  },
+  {
+    "id": "jewel-cafe",
+    "name": "ジュエルカフェ",
+    "officialUrl": "https://www.jewel-cafe.jp/",
+    "priceSourceUrl": "https://www.jewel-cafe.jp/kaitori/gold/",
+    "tier": "major",
+    "storeCount": 280,
+    "regions": [
+      "全国"
+    ],
+    "trustScore": 5,
+    "trustNotes": "全国258〜300店舗、海外10ヵ国83店舗を展開する業界最大級チェーン。",
+    "priceData": {
+      "prices": {
+        "k24": 23885,
+        "k22": 21642,
+        "k20": 19741,
+        "k18": 18206,
+        "k14": 13406
+      },
+      "updatedAt": "2026-09-03"
+    },
+    "scrapeMethod": "html",
+    "notes": "Cloudflare content-signalでClaudeBot/GPTBot等AI系クローラーを個別Disallow。scraper実装時はUser-Agentと利用規約に要注意。",
+    "googleReview": {
+      "avgRating": 4.67,
+      "totalReviewCount": 1828,
+      "sampleSize": 5,
+      "sampledAt": "2026-09-03",
+      "sampledStores": [
+        "買取専門店 ジュエルカフェ 茗荷谷駅前店",
+        "jewel",
+        "買取専門店 ジュエルカフェ イオンモール新瑞橋店",
+        "買取専門店 ジュエルカフェ ゆめタウン博多店",
+        "買取専門店 ジュエルカフェ 札幌藻岩店"
+      ]
+    }
+  },
+  {
+    "id": "kaitori-elite",
+    "name": "買取エリート",
+    "officialUrl": "https://kaitori-off.net/",
+    "priceSourceUrl": "https://kaitori-off.net/gold/",
+    "tier": "midsize",
+    "storeCount": 20,
+    "regions": [
+      "関東",
+      "近畿",
+      "中国",
+      "四国",
+      "東海",
+      "東北"
+    ],
+    "trustScore": 4,
+    "trustNotes": "全国20店舗以上を直営展開。純度別価格をK10まで詳細公開。",
+    "priceData": {
+      "prices": {
+        "k24": 24149,
+        "k22": 21954,
+        "k21_6": 21710,
+        "k20": 20002,
+        "k18": 18295,
+        "k14": 13684,
+        "k10": 9562,
+        "k9": 8538
+      },
+      "updatedAt": "2026-09-03"
+    },
+    "scrapeMethod": "html",
+    "notes": "Cloudflare content-signalでClaudeBot等を個別Disallow。scraper実装時は要注意。",
+    "googleReview": {
+      "avgRating": 4.77,
+      "totalReviewCount": 1840,
+      "sampleSize": 9,
+      "sampledAt": "2026-09-03",
+      "sampledStores": [
+        "買取エリート銀座本店",
+        "買取エリート 上野店",
+        "買取エリート 梅田店",
+        "買取エリート横浜店",
+        "買取エリートなんば店",
+        "買取エリート 心斎橋店",
+        "買取エリート広島本店",
+        "買取エリート 広島緑井店",
+        "買取エリート広島五日市店"
+      ]
+    }
+  },
+  {
+    "id": "kingram",
+    "name": "キングラム",
+    "officialUrl": "https://kingram.jp/",
+    "priceSourceUrl": "https://kingram.jp/lineup/goldplatinum/gold/",
+    "tier": "midsize",
+    "storeCount": 95,
+    "regions": [
+      "北海道",
+      "関東",
+      "中部",
+      "近畿",
+      "中国",
+      "四国",
+      "九州・沖縄"
+    ],
+    "trustScore": 3,
+    "trustNotes": "全国15都道府県に95店舗(直営+FC)を展開。",
+    "priceData": {
+      "prices": {
+        "k24": 23612,
+        "k22": 21401,
+        "k20": 19555,
+        "k18": 18025,
+        "k14": 13361,
+        "k10": 9280,
+        "k9": 8259,
+        "pt1000": 9331,
+        "pt950": 8850,
+        "pt900": 8533,
+        "pt850": 8052,
+        "ag": 337
+      },
+      "updatedAt": "2026-09-03"
+    },
+    "scrapeMethod": "js-embed",
+    "notes": "価格はページ内script変数(window.marketData)にJSONとして埋め込み。ベストライフと価格が完全一致しており、共通データベンダーの可能性あり。",
+    "googleReview": {
+      "avgRating": 4.84,
+      "totalReviewCount": 484,
+      "sampleSize": 5,
+      "sampledAt": "2026-09-03",
+      "sampledStores": [
+        "キングラム ラ・モール芦屋店",
+        "キングラム 月島駅前店",
+        "キングラム 相模大野店",
+        "キングラム 豊中店",
+        "キングラム天神橋店"
+      ]
+    }
+  },
+  {
+    "id": "best-life",
+    "name": "ベストライフ",
+    "officialUrl": "https://e-kaitori.jp/",
+    "priceSourceUrl": "https://e-kaitori.jp/kaitori/gold/",
+    "tier": "midsize",
+    "storeCount": 42,
+    "regions": [
+      "関東",
+      "近畿",
+      "九州・沖縄"
+    ],
+    "trustScore": 4,
+    "trustNotes": "全国42店舗以上。2026年2月にEco Ring Japan Holdingsと資本提携し信頼性が向上。",
+    "priceData": {
+      "prices": {
+        "k24": 23612,
+        "k22": 21401,
+        "k20": 19555,
+        "k18": 18025,
+        "k14": 13361,
+        "k10": 9280,
+        "k9": 8259,
+        "pt1000": 9331,
+        "pt950": 8850,
+        "pt900": 8533,
+        "pt850": 8052,
+        "ag": 337
+      },
+      "updatedAt": "2026-09-03"
+    },
+    "scrapeMethod": "html",
+    "notes": "キングラムと価格が完全一致。価格は静的HTMLに直接出力されており取得しやすい。「ベストライフ」は同名の介護・保険会社が多数存在し、Google口コミの公式ドメイン照合では信頼できる一致が得られなかったため、googleReviewは未設定のままにしている。"
+  },
+  {
+    "id": "brand-revalue",
+    "name": "ブラリバ(ブランドリバリュー)",
+    "officialUrl": "https://brandrevalue.com/",
+    "priceSourceUrl": "https://brandrevalue.com/cat/gold/souba",
+    "tier": "major",
+    "storeCount": null,
+    "regions": [
+      "全国"
+    ],
+    "trustScore": 4,
+    "trustNotes": "買取実績950億円超(2026年2月時点)の大手ブランド買取業者。渋谷など主要都市に店舗、宅配・出張買取は全国対応。",
+    "priceData": {
+      "prices": {
+        "k24": 23612,
+        "k18": 18025,
+        "k14": 13361,
+        "k22": 21401,
+        "k21_6": 21013,
+        "k20": 19555,
+        "k10": 9280,
+        "k9": 8259
+      },
+      "updatedAt": "2026-09-03"
+    },
+    "scrapeMethod": "html",
+    "googleReview": {
+      "avgRating": 4.73,
+      "totalReviewCount": 4301,
+      "sampleSize": 5,
+      "sampledAt": "2026-09-03",
+      "sampledStores": [
+        "ブラリバ 銀座店",
+        "ブラリバ 梅田店",
+        "ブラリバ 名古屋栄店",
+        "ブラリバ 福岡天神店",
+        "ブラリバ 札幌店"
+      ]
+    }
+  },
+  {
+    "id": "gem-sigma",
+    "name": "シグマ",
+    "officialUrl": "https://gem-sigma.com/",
+    "priceSourceUrl": "https://gem-sigma.com/gold/gold/",
+    "tier": "boutique",
+    "storeCount": 10,
+    "regions": [
+      "北海道",
+      "関東",
+      "中部",
+      "近畿",
+      "九州・沖縄"
+    ],
+    "trustScore": 3,
+    "trustNotes": "全国主要都市に10店舗前後を展開するブランド宝石買取専門店。",
+    "priceData": {
+      "prices": {
+        "k24": 23830,
+        "k22": 21766,
+        "k21_6": 21377,
+        "k20": 19749,
+        "k18": 18170,
+        "k14": 13676,
+        "k10": 9620,
+        "k9": 8624,
+        "pt1000": 9582,
+        "pt950": 9093,
+        "pt900": 8998,
+        "pt850": 8517
+      },
+      "updatedAt": "2026-09-03"
+    },
+    "scrapeMethod": "pending",
+    "notes": "K24〜K9・プラチナまで純度別に日次価格を公開していることは確認済み。具体的数値は未取得。",
+    "googleReview": {
+      "avgRating": 4.9,
+      "totalReviewCount": 454,
+      "sampleSize": 3,
+      "sampledAt": "2026-09-03",
+      "sampledStores": [
+        "シグマ北海道札幌店",
+        "株式会社Sigma御徒町本社",
+        "シグマ大阪心斎橋店"
+      ]
+    }
+  },
+  {
+    "id": "galleryrare",
+    "name": "ギャラリーレア",
+    "officialUrl": "https://galleryrare.jp/",
+    "priceSourceUrl": "https://galleryrare.jp/goldplatinum/",
+    "tier": "boutique",
+    "storeCount": 10,
+    "regions": [
+      "関東",
+      "近畿",
+      "中部"
+    ],
+    "trustScore": 3,
+    "trustNotes": "東京・大阪・名古屋・神戸など都市部中心に9〜11店舗を展開。",
+    "priceData": {
+      "prices": {
+        "k24": 22798,
+        "k22": 20867,
+        "k21_6": 19919,
+        "k20": 18749,
+        "k18": 16786,
+        "k14": 12049,
+        "k10": 8595,
+        "k9": 7676,
+        "pt1000": 8802,
+        "pt950": 8321,
+        "pt900": 7840,
+        "pt850": 7359
+      },
+      "updatedAt": "2026-09-03"
+    },
+    "scrapeMethod": "pending",
+    "notes": "K24〜K9・プラチナまで純度別に日次価格を公開していることは確認済み。具体的数値は未取得。",
+    "googleReview": {
+      "avgRating": 4.84,
+      "totalReviewCount": 2794,
+      "sampleSize": 8,
+      "sampledAt": "2026-09-03",
+      "sampledStores": [
+        "ギャラリーレア 銀座本店",
+        "ギャラリーレア 小田急新宿店",
+        "ギャラリーレア 青山表参道店",
+        "ギャラリーレア 神戸元町店",
+        "ギャラリーレア 梅田店",
+        "ギャラリーレア 東心斎橋店",
+        "ギャラリーレア 心斎橋本店",
+        "ギャラリーレア 名古屋大須店"
+      ]
+    }
+  },
+  {
+    "id": "manekiya",
+    "name": "まねきや",
+    "officialUrl": "https://manekiya.shop/",
+    "priceSourceUrl": "https://manekiya.shop/rate",
+    "tier": "midsize",
+    "storeCount": null,
+    "regions": [
+      "近畿",
+      "九州・沖縄",
+      "東北"
+    ],
+    "trustScore": 3,
+    "trustNotes": "大阪あべの・福岡六本松・秋田など全国に店舗展開。",
+    "priceData": {
+      "prices": {
+        "k24": 24348,
+        "k22": 22384,
+        "k21_6": 21844,
+        "k20": 19979,
+        "k18": 18383,
+        "k14": 14236,
+        "k10": 9867,
+        "k9": 8860,
+        "pt1000": 9519,
+        "pt950": 9034,
+        "pt900": 8821,
+        "pt850": 8288,
+        "ag": 350
+      },
+      "updatedAt": "2026-09-03"
+    },
+    "scrapeMethod": "pending",
+    "googleReview": {
+      "avgRating": 4.77,
+      "totalReviewCount": 1106,
+      "sampleSize": 4,
+      "sampledAt": "2026-09-03",
+      "sampledStores": [
+        "まねきや 梅田本店",
+        "高価買取専門店 まねきや 京都四条本店",
+        "高価買取専門店 まねきや 福岡六本松本店",
+        "買取専門店 まねきや 心斎橋店"
+      ]
+    }
+  },
+  {
+    "id": "takayama78",
+    "name": "高山質店",
+    "officialUrl": "https://takayama78.co.jp/",
+    "priceSourceUrl": "https://takayama78.co.jp/",
+    "tier": "boutique",
+    "storeCount": 1,
+    "regions": [
+      "九州・沖縄"
+    ],
+    "trustScore": 3,
+    "trustNotes": "福岡県筑紫野市の1店舗のみで営業する老舗質屋。",
+    "priceData": {
+      "prices": {
+        "k18": 18100,
+        "pt900": 8610
+      },
+      "updatedAt": "2026-09-04"
+    },
+    "scrapeMethod": "html",
+    "notes": "相場ページはトップページ内の「本日現在の金相場」見出し直後の表から取得(K18・Pt900のみ掲載)。所在地は「店舗情報・アクセス」ページで福岡県筑紫野市と確認済み(全国展開ではなく1店舗のみ)。ドメイン比較ロジックの不具合(.co.jp同士が誤って一致する)修正後に再検証した結果、以前サンプルとして採用していた「逸品質屋 丸高」は誤マッチと判明し除外した。"
+  },
+  {
+    "id": "goldmrs",
+    "name": "ゴールドミセス",
+    "officialUrl": "https://goldmrs.jp/",
+    "priceSourceUrl": "https://goldmrs.jp/",
+    "tier": "boutique",
+    "storeCount": 3,
+    "regions": [
+      "関東",
+      "近畿"
+    ],
+    "trustScore": 3,
+    "trustNotes": "東京2・大阪1の計3店舗。高値買取を訴求するブランド価格を別掲。",
+    "priceData": {
+      "prices": {
+        "k24": 23811,
+        "k22": 21576,
+        "k21_6": 21260,
+        "k20": 19681,
+        "k18": 18170,
+        "k14": 13368,
+        "k10": 9478,
+        "k9": 8385,
+        "pt1000": 9463,
+        "pt950": 9028,
+        "pt900": 9354,
+        "pt850": 8929
+      },
+      "updatedAt": "2026-09-03"
+    },
+    "scrapeMethod": "html",
+    "notes": "「インゴット(500g以上)」24,293円/gは地金の買取価格でK24とは別区分。K24(純度100%)は23,811円/g。",
+    "googleReview": {
+      "avgRating": 4.93,
+      "totalReviewCount": 3904,
+      "sampleSize": 3,
+      "sampledAt": "2026-09-03",
+      "sampledStores": [
+        "ゴールドミセス 東京本店",
+        "ゴールドミセス 東京2号店 金・貴金属販売専門店",
+        "ゴールドミセス 大阪なんば本店"
+      ]
+    }
+  },
+  {
+    "id": "nexus13",
+    "name": "ネクサス",
+    "officialUrl": "https://www.nexus13.co.jp/",
+    "priceSourceUrl": "https://www.nexus13.co.jp/metals/",
+    "tier": "boutique",
+    "storeCount": 1,
+    "regions": [
+      "近畿"
+    ],
+    "trustScore": 2,
+    "trustNotes": "大阪・十三の店頭買取1店舗のみ(宅配買取は全国対応)。小規模事業者のため要注意。",
+    "priceData": {
+      "prices": {
+        "k24": 23668,
+        "k22": 21438,
+        "k21_6": 21073,
+        "k20": 19628,
+        "k18": 18031,
+        "k14": 13409,
+        "k10": 9280,
+        "k9": 8259,
+        "pt1000": 9423,
+        "pt950": 8985,
+        "pt900": 8648,
+        "pt850": 8167,
+        "ag": 337
+      },
+      "updatedAt": "2026-09-03"
+    },
+    "scrapeMethod": "html",
+    "googleReview": {
+      "avgRating": 3.3,
+      "totalReviewCount": 24,
+      "sampleSize": 1,
+      "sampledAt": "2026-09-03",
+      "sampledStores": [
+        "ネクサス"
+      ]
+    }
+  },
+  {
+    "id": "ginzaya",
+    "name": "銀座屋",
+    "officialUrl": "https://ginzaya.co.jp/",
+    "priceSourceUrl": "https://ginzaya.co.jp/items/gold/",
+    "tier": "midsize",
+    "storeCount": 40,
+    "regions": [
+      "全国"
+    ],
+    "trustScore": 3,
+    "trustNotes": "全国14都道府県に約40店舗を展開。",
+    "priceData": {
+      "prices": {
+        "k24": 24141
+      },
+      "updatedAt": "2026-09-02"
+    },
+    "scrapeMethod": "html",
+    "notes": "サイト上は単一レートのみの表示で、純度別の内訳は確認できていない(k24として暫定計上)。",
+    "googleReview": {
+      "avgRating": 4.8,
+      "totalReviewCount": 1011,
+      "sampleSize": 3,
+      "sampledAt": "2026-09-03",
+      "sampledStores": [
+        "買取専門店 銀座屋 尼崎立花店",
+        "買取専門店 銀座屋 平井店",
+        "銀座屋 豊橋店"
+      ]
+    }
+  },
+  {
+    "id": "okuraya",
+    "name": "大蔵屋",
+    "officialUrl": "https://okuraya.jp/",
+    "priceSourceUrl": "https://okuraya.jp/",
+    "tier": "boutique",
+    "storeCount": 1,
+    "regions": [
+      "東海"
+    ],
+    "trustScore": 2,
+    "trustNotes": "三重県鈴鹿市の1店舗のみの地域業者。全国チェーンではない点に注意。",
+    "priceData": {
+      "prices": {
+        "k24": 23310,
+        "k18": 17730,
+        "k14": 12620,
+        "pt1000": 9210,
+        "pt900": 8460,
+        "pt850": 7980
+      },
+      "updatedAt": "2026-09-03"
+    },
+    "scrapeMethod": "html",
+    "notes": "「大蔵」という同名の全国チェーンは確認できず、最も近い候補として採用。ユーザーの意図と異なる可能性あり、要確認。Google口コミの公式ドメイン照合でも一致する店舗が確認できなかったため、googleReviewは未設定のままにしている。"
+  },
+  {
+    "id": "brandoff",
+    "name": "ブランドオフ",
+    "officialUrl": "https://kaitori.brandoff.co.jp/kaitori/gold",
+    "priceSourceUrl": "https://kaitori.brandoff.co.jp/kaitori/gold",
+    "tier": "major",
+    "storeCount": null,
+    "regions": [
+      "全国"
+    ],
+    "trustScore": 4,
+    "trustNotes": "コメ兵ホールディングス(東証プライム上場)の子会社。日本・香港・台湾・上海に計87店舗を展開(国内のみの店舗数は未確認のため不明として扱う)。",
+    "priceData": {
+      "prices": {},
+      "updatedAt": null
+    },
+    "scrapeMethod": "pending",
+    "notes": "1gあたりの純度別価格表は無く、「金相場速報」として単一の参考値のみを掲示(しかも確認時点で2026年4月時点のまま更新されておらず、現在の日付とズレていた)。店頭問い合わせ制のため、信頼できる日次の数値を自動取得する手段がない。なお同じくコメ兵ホールディングス系列の「コメ兵」は当サイトに別会社として掲載しているため、資本関係がある点を念のため付記する。",
+    "googleReview": {
+      "avgRating": 4.84,
+      "totalReviewCount": 3166,
+      "sampleSize": 7,
+      "sampledAt": "2026-09-04",
+      "sampledStores": [
+        "BRAND OFF SHIBUYA",
+        "ブランドオフ 銀座本店",
+        "ブランド買取専門店 BRAND OFF 梅田大阪駅前第4ビル店",
+        "ブランドオフ 大阪梅田店",
+        "ブランドオフ 心斎橋店",
+        "ブランドオフ 名古屋大須店",
+        "ブランド買取専門店 BRAND OFF 天神５丁目店"
+      ]
+    }
+  },
+  {
+    "id": "fukuchan",
+    "name": "福ちゃん",
+    "officialUrl": "https://fuku-chan.info/gold/",
+    "priceSourceUrl": "https://fuku-chan.info/gold/",
+    "tier": "major",
+    "storeCount": 18,
+    "regions": [
+      "全国"
+    ],
+    "trustScore": 4,
+    "trustNotes": "バイセルテクノロジーズ(東証上場)の完全子会社(2024年10月)。全国18店舗+出張・宅配買取に対応。",
+    "priceData": {
+      "prices": {},
+      "updatedAt": null
+    },
+    "scrapeMethod": "pending",
+    "notes": "1gあたりの純度別価格表を公開しておらず、「買取相場を超えるプラス査定」を訴求する個別見積り制。自動取得できる数値が存在しない。",
+    "googleReview": {
+      "avgRating": 4.52,
+      "totalReviewCount": 1048,
+      "sampleSize": 5,
+      "sampledAt": "2026-09-04",
+      "sampledStores": [
+        "買取福ちゃん 大阪豊中店",
+        "買取福ちゃん 名古屋高針店",
+        "買取福ちゃん 名古屋緑滝ノ水店",
+        "買取福ちゃん 福岡大橋店",
+        "買取福ちゃん 札幌北20条店"
+      ]
+    }
+  },
+  {
+    "id": "shichifuku",
+    "name": "総合買取七福",
+    "officialUrl": "https://shichifuku-kaitori.com/",
+    "priceSourceUrl": "https://shichifuku-kaitori.com/",
+    "tier": "boutique",
+    "storeCount": 0,
+    "regions": [
+      "関東"
+    ],
+    "trustScore": 2,
+    "trustNotes": "東京23区(一部近隣地域)限定の出張買取専業(実店舗なし)。主力は古着・不用品で、金・貴金属は取扱品目の一つ。同名・類似名の別会社(買取本舗七福神など)が複数存在するため、依頼の際は運営会社(株式会社TKK)を確認することを推奨。",
+    "priceData": {
+      "prices": {},
+      "updatedAt": null
+    },
+    "scrapeMethod": "pending",
+    "notes": "金・貴金属は取扱品目の一つに過ぎず、1gあたりの価格表を公開していない。個別査定制のため自動取得できる数値が存在しない。"
+  },
+  {
+    "id": "urucoco",
+    "name": "うるココ",
+    "officialUrl": "https://ultra-b.jp/",
+    "priceSourceUrl": "https://ultra-b.jp/",
+    "tier": "midsize",
+    "storeCount": null,
+    "regions": [
+      "全国"
+    ],
+    "trustScore": 3,
+    "trustNotes": "株式会社ULTRA WIDE(2012年設立)が運営。全国45都道府県対応の出張買取を主軸とする総合リユース事業者(自社調べの実績数値のため参考値)。",
+    "priceData": {
+      "prices": {},
+      "updatedAt": null
+    },
+    "scrapeMethod": "pending",
+    "notes": "100品目超を扱う総合出張買取サービスで、金・貴金属専用の1gあたり価格表は公開していない(買取事例として個別金額を紹介するのみ)。自動取得できる数値が存在しない。",
+    "googleReview": {
+      "avgRating": 4.46,
+      "totalReviewCount": 932,
+      "sampleSize": 3,
+      "sampledAt": "2026-09-04",
+      "sampledStores": [
+        "うるココ総合出張受付センター",
+        "うるココ 梅田本店",
+        "うるココ 平野店"
+      ]
+    }
+  },
+  {
+    "id": "rodeodrive",
+    "name": "ロデオドライブ",
+    "officialUrl": "https://kaitori.rodeodrive.co.jp/gold/",
+    "priceSourceUrl": "https://kaitori.rodeodrive.co.jp/gold/",
+    "tier": "midsize",
+    "storeCount": 8,
+    "regions": [
+      "全国"
+    ],
+    "trustScore": 3,
+    "trustNotes": "横浜4・新宿・渋谷・銀座など首都圏中心に8店舗+全国宅配買取に対応。",
+    "priceData": {
+      "prices": {
+        "k24": 22650,
+        "k22": 21070,
+        "k21_6": 20700,
+        "k20": 19120,
+        "k18": 18050,
+        "k14": 12650,
+        "k10": 8540,
+        "k9": 7320,
+        "pt1000": 9110,
+        "pt950": 8910,
+        "pt900": 8650,
+        "pt850": 8110,
+        "ag": 240
+      },
+      "updatedAt": "2026-09-04"
+    },
+    "scrapeMethod": "html",
+    "googleReview": {
+      "avgRating": 4.91,
+      "totalReviewCount": 1094,
+      "sampleSize": 4,
+      "sampledAt": "2026-09-04",
+      "sampledStores": [
+        "ロデオドライブ銀座",
+        "ロデオドライブ買取サロン 銀座店",
+        "ロデオドライブ 新宿歌舞伎町店",
+        "ロデオドライブ THE YOKOHAMA FRONT ヨコハマフロント"
+      ]
+    }
+  },
+  {
+    "id": "refasta",
+    "name": "リファスタ",
+    "officialUrl": "https://kinkaimasu.jp/",
+    "priceSourceUrl": "https://kinkaimasu.jp/",
+    "tier": "midsize",
+    "storeCount": 2,
+    "regions": [
+      "全国"
+    ],
+    "trustScore": 3,
+    "trustNotes": "東京池袋・大阪心斎橋の2店舗+全国宅配買取(離島含む、一部地域は送料加算)。金地金の精錬・分割加工サービスも運営。",
+    "priceData": {
+      "prices": {
+        "k24": 23117,
+        "k22": 21365,
+        "k21_6": 20440,
+        "k20": 19637,
+        "k18": 18177,
+        "k14": 13627,
+        "k10": 9125,
+        "k9": 7300,
+        "pt1000": 9176,
+        "pt950": 9137,
+        "pt900": 9163,
+        "pt850": 8675,
+        "ag": 248
+      },
+      "updatedAt": "2026-09-04"
+    },
+    "scrapeMethod": "html",
+    "googleReview": {
+      "avgRating": 4.31,
+      "totalReviewCount": 393,
+      "sampleSize": 2,
+      "sampledAt": "2026-09-04",
+      "sampledStores": [
+        "リファスタ大阪心斎橋店",
+        "リファスタ 東京池袋店"
+      ]
+    }
+  },
+  {
+    "id": "netoff",
+    "name": "ネットオフ",
+    "officialUrl": "https://www.netoff.co.jp/brand/jewelry/gold/",
+    "priceSourceUrl": "https://www.netoff.co.jp/sell/js/souba.js",
+    "tier": "major",
+    "storeCount": 0,
+    "regions": [
+      "全国"
+    ],
+    "trustScore": 4,
+    "trustNotes": "リネットジャパングループ(東証上場)の完全子会社。実店舗を持たない宅配買取専業。送料・査定料・振込手数料等はすべて無料。",
+    "priceData": {
+      "prices": {
+        "k24": 18785,
+        "k20": 15573,
+        "k18": 14308,
+        "k14": 9733,
+        "pt1000": 7539,
+        "pt950": 7148,
+        "pt900": 6875,
+        "pt850": 6484
+      },
+      "updatedAt": "2026-09-04"
+    },
+    "scrapeMethod": "js-embed",
+    "notes": "価格は店頭相場(baseK/basePt)に固定の掛け率(0.8倍を含む)を適用した計算式で決まる。掲載価格は他社より2割前後低い水準になるが、これは掲載ミスではなく実際にサイトが表示している値(2026/09/04時点で確認)。 なお口コミ評価は掲載していない: 実店舗を持たないため、Google検索でヒットするのは本社・物流センターなど非対面拠点のみで、買取サービスの評価として代表性がないと判断した。"
+  }
+]
