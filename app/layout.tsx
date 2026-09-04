@@ -6,7 +6,7 @@ import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import MobileTabBar from "@/components/MobileTabBar";
-import { SITE_NAME, SITE_URL, ADSENSE_PUBLISHER_ID } from "@/lib/siteConfig";
+import { SITE_NAME, SITE_URL, ADSENSE_PUBLISHER_ID, GSC_VERIFICATION } from "@/lib/siteConfig";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -42,6 +42,8 @@ export const metadata: Metadata = {
   },
   // AdSense審査時のサイト所有権確認用(パブリッシャーID未設定のうちは出力しない)
   other: ADSENSE_PUBLISHER_ID ? { "google-adsense-account": `ca-${ADSENSE_PUBLISHER_ID}` } : undefined,
+  // Google Search Consoleのサイト所有権確認用(未設定のうちは出力しない)
+  verification: GSC_VERIFICATION ? { google: GSC_VERIFICATION } : undefined,
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

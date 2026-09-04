@@ -14,3 +14,6 @@ export const CONTACT_FORM_URL = process.env.NEXT_PUBLIC_CONTACT_FORM_URL ?? "";
 // AdSenseの審査に通ってから発行される値をここへ設定する。空のままだと広告タグ・ads.txtは
 // 出力されない(誤った値で審査に不利益を与えないため)。
 export const ADSENSE_PUBLISHER_ID = process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID ?? "";
+
+// Google Search Consoleのサイト所有権確認用コード(HTMLタグ方式のcontent属性の値のみ)。
+export const GSC_VERIFICATION = process.env.NEXT_PUBLIC_GSC_VERIFICATION ?? "";
