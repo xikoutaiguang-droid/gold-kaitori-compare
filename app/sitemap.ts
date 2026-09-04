@@ -3,7 +3,20 @@ import { SITE_URL } from "@/lib/siteConfig";
 import { REGION_PAGES } from "@/lib/regionPages";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const pages = ["", "/compare", "/simulator", "/finder", "/nearby", "/trend", "/about", "/guide/tax", "/privacy"];
+  const pages = [
+    "",
+    "/compare",
+    "/simulator",
+    "/finder",
+    "/nearby",
+    "/trend",
+    "/tools",
+    "/tools/weight-converter",
+    "/tools/purity-calculator",
+    "/about",
+    "/guide/tax",
+    "/privacy",
+  ];
   const regionPages = REGION_PAGES.map((r) => `/compare/${r.slug}`);
 
   return [...pages, ...regionPages].map((path) => ({
