@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import type { Company, Purity, Region } from "@/lib/types";
 import { PURITY_LABELS, GOLD_PURITIES, PLATINUM_PURITIES, SILVER_PURITIES } from "@/lib/types";
 import { ALL_REGIONS, filterByRegion, getReferenceRate } from "@/lib/companies";
-import { getOutboundUrl, hasAffiliateLink } from "@/lib/outboundLink";
+import { getOutboundUrl, hasAffiliateLink, getAffiliateLinks } from "@/lib/outboundLink";
 import CompanyLogo from "@/components/CompanyLogo";
 import PriceBar from "@/components/PriceBar";
 import CaveatNote from "@/components/CaveatNote";
@@ -90,80 +90,109 @@ export default function CompanyTable({
       <ul className="flex flex-col gap-2.5">
         {rows.map((c, i) => {
           const value = c.priceData.prices[purity];
-          return (
-            <li key={c.id}>
-              <a
-                href={getOutboundUrl(c)}
-                target="_blank"
-                rel="nofollow sponsored noopener"
-                className={`block rounded-xl border p-3.5 shadow-sm transition active:scale-[0.99] sm:hover:border-accent/50 sm:hover:shadow-md ${
-                  i === 0 && value !== undefined
-                    ? "border-accent/40 bg-accent-soft/60"
-                    : "border-border bg-surface"
-                }`}
-              >
-                <div className="flex items-center gap-3">
-                  <span className="w-5 shrink-0 text-center text-xs text-muted">{i + 1}</span>
-                  <CompanyLogo id={c.id} name={c.name} size={32} />
-                  <div className="min-w-0 flex-1">
-                    <div className="flex flex-wrap items-center gap-x-2">
-                      <p className="truncate font-medium">{c.name}</p>
-                      {hasAffiliateLink(c) && <PrBadge />}
-                      {c.googleReview && (
-                        <span className="shrink-0 text-xs font-medium text-accent-strong">
-                          ★{c.googleReview.avgRating}
-                          <span className="ml-0.5 font-normal text-muted">
-                            ({c.googleReview.totalReviewCount.toLocaleString()}件)
-                          </span>
+          const links = getAffiliateLinks(c);
+          const cardClassName = `rounded-xl border p-3.5 shadow-sm transition ${
+            i === 0 && value !== undefined ? "border-accent/40 bg-accent-soft/60" : "border-border bg-surface"
+          }`;
+
+          const body = (
+            <>
+              <div className="flex items-center gap-3">
+                <span className="w-5 shrink-0 text-center text-xs text-muted">{i + 1}</span>
+                <CompanyLogo id={c.id} name={c.name} size={32} />
+                <div className="min-w-0 flex-1">
+                  <div className="flex flex-wrap items-center gap-x-2">
+                    <p className="truncate font-medium">{c.name}</p>
+                    {hasAffiliateLink(c) && <PrBadge />}
+                    {c.googleReview && (
+                      <span className="shrink-0 text-xs font-medium text-accent-strong">
+                        ★{c.googleReview.avgRating}
+                        <span className="ml-0.5 font-normal text-muted">
+                          ({c.googleReview.totalReviewCount.toLocaleString()}件)
                         </span>
-                      )}
-                    </div>
-                    <p className="text-xs text-muted">
-                      {c.regions.join("・") || "地域不明"}
-                      {c.storeCount ? ` ・ ${c.storeCount}店舗` : ""}
-                    </p>
-                  </div>
-                  <div className="shrink-0 text-right">
-                    {value !== undefined ? (
-                      <>
-                        <p className="text-lg font-semibold tabular-nums">{value.toLocaleString()}円</p>
-                        {referenceValue !== undefined && (
-                          <ReferenceDiff value={value} referenceValue={referenceValue} />
-                        )}
-                      </>
-                    ) : (
-                      (() => {
-                        const otherPurities = Object.keys(c.priceData.prices) as Purity[];
-                        if (otherPurities.length === 0) {
-                          return <p className="text-sm text-muted">公式に価格表示なし</p>;
-                        }
-                        return (
-                          <>
-                            <p className="text-sm text-muted">データ取得中</p>
-                            <p className="text-[11px] text-muted">
-                              {otherPurities.map((p) => PURITY_LABELS[p]).join("・")}は対応
-                            </p>
-                          </>
-                        );
-                      })()
+                      </span>
                     )}
                   </div>
+                  <p className="text-xs text-muted">
+                    {c.regions.join("・") || "地域不明"}
+                    {c.storeCount ? ` ・ ${c.storeCount}店舗` : ""}
+                  </p>
                 </div>
-                {value !== undefined && (
-                  <div className="mt-2.5 pl-8">
-                    <PriceBar value={value} max={maxPrice} />
-                  </div>
-                )}
-                {c.priceCaveat && (
-                  <div className="mt-2 pl-8">
-                    <CaveatNote>{c.priceCaveat}</CaveatNote>
-                  </div>
-                )}
-                <div className="mt-2.5 flex items-center justify-between pl-8 text-xs text-muted">
-                  <span>更新日: {c.priceData.updatedAt ?? "-"}</span>
-                  <span className="font-medium text-accent-strong">公式サイトへ →</span>
+                <div className="shrink-0 text-right">
+                  {value !== undefined ? (
+                    <>
+                      <p className="text-lg font-semibold tabular-nums">{value.toLocaleString()}円</p>
+                      {referenceValue !== undefined && (
+                        <ReferenceDiff value={value} referenceValue={referenceValue} />
+                      )}
+                    </>
+                  ) : (
+                    (() => {
+                      const otherPurities = Object.keys(c.priceData.prices) as Purity[];
+                      if (otherPurities.length === 0) {
+                        return <p className="text-sm text-muted">公式に価格表示なし</p>;
+                      }
+                      return (
+                        <>
+                          <p className="text-sm text-muted">データ取得中</p>
+                          <p className="text-[11px] text-muted">
+                            {otherPurities.map((p) => PURITY_LABELS[p]).join("・")}は対応
+                          </p>
+                        </>
+                      );
+                    })()
+                  )}
                 </div>
-              </a>
+              </div>
+              {value !== undefined && (
+                <div className="mt-2.5 pl-8">
+                  <PriceBar value={value} max={maxPrice} />
+                </div>
+              )}
+              {c.priceCaveat && (
+                <div className="mt-2 pl-8">
+                  <CaveatNote>{c.priceCaveat}</CaveatNote>
+                </div>
+              )}
+            </>
+          );
+
+          return (
+            <li key={c.id}>
+              {links.length >= 2 ? (
+                <div className={cardClassName}>
+                  {body}
+                  <div className="mt-2.5 flex flex-wrap items-center justify-between gap-2 pl-8 text-xs text-muted">
+                    <span>更新日: {c.priceData.updatedAt ?? "-"}</span>
+                    <div className="flex flex-wrap gap-x-3 gap-y-1">
+                      {links.map((link) => (
+                        <a
+                          key={link.url}
+                          href={link.url}
+                          target="_blank"
+                          rel="nofollow sponsored noopener"
+                          className="font-medium text-accent-strong hover:underline"
+                        >
+                          {link.label} →
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <a
+                  href={getOutboundUrl(c)}
+                  target="_blank"
+                  rel="nofollow sponsored noopener"
+                  className={`block ${cardClassName} active:scale-[0.99] sm:hover:border-accent/50 sm:hover:shadow-md`}
+                >
+                  {body}
+                  <div className="mt-2.5 flex items-center justify-between pl-8 text-xs text-muted">
+                    <span>更新日: {c.priceData.updatedAt ?? "-"}</span>
+                    <span className="font-medium text-accent-strong">公式サイトへ →</span>
+                  </div>
+                </a>
+              )}
             </li>
           );
         })}

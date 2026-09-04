@@ -58,8 +58,12 @@ export interface Company {
   id: string;
   name: string;
   officialUrl: string;
-  /** アフィリエイトプログラム経由の追跡リンク。承認済みでこれが設定されている場合、公式サイトへの遷移リンクとして officialUrl の代わりに使う */
-  affiliateUrl?: string;
+  /**
+   * アフィリエイトプログラム経由の追跡リンク。承認済みでこれが設定されている場合、
+   * 公式サイトへの遷移リンクとして officialUrl の代わりに使う。
+   * 同じ会社で複数の申込み導線(宅配買取/店頭予約 等)がある場合は複数件入れられる。
+   */
+  affiliateLinks?: { label: string; url: string }[];
   priceSourceUrl: string;
   tier: Tier;
   storeCount: number | null;

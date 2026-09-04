@@ -129,7 +129,17 @@
         "KOMEHYO FUKUOKA TENJIN (コメ兵 福岡天神店)",
         "KOMEHYO さっぽろ東急百貨店"
       ]
-    }
+    },
+    "affiliateLinks": [
+      {
+        "label": "宅配買取はこちら(自宅からそのまま発送)",
+        "url": "https://px.a8.net/svt/ejp?a8mat=4BC36Q+F5YJA2+3VEM+61C2P"
+      },
+      {
+        "label": "店頭買取予約はこちら",
+        "url": "https://px.a8.net/svt/ejp?a8mat=4BC36Q+F4RO2I+3VEM+BXQOH"
+      }
+    ]
   },
   {
     "id": "kaitori-daikichi",
@@ -760,7 +770,12 @@
         "ブランド買取専門店 BRAND OFF 天神５丁目店"
       ]
     },
-    "affiliateUrl": "https://px.a8.net/svt/ejp?a8mat=4BC36Q+9GJZKQ+56WW+HV7V6"
+    "affiliateLinks": [
+      {
+        "label": "出張買取はこちら",
+        "url": "https://px.a8.net/svt/ejp?a8mat=4BC36Q+9GJZKQ+56WW+HV7V6"
+      }
+    ]
   },
   {
     "id": "fukuchan",
@@ -793,7 +808,12 @@
         "買取福ちゃん 札幌北20条店"
       ]
     },
-    "affiliateUrl": "https://px.a8.net/svt/ejp?a8mat=4BC36Q+A3RW62+35HU+HV7V6"
+    "affiliateLinks": [
+      {
+        "label": "買取はこちら",
+        "url": "https://px.a8.net/svt/ejp?a8mat=4BC36Q+A3RW62+35HU+HV7V6"
+      }
+    ]
   },
   {
     "id": "shichifuku",
@@ -957,6 +977,11 @@
     },
     "scrapeMethod": "js-embed",
     "notes": "価格は店頭相場(baseK/basePt)に固定の掛け率(0.8倍を含む)を適用した計算式で決まる。掲載価格は他社より2割前後低い水準になるが、これは掲載ミスではなく実際にサイトが表示している値(2026/09/04時点で確認)。 なお口コミ評価は掲載していない: 実店舗を持たないため、Google検索でヒットするのは本社・物流センターなど非対面拠点のみで、買取サービスの評価として代表性がないと判断した。",
-    "affiliateUrl": "https://px.a8.net/svt/ejp?a8mat=4BC36Q+AZBV8A+1SOW+1BMW42"
+    "affiliateLinks": [
+      {
+        "label": "宅配買取はこちら",
+        "url": "https://px.a8.net/svt/ejp?a8mat=4BC36Q+AZBV8A+1SOW+1BMW42"
+      }
+    ]
   }
 ]
