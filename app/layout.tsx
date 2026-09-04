@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/next";
 import { Geist, Geist_Mono, Shippori_Mincho } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/Nav";
@@ -62,6 +63,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <main className="flex-1 pb-20 sm:pb-0">{children}</main>
         <Footer />
         <MobileTabBar />
+        <Analytics />
       </body>
     </html>
   );

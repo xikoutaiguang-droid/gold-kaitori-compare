@@ -31,6 +31,15 @@ export default function PrivacyPage() {
         </section>
 
         <section>
+          <h2 className="mb-2 font-semibold text-foreground">アクセス解析について</h2>
+          <p>
+            当サイトはVercel Analyticsを利用して、ページの閲覧状況を集計しています。Cookieを使用せず、
+            個人を特定できる情報は取得しません。閲覧されたページや大まかな地域・端末の種類などを匿名の集計値として
+            把握し、サイトの改善に役立てる目的でのみ利用します。
+          </p>
+        </section>
+
+        <section>
           <h2 className="mb-2 font-semibold text-foreground">広告について</h2>
           {ADSENSE_PUBLISHER_ID ? (
             <>
