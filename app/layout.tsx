@@ -6,7 +6,7 @@ import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import MobileTabBar from "@/components/MobileTabBar";
-import { SITE_NAME, SITE_URL, ADSENSE_PUBLISHER_ID, GSC_VERIFICATION } from "@/lib/siteConfig";
+import { SITE_NAME, SITE_URL, ADSENSE_PUBLISHER_ID, GSC_VERIFICATION, GA_MEASUREMENT_ID } from "@/lib/siteConfig";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -60,6 +60,23 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             crossOrigin="anonymous"
             strategy="afterInteractive"
           />
+        )}
+        {GA_MEASUREMENT_ID && (
+          <>
+            <Script
+              async
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="ga4-init" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${GA_MEASUREMENT_ID}');
+              `}
+            </Script>
+          </>
         )}
         <Nav />
         <main className="flex-1 pb-20 sm:pb-0">{children}</main>

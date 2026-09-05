@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { OPERATOR_NAME, CONTACT_FORM_URL, ADSENSE_PUBLISHER_ID } from "@/lib/siteConfig";
+import { OPERATOR_NAME, CONTACT_FORM_URL, ADSENSE_PUBLISHER_ID, GA_MEASUREMENT_ID } from "@/lib/siteConfig";
 
 export const metadata: Metadata = {
   title: "プライバシーポリシー",
@@ -37,6 +37,23 @@ export default function PrivacyPage() {
             個人を特定できる情報は取得しません。閲覧されたページや大まかな地域・端末の種類などを匿名の集計値として
             把握し、サイトの改善に役立てる目的でのみ利用します。
           </p>
+          {GA_MEASUREMENT_ID && (
+            <p className="mt-2">
+              あわせてGoogle
+              Analyticsも利用しています。こちらはCookieを使用して、ページの閲覧状況や訪問経路などを集計します。
+              収集した情報はGoogleのプライバシーポリシーに基づき処理されます。Google
+              Analyticsによるデータ収集を無効にしたい場合は、
+              <a
+                href="https://tools.google.com/dlpage/gaoptout"
+                target="_blank"
+                rel="noopener"
+                className="mx-1 text-accent-strong hover:underline"
+              >
+                Googleアナリティクス オプトアウト アドオン
+              </a>
+              をブラウザに追加することで対応できます。
+            </p>
+          )}
         </section>
 
         <section>

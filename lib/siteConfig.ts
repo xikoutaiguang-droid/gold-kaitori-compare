@@ -17,3 +17,6 @@ export const ADSENSE_PUBLISHER_ID = process.env.NEXT_PUBLIC_ADSENSE_PUBLISHER_ID
 
 // Google Search Consoleのサイト所有権確認用コード(HTMLタグ方式のcontent属性の値のみ)。
 export const GSC_VERIFICATION = process.env.NEXT_PUBLIC_GSC_VERIFICATION ?? "";
+
+// Google Analytics(GA4)の測定ID("G-"から始まる文字列)。
+export const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ?? "";
