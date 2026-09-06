@@ -27,7 +27,7 @@
         "pt850": 8412,
         "ag": 352
       },
-      "updatedAt": "2026-09-05"
+      "updatedAt": "2026-09-06"
     },
     "scrapeMethod": "html",
     "notes": "価格は計算ツールの<select id=\"rateSimulation--select\">内option要素のvalue属性(円)から取得。",
@@ -113,7 +113,7 @@
         "pt850": 7252,
         "ag": 225
       },
-      "updatedAt": "2026-09-05"
+      "updatedAt": "2026-09-06"
     },
     "scrapeMethod": "html",
     "notes": "価格は<select id=\"js-simulation-metal\">内option要素のdata-price属性(円)から取得。他社と比べやや低めの水準だったため、次回スクレイパー実行時に再確認すること。",
@@ -236,7 +236,7 @@
         "k18": 18239,
         "k14": 13430
       },
-      "updatedAt": "2026-09-05"
+      "updatedAt": "2026-09-06"
     },
     "scrapeMethod": "html",
     "notes": "Cloudflare content-signalでClaudeBot/GPTBot等AI系クローラーを個別Disallow。scraper実装時はUser-Agentと利用規約に要注意。",
@@ -282,7 +282,7 @@
         "k10": 9562,
         "k9": 8538
       },
-      "updatedAt": "2026-09-05"
+      "updatedAt": "2026-09-06"
     },
     "scrapeMethod": "html",
     "notes": "Cloudflare content-signalでClaudeBot等を個別Disallow。scraper実装時は要注意。",
@@ -384,7 +384,7 @@
         "pt850": 8174,
         "ag": 338
       },
-      "updatedAt": "2026-09-05"
+      "updatedAt": "2026-09-06"
     },
     "scrapeMethod": "html",
     "notes": "キングラムと価格が完全一致。価格は静的HTMLに直接出力されており取得しやすい。「ベストライフ」は同名の介護・保険会社が多数存在し、Google口コミの公式ドメイン照合では信頼できる一致が得られなかったため、googleReviewは未設定のままにしている。"
@@ -412,7 +412,7 @@
         "k10": 9296,
         "k9": 8274
       },
-      "updatedAt": "2026-09-05"
+      "updatedAt": "2026-09-06"
     },
     "scrapeMethod": "html",
     "googleReview": {
@@ -505,7 +505,7 @@
         "pt900": 7959,
         "pt850": 7471
       },
-      "updatedAt": "2026-09-05"
+      "updatedAt": "2026-09-06"
     },
     "scrapeMethod": "pending",
     "notes": "K24〜K9・プラチナまで純度別に日次価格を公開していることは確認済み。具体的数値は未取得。",
@@ -556,7 +556,7 @@
         "pt850": 8368,
         "ag": 352
       },
-      "updatedAt": "2026-09-05"
+      "updatedAt": "2026-09-06"
     },
     "scrapeMethod": "pending",
     "googleReview": {
@@ -666,7 +666,7 @@
         "pt850": 8306,
         "ag": 323
       },
-      "updatedAt": "2026-09-05"
+      "updatedAt": "2026-09-06"
     },
     "scrapeMethod": "html",
     "googleReview": {
@@ -892,7 +892,7 @@
         "pt850": 7840,
         "ag": 220
       },
-      "updatedAt": "2026-09-05"
+      "updatedAt": "2026-09-06"
     },
     "scrapeMethod": "html",
     "googleReview": {
