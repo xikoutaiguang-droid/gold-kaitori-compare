@@ -1,12 +1,17 @@
+import Image from "next/image";
 import Link from "next/link";
 import { OPERATOR_NAME } from "@/lib/siteConfig";
 
 export default function OperatorMessage() {
   return (
     <div className="mb-8 flex gap-3 rounded-2xl border border-border bg-surface p-4 shadow-sm sm:mb-10 sm:p-5">
-      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-accent-soft text-accent-strong">
-        <CatIcon />
-      </div>
+      <Image
+        src="/operator-avatar.jpg"
+        alt={`${OPERATOR_NAME}のアイコン`}
+        width={44}
+        height={44}
+        className="h-11 w-11 shrink-0 rounded-full object-cover"
+      />
       <div className="min-w-0">
         <p className="text-sm text-muted">サイト運営者・{OPERATOR_NAME}(アラフィフ・猫好き)</p>
         <p className="mt-1 text-base leading-relaxed text-foreground/90">
@@ -20,26 +25,5 @@ export default function OperatorMessage() {
         </Link>
       </div>
     </div>
-  );
-}
-
-// 自宅で飼っている猫、という設定に合わせた、丸みのある親しみやすい家猫のアイコン。
-function CatIcon() {
-  return (
-    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
-      <path
-        d="M6 9 4.5 4.5 8.5 7a8 8 0 0 1 7 0l4-2.5L18 9"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M6 9c-1.2 1.1-2 2.8-2 4.7C4 17.7 7.6 21 12 21s8-3.3 8-7.3c0-1.9-.8-3.6-2-4.7-1.5 1-3.6 1.6-6 1.6s-4.5-.6-6-1.6Z"
-        strokeLinejoin="round"
-      />
-      <circle cx="9.3" cy="14" r="0.9" fill="currentColor" stroke="none" />
-      <circle cx="14.7" cy="14" r="0.9" fill="currentColor" stroke="none" />
-      <path d="M11 16.2c.3.4.7.4 1 0" strokeLinecap="round" />
-      <path d="M4.5 15h2M17.5 15h2M5 17l2-.6M19 17l-2-.6" strokeLinecap="round" />
-    </svg>
   );
 }
