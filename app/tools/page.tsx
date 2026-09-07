@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -25,6 +26,16 @@ const tools = [
 export default function ToolsPage() {
   return (
     <div className="mx-auto max-w-2xl px-4 py-6 sm:py-10">
+      <div className="mb-4 flex justify-center">
+        <Image
+          src="/tools-illustration.jpg"
+          alt="指輪や金の延べ棒をはかりで計量する様子のイラスト"
+          width={220}
+          height={220}
+          className="h-auto w-40 sm:w-52"
+          priority
+        />
+      </div>
       <h1 className="font-serif-jp mb-2 text-xl font-semibold sm:text-2xl">計算ツール一覧</h1>
       <p className="mb-8 text-base text-muted">
         金・貴金属を扱うときに役立つ、単位換算や含有量計算のツールです。会員登録不要・入力内容はサーバーに送信されません。

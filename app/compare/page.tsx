@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { getCompanies } from "@/lib/companies";
 import CompanyTable from "@/components/CompanyTable";
@@ -16,6 +17,16 @@ export default function ComparePage() {
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-6 sm:py-10">
+      <div className="mb-4 flex justify-center">
+        <Image
+          src="/compare-illustration.jpg"
+          alt="虫眼鏡で貴金属の値上がりを見比べる様子のイラスト"
+          width={220}
+          height={220}
+          className="h-auto w-40 sm:w-52"
+          priority
+        />
+      </div>
       <h1 className="font-serif-jp mb-2 text-xl font-semibold sm:text-2xl">買取相場比較</h1>
       <p className="mb-6 text-base text-muted">
         各社が公式サイトで公表している1gあたりの買取参考価格を、純度・対応地域で絞り込んで比較できます。
