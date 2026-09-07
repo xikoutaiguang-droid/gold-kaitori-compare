@@ -832,7 +832,13 @@
       "updatedAt": null
     },
     "scrapeMethod": "pending",
-    "notes": "金・貴金属は取扱品目の一つに過ぎず、1gあたりの価格表を公開していない。個別査定制のため自動取得できる数値が存在しない。"
+    "notes": "金・貴金属は取扱品目の一つに過ぎず、1gあたりの価格表を公開していない。個別査定制のため自動取得できる数値が存在しない。",
+    "affiliateLinks": [
+      {
+        "label": "出張買取はこちら",
+        "url": "https://px.a8.net/svt/ejp?a8mat=4BC36Q+99ESBE+5FAK+15OK2A"
+      }
+    ]
   },
   {
     "id": "urucoco",
