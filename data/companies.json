@@ -868,7 +868,13 @@
         "うるココ 梅田本店",
         "うるココ 平野店"
       ]
-    }
+    },
+    "affiliateLinks": [
+      {
+        "label": "出張買取はこちら",
+        "url": "https://px.a8.net/svt/ejp?a8mat=4BC36Q+AL1GPM+5VPY+5YJRM"
+      }
+    ]
   },
   {
     "id": "rodeodrive",
