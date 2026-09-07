@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { getCompanies } from "@/lib/companies";
 import DiagnosisForm from "@/components/DiagnosisForm";
 import TrustBadges from "@/components/TrustBadges";
@@ -26,6 +27,16 @@ export default function FinderPage() {
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-6 sm:py-10">
+      <div className="mb-4 flex justify-center">
+        <Image
+          src="/finder-illustration.jpg"
+          alt="複数の買取店の見積もりを前に、どこが高く売れるか迷う様子のイラスト"
+          width={220}
+          height={220}
+          className="h-auto w-40 sm:w-52"
+          priority
+        />
+      </div>
       <h1 className="font-serif-jp mb-2 text-xl font-semibold sm:text-2xl">あなたに合う買取店診断</h1>
       <p className="mb-6 text-base text-muted">
         売る時に何を重視するかを選ぶと、条件に合う買取店をおすすめ順で表示します。
