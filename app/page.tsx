@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { getCompanies } from "@/lib/companies";
@@ -10,14 +11,27 @@ export default function Home() {
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-10 sm:py-16">
-      <p className="mb-2 text-sm font-medium tracking-wide text-accent-strong">金・貴金属買取 相場比較サイト</p>
-      <h1 className="font-serif-jp mb-3 text-2xl font-semibold leading-snug sm:text-3xl">
-        金・プラチナ 買取相場 一括比較
-      </h1>
-      <p className="mb-4 max-w-2xl text-base leading-relaxed text-muted">
-        主要な買取店・貴金属専門店が公表している買取参考価格を1つのサイトで比較できます。
-        重さを入力しての概算計算や、あなたが重視するポイントに合わせたおすすめ店の診断も可能です。
-      </p>
+      <div className="relative mb-8 overflow-hidden rounded-2xl sm:mb-10">
+        <Image
+          src="/hero-gold.jpg"
+          alt=""
+          fill
+          priority
+          sizes="(max-width: 1024px) 100vw, 1024px"
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/55 to-black/30" />
+        <div className="relative px-5 py-10 sm:px-10 sm:py-14">
+          <p className="mb-2 text-sm font-medium tracking-wide text-accent-soft">金・貴金属買取 相場比較サイト</p>
+          <h1 className="font-serif-jp mb-3 text-2xl font-semibold leading-snug text-white sm:text-3xl">
+            金・プラチナ 買取相場 一括比較
+          </h1>
+          <p className="max-w-2xl text-base leading-relaxed text-white/90">
+            主要な買取店・貴金属専門店が公表している買取参考価格を1つのサイトで比較できます。
+            重さを入力しての概算計算や、あなたが重視するポイントに合わせたおすすめ店の診断も可能です。
+          </p>
+        </div>
+      </div>
       <TrustBadges />
       <OperatorMessage />
 
