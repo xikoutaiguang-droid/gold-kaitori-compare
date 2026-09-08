@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import type { Company, Purity } from "@/lib/types";
 import { PURITY_LABELS, GOLD_PURITIES, PLATINUM_PURITIES, SILVER_PURITIES } from "@/lib/types";
 import { getOutboundUrl, hasAffiliateLink } from "@/lib/outboundLink";
+import { trackOutboundClick } from "@/lib/analytics";
 import CompanyLogo from "@/components/CompanyLogo";
 import PriceBar from "@/components/PriceBar";
 import CaveatNote from "@/components/CaveatNote";
@@ -189,6 +190,14 @@ export default function MultiItemCalculator({ companies }: { companies: Company[
                           href={getOutboundUrl(company)}
                           target="_blank"
                           rel="nofollow sponsored noopener"
+                          onClick={() =>
+                            trackOutboundClick({
+                              shopId: company.id,
+                              shopName: company.name,
+                              hasAffiliate: hasAffiliateLink(company),
+                              source: "multi-item-simulator",
+                            })
+                          }
                           className={`block rounded-xl border p-3.5 shadow-sm transition active:scale-[0.99] sm:hover:border-accent/50 sm:hover:shadow-md ${
                             i === 0 ? "border-accent/40 bg-accent-soft/60" : "border-border bg-surface"
                           }`}

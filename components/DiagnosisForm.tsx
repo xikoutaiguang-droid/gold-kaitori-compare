@@ -5,6 +5,7 @@ import type { Company, Purity } from "@/lib/types";
 import { PURITY_LABELS } from "@/lib/types";
 import { DIAGNOSIS_CRITERIA, diagnose, type CriteriaId } from "@/lib/companies";
 import { getOutboundUrl, hasAffiliateLink } from "@/lib/outboundLink";
+import { trackOutboundClick } from "@/lib/analytics";
 import CompanyLogo from "@/components/CompanyLogo";
 import ReliabilityBadge from "@/components/ReliabilityBadge";
 import CaveatNote from "@/components/CaveatNote";
@@ -86,6 +87,14 @@ function CompanyCard({ company, rank, purity }: { company: Company; rank: number
         href={getOutboundUrl(company)}
         target="_blank"
         rel="nofollow sponsored noopener"
+        onClick={() =>
+          trackOutboundClick({
+            shopId: company.id,
+            shopName: company.name,
+            hasAffiliate: hasAffiliateLink(company),
+            source: "finder",
+          })
+        }
         className={`block rounded-xl border p-4 shadow-sm transition active:scale-[0.99] sm:hover:border-accent/50 sm:hover:shadow-md ${
           rank === 1 ? "border-accent/40 bg-accent-soft/60" : "border-border bg-surface"
         }`}

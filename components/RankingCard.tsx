@@ -1,6 +1,9 @@
+"use client";
+
 import type { Company, Purity } from "@/lib/types";
 import { PURITY_LABELS } from "@/lib/types";
 import { getOutboundUrl, hasAffiliateLink } from "@/lib/outboundLink";
+import { trackOutboundClick } from "@/lib/analytics";
 import CompanyLogo from "@/components/CompanyLogo";
 import PriceBar from "@/components/PriceBar";
 import PrBadge from "@/components/PrBadge";
@@ -41,6 +44,14 @@ export default function RankingCard({
                   href={getOutboundUrl(c)}
                   target="_blank"
                   rel="nofollow sponsored noopener"
+                  onClick={() =>
+                    trackOutboundClick({
+                      shopId: c.id,
+                      shopName: c.name,
+                      hasAffiliate: hasAffiliateLink(c),
+                      source: "ranking",
+                    })
+                  }
                   className="-mx-1 flex items-center gap-3 rounded-lg px-1 py-0.5 transition sm:hover:bg-accent-soft"
                 >
                   <span className="w-4 shrink-0 text-center text-xs text-muted">{i + 1}</span>

@@ -5,6 +5,7 @@ import type { Company, Purity, Region } from "@/lib/types";
 import { PURITY_LABELS, GOLD_PURITIES, PLATINUM_PURITIES, SILVER_PURITIES } from "@/lib/types";
 import { ALL_REGIONS, filterByRegion, getReferenceRate } from "@/lib/companies";
 import { getOutboundUrl, hasAffiliateLink, getAffiliateLinks } from "@/lib/outboundLink";
+import { trackOutboundClick } from "@/lib/analytics";
 import CompanyLogo from "@/components/CompanyLogo";
 import PriceBar from "@/components/PriceBar";
 import CaveatNote from "@/components/CaveatNote";
@@ -171,6 +172,9 @@ export default function CompanyTable({
                           href={link.url}
                           target="_blank"
                           rel="nofollow sponsored noopener"
+                          onClick={() =>
+                            trackOutboundClick({ shopId: c.id, shopName: c.name, hasAffiliate: true, source: "compare" })
+                          }
                           className="font-medium text-accent-strong hover:underline"
                         >
                           {link.label} →
@@ -184,6 +188,14 @@ export default function CompanyTable({
                   href={getOutboundUrl(c)}
                   target="_blank"
                   rel="nofollow sponsored noopener"
+                  onClick={() =>
+                    trackOutboundClick({
+                      shopId: c.id,
+                      shopName: c.name,
+                      hasAffiliate: hasAffiliateLink(c),
+                      source: "compare",
+                    })
+                  }
                   className={`block ${cardClassName} active:scale-[0.99] sm:hover:border-accent/50 sm:hover:shadow-md`}
                 >
                   {body}
