@@ -4,15 +4,15 @@ import { OPERATOR_NAME } from "@/lib/siteConfig";
 
 export default function OperatorMessage() {
   return (
-    <div className="mb-8 flex gap-3 rounded-2xl border border-border bg-surface p-4 shadow-sm sm:mb-10 sm:p-5">
+    <div className="mb-8 flex flex-col items-center gap-3 rounded-2xl border border-border bg-surface p-4 shadow-sm sm:mb-10 sm:flex-row sm:items-start sm:p-5">
       <Image
         src="/operator-avatar.jpg"
         alt={`${OPERATOR_NAME}のアイコン`}
-        width={64}
-        height={64}
-        className="h-16 w-16 shrink-0 rounded-full object-cover"
+        width={128}
+        height={128}
+        className="h-24 w-24 shrink-0 rounded-full object-cover sm:h-32 sm:w-32"
       />
-      <div className="min-w-0">
+      <div className="min-w-0 text-center sm:text-left">
         <p className="text-sm text-muted">サイト運営者・{OPERATOR_NAME}(アラフィフ・猫好き)</p>
         <p className="mt-1 text-base leading-relaxed text-foreground/90">
           はじめまして、このサイトを運営している{OPERATOR_NAME}です。数年前、祖母の遺品整理で指輪やネックレスを
