@@ -8,9 +8,9 @@ export default function OperatorMessage() {
       <Image
         src="/operator-avatar.jpg"
         alt={`${OPERATOR_NAME}のアイコン`}
-        width={44}
-        height={44}
-        className="h-11 w-11 shrink-0 rounded-full object-cover"
+        width={64}
+        height={64}
+        className="h-16 w-16 shrink-0 rounded-full object-cover"
       />
       <div className="min-w-0">
         <p className="text-sm text-muted">サイト運営者・{OPERATOR_NAME}(アラフィフ・猫好き)</p>
