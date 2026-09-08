@@ -524,7 +524,13 @@
         "ギャラリーレア 心斎橋本店",
         "ギャラリーレア 名古屋大須店"
       ]
-    }
+    },
+    "affiliateLinks": [
+      {
+        "label": "買取はこちら",
+        "url": "https://px.a8.net/svt/ejp?a8mat=4BC36Q+FMMO7U+4A8I+601S1"
+      }
+    ]
   },
   {
     "id": "manekiya",
