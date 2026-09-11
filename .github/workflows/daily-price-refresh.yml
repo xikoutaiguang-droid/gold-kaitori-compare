@@ -2,8 +2,10 @@ name: Daily price refresh
 
 on:
   schedule:
-    # 02:00 UTC = 11:00 JST。各社の朝の相場更新が出揃う時間帯を狙う。
-    - cron: "0 2 * * *"
+    # 01:00 UTC = 10:00 JST。開店前に相場を確認したいユーザーのために早め設定。
+    # リファスタ等、朝10:00ちょうどに更新する店舗があるため、これより早めると前日分の
+    # 古い価格を拾うリスクが上がる。
+    - cron: "0 1 * * *"
   workflow_dispatch: {}
 
 permissions:
