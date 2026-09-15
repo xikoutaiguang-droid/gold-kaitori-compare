@@ -16,6 +16,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/about",
     "/guide/tax",
     "/privacy",
+    "/column",
+    "/column/plating-check",
+    "/column/multiple-quotes",
+    "/column/price-factors",
+    "/column/estate-cleanup",
   ];
   const regionPages = REGION_PAGES.map((r) => `/compare/${r.slug}`);
 

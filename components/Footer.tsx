@@ -13,6 +13,9 @@ export default function Footer() {
           <Link href="/about" className="hover:text-accent hover:underline">
             このサイトについて
           </Link>
+          <Link href="/column" className="hover:text-accent hover:underline">
+            コラム
+          </Link>
           <Link href="/guide/tax" className="hover:text-accent hover:underline">
             売却時の税金について
           </Link>

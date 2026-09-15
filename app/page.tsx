@@ -79,6 +79,12 @@ export default function Home() {
           desc="g・匁・オンス換算や純度別の含有量計算"
           icon={<ToolsIcon />}
         />
+        <NavCard
+          href="/column"
+          title="コラム"
+          desc="見分け方・査定のコツ・相場の仕組みなど"
+          icon={<ColumnIcon />}
+        />
       </div>
     </div>
   );
@@ -157,6 +163,15 @@ function ToolsIcon() {
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
       <path d="M12 3v18M7 7h10M4 7l3 6a3 3 0 0 0 6 0l-3-6M14 7l3 6a3 3 0 0 0 6 0l-3-6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function ColumnIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <path d="M6 3h12a1 1 0 0 1 1 1v16l-3-2-3 2-3-2-3 2-3-2V4a1 1 0 0 1 1-1Z" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M8 8h8M8 12h8M8 16h4" strokeLinecap="round" />
     </svg>
   );
 }
