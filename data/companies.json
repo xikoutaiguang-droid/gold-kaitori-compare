@@ -908,9 +908,9 @@
         "pt950": 8420,
         "pt900": 8180,
         "pt850": 7700,
-        "ag": 240
+        "ag": 220
       },
-      "updatedAt": "2026-09-19"
+      "updatedAt": "2026-09-20"
     },
     "scrapeMethod": "html",
     "googleReview": {
