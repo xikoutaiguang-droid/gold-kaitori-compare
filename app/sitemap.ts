@@ -19,6 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/privacy",
     "/company",
     "/column",
+    "/column/price-gap",
     "/column/plating-check",
     "/column/multiple-quotes",
     "/column/price-factors",

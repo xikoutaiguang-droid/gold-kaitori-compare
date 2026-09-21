@@ -9,6 +9,11 @@ export const metadata: Metadata = {
 
 const columns = [
   {
+    href: "/column/price-gap",
+    title: "同じ日に、同じ金を、各社はいくらで買うのか",
+    desc: "当サイトが集めた各社の公表価格を実際に測り、得と損の大きさを比べました",
+  },
+  {
     href: "/column/plating-check",
     title: "メッキと金の簡単な見分け方",
     desc: "磁石を使った自宅でできる簡易チェックと、その限界について",
