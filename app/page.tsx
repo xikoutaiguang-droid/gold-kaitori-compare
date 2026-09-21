@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
@@ -5,6 +6,13 @@ import { getCompanies } from "@/lib/companies";
 import RankingCard from "@/components/RankingCard";
 import TrustBadges from "@/components/TrustBadges";
 import OperatorMessage from "@/components/OperatorMessage";
+
+// 他のページは全て canonical を持っているのに、ここだけ metadata を書いておらず
+// 抜けていた。Search Console の URL 検査でも「ユーザーが指定した正規 URL: なし」
+// と出ていた。title/description は layout の既定をそのまま使うので指定しない。
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 export default function Home() {
   const companies = getCompanies();
