@@ -137,7 +137,8 @@
       },
       {
         "label": "店頭買取予約はこちら",
-        "url": "https://px.a8.net/svt/ejp?a8mat=4BC36Q+F4RO2I+3VEM+BXQOH"
+        "url": "https://px.a8.net/svt/ejp?a8mat=4BC36Q+F4RO2I+3VEM+BXQOH",
+        "primary": true
       }
     ]
   },

@@ -63,7 +63,11 @@ export interface Company {
    * 公式サイトへの遷移リンクとして officialUrl の代わりに使う。
    * 同じ会社で複数の申込み導線(宅配買取/店頭予約 等)がある場合は複数件入れられる。
    */
-  affiliateLinks?: { label: string; url: string }[];
+  /**
+   * 申し込み導線。primary が付いた1件を、リンクを1つしか置けない場所の代表として使う。
+   * 印が無ければ先頭を代表にする。
+   */
+  affiliateLinks?: { label: string; url: string; primary?: boolean }[];
   priceSourceUrl: string;
   tier: Tier;
   storeCount: number | null;
