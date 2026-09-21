@@ -7,12 +7,35 @@ import RankingCard from "@/components/RankingCard";
 import TrustBadges from "@/components/TrustBadges";
 import OperatorMessage from "@/components/OperatorMessage";
 
-// 他のページは全て canonical を持っているのに、ここだけ metadata を書いておらず
-// 抜けていた。Search Console の URL 検査でも「ユーザーが指定した正規 URL: なし」
-// と出ていた。title/description は layout の既定をそのまま使うので指定しない。
-export const metadata: Metadata = {
-  alternates: { canonical: "/" },
-};
+/**
+ * トップページの検索結果での見え方。
+ *
+ * 以前は layout の既定「金買取相場比較｜金・貴金属買取の相場比較とシミュレーター」を
+ * そのまま使っていたが、Googleは頭の「金買取相場比較」しか表示していなかった。
+ * サイト名と後半で「相場比較」が重複していて、後半を捨てられていたため。
+ * そこでテンプレート(｜サイト名)を使わず absolute で指定する。検索結果には
+ * すぐ上にドメイン名が出るので、限られた文字数をサイト名に使う理由がない。
+ *
+ * 説明文はスマホだと60字強で切られる。このサイトにしかない「順位と中央値との差」を
+ * その中に収めたいので、他社の店名の羅列をやめて先頭に持ってきている。
+ *
+ * 社数は実データから数える。固定値にすると掲載社が増減したときに嘘になる。
+ */
+export function generateMetadata(): Metadata {
+  const priced = getCompanies().filter((c) => c.priceData.prices.k24 !== undefined).length;
+  const title = `金・プラチナ買取 今日の${priced}社の価格と順位`;
+  const description =
+    `金・プラチナ買取${priced}社の今日の価格を1gあたりで横並び。` +
+    `各社が何位か、中央値と何円違うかまで分かるので、提示された金額が妥当か判断できます。` +
+    `重さを入れるだけの概算計算つき。`;
+
+  return {
+    title: { absolute: title },
+    description,
+    alternates: { canonical: "/" },
+    openGraph: { title, description },
+  };
+}
 
 export default function Home() {
   const companies = getCompanies();
