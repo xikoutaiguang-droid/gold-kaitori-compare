@@ -1,6 +1,6 @@
-// デプロイ先が決まったら実際のドメインに差し替えること。
-// metadataBase・sitemap・robots.txtのSitemap行が全てここを参照する。
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://example.com";
+// 本番URL。metadataBase・sitemap・robots.txtのSitemap行が全てここを参照する。
+// 実際の値は Vercel の環境変数 NEXT_PUBLIC_SITE_URL で与える。ここは保険の既定値。
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://kin-hikaku.com";
 export const SITE_NAME = "金買取相場比較";
 
 // 運営者情報。実名でなく、人物として親しみやすい苗字での運営を選択している。
