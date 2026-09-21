@@ -35,7 +35,42 @@ export function reviewReliability(gr: NonNullable<Company["googleReview"]>): Rel
   return "low";
 }
 
+/**
+ * これより古い公表価格は、同じ日の横並び比較に使えないものとして扱う。
+ *
+ * 金価格は日々動くので、数日前の数字を今日の数字の隣に並べて順位を付けると、
+ * その社を実態より高くも低くも見せてしまう。実際になんぼやの取得元JSONが
+ * 10か月更新されておらず、約2,100円/g低い価格で17位に並べていた。
+ *
+ * 取得スクリプトの側にも「古ければ無効化すること」という警告はあったが、
+ * 人が読んで対応する前提の警告は動かなかった。だからここで、
+ * 誰が見ていなくても古い価格が比較に入らないようにする。
+ */
+export const PRICE_MAX_AGE_DAYS = 10;
+
+function daysBetween(iso: string, today: Date): number | null {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso);
+  if (!m) return null;
+  const d = Date.UTC(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
+  const t = Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate());
+  return Math.round((t - d) / 86400000);
+}
+
 export function getCompanies(): Company[] {
+  const today = new Date();
+  return (rawCompanies as Company[]).map((c) => {
+    if (!c.priceData.updatedAt) return c;
+    const age = daysBetween(c.priceData.updatedAt, today);
+    if (age === null || age <= PRICE_MAX_AGE_DAYS) return c;
+    // 価格そのものは捨てるが、更新日と経過日数は残す。
+    // 「公表していない」のではなく「取得できている値が古い」ことを
+    // ページ側で正しく説明できるようにするため。
+    return { ...c, priceData: { ...c.priceData, prices: {}, staleDays: age } };
+  });
+}
+
+/** 鮮度の判定を通していない元データ。古さそのものを点検したいとき用 */
+export function getCompaniesUnfiltered(): Company[] {
   return rawCompanies as Company[];
 }
 

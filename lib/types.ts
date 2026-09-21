@@ -52,6 +52,12 @@ export interface PriceSet {
   prices: Partial<Record<Purity, number>>;
   /** 価格の更新日(YYYY-MM-DD)。取得できていない場合はnull */
   updatedAt: string | null;
+  /**
+   * 公表価格が古すぎて同日比較に使えないと判断された場合の経過日数。
+   * getCompanies() が付ける派生値で、元データには入っていない。
+   * これが付いている社は prices が空になり、順位・中央値の計算から外れる。
+   */
+  staleDays?: number;
 }
 
 export interface Company {

@@ -2,6 +2,9 @@ import { fetchJson } from "../lib/fetchHtml.mjs";
 
 const URL = "https://nanboya.com/ajax/metals-market-prices.json";
 
+/** これより古ければ取得失敗として扱う。lib/companies.ts の鮮度判定と揃えている */
+const MAX_AGE_DAYS = 10;
+
 // JSON内のキー名 -> このアプリの純度キー
 const KEY_TO_PURITY = {
   k24: "k24",
@@ -14,11 +17,10 @@ const KEY_TO_PURITY = {
 
 export const id = "nanboya";
 
-// 注意: このエンドポイントはrobots.txtでAllow指定されているが、
-// 2026-09-03時点で取得した内容のlast_modifiedが2025-11-02のまま更新されておらず、
-// 実際にサイト側で使われているライブデータと一致しない可能性がある。
-// 運用時は last_modified が実行日に近いことを必ず確認し、古い場合は
-// このソースを一時的に無効化すること。
+// このエンドポイントはrobots.txtでAllow指定されているが、2025-11-02で更新が止まっている。
+// なんぼや自身は https://nanboya.com/gold-kaitori/ で価格を公開し続けており、
+// そちらの更新日は生HTMLにも入っているが、金額本体はJavaScriptで描画されるため
+// 素のfetchでは読めない。取得を再開するにはヘッドレスブラウザが要る。
 export async function scrape() {
   const json = await fetchJson(URL);
   const lastModified = json?.header?.last_modified?.date;
@@ -37,13 +39,21 @@ export async function scrape() {
   }
 
   const today = new Date().toISOString().slice(0, 10);
-  const isStale = lastModified && lastModified !== today;
 
-  return {
-    prices,
-    updatedAt: lastModified ?? today,
-    warning: isStale
-      ? `nanboya: JSONのlast_modified(${lastModified})が本日(${today})と異なります。データが古い可能性があります。`
-      : undefined,
-  };
+  // 以前はここで warning を返すだけで、古い値をそのまま書き込んでいた。
+  // 結果、2025-11-02の価格が10か月間サイトに並び、実際の公表価格より
+  // 約2,100円/g低い数字で17位に表示されていた。人が読む前提の警告は働かない。
+  // 古いと分かった時点で失敗させ、前回の値を残したまま気づけるようにする。
+  const ageDays = lastModified
+    ? Math.round((Date.parse(today) - Date.parse(lastModified)) / 86400000)
+    : null;
+  if (ageDays === null || ageDays > MAX_AGE_DAYS) {
+    throw new Error(
+      `nanboya: 取得元JSONのlast_modified(${lastModified ?? "不明"})が${ageDays ?? "?"}日前です。` +
+        `このエンドポイントは更新停止しています。公式の価格ページ(https://nanboya.com/gold-kaitori/)は` +
+        `更新されていますが金額がJavaScript描画のため、取得方法の切り替えが必要です。`,
+    );
+  }
+
+  return { prices, updatedAt: lastModified ?? today };
 }

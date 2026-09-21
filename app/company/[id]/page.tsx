@@ -157,6 +157,23 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
               {company.priceData.updatedAt ? `（${company.priceData.updatedAt} 時点）` : ""}
             </p>
           </>
+        ) : company.priceData.staleDays !== undefined ? (
+          <p className="text-sm text-muted">
+            {company.name}の価格は公表されていますが、当サイトが取得できている数値が
+            {company.priceData.updatedAt}時点のもので、{company.priceData.staleDays}日が経過しています。
+            金相場は日々動くため、今日の価格として他社と並べると{company.name}を実態より高くも低くも
+            見せてしまいます。そのため順位を出していません。取得先の見直しができ次第、掲載を再開します。
+            最新の価格は
+            <a
+              href={company.priceSourceUrl}
+              target="_blank"
+              rel="noopener noreferrer nofollow"
+              className="mx-1 underline underline-offset-2"
+            >
+              {company.name}の公式サイト
+            </a>
+            でご確認ください。
+          </p>
         ) : (
           <p className="text-sm text-muted">
             {company.name}は1gあたりの買取価格をウェブ上で数値公開していないため、当サイトでは価格を掲載していません。

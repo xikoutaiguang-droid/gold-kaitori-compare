@@ -50,7 +50,7 @@
     "id": "nanboya",
     "name": "なんぼや",
     "officialUrl": "https://nanboya.com/",
-    "priceSourceUrl": "https://nanboya.com/ajax/metals-market-prices.json",
+    "priceSourceUrl": "https://nanboya.com/gold-kaitori/",
     "tier": "major",
     "storeCount": null,
     "regions": [
@@ -70,7 +70,7 @@
       "updatedAt": "2025-11-02"
     },
     "scrapeMethod": "json",
-    "notes": "robots.txtでJSON(/ajax/metals-market-prices.json)がAllow指定。ただしClaudeBotはサイト全体Disallowのため、scraperのUser-Agentは自社名義のものを使用すること。",
+    "notes": "価格の取得元だったJSON(ajax/metals-market-prices.json)は2025-11-02で更新停止。公式の価格ページは更新されているが、金額はJavaScriptで描画されるため素の取得では読めない。ヘッドレスブラウザでの取得に切り替えるまで、鮮度判定により比較から除外される。",
     "googleReview": {
       "avgRating": 4.84,
       "totalReviewCount": 4696,

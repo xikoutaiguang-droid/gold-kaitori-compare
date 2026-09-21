@@ -54,6 +54,8 @@ export default function CompanyIndexPage() {
                       {k24.toLocaleString("ja-JP")}
                       <span className="text-xs text-muted">円/g</span>
                     </>
+                  ) : c.priceData.staleDays !== undefined ? (
+                    <span className="text-xs text-muted">取得データが古く保留</span>
                   ) : (
                     <span className="text-xs text-muted">価格非公開</span>
                   )}
