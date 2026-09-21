@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/siteConfig";
 import { REGION_PAGES } from "@/lib/regionPages";
+import { getCompanies } from "@/lib/companies";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const pages = [
@@ -16,6 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/about",
     "/guide/tax",
     "/privacy",
+    "/company",
     "/column",
     "/column/plating-check",
     "/column/multiple-quotes",
@@ -23,8 +25,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/column/estate-cleanup",
   ];
   const regionPages = REGION_PAGES.map((r) => `/compare/${r.slug}`);
+  const companyPages = getCompanies().map((c) => `/company/${c.id}`);
 
-  return [...pages, ...regionPages].map((path) => ({
+  return [...pages, ...regionPages, ...companyPages].map((path) => ({
     url: `${SITE_URL}${path}`,
     lastModified: new Date(),
     changeFrequency: path.startsWith("/compare") ? "daily" : "weekly",

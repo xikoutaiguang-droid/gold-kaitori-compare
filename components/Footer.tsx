@@ -10,6 +10,9 @@ export default function Footer() {
           最終的な金額は各社にご確認のうえご判断ください。
         </p>
         <p className="mt-3 flex flex-wrap gap-x-4">
+          <Link href="/company" className="hover:text-accent hover:underline">
+            買取店一覧
+          </Link>
           <Link href="/about" className="hover:text-accent hover:underline">
             このサイトについて
           </Link>
