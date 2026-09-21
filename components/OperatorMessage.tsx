@@ -13,12 +13,14 @@ export default function OperatorMessage() {
         className="h-24 w-24 shrink-0 rounded-full object-cover sm:h-32 sm:w-32"
       />
       <div className="min-w-0 text-center sm:text-left">
-        <p className="text-sm text-muted">サイト運営者・{OPERATOR_NAME}(アラフィフ・猫好き)</p>
+        <p className="text-sm text-muted">サイト運営者・{OPERATOR_NAME}(買取の現場で店長を経験)</p>
         <p className="mt-1 text-base leading-relaxed text-foreground/90">
-          はじめまして、このサイトを運営している{OPERATOR_NAME}です。数年前、祖母の遺品整理で指輪やネックレスを
-          手放したとき、お店によって査定額がこんなに違うのかと驚いたことがこのサイトを作るきっかけになりました。金・貴金属を
-          売る前に、まずは相場を知って安心して比較検討していただきたいという思いで運営しています。特定の買取店の
-          味方をすることなく、公表されている情報をそのままお伝えすることを大切にしています。
+          このサイトを作っている{OPERATOR_NAME}です。買取の店舗で店長を務めた経験があり、今も業界にいます。
+          カウンターの内側にいると、相場を知らないまま金額を受け取って帰っていく方を何度も見ます。
+          その方が悪いのではなく、比べる材料がどこにも無いだけです。その材料を外に置いておきたくて、
+          このサイトを作りました。掲載している会社の中には、私が関わったことのある会社も含まれます。
+          だからこそ価格は各社の公表値をそのまま取得し、並び順は計算結果だけで決めて、
+          私の判断で動かせない作りにしています。
         </p>
         <Link href="/about" className="mt-2 inline-block text-sm font-semibold text-accent-strong hover:underline">
           運営者について詳しく →
