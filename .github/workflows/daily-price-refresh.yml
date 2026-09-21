@@ -51,3 +51,11 @@ jobs:
           git add data/
           git diff --cached --quiet && echo "変更なし" || git commit -m "chore: 日次価格更新 $(date -u +%Y-%m-%d)"
           git push
+
+      # ここまでの各ステップは continue-on-error なので、1社の取得が失敗しても
+      # ジョブは緑のまま終わっていた。実際なんぼやの取得は10か月失敗し続け、
+      # その間ずっと古い価格がサイトに並んでいた。ログに出すだけでは気づけない。
+      # コミットの後に置くのは、点検で落としても当日取れた分は残したいため。
+      - name: 取得結果を点検(失敗・古い価格があればジョブを落とす)
+        if: always()
+        run: node scripts/scrape/check-freshness.mjs
