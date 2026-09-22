@@ -7,6 +7,7 @@ import {
   measureReviewVsPrice,
 } from "@/lib/priceMeaning";
 import { getCompanyById } from "@/lib/companyPages";
+import { getActiveCampaigns } from "@/lib/campaigns";
 
 export function generateMetadata(): Metadata {
   const b = measureAgainstBenchmark("k24");
@@ -74,6 +75,7 @@ export default function WhatAGramMeansPage() {
   const bench = measureAgainstBenchmark("k24");
   const feeImpact = measureFeeImpact("manekiya", "k18", [2, 5, 10]);
   const review = measureReviewVsPrice("k24");
+  const campaigns = getActiveCampaigns();
   const manekiya = getCompanyById("manekiya");
   const k18 = manekiya?.priceData.prices.k18;
 
@@ -313,10 +315,14 @@ export default function WhatAGramMeansPage() {
         <h2 className="font-serif-jp mb-3 text-base font-semibold">当サイトが追えていないこと</h2>
         <ul className="flex list-disc flex-col gap-2 pl-5 text-sm leading-relaxed text-foreground/80">
           <li>
-            <span className="font-semibold">増額キャンペーンは一切反映していません。</span>
-            買取金額を数十%上乗せする期間限定の企画を出す店があり、
-            その規模はここで扱った数%の差を簡単に上回ります。
-            実際に売る前に、各社のキャンペーン情報を必ずご確認ください。
+            <span className="font-semibold">増額キャンペーンは、確認できたものだけを載せています。</span>
+            買取金額を数十%上乗せする期間限定の企画があり、その規模はここで扱った数%の差を
+            簡単に上回ります。価格と違って自動取得ができないため、各社のページを見て
+            転記しており、載っていない＝実施していない、ではありません。
+            {campaigns.length > 0
+              ? `${new Date().toLocaleDateString("ja-JP")}時点で${campaigns.length}社の実施を確認しており、該当する会社のページに条件を載せています。`
+              : "現時点で確認できているものはありません。"}
+            実際に売る前に、各社の告知を必ずご確認ください。
           </li>
           <li>
             フランチャイズが中心の会社では、掲載の参考相場と実際の店舗の金額が異なることがあります。
@@ -341,7 +347,7 @@ export default function WhatAGramMeansPage() {
           <li>その単価が、自分の持っているもの（指輪か、地金か、刻印入りのメダルか）に対する金額か</li>
           <li>表示額から後で引かれるものがあるか、それとも織り込み済みか</li>
           <li>1点あたりで費用がかかる場合、自分は何点持ち込むのか</li>
-          <li>その時期にキャンペーンが出ていないか</li>
+          <li>その時期にキャンペーンが出ていないか(当サイトで確認できたものは会社ページに記載しています)</li>
         </ul>
         <p className="text-sm leading-relaxed text-foreground/80">
           どれも各社が自社サイトに書いていることで、探せば読めます。ただ、

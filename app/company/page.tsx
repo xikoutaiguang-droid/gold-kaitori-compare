@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getCompaniesForIndex } from "@/lib/companyPages";
 import { hasAffiliateLink } from "@/lib/outboundLink";
+import { getCompanyIdsWithCampaign } from "@/lib/campaigns";
 import CompanyLogo from "@/components/CompanyLogo";
 
 export const metadata: Metadata = {
@@ -14,6 +15,7 @@ export const metadata: Metadata = {
 export default function CompanyIndexPage() {
   const companies = getCompaniesForIndex();
   const priced = companies.filter((c) => Object.keys(c.priceData.prices).length > 0);
+  const withCampaign = getCompanyIdsWithCampaign();
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-6 sm:py-10">
@@ -37,7 +39,14 @@ export default function CompanyIndexPage() {
               >
                 <CompanyLogo id={c.id} name={c.name} size={32} />
                 <span className="min-w-0 flex-1">
-                  <span className="block truncate text-sm font-medium">{c.name}</span>
+                  <span className="block truncate text-sm font-medium">
+                    {c.name}
+                    {withCampaign.has(c.id) && (
+                      <span className="ml-2 rounded-full bg-accent-strong px-1.5 py-0.5 text-[10px] font-semibold text-white">
+                        増額中
+                      </span>
+                    )}
+                  </span>
                   <span className="block truncate text-xs text-muted">
                     {c.regions.join("・")}
                     {c.storeCount === null

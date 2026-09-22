@@ -1,7 +1,7 @@
 {
-  "ranAt": "2026-09-22T06:01:05.761Z",
-  "ok": 17,
-  "ng": 8,
+  "ranAt": "2026-09-22T06:44:36.418Z",
+  "ok": 19,
+  "ng": 1,
   "sources": [
     {
       "id": "otakaraya",
@@ -27,11 +27,13 @@
     {
       "id": "e-daikoku",
       "ok": false,
+      "skipped": true,
       "error": "e-daikoku: 未実装 (https://kaitori.e-daikoku.com/brand/genre/gold.html) - 価格表はJSコメント内のテンプレート文字列として埋め込まれ、実際の値はJavaScriptで書き換えられる方式。curl取得では明らかに現実離れした値(K24=7,170円など)しか得られないため、ブラウザレンダリングまたは実際のAJAXエンドポイントの特定が必要。"
     },
     {
       "id": "nanboya",
       "ok": false,
+      "skipped": false,
       "error": "nanboya: 取得元JSONのlast_modified(2025-11-02)が324日前です。このエンドポイントは更新停止しています。公式の価格ページ(https://nanboya.com/gold-kaitori/)は更新されていますが金額がJavaScript描画のため、取得方法の切り替えが必要です。"
     },
     {
@@ -99,8 +101,10 @@
     },
     {
       "id": "goldmrs",
-      "ok": false,
-      "error": "Fetch failed: https://goldmrs.jp/ -> 403 Forbidden"
+      "ok": true,
+      "priceCount": 12,
+      "updatedAt": "2026-09-22",
+      "warning": null
     },
     {
       "id": "nexus13",
@@ -126,21 +130,25 @@
     {
       "id": "brandoff",
       "ok": false,
+      "skipped": true,
       "error": "brandoff: 未実装 (https://kaitori.brandoff.co.jp/kaitori/gold) - 1gあたりの純度別価格表は無く、「金相場速報」として単一の参考値のみを掲示(しかも確認時点で2026年4月時点のまま更新されておらず、現在の日付とズレていた)。店頭問い合わせ制のため、信頼できる日次の数値を自動取得する手段がない。"
     },
     {
       "id": "fukuchan",
       "ok": false,
+      "skipped": true,
       "error": "fukuchan: 未実装 (https://fuku-chan.info/gold/) - 1gあたりの純度別価格表を公開しておらず、「買取相場を超えるプラス査定」を訴求する個別見積り制。自動取得できる数値が存在しない。"
     },
     {
       "id": "shichifuku",
       "ok": false,
+      "skipped": true,
       "error": "shichifuku: 未実装 (https://shichifuku-kaitori.com/) - 金・貴金属は取扱品目の一つに過ぎず(主力は古着・不用品の出張買取)、1gあたりの価格表を公開していない。個別査定制のため自動取得できる数値が存在しない。"
     },
     {
       "id": "urucoco",
       "ok": false,
+      "skipped": true,
       "error": "urucoco: 未実装 (https://ultra-b.jp/) - 100品目超を扱う総合出張買取サービスで、金・貴金属専用の1gあたり価格表は公開していない(買取事例として個別金額を紹介するのみ)。自動取得できる数値が存在しない。"
     },
     {
@@ -152,8 +160,10 @@
     },
     {
       "id": "refasta",
-      "ok": false,
-      "error": "fetch failed"
+      "ok": true,
+      "priceCount": 13,
+      "updatedAt": "2026-09-22",
+      "warning": null
     },
     {
       "id": "netoff",

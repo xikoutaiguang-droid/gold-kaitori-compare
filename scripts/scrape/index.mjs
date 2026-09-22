@@ -102,9 +102,11 @@ async function main() {
       });
       okCount++;
     } catch (err) {
-      console.error(`[NG] ${source.id}: ${err.message}`);
-      status.push({ id: source.id, ok: false, error: String(err.message) });
-      ngCount++;
+      // 会社側が数値を公開していないケースは「失敗」ではない。混ぜると点検が常に赤くなる。
+      const skipped = err?.notImplemented === true;
+      console.error(`[${skipped ? "--" : "NG"}] ${source.id}: ${err.message}`);
+      status.push({ id: source.id, ok: false, skipped, error: String(err.message) });
+      if (!skipped) ngCount++;
     }
     await sleep(DELAY_MS);
   }

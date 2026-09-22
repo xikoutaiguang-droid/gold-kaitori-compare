@@ -11,6 +11,8 @@ import {
   SILVER_PURITIES,
   type Purity,
 } from "@/lib/types";
+import { getCampaignsForCompany } from "@/lib/campaigns";
+import CampaignNotice from "@/components/CampaignNotice";
 import CompanyLogo from "@/components/CompanyLogo";
 import ReliabilityBadge from "@/components/ReliabilityBadge";
 import PrBadge from "@/components/PrBadge";
@@ -107,6 +109,7 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
   const platinum = getStandings(company, PLATINUM_PURITIES);
   const silver = getStandings(company, SILVER_PURITIES);
   const hasPrice = gold.length + platinum.length + silver.length > 0;
+  const campaigns = getCampaignsForCompany(company.id);
   const links = getAffiliateLinks(company);
   const related = getRelatedCompanies(company);
 
@@ -131,6 +134,12 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
         </h1>
       </div>
       <p className="mb-6 text-base text-muted">{company.trustNotes}</p>
+
+      {campaigns.length > 0 && (
+        <section className="mb-8">
+          <CampaignNotice campaigns={campaigns} />
+        </section>
+      )}
 
       {/* ---- 価格 ---- */}
       <section className="mb-8">
