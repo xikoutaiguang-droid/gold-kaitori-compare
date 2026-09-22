@@ -26,6 +26,10 @@ export interface Spread {
   upside: number;
   /** 中央値の店より下に、いくら落ちうるか(正の数) */
   downside: number;
+  /** 中央値以上の社だけを見たときの価格の幅。上側がどれだけ密集しているか */
+  upperSpread: number;
+  /** 中央値以下の社だけを見たときの価格の幅 */
+  lowerSpread: number;
 }
 
 export function measureSpread(purity: Purity): Spread | null {
@@ -42,6 +46,9 @@ export function measureSpread(purity: Purity): Spread | null {
   const low = rows[n - 1];
   const median = rows[(n - 1) >> 1].price;
   const trimmed = rows.slice(1, -1);
+  // 上側と下側それぞれの密集具合。「高いほうが団子になる」を断定せず数字で示すため
+  const upperPrices = rows.filter((r) => r.price >= median).map((r) => r.price);
+  const lowerPrices = rows.filter((r) => r.price <= median).map((r) => r.price);
 
   return {
     purity,
@@ -55,6 +62,8 @@ export function measureSpread(purity: Purity): Spread | null {
     trimmedLow: trimmed[trimmed.length - 1],
     upside: high.price - median,
     downside: median - low.price,
+    upperSpread: upperPrices[0] - upperPrices[upperPrices.length - 1],
+    lowerSpread: lowerPrices[0] - lowerPrices[lowerPrices.length - 1],
   };
 }
 

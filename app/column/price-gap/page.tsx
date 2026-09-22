@@ -179,15 +179,22 @@ export default function PriceGapColumnPage() {
       <section className="mb-10">
         <h2 className="font-serif-jp mb-3 text-lg font-semibold">なぜ上下が対称にならないのか</h2>
         <p className="mb-3 text-sm leading-relaxed text-foreground/80">
-          買取価格には、上に天井があります。金の地金価格という共通の基準があり、
-          買取店はそこから自社の利益分を引いた額を提示します。基準より高く買えば損をするので、
-          どれだけ高く買う店でも、基準を大きく超えることはできません。
-          高いほうの店が団子になるのはそのためです。
+          上には天井があります。金の地金価格という共通の基準があり、買取店はそこから
+          自社の取り分を引いた額を提示します。おたからやは自社サイトで
+          「買取価格は、精錬・加工に要する費用等を差し引いた金額となります」と、
+          コメ兵は掲載価格を「田中貴金属工業株式会社の公表価格等を基準に当社が算出した」ものと
+          明記しています。基準より高く買う理由がないので、上には限りがあります。
+        </p>
+        <p className="mb-3 text-sm leading-relaxed text-foreground/80">
+          実際、数字もそうなっています。{PURITY_LABELS[k24.purity]}で中央値以上の社の価格は
+          <span className="font-semibold">{yen(k24.upperSpread)}円</span>の幅に収まっているのに対し、
+          中央値以下は<span className="font-semibold">{yen(k24.lowerSpread)}円</span>に広がっています。
+          上は密集し、下は散らばります。
         </p>
         <p className="text-sm leading-relaxed text-foreground/80">
-          一方、下には天井に相当するものがありません。引く幅を大きくしても、
-          売る側がそれを知らなければ取引は成立してしまいます。
-          結果として、高いほうは狭く、安いほうは広く散らばります。
+          下に、これに当たる共通の基準はありません。どこまで引くかは各社の方針次第で、
+          外から見える一律の下限はない、というのがここから言えることです。
+          なぜその方針になるのかは各社が公表していないため、当サイトでは分かりません。
         </p>
       </section>
 

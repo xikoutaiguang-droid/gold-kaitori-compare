@@ -25,8 +25,11 @@ export default function CampaignNotice({ campaigns }: { campaigns: ActiveCampaig
             </span>
             <span className="text-sm font-semibold">{c.title}</span>
             <span className="text-xs text-muted">
+              {/* 各社の告知は本日を含めて数えていることが多い。同じ日を指しているのに
+                  数字だけ1つずれると、リンク先と見比べた人には誤りに見える。
+                  どちらの数え方かを書いて、ずれを起こさないようにする。 */}
               {jaDate(c.endsAt)}まで
-              {c.daysLeft === 0 ? "（本日まで）" : `（あと${c.daysLeft}日）`}
+              {c.daysLeft === 0 ? "（本日まで）" : `（本日を含め残り${c.daysLeft + 1}日）`}
             </span>
           </div>
           <p className="mb-2 text-sm leading-relaxed">{c.summary}</p>
