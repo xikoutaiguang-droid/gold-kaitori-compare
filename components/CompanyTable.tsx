@@ -109,21 +109,6 @@ export default function CompanyTable({
                   {/* ★評価は名前と同じ行に置くと、PRバッジや長い社名と重なって
                       右側の価格ブロックに食い込む(どちらも shrink-0 のため互いに縮まない)。
                       地域と同じ2行目に下ろして、行全体で折り返せるようにする。 */}
-                  {/* break-keep は日本語で語中改行を止め、「・」などの区切りで折り返させる。
-                      個別に whitespace-nowrap を足すと、今度は別の語が割れるだけだった
-                      (「8店舗」を止めたら「全国」が「全」「国」に割れた)。 */}
-                  <p className="break-keep text-xs text-muted">
-                    {c.googleReview && (
-                      <span className="mr-2 font-medium text-accent-strong">
-                        ★{c.googleReview.avgRating}
-                        <span className="ml-0.5 font-normal text-muted">
-                          ({c.googleReview.totalReviewCount.toLocaleString()}件)
-                        </span>
-                      </span>
-                    )}
-                    {c.regions.join("・") || "地域不明"}
-                    {c.storeCount ? ` ・ ${c.storeCount}店舗` : ""}
-                  </p>
                 </div>
                 <div className="shrink-0 text-right">
                   {value !== undefined ? (
@@ -151,11 +136,28 @@ export default function CompanyTable({
                 </div>
               </div>
 
-              {value !== undefined && referenceValue !== undefined && (
-                <div className="mt-1 pl-8 text-right">
-                  <ReferenceDiff value={value} referenceValue={referenceValue} />
-                </div>
-              )}
+              {/* 評価・地域・店舗数は価格の横に置くと幅が足りない。
+                  地域が6つある社では一行が価格に重なってはみ出していた。
+                  カード幅いっぱいの行に下ろして、普通に折り返させる。 */}
+              <div className="mt-1 flex flex-wrap items-baseline gap-x-2 pl-8 text-xs text-muted">
+                {c.googleReview && (
+                  <span className="font-medium text-accent-strong">
+                    ★{c.googleReview.avgRating}
+                    <span className="ml-0.5 font-normal text-muted">
+                      ({c.googleReview.totalReviewCount.toLocaleString()}件)
+                    </span>
+                  </span>
+                )}
+                <span className="min-w-0">
+                  {c.regions.join("・") || "地域不明"}
+                  {c.storeCount ? ` ・ ${c.storeCount}店舗` : ""}
+                </span>
+                {value !== undefined && referenceValue !== undefined && (
+                  <span className="ml-auto">
+                    <ReferenceDiff value={value} referenceValue={referenceValue} />
+                  </span>
+                )}
+              </div>
               {value !== undefined && (
                 <div className="mt-2.5 pl-8">
                   <PriceBar value={value} max={maxPrice} />
@@ -189,14 +191,9 @@ export default function CompanyTable({
                           onClick={() =>
                             trackOutboundClick({ shopId: c.id, shopName: c.name, hasAffiliate: true, source: "compare" })
                           }
-                          className="flex min-h-11 items-center justify-center rounded-lg border border-accent/40 bg-accent-soft/50 px-4 py-2 text-center text-sm font-medium leading-snug text-accent-strong transition active:scale-[0.99] sm:hover:border-accent sm:hover:bg-accent-soft"
+                          className="flex min-h-11 items-center justify-center rounded-lg border border-border bg-surface-2/60 px-4 py-2 text-center text-sm font-medium leading-snug text-accent-strong transition active:scale-[0.99] sm:hover:border-accent sm:hover:bg-accent-soft/40"
                         >
-                          {/* 矢印を別要素にすると、文字が2行になったとき矢印だけ右端に
-                              取り残される。文章の一部として流す。 */}
-                          <span>
-                            {link.label}
-                            <span aria-hidden="true"> →</span>
-                          </span>
+                          {link.label}
                         </a>
                       ))}
                     </div>
@@ -222,9 +219,8 @@ export default function CompanyTable({
                     <span>更新日: {c.priceData.updatedAt ?? "-"}</span>
                     {/* カード全体がリンクなので当たり判定は足りているが、
                         押せる場所だと分かるように見た目をボタンに揃える。 */}
-                    <span className="flex min-h-11 shrink-0 items-center justify-center gap-1 rounded-lg border border-border bg-surface-2/60 px-4 text-sm font-medium text-accent-strong">
-                      公式サイトへ
-                      <span aria-hidden="true">→</span>
+                    <span className="flex min-h-11 shrink-0 items-center justify-center rounded-lg border border-border bg-surface-2/60 px-4 text-sm font-medium text-accent-strong">
+                      公式サイト
                     </span>
                   </div>
                 </a>
