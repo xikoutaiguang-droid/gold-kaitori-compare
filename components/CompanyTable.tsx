@@ -102,19 +102,22 @@ export default function CompanyTable({
                 <span className="w-5 shrink-0 text-center text-xs text-muted">{i + 1}</span>
                 <CompanyLogo id={c.id} name={c.name} size={32} />
                 <div className="min-w-0 flex-1">
-                  <div className="flex flex-wrap items-center gap-x-2">
+                  <div className="flex items-center gap-x-2">
                     <p className="truncate font-medium">{c.name}</p>
                     {hasAffiliateLink(c) && <PrBadge />}
+                  </div>
+                  {/* ★評価は名前と同じ行に置くと、PRバッジや長い社名と重なって
+                      右側の価格ブロックに食い込む(どちらも shrink-0 のため互いに縮まない)。
+                      地域と同じ2行目に下ろして、行全体で折り返せるようにする。 */}
+                  <p className="text-xs text-muted">
                     {c.googleReview && (
-                      <span className="shrink-0 text-xs font-medium text-accent-strong">
+                      <span className="mr-2 font-medium text-accent-strong">
                         ★{c.googleReview.avgRating}
                         <span className="ml-0.5 font-normal text-muted">
                           ({c.googleReview.totalReviewCount.toLocaleString()}件)
                         </span>
                       </span>
                     )}
-                  </div>
-                  <p className="text-xs text-muted">
                     {c.regions.join("・") || "地域不明"}
                     {c.storeCount ? ` ・ ${c.storeCount}店舗` : ""}
                   </p>
@@ -163,9 +166,12 @@ export default function CompanyTable({
               {links.length >= 2 ? (
                 <div className={cardClassName}>
                   {body}
-                  <div className="mt-2.5 flex flex-wrap items-center justify-between gap-2 pl-8 text-xs text-muted">
+                  <div className="mt-2.5 flex flex-col gap-2 pl-8 text-xs text-muted sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
                     <span>更新日: {c.priceData.updatedAt ?? "-"}</span>
-                    <div className="flex flex-wrap gap-x-3 gap-y-1">
+                    {/* 指で押す前提の大きさにする。テキストリンクのままだと
+                        行の高さぶんしか当たり判定がなく、スマホで狙いにくい。
+                        min-h-11 は44px相当で、iOSが示す最小タップ領域。 */}
+                    <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:flex-wrap">
                       {links.map((link) => (
                         <a
                           key={link.url}
@@ -175,9 +181,10 @@ export default function CompanyTable({
                           onClick={() =>
                             trackOutboundClick({ shopId: c.id, shopName: c.name, hasAffiliate: true, source: "compare" })
                           }
-                          className="font-medium text-accent-strong hover:underline"
+                          className="flex min-h-11 items-center justify-center gap-1 rounded-lg border border-accent/40 bg-accent-soft/50 px-4 text-sm font-medium text-accent-strong transition active:scale-[0.99] sm:hover:border-accent sm:hover:bg-accent-soft"
                         >
-                          {link.label} →
+                          {link.label}
+                          <span aria-hidden="true">→</span>
                         </a>
                       ))}
                     </div>
@@ -199,9 +206,14 @@ export default function CompanyTable({
                   className={`block ${cardClassName} active:scale-[0.99] sm:hover:border-accent/50 sm:hover:shadow-md`}
                 >
                   {body}
-                  <div className="mt-2.5 flex items-center justify-between pl-8 text-xs text-muted">
+                  <div className="mt-2.5 flex items-center justify-between gap-2 pl-8 text-xs text-muted">
                     <span>更新日: {c.priceData.updatedAt ?? "-"}</span>
-                    <span className="font-medium text-accent-strong">公式サイトへ →</span>
+                    {/* カード全体がリンクなので当たり判定は足りているが、
+                        押せる場所だと分かるように見た目をボタンに揃える。 */}
+                    <span className="flex min-h-11 shrink-0 items-center justify-center gap-1 rounded-lg border border-border bg-surface-2/60 px-4 text-sm font-medium text-accent-strong">
+                      公式サイトへ
+                      <span aria-hidden="true">→</span>
+                    </span>
                   </div>
                 </a>
               )}
