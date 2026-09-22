@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { OPERATOR_NAME, CONTACT_FORM_URL, ADSENSE_PUBLISHER_ID, GA_MEASUREMENT_ID } from "@/lib/siteConfig";
 
 export const metadata: Metadata = {
@@ -17,7 +18,14 @@ export default function PrivacyPage() {
           <h2 className="mb-2 font-semibold text-foreground">運営者情報</h2>
           <p>
             本サイト「金買取相場比較」(以下「当サイト」)は、個人({OPERATOR_NAME})が運営しています。
-            掲載しているどの買取店とも資本関係のない、独立した立場で運営しています。
+            掲載しているどの買取店とも資本関係はなく、依頼を受けて運営しているものでもありません。
+            ただし運営者は買取業界の実務経験者で、現在も業界に籍を置いており、掲載している会社の中に
+            運営者が関わったことのある会社も含まれます。価格は各社の公表値を機械的に取得し、
+            並び順は計算結果のみで決めていますが、この点は先に開示しておきます。詳しくは
+            <Link href="/about" className="mx-1 text-accent-strong hover:underline">
+              このサイトについて
+            </Link>
+            をご覧ください。
           </p>
         </section>
 
@@ -110,7 +118,8 @@ export default function PrivacyPage() {
         <section>
           <h2 className="mb-2 font-semibold text-foreground">ブラウザ内保存(ローカルストレージ)について</h2>
           <p>
-            「複数点まとめて計算」機能で入力した品物の情報は、ご利用の端末のブラウザ内(localStorage)にのみ保存されます。
+            「複数点まとめて計算」機能で入力した品物の情報と、「今が売り時？」ページで
+            グラフの起点に使う初回アクセス日は、ご利用の端末のブラウザ内(localStorage)にのみ保存されます。
             当サイトのサーバーには送信・保存されず、他の利用者やデバイスと共有されることもありません。
             ブラウザのデータを削除すると、保存した内容も消去されます。
           </p>

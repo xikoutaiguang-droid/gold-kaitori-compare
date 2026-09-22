@@ -109,11 +109,13 @@ export default function AboutPage() {
         <section>
           <h2 className="font-serif-jp mb-2 text-lg font-semibold">お問い合わせ</h2>
           <p>
-            運営者情報・お問い合わせ先は
+            運営者情報は
             <Link href="/privacy" className="mx-1 text-accent-strong hover:underline">
               プライバシーポリシー
             </Link>
-            のページに記載しています。
+            のページに記載しています。お問い合わせ窓口は現在準備中で、
+            いまのところご連絡いただく手段をご用意できていません。
+            掲載内容の誤りにお気づきの場合は、窓口を設けるまでお待たせすることになります。
           </p>
         </section>
       </div>
