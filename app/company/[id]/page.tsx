@@ -214,7 +214,8 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
           <dd>
             {company.trustScore} / 5
             <span className="ml-2 text-xs text-muted">
-              店舗数・上場や資本提携の有無・運営年数などの公開情報から算出した目安です。
+              店舗数・上場や資本提携の有無・運営年数などの公開情報を参考に、当サイトが付けた目安です。
+              計算式はなく運営者の判断が入っているため、価格の順位とは性質が異なります。
               安全性を保証するものではありません。
             </span>
           </dd>
