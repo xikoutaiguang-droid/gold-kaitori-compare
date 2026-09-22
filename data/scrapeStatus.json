@@ -1,7 +1,7 @@
 {
-  "ranAt": "2026-09-22T06:54:45.132Z",
-  "ok": 20,
-  "ng": 0,
+  "ranAt": "2026-09-22T10:33:23.840Z",
+  "ok": 18,
+  "ng": 2,
   "sources": [
     {
       "id": "otakaraya",
@@ -102,10 +102,9 @@
     },
     {
       "id": "goldmrs",
-      "ok": true,
-      "priceCount": 12,
-      "updatedAt": "2026-09-22",
-      "warning": null
+      "ok": false,
+      "skipped": false,
+      "error": "Fetch failed: https://goldmrs.jp/ -> 403 Forbidden"
     },
     {
       "id": "nexus13",
@@ -161,10 +160,9 @@
     },
     {
       "id": "refasta",
-      "ok": true,
-      "priceCount": 13,
-      "updatedAt": "2026-09-22",
-      "warning": null
+      "ok": false,
+      "skipped": false,
+      "error": "fetch failed"
     },
     {
       "id": "netoff",
