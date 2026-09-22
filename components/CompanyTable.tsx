@@ -119,7 +119,8 @@ export default function CompanyTable({
                       </span>
                     )}
                     {c.regions.join("・") || "地域不明"}
-                    {c.storeCount ? ` ・ ${c.storeCount}店舗` : ""}
+                    {/* 「8店舗」が「8」と「店舗」に割れて折り返すので、ひとかたまりにする */}
+                    {c.storeCount ? <span className="whitespace-nowrap">{` ・ ${c.storeCount}店舗`}</span> : ""}
                   </p>
                 </div>
                 <div className="shrink-0 text-right">
@@ -186,10 +187,14 @@ export default function CompanyTable({
                           onClick={() =>
                             trackOutboundClick({ shopId: c.id, shopName: c.name, hasAffiliate: true, source: "compare" })
                           }
-                          className="flex min-h-11 items-center justify-center gap-1 rounded-lg border border-accent/40 bg-accent-soft/50 px-4 text-sm font-medium text-accent-strong transition active:scale-[0.99] sm:hover:border-accent sm:hover:bg-accent-soft"
+                          className="flex min-h-11 items-center justify-center rounded-lg border border-accent/40 bg-accent-soft/50 px-4 py-2 text-center text-sm font-medium leading-snug text-accent-strong transition active:scale-[0.99] sm:hover:border-accent sm:hover:bg-accent-soft"
                         >
-                          {link.label}
-                          <span aria-hidden="true">→</span>
+                          {/* 矢印を別要素にすると、文字が2行になったとき矢印だけ右端に
+                              取り残される。文章の一部として流す。 */}
+                          <span>
+                            {link.label}
+                            <span aria-hidden="true"> →</span>
+                          </span>
                         </a>
                       ))}
                     </div>
