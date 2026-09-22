@@ -124,12 +124,11 @@ export default function CompanyTable({
                 </div>
                 <div className="shrink-0 text-right">
                   {value !== undefined ? (
-                    <>
-                      <p className="text-lg font-semibold tabular-nums">{value.toLocaleString()}円</p>
-                      {referenceValue !== undefined && (
-                        <ReferenceDiff value={value} referenceValue={referenceValue} />
-                      )}
-                    </>
+                    // 田中貴金属比はここに置かない。「田中貴金属比: -3,033円 (-12.5%)」は
+                    // 折り返さない長い文字列で、この右カラムを174pxまで広げてしまい、
+                    // 左の社名・評価の領域を51pxまで潰して文字をはみ出させていた。
+                    // 価格だけを右に置き、比較はカード幅いっぱいの別行に出す。
+                    <p className="text-lg font-semibold tabular-nums">{value.toLocaleString()}円</p>
                   ) : (
                     (() => {
                       const otherPurities = Object.keys(c.priceData.prices) as Purity[];
@@ -148,6 +147,12 @@ export default function CompanyTable({
                   )}
                 </div>
               </div>
+
+              {value !== undefined && referenceValue !== undefined && (
+                <div className="mt-1 pl-8 text-right">
+                  <ReferenceDiff value={value} referenceValue={referenceValue} />
+                </div>
+              )}
               {value !== undefined && (
                 <div className="mt-2.5 pl-8">
                   <PriceBar value={value} max={maxPrice} />
