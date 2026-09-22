@@ -1,7 +1,7 @@
 {
-  "ranAt": "2026-09-22T06:44:36.418Z",
-  "ok": 19,
-  "ng": 1,
+  "ranAt": "2026-09-22T06:54:45.132Z",
+  "ok": 20,
+  "ng": 0,
   "sources": [
     {
       "id": "otakaraya",
@@ -32,9 +32,10 @@
     },
     {
       "id": "nanboya",
-      "ok": false,
-      "skipped": false,
-      "error": "nanboya: 取得元JSONのlast_modified(2025-11-02)が324日前です。このエンドポイントは更新停止しています。公式の価格ページ(https://nanboya.com/gold-kaitori/)は更新されていますが金額がJavaScript描画のため、取得方法の切り替えが必要です。"
+      "ok": true,
+      "priceCount": 13,
+      "updatedAt": "2026-09-18",
+      "warning": null
     },
     {
       "id": "jewel-cafe",
