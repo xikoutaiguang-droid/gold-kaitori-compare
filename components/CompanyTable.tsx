@@ -109,7 +109,10 @@ export default function CompanyTable({
                   {/* ★評価は名前と同じ行に置くと、PRバッジや長い社名と重なって
                       右側の価格ブロックに食い込む(どちらも shrink-0 のため互いに縮まない)。
                       地域と同じ2行目に下ろして、行全体で折り返せるようにする。 */}
-                  <p className="text-xs text-muted">
+                  {/* break-keep は日本語で語中改行を止め、「・」などの区切りで折り返させる。
+                      個別に whitespace-nowrap を足すと、今度は別の語が割れるだけだった
+                      (「8店舗」を止めたら「全国」が「全」「国」に割れた)。 */}
+                  <p className="break-keep text-xs text-muted">
                     {c.googleReview && (
                       <span className="mr-2 font-medium text-accent-strong">
                         ★{c.googleReview.avgRating}
@@ -119,8 +122,7 @@ export default function CompanyTable({
                       </span>
                     )}
                     {c.regions.join("・") || "地域不明"}
-                    {/* 「8店舗」が「8」と「店舗」に割れて折り返すので、ひとかたまりにする */}
-                    {c.storeCount ? <span className="whitespace-nowrap">{` ・ ${c.storeCount}店舗`}</span> : ""}
+                    {c.storeCount ? ` ・ ${c.storeCount}店舗` : ""}
                   </p>
                 </div>
                 <div className="shrink-0 text-right">
