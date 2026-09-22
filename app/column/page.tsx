@@ -9,6 +9,11 @@ export const metadata: Metadata = {
 
 const columns = [
   {
+    href: "/column/what-a-gram-means",
+    title: "「1gいくら」は、店ごとに同じ意味ではない",
+    desc: "各社の注意書きまで読むと、同じ単価が指しているものが揃っていませんでした",
+  },
+  {
     href: "/column/price-gap",
     title: "同じ日に、同じ金を、各社はいくらで買うのか",
     desc: "当サイトが集めた各社の公表価格を実際に測り、得と損の大きさを比べました",
