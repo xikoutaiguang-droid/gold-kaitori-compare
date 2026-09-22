@@ -190,9 +190,20 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
           </p>
         )}
         {company.priceCaveat && (
-          <p className="mt-3 rounded border border-border bg-accent-soft/40 p-3 text-xs text-muted">
-            {company.priceCaveat}
-          </p>
+          // 要点は開かなくても読めるようにし、根拠は畳んでおく。
+          // 300字の続き文を価格表の下に置いても読まれないが、根拠を消すと
+          // 「当サイトがそう言っている」だけの注意書きになってしまう。
+          <div className="mt-3 rounded border border-border bg-accent-soft/40 p-3 text-xs text-muted">
+            <p className="font-medium text-foreground/80">{company.priceCaveat}</p>
+            {company.priceCaveatDetail && (
+              <details className="mt-2">
+                <summary className="cursor-pointer underline underline-offset-2">
+                  各社の公表文で確認する
+                </summary>
+                <p className="mt-2 leading-relaxed">{company.priceCaveatDetail}</p>
+              </details>
+            )}
+          </div>
         )}
       </section>
 

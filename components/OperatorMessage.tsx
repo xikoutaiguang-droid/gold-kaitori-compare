@@ -15,12 +15,11 @@ export default function OperatorMessage() {
       <div className="min-w-0 text-center sm:text-left">
         <p className="text-sm text-muted">サイト運営者・{OPERATOR_NAME}(買取の現場で店長を経験・猫はキジトラ派)</p>
         <p className="mt-1 text-base leading-relaxed text-foreground/90">
-          このサイトを作っている{OPERATOR_NAME}です。買取の店舗で店長を務めた経験があり、今も業界にいます。
-          カウンターの内側にいると、相場を知らないまま金額を受け取って帰っていく方を何度も見ます。
-          その方が悪いのではなく、比べる材料がどこにも無いだけです。その材料を外に置いておきたくて、
-          このサイトを作りました。掲載している会社の中には、私が関わったことのある会社も含まれます。
-          だからこそ価格は各社の公表値をそのまま取得し、並び順は計算結果だけで決めて、
-          私の判断で動かせない作りにしています。
+          買取の店舗で店長を務めた経験があり、今も業界にいます。
+          カウンターの内側にいると、相場を知らないまま金額を受け取って帰る方を何度も見ます。
+          比べる材料を外に置いておきたくて、このサイトを作りました。
+          掲載社には私が関わったことのある会社も含まれるため、価格は公表値をそのまま取得し、
+          並び順は計算結果だけで決めています。
         </p>
         <Link href="/about" className="mt-2 inline-block text-sm font-semibold text-accent-strong hover:underline">
           運営者について詳しく →

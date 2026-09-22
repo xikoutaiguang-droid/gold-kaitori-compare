@@ -85,7 +85,10 @@ export interface Company {
   scrapeMethod: "html" | "json" | "js-embed" | "manual" | "pending";
   notes?: string;
   /** 掲載価格と実際の店舗査定額が乖離しうる事情がある場合の注釈(フランチャイズ加盟店ごとの独自相場など)。UIに表示する。 */
+  /** 価格の前提に関する要点。1行で読めること */
   priceCaveat?: string;
+  /** その根拠。折りたたんで置き、読みたい人だけ開く */
+  priceCaveatDetail?: string;
   /** Google Places APIでサンプリングした店舗の口コミ集計値。全店舗の完全集計ではないので参考値として扱うこと。 */
   googleReview?: {
     avgRating: number;

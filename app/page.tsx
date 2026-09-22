@@ -64,14 +64,17 @@ export default function Home() {
         </div>
       </div>
       <TrustBadges />
-      <OperatorMessage />
 
+      {/* 価格を先に出す。検索から来る人が求めているのは今日の数字で、
+          誰が運営しているかはその後で足りる。あいさつはランキングの下に置く。 */}
       <div className="mb-8 grid gap-4 sm:mb-10 sm:grid-cols-2">
         <RankingCard companies={companies} purity="k24" limit={5} />
         <RankingCard companies={companies} purity="k18" limit={5} />
         <RankingCard companies={companies} purity="pt850" limit={3} />
         <RankingCard companies={companies} purity="ag" limit={3} />
       </div>
+
+      <OperatorMessage />
 
       <div className="grid gap-3 sm:grid-cols-3 sm:gap-4">
         <NavCard
