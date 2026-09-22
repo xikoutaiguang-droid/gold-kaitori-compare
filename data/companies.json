@@ -27,7 +27,7 @@
         "pt850": 8473,
         "ag": 351
       },
-      "updatedAt": "2026-09-21"
+      "updatedAt": "2026-09-22"
     },
     "scrapeMethod": "html",
     "notes": "価格は計算ツールの<select id=\"rateSimulation--select\">内option要素のvalue属性(円)から取得。",
@@ -99,21 +99,21 @@
     "trustNotes": "1947年創業、東証プライム上場のリユース大手。LBMA公表価格を基準に日次価格を公開。",
     "priceData": {
       "prices": {
-        "k24": 21184,
-        "k22": 18359,
-        "k21_6": 17889,
-        "k20": 16947,
-        "k18": 16428,
-        "k14": 11416,
-        "k10": 8003,
-        "k9": 6826,
-        "pt1000": 7784,
-        "pt950": 7594,
-        "pt900": 7499,
-        "pt850": 7214,
+        "k24": 21214,
+        "k22": 18385,
+        "k21_6": 17914,
+        "k20": 16971,
+        "k18": 16452,
+        "k14": 11432,
+        "k10": 8014,
+        "k9": 6836,
+        "pt1000": 7855,
+        "pt950": 7664,
+        "pt900": 7568,
+        "pt850": 7280,
         "ag": 224
       },
-      "updatedAt": "2026-09-21"
+      "updatedAt": "2026-09-22"
     },
     "scrapeMethod": "html",
     "notes": "価格は<select id=\"js-simulation-metal\">内option要素のdata-price属性(円)から取得。他社と比べやや低めの水準だったため、次回スクレイパー実行時に再確認すること。",
@@ -237,7 +237,7 @@
         "k18": 17787,
         "k14": 13097
       },
-      "updatedAt": "2026-09-21"
+      "updatedAt": "2026-09-22"
     },
     "scrapeMethod": "html",
     "notes": "Cloudflare content-signalでClaudeBot/GPTBot等AI系クローラーを個別Disallow。scraper実装時はUser-Agentと利用規約に要注意。",
@@ -283,7 +283,7 @@
         "k10": 9172,
         "k9": 8190
       },
-      "updatedAt": "2026-09-21"
+      "updatedAt": "2026-09-22"
     },
     "scrapeMethod": "html",
     "notes": "Cloudflare content-signalでClaudeBot等を個別Disallow。scraper実装時は要注意。",
@@ -372,20 +372,20 @@
     "trustNotes": "全国42店舗以上。2026年2月にEco Ring Japan Holdingsと資本提携し信頼性が向上。",
     "priceData": {
       "prices": {
-        "k24": 23067,
-        "k22": 20935,
-        "k20": 19115,
-        "k18": 17632,
-        "k14": 13070,
-        "k10": 9077,
-        "k9": 8079,
-        "pt1000": 9289,
-        "pt950": 8810,
-        "pt900": 8494,
-        "pt850": 8016,
-        "ag": 339
+        "k24": 22907,
+        "k22": 20791,
+        "k20": 18983,
+        "k18": 17510,
+        "k14": 12980,
+        "k10": 9015,
+        "k9": 8023,
+        "pt1000": 9286,
+        "pt950": 8807,
+        "pt900": 8491,
+        "pt850": 8013,
+        "ag": 336
       },
-      "updatedAt": "2026-09-21"
+      "updatedAt": "2026-09-22"
     },
     "scrapeMethod": "html",
     "notes": "キングラムと価格が完全一致。価格は静的HTMLに直接出力されており取得しやすい。「ベストライフ」は同名の介護・保険会社が多数存在し、Google口コミの公式ドメイン照合では信頼できる一致が得られなかったため、googleReviewは未設定のままにしている。"
@@ -413,7 +413,7 @@
         "k10": 9053,
         "k9": 8058
       },
-      "updatedAt": "2026-09-21"
+      "updatedAt": "2026-09-22"
     },
     "scrapeMethod": "html",
     "googleReview": {
@@ -461,7 +461,7 @@
         "pt900": 8942,
         "pt850": 8464
       },
-      "updatedAt": "2026-09-21"
+      "updatedAt": "2026-09-22"
     },
     "scrapeMethod": "pending",
     "notes": "K24〜K9・プラチナまで純度別に日次価格を公開していることは確認済み。具体的数値は未取得。",
@@ -506,7 +506,7 @@
         "pt900": 7799,
         "pt850": 7320
       },
-      "updatedAt": "2026-09-21"
+      "updatedAt": "2026-09-22"
     },
     "scrapeMethod": "pending",
     "notes": "K24〜K9・プラチナまで純度別に日次価格を公開していることは確認済み。具体的数値は未取得。",
@@ -563,7 +563,7 @@
         "pt850": 8473,
         "ag": 351
       },
-      "updatedAt": "2026-09-21"
+      "updatedAt": "2026-09-22"
     },
     "scrapeMethod": "pending",
     "googleReview": {
@@ -673,7 +673,7 @@
         "pt850": 8293,
         "ag": 331
       },
-      "updatedAt": "2026-09-21"
+      "updatedAt": "2026-09-22"
     },
     "scrapeMethod": "html",
     "googleReview": {
@@ -700,7 +700,7 @@
     "trustNotes": "全国14都道府県に約40店舗を展開。",
     "priceData": {
       "prices": {
-        "k24": 23960
+        "k24": 23906
       },
       "updatedAt": "2026-09-21"
     },
@@ -911,7 +911,7 @@
         "pt850": 7700,
         "ag": 220
       },
-      "updatedAt": "2026-09-21"
+      "updatedAt": "2026-09-22"
     },
     "scrapeMethod": "html",
     "googleReview": {
