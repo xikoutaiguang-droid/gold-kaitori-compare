@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 import { getCompanies } from "@/lib/companies";
 import RankingCard from "@/components/RankingCard";
 import TrustBadges from "@/components/TrustBadges";
+import MarketClosedNotice from "@/components/MarketClosedNotice";
 import OperatorMessage from "@/components/OperatorMessage";
 
 /**
@@ -67,6 +68,8 @@ export default function Home() {
 
       {/* 価格を先に出す。検索から来る人が求めているのは今日の数字で、
           誰が運営しているかはその後で足りる。あいさつはランキングの下に置く。 */}
+      <MarketClosedNotice />
+
       <div className="mb-8 grid gap-4 sm:mb-10 sm:grid-cols-2">
         <RankingCard companies={companies} purity="k24" limit={5} />
         <RankingCard companies={companies} purity="k18" limit={5} />

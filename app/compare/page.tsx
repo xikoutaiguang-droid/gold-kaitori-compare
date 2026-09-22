@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { getCompanies } from "@/lib/companies";
 import CompanyTable from "@/components/CompanyTable";
+import MarketClosedNotice from "@/components/MarketClosedNotice";
 import { REGION_PAGES } from "@/lib/regionPages";
 import { getCompaniesForIndex } from "@/lib/companyPages";
 
@@ -33,6 +34,7 @@ export default function ComparePage() {
       <p className="mb-6 text-base text-muted">
         各社が公式サイトで公表している1gあたりの買取参考価格を、純度・対応地域で絞り込んで比較できます。
       </p>
+      <MarketClosedNotice />
       <CompanyTable companies={companies} />
 
       <section className="mt-12 border-t border-border pt-8">
