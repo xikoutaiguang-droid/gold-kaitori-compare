@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getCompanies } from "@/lib/companies";
+import { getCompanies, formatFetchedAt } from "@/lib/companies";
 import { getCompanyById, getRelatedCompanies, getStandings } from "@/lib/companyPages";
 import { getAffiliateLinks } from "@/lib/outboundLink";
 import {
@@ -164,6 +164,13 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
                 {company.name}の公表価格ページ
               </a>
               {company.priceData.updatedAt ? `（${company.priceData.updatedAt} 時点）` : ""}
+              {formatFetchedAt(company.priceData.fetchedAt) && (
+                <>
+                  {" / "}
+                  当サイトの取得: {formatFetchedAt(company.priceData.fetchedAt)}（日本時間）。
+                  1日に複数回価格を変える店もあるため、取得後に動いていることがあります。
+                </>
+              )}
             </p>
           </>
         ) : company.priceData.staleDays !== undefined ? (

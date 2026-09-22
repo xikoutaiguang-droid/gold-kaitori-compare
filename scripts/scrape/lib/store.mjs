@@ -25,5 +25,10 @@ export function applyPriceUpdate(companies, id, prices, updatedAt) {
   }
   company.priceData.prices = { ...company.priceData.prices, ...prices };
   company.priceData.updatedAt = updatedAt;
+  // updatedAt は各社が公表している日付だったり、取得日を代用していたりで意味が揃わない。
+  // しかも1日に複数回価格を動かす店がある(コメ兵は建値の公表後と14時ごろの2回)。
+  // 日付だけでは、読む人が朝の値と午後の値を見分けられないので、
+  // 当サイトが実際に取りに行った時刻を別に残す。
+  company.priceData.fetchedAt = new Date().toISOString();
   return company;
 }

@@ -69,6 +69,25 @@ export function getCompanies(): Company[] {
   });
 }
 
+/**
+ * 当サイトが価格を取りに行った日時を、日本時間の「9月22日 15:01 取得」形式にする。
+ *
+ * 1日に複数回価格を動かす店があるので(コメ兵は田中貴金属の建値公表後と14時ごろの2回)、
+ * 日付だけでは朝の値か午後の値かが分からない。当サイトの取得は10:00と15:00の2回。
+ */
+export function formatFetchedAt(iso: string | undefined): string | null {
+  if (!iso) return null;
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return null;
+  // JST固定。読む人の端末の時計に合わせると、同じ価格が別の時刻に見えてしまう。
+  const jst = new Date(d.getTime() + 9 * 3600 * 1000);
+  const mm = jst.getUTCMonth() + 1;
+  const dd = jst.getUTCDate();
+  const hh = String(jst.getUTCHours()).padStart(2, "0");
+  const mi = String(jst.getUTCMinutes()).padStart(2, "0");
+  return `${mm}月${dd}日 ${hh}:${mi}`;
+}
+
 /** 鮮度の判定を通していない元データ。古さそのものを点検したいとき用 */
 export function getCompaniesUnfiltered(): Company[] {
   return rawCompanies as Company[];

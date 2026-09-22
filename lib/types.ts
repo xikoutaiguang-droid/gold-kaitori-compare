@@ -50,8 +50,13 @@ export type Tier = "major" | "midsize" | "boutique";
 export interface PriceSet {
   /** 円/g、未取得の純度はキー自体を省略 */
   prices: Partial<Record<Purity, number>>;
-  /** 価格の更新日(YYYY-MM-DD)。取得できていない場合はnull */
+  /** 価格の更新日(YYYY-MM-DD)。各社の公表日、または取得日。取得できていない場合はnull */
   updatedAt: string | null;
+  /**
+   * 当サイトが実際に取得した日時(ISO)。1日に複数回価格を動かす店があるため、
+   * 日付だけでは朝の値か午後の値かが分からない。それを示すために持つ。
+   */
+  fetchedAt?: string;
   /**
    * 公表価格が古すぎて同日比較に使えないと判断された場合の経過日数。
    * getCompanies() が付ける派生値で、元データには入っていない。
