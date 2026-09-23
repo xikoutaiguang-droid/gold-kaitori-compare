@@ -1,5 +1,5 @@
 {
-  "ranAt": "2026-09-22T10:33:23.840Z",
+  "ranAt": "2026-09-23T07:42:57.667Z",
   "ok": 18,
   "ng": 2,
   "sources": [
@@ -7,14 +7,14 @@
       "id": "otakaraya",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-09-22",
+      "updatedAt": "2026-09-23",
       "warning": null
     },
     {
       "id": "komehyo",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-09-22",
+      "updatedAt": "2026-09-23",
       "warning": null
     },
     {
@@ -41,14 +41,14 @@
       "id": "jewel-cafe",
       "ok": true,
       "priceCount": 5,
-      "updatedAt": "2026-09-22",
+      "updatedAt": "2026-09-23",
       "warning": null
     },
     {
       "id": "kaitori-elite",
       "ok": true,
       "priceCount": 8,
-      "updatedAt": "2026-09-22",
+      "updatedAt": "2026-09-23",
       "warning": null
     },
     {
@@ -62,35 +62,35 @@
       "id": "best-life",
       "ok": true,
       "priceCount": 12,
-      "updatedAt": "2026-09-22",
+      "updatedAt": "2026-09-23",
       "warning": null
     },
     {
       "id": "brand-revalue",
       "ok": true,
       "priceCount": 8,
-      "updatedAt": "2026-09-22",
+      "updatedAt": "2026-09-23",
       "warning": null
     },
     {
       "id": "gem-sigma",
       "ok": true,
       "priceCount": 12,
-      "updatedAt": "2026-09-22",
+      "updatedAt": "2026-09-23",
       "warning": null
     },
     {
       "id": "galleryrare",
       "ok": true,
       "priceCount": 12,
-      "updatedAt": "2026-09-22",
+      "updatedAt": "2026-09-23",
       "warning": null
     },
     {
       "id": "manekiya",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-09-22",
+      "updatedAt": "2026-09-23",
       "warning": null
     },
     {
@@ -110,14 +110,14 @@
       "id": "nexus13",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-09-22",
+      "updatedAt": "2026-09-23",
       "warning": null
     },
     {
       "id": "ginzaya",
       "ok": true,
       "priceCount": 1,
-      "updatedAt": "2026-09-21",
+      "updatedAt": "2026-09-23",
       "warning": null
     },
     {
@@ -155,7 +155,7 @@
       "id": "rodeodrive",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-09-22",
+      "updatedAt": "2026-09-23",
       "warning": null
     },
     {
