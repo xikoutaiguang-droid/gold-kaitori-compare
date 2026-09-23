@@ -23,10 +23,22 @@ export const CAMPAIGN_KIND_LABEL: Record<CampaignKind, string> = {
   lottery: "抽選",
 };
 
+/**
+ * 適用範囲。当サイトの読者は金を重さで売る人なので、ブランド品限定の企画を
+ * 同じ欄に並べると「自分の指輪も10%上がる」と読まれる。分けて出すために持つ。
+ */
+export type CampaignScope = "gold" | "brand";
+
+export const CAMPAIGN_SCOPE_LABEL: Record<CampaignScope, string> = {
+  gold: "金・貴金属が対象",
+  brand: "ブランド品が対象",
+};
+
 export interface Campaign {
   id: string;
   companyId: string;
   kind: CampaignKind;
+  scope: CampaignScope;
   title: string;
   /** 内容の要約。転記元の文言を短くまとめたもの */
   summary: string;
@@ -83,6 +95,15 @@ export function getActiveCampaigns(): ActiveCampaign[] {
 
 export function getCampaignsForCompany(companyId: string): ActiveCampaign[] {
   return getActiveCampaigns().filter((c) => c.companyId === companyId);
+}
+
+/** 金・貴金属に効くものだけ。価格比較の文脈で出すのはこちら */
+export function getGoldCampaigns(): ActiveCampaign[] {
+  return getActiveCampaigns().filter((c) => c.scope === "gold");
+}
+
+export function getBrandCampaigns(): ActiveCampaign[] {
+  return getActiveCampaigns().filter((c) => c.scope === "brand");
 }
 
 /** キャンペーンを確認できている会社のID(表示の有無を分けるため) */

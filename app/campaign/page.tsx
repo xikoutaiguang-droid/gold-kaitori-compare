@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getActiveCampaigns, CAMPAIGN_MAX_VERIFY_AGE_DAYS } from "@/lib/campaigns";
+import {
+  getActiveCampaigns,
+  getGoldCampaigns,
+  getBrandCampaigns,
+  CAMPAIGN_MAX_VERIFY_AGE_DAYS,
+  type ActiveCampaign,
+} from "@/lib/campaigns";
 import { getCompanies } from "@/lib/companies";
 import { getCompanyById } from "@/lib/companyPages";
 import CampaignNotice from "@/components/CampaignNotice";
@@ -18,8 +24,27 @@ export function generateMetadata(): Metadata {
   };
 }
 
+/** 1件ぶんの表示。金向けとブランド向けで同じ形を使う */
+function CampaignItem({ c }: { c: ActiveCampaign }) {
+  const company = getCompanyById(c.companyId);
+  if (!company) return null;
+  return (
+    <section>
+      <div className="mb-2 flex items-center gap-2">
+        <CompanyLogo id={company.id} name={company.name} size={28} />
+        <Link href={`/company/${company.id}`} className="font-medium underline underline-offset-2">
+          {company.name}
+        </Link>
+      </div>
+      <CampaignNotice campaigns={[c]} />
+    </section>
+  );
+}
+
 export default function CampaignPage() {
   const campaigns = getActiveCampaigns();
+  const gold = getGoldCampaigns();
+  const brand = getBrandCampaigns();
   const total = getCompanies().length;
   const withCampaign = new Set(campaigns.map((c) => c.companyId)).size;
 
@@ -53,27 +78,37 @@ export default function CampaignPage() {
           各社が随時入れ替えるため、しばらくしてからまたご覧ください。
         </p>
       ) : (
-        <div className="flex flex-col gap-6">
-          {campaigns.map((c) => {
-            const company = getCompanyById(c.companyId);
-            if (!company) return null;
-            return (
-              <section key={c.id}>
-                <div className="mb-2 flex items-center gap-2">
-                  <CompanyLogo id={company.id} name={company.name} size={28} />
-                  <Link
-                    href={`/company/${company.id}`}
-                    className="font-medium underline underline-offset-2"
-                  >
-                    {company.name}
-                  </Link>
-                  {/* 期限は CampaignNotice が出すので、ここでは繰り返さない */}
-                </div>
-                <CampaignNotice campaigns={[c]} />
-              </section>
-            );
-          })}
-        </div>
+        <>
+          {/* 金・貴金属に効くものを先に出す。当サイトに来る人が売ろうとしているのはこれ */}
+          <h2 className="font-serif-jp mb-3 text-lg font-semibold">金・貴金属を売る場合</h2>
+          {gold.length === 0 ? (
+            <p className="mb-8 rounded-2xl border border-border bg-surface p-5 text-sm text-muted">
+              現在、金・貴金属に適用されるものは確認できていません。
+            </p>
+          ) : (
+            <div className="mb-10 flex flex-col gap-6">
+              {gold.map((c) => (
+                <CampaignItem key={c.id} c={c} />
+              ))}
+            </div>
+          )}
+
+          {brand.length > 0 && (
+            <>
+              <h2 className="font-serif-jp mb-2 text-lg font-semibold">ブランド品を売る場合</h2>
+              <p className="mb-4 text-sm leading-relaxed text-muted">
+                こちらはブランド品が対象で、ノーブランドの金やスクラップには適用されないと
+                考えられるものです。ブランドのジュエリーや時計は重さではなく品物として
+                値が付くため、1gあたりの比較では測れません。該当する品物をお持ちの場合にご覧ください。
+              </p>
+              <div className="mb-10 flex flex-col gap-6">
+                {brand.map((c) => (
+                  <CampaignItem key={c.id} c={c} />
+                ))}
+              </div>
+            </>
+          )}
+        </>
       )}
 
       <section className="mt-10">
