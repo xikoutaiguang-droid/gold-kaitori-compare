@@ -20,6 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/company",
     "/campaign",
     "/column",
+    "/column/hallmark",
     "/column/karat-and-price",
     "/column/what-a-gram-means",
     "/column/price-gap",

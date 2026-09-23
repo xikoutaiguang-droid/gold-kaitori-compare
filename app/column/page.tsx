@@ -9,6 +9,11 @@ export const metadata: Metadata = {
 
 const columns = [
   {
+    href: "/column/hallmark",
+    title: "金の刻印はどこにある？「750」「K18」「GP」の見分け方",
+    desc: "刻印の位置を図で示し、造幣局のホールマークやメッキ表記との違いまで",
+  },
+  {
     href: "/column/karat-and-price",
     title: "K18は「金75%」。では値段も75%になるのか",
     desc: "刻印が示す含有率と、実際に払われている金額を各社の公表価格から比べました",
