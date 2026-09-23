@@ -7,7 +7,7 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import MobileTabBar from "@/components/MobileTabBar";
 import JsonLd from "@/components/JsonLd";
-import { siteJsonLd } from "@/lib/structuredData";
+import { siteJsonLd, SHARE_IMAGE_PATH } from "@/lib/structuredData";
 import { SITE_NAME, SITE_URL, ADSENSE_PUBLISHER_ID, GSC_VERIFICATION, GA_MEASUREMENT_ID } from "@/lib/siteConfig";
 
 const geistSans = Geist({
@@ -35,12 +35,20 @@ export const metadata: Metadata = {
   description:
     "おたからや・買取大吉・コメ兵・なんぼや・ジュエルカフェなど主要な金・貴金属買取店の相場を1gあたりで比較。重さを入力するだけの買取額シミュレーターと、重視するポイントから選べる買取店診断つき。",
   keywords: ["金買取", "貴金属買取", "金 買取 相場", "金 買取 シミュレーター", "金 買取 計算", "買取店 診断"],
+  // og:title と og:description はここで指定しない。指定すると全ページが
+  // このレイアウトの文言を継承し、どのページを共有しても同じ見出しになる。
+  // 空けておくと Next.js が各ページの title / description から埋める。
   openGraph: {
     type: "website",
     locale: "ja_JP",
     siteName: SITE_NAME,
-    title: `${SITE_NAME}｜金・貴金属買取の相場比較とシミュレーター`,
-    description: "主要な金・貴金属買取店の相場を比較し、重さから概算買取額を計算できるサイト",
+    // 画像が無いと、LINEやXで共有されたときに文字だけのリンクになる。
+    // 記事ごとの画像は用意していないので、サイト共通の1枚を使う。
+    images: [{ url: SHARE_IMAGE_PATH, width: 1296, height: 816, alt: SITE_NAME }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: [SHARE_IMAGE_PATH],
   },
   // AdSense審査時のサイト所有権確認用(パブリッシャーID未設定のうちは出力しない)
   other: ADSENSE_PUBLISHER_ID ? { "google-adsense-account": `ca-${ADSENSE_PUBLISHER_ID}` } : undefined,

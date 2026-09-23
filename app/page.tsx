@@ -47,7 +47,9 @@ export function generateMetadata(): Metadata {
     title: { absolute: title },
     description,
     alternates: { canonical: "/" },
-    openGraph: { title, description },
+    // openGraph をここで指定すると、レイアウトで設定した og:image や siteName ごと
+    // 置き換わって画像が消える(Next.js は openGraph を項目ごとには混ぜない)。
+    // 指定しなければ、上の title / description から og:title / og:description が作られる。
   };
 }
 

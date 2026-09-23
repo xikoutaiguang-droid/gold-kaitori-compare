@@ -27,9 +27,15 @@ function git(args) {
   return execFileSync("git", args, { encoding: "utf8", maxBuffer: 16 * 1024 * 1024 }).trim();
 }
 
-/** そのファイルに触れたコミットの日付(古い順) */
+/**
+ * そのファイルに触れたコミットの日時(古い順)。
+ *
+ * 日付だけ(2026-09-23)だと Google のリッチリザルトテストが
+ * 「日時値が無効」「タイムゾーンがありません」と言う。%aI は
+ * 2026-09-23T12:23:26+09:00 の形で、時刻もタイムゾーンも含む。
+ */
 function commitDates(file) {
-  const out = git(["log", "--follow", "--format=%ad", "--date=short", "--", file]);
+  const out = git(["log", "--follow", "--format=%aI", "--", file]);
   if (!out) return [];
   return out.split("\n").reverse();
 }

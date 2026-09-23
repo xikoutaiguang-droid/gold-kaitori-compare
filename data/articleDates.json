@@ -2,40 +2,40 @@
   "notes": "各記事ページの公開日(そのファイルの最初のコミット)と更新日(最後のコミット)。scripts/update-article-dates.mjs が git の履歴から書き出す。手で編集しない。",
   "articles": {
     "/column/estate-cleanup": {
-      "published": "2026-09-15",
-      "modified": "2026-09-15"
+      "published": "2026-09-15T11:22:04+09:00",
+      "modified": "2026-09-23T13:23:58+09:00"
     },
     "/column/hallmark": {
-      "published": "2026-09-23",
-      "modified": "2026-09-23"
+      "published": "2026-09-23T11:13:05+09:00",
+      "modified": "2026-09-23T13:23:58+09:00"
     },
     "/column/karat-and-price": {
-      "published": "2026-09-23",
-      "modified": "2026-09-23"
+      "published": "2026-09-23T09:48:00+09:00",
+      "modified": "2026-09-23T13:23:58+09:00"
     },
     "/column/multiple-quotes": {
-      "published": "2026-09-15",
-      "modified": "2026-09-15"
+      "published": "2026-09-15T11:22:04+09:00",
+      "modified": "2026-09-23T13:23:58+09:00"
     },
     "/column/plating-check": {
-      "published": "2026-09-15",
-      "modified": "2026-09-15"
+      "published": "2026-09-15T11:22:04+09:00",
+      "modified": "2026-09-23T13:23:58+09:00"
     },
     "/column/price-factors": {
-      "published": "2026-09-15",
-      "modified": "2026-09-15"
+      "published": "2026-09-15T11:22:04+09:00",
+      "modified": "2026-09-23T13:23:58+09:00"
     },
     "/column/price-gap": {
-      "published": "2026-09-21",
-      "modified": "2026-09-22"
+      "published": "2026-09-21T10:59:27+09:00",
+      "modified": "2026-09-23T13:23:58+09:00"
     },
     "/column/what-a-gram-means": {
-      "published": "2026-09-22",
-      "modified": "2026-09-22"
+      "published": "2026-09-22T15:32:04+09:00",
+      "modified": "2026-09-23T13:23:58+09:00"
     },
     "/guide/tax": {
-      "published": "2026-09-04",
-      "modified": "2026-09-22"
+      "published": "2026-09-04T18:15:29+09:00",
+      "modified": "2026-09-23T13:23:58+09:00"
     }
   }
 }

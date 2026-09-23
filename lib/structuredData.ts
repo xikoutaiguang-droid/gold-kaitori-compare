@@ -12,6 +12,12 @@ import articleDates from "@/data/articleDates.json";
 
 const abs = (path: string) => new URL(path, SITE_URL).toString();
 
+/**
+ * 共有・構造化データに使う画像。記事ごとの画像は用意していないので、
+ * サイト共通の1枚を指す。ここを変えると og:image と Article の image が両方変わる。
+ */
+export const SHARE_IMAGE_PATH = "/hero-gold.jpg";
+
 /** 運営者。#で始まるIDを付けて、他の型から参照できるようにする。 */
 const PERSON_ID = abs("/about") + "#operator";
 
@@ -62,6 +68,7 @@ export function articleJsonLd(route: string, metadata: Metadata) {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: headlineOf(metadata),
+    image: abs(SHARE_IMAGE_PATH),
     description: typeof metadata.description === "string" ? metadata.description : undefined,
     inLanguage: "ja",
     mainEntityOfPage: { "@type": "WebPage", "@id": abs(route) },
