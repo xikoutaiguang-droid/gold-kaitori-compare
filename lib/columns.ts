@@ -13,6 +13,13 @@ export interface ColumnEntry {
 
 export const COLUMNS: ColumnEntry[] = [
   {
+    href: "/column/timing-vs-shop",
+    // 一覧は静的な配列なので、どちらが効くかを書かない。記事側の見出しは
+    // 測った結果で入れ替わるため、ここに書くと片方が古くなる。
+    title: "売る日と売る店、どちらが金額を動かすのか",
+    desc: "売る日をずらしたときの差と、売る店を変えたときの差を、記録した価格で測り比べました",
+  },
+  {
     href: "/column/hallmark",
     title: "金の刻印はどこにある？「750」「K18」「GP」の見分け方",
     desc: "刻印の位置を図で示し、造幣局のホールマークやメッキ表記との違いまで",
