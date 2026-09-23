@@ -1,12 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import {
-  MANEKIYA_FEE,
-  measureAgainstBenchmark,
-  measureFeeImpact,
-  measureReviewVsPrice,
-} from "@/lib/priceMeaning";
-import { getCompanyById } from "@/lib/companyPages";
+import { measureAgainstBenchmark, measureReviewVsPrice } from "@/lib/priceMeaning";
 import { getActiveCampaigns } from "@/lib/campaigns";
 import JsonLd from "@/components/JsonLd";
 import { articleJsonLd, columnBreadcrumb } from "@/lib/structuredData";
@@ -77,11 +71,8 @@ function Quote({ children, source }: { children: React.ReactNode; source: string
 
 export default function WhatAGramMeansPage() {
   const bench = measureAgainstBenchmark("k24");
-  const feeImpact = measureFeeImpact("manekiya", "k18", [2, 5, 10]);
   const review = measureReviewVsPrice("k24");
   const campaigns = getActiveCampaigns();
-  const manekiya = getCompanyById("manekiya");
-  const k18 = manekiya?.priceData.prices.k18;
 
   if (!bench) {
     return (
@@ -92,8 +83,6 @@ export default function WhatAGramMeansPage() {
       </div>
     );
   }
-
-  const shown = feeImpact.filter((f) => f.effectiveRank !== null);
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-6 sm:py-10">
@@ -210,82 +199,26 @@ export default function WhatAGramMeansPage() {
         </p>
       </section>
 
-      {/* 4. 引くか、織り込むか */}
+      {/* 4. 引くか、織り込むか。詳細は手数料の記事に分けた(同じ表を2か所に置かない) */}
       <section className="mb-10">
         <h2 className="font-serif-jp mb-3 text-lg font-semibold">表示額から引く店と、あらかじめ織り込む店</h2>
         <p className="mb-3 text-sm leading-relaxed text-foreground/80">
-          ここがいちばん金額に効きます。{QUOTES.manekiya.company}の価格ページには、
-          シミュレーターの結果のすぐ下にこう書かれています。
+          ここがいちばん金額に効きます。表示単価から分析料を後で引く店があり、
+          費用を単価に織り込んだうえで「手数料は無料」と書く店があり、
+          引かれるものはないと明記する店があります。
+          同じ「無料」の2文字が、指しているものが違います。
         </p>
-        <Quote source={`${QUOTES.manekiya.company}「本日の貴金属相場」より（${jaDate(QUOTES.manekiya.read)}閲覧）`}>
-          {QUOTES.manekiya.deduct}
-        </Quote>
-        <p className="mb-3 text-sm leading-relaxed text-foreground/80">
-          分析料の金額は同じページに表で出ており、{QUOTES.manekiya.perItem.replace(/。$/, "")}と明記されています。
-          買取金額20万円以上は「お問い合わせください」とあり、公表されていません。
-        </p>
-
-        {k18 && shown.length > 0 && (
-          <>
-            <p className="mb-3 text-sm leading-relaxed text-foreground/80">
-              同社のK18は1gあたり{yen(k18)}円で、当サイトの{shown[0].total}社中
-              {shown[0].displayRank}位です。この単価のまま、K18の品物を1点だけ売った場合を計算します。
-            </p>
-            <div className="mb-3 overflow-x-auto">
-              <table className="w-full min-w-[440px] border-collapse text-sm">
-                <thead>
-                  <tr className="border-b border-border text-left text-xs text-muted">
-                    <th className="py-2 pr-3 font-medium">重さ</th>
-                    <th className="py-2 pr-3 text-right font-medium">単価どおりなら</th>
-                    <th className="py-2 pr-3 text-right font-medium">分析料</th>
-                    <th className="py-2 pr-3 text-right font-medium">実質単価</th>
-                    <th className="py-2 text-right font-medium">順位相当</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {shown.map((f) => (
-                    <tr key={f.grams} className="border-b border-border/60">
-                      <td className="py-2 pr-3">{f.grams}g</td>
-                      <td className="py-2 pr-3 text-right tabular-nums">{yen(f.gross)}円</td>
-                      <td className="py-2 pr-3 text-right tabular-nums">−{yen(f.fee!)}円</td>
-                      <td className="py-2 pr-3 text-right tabular-nums">{yen(f.effective!)}円/g</td>
-                      <td className="py-2 text-right font-semibold tabular-nums">{f.effectiveRank}位</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-            <p className="mb-4 text-xs text-muted">
-              分析料は公表されている税抜額に消費税を加えた金額。{jaDate(MANEKIYA_FEE.transcribedAt)}時点で{" "}
-              <a href={MANEKIYA_FEE.sourceUrl} target="_blank" rel="noopener noreferrer nofollow" className="underline underline-offset-2">
-                同社の公表表
-              </a>
-              から転記しています。順位は当サイト掲載社のK18単価との比較です。
-            </p>
-            <p className="mb-4 text-sm leading-relaxed text-foreground/80">
-              表示単価では{shown[0].displayRank}位の店が、指輪1本を売るだけなら
-              <span className="font-semibold">{shown.find((f) => f.grams === 5)?.effectiveRank ?? shown[0].effectiveRank}位相当</span>
-              になります。まとめて売れば1点あたりの負担は薄まりますが、
-              分析料は1点ごとなので、小さなものを何点も持ち込むと逆に効いてきます。
-            </p>
-          </>
-        )}
-
-        <p className="mb-3 text-sm leading-relaxed text-foreground/80">
-          一方で、後から引かない店もあります。費用を取らないのではなく、
-          最初から単価に入れてしまう方式です。
-        </p>
-        <Quote source={`${QUOTES.otakaraya.company}「金の買取相場」より（${jaDate(QUOTES.otakaraya.read)}閲覧）`}>
-          {QUOTES.otakaraya.refining}
-        </Quote>
-        <Quote source={`${QUOTES.komehyo.company}「金・プラチナ買取相場」より（${jaDate(QUOTES.komehyo.read)}閲覧）`}>
-          {QUOTES.komehyo.fee}
-        </Quote>
-        <p className="text-sm leading-relaxed text-foreground/80">
+        <p className="mb-4 text-sm leading-relaxed text-foreground/80">
           高く見える単価から後で引かれるのと、引かれる前提で少し低い単価が出ているのとでは、
           並べて比べたときの意味が変わります。表示単価だけを見て順位を付けると、
           前者が有利に、後者が不利に出ます。
         </p>
+        <Link
+          href="/column/fees"
+          className="inline-flex min-h-11 items-center rounded-lg border border-border bg-surface px-4 text-sm font-medium transition hover:border-accent/40 hover:bg-accent-soft/30"
+        >
+          各社の記載と、引かれたあとの実質単価を見る
+        </Link>
       </section>
 
       {/* 5. 口コミ */}

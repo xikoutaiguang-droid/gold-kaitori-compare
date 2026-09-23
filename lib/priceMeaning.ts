@@ -79,6 +79,8 @@ export function manekiyaFee(amount: number): number | null {
 }
 
 export interface FeeImpact {
+  /** どの純度の単価で計算したか。複数の純度を並べる記事で取り違えないため */
+  purity: Purity;
   grams: number;
   gross: number;
   fee: number | null;
@@ -111,11 +113,12 @@ export function measureFeeImpact(companyId: string, purity: Purity, weights: num
     const gross = unit * grams;
     const fee = manekiyaFee(gross);
     if (fee === null) {
-      return { grams, gross, fee: null, net: null, effective: null, effectiveRank: null, displayRank, total: others.length };
+      return { purity, grams, gross, fee: null, net: null, effective: null, effectiveRank: null, displayRank, total: others.length };
     }
     const net = gross - fee;
     const effective = net / grams;
     return {
+      purity,
       grams,
       gross,
       fee,

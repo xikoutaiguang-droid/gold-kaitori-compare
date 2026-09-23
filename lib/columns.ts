@@ -13,6 +13,11 @@ export interface ColumnEntry {
 
 export const COLUMNS: ColumnEntry[] = [
   {
+    href: "/column/fees",
+    title: "金買取の手数料は、どこでいくら引かれるのか",
+    desc: "「手数料無料」の意味が店ごとに違うこと、あとから引かれる場合に実質単価がいくらになるかを各社の記載から",
+  },
+  {
     href: "/column/timing-vs-shop",
     // 一覧は静的な配列なので、どちらが効くかを書かない。記事側の見出しは
     // 測った結果で入れ替わるため、ここに書くと片方が古くなる。
