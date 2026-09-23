@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getCompanies, formatFetchedAt } from "@/lib/companies";
-import { getCompanyById, getRelatedCompanies, getStandings } from "@/lib/companyPages";
+import { getCompanyById, getRelatedCompanies, getStandings, getMarketToday } from "@/lib/companyPages";
 import { companyPriceChange } from "@/lib/companyHistory";
 import { getAffiliateLinks } from "@/lib/outboundLink";
 import {
@@ -124,6 +124,8 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
   const weekChange = companyPriceChange(company.id, "k24", 7);
   const links = getAffiliateLinks(company);
   const related = getRelatedCompanies(company);
+  // 価格を公表していない社のページでだけ使う
+  const marketToday = hasPrice ? null : getMarketToday("k24");
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-6 sm:py-10">
@@ -232,10 +234,41 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
             でご確認ください。
           </p>
         ) : (
-          <p className="text-sm text-muted">
-            {company.name}は1gあたりの買取価格をウェブ上で数値公開していないため、当サイトでは価格を掲載していません。
-            実際の金額は問い合わせや査定で確認してください。存在しない数値を推定して載せることはしていません。
-          </p>
+          <>
+            <p className="mb-4 text-sm text-muted">
+              {company.name}は1gあたりの買取価格をウェブ上で数値公開していないため、当サイトでは価格を掲載していません。
+              実際の金額は問い合わせや査定で確認してください。存在しない数値を推定して載せることはしていません。
+            </p>
+            {/* 価格が無いページを「分かりません」で終わらせない。問い合わせる前に
+                今日の水準を知っておけるほうが、読む人にとって意味がある。
+                この社の価格ではないことは、見出しと注記で明示する。 */}
+            {marketToday && (
+              <div className="rounded-xl border border-border bg-surface p-4">
+                <h3 className="mb-2 text-sm font-semibold">
+                  参考: 価格を公表している{marketToday.count}社の今日の水準
+                </h3>
+                <dl className="grid grid-cols-[6rem_1fr] gap-y-1.5 text-sm">
+                  <dt className="text-muted">いちばん高い</dt>
+                  <dd className="tabular-nums">
+                    {marketToday.high.toLocaleString("ja-JP")}円/g
+                    <span className="ml-1 text-xs text-muted">({marketToday.highName})</span>
+                  </dd>
+                  <dt className="text-muted">まん中</dt>
+                  <dd className="tabular-nums">{marketToday.median.toLocaleString("ja-JP")}円/g</dd>
+                  <dt className="text-muted">いちばん安い</dt>
+                  <dd className="tabular-nums">{marketToday.low.toLocaleString("ja-JP")}円/g</dd>
+                </dl>
+                <p className="mt-2 text-xs leading-relaxed text-muted">
+                  {PURITY_LABELS.k24}の公表買取価格です。{company.name}の価格ではありません。
+                  問い合わせる前にこの幅を知っておくと、提示された金額が
+                  どのあたりに位置するかを自分で判断できます。
+                  <Link href="/compare" className="ml-1 underline underline-offset-2 hover:text-accent">
+                    {marketToday.count}社の一覧を見る
+                  </Link>
+                </p>
+              </div>
+            )}
+          </>
         )}
         {company.priceCaveat && (
           // 要点は開かなくても読めるようにし、根拠は畳んでおく。

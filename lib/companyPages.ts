@@ -68,3 +68,35 @@ export function getRelatedCompanies(company: Company, limit = 6): Company[] {
     .slice(0, limit);
   return scored.length ? scored : all.slice(0, limit);
 }
+
+export interface MarketToday {
+  purity: Purity;
+  count: number;
+  high: number;
+  highName: string;
+  median: number;
+  low: number;
+}
+
+/**
+ * 今日、価格を公表している社の水準。
+ *
+ * 価格を出していない社のページで使う。そこを「分かりません」で終わらせると、
+ * 読む人は何も持たずに問い合わせることになる。その社の価格ではないと断ったうえで、
+ * 今日の幅だけでも渡しておく。
+ */
+export function getMarketToday(purity: Purity = "k24"): MarketToday | null {
+  const rows = getCompanies()
+    .map((c) => ({ name: c.name, price: c.priceData.prices[purity] }))
+    .filter((r): r is { name: string; price: number } => r.price !== undefined)
+    .sort((a, b) => b.price - a.price);
+  if (rows.length < 5) return null;
+  return {
+    purity,
+    count: rows.length,
+    high: rows[0].price,
+    highName: rows[0].name,
+    median: rows[(rows.length - 1) >> 1].price,
+    low: rows[rows.length - 1].price,
+  };
+}
