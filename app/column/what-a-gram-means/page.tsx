@@ -8,6 +8,8 @@ import {
 } from "@/lib/priceMeaning";
 import { getCompanyById } from "@/lib/companyPages";
 import { getActiveCampaigns } from "@/lib/campaigns";
+import JsonLd from "@/components/JsonLd";
+import { articleJsonLd, columnBreadcrumb } from "@/lib/structuredData";
 
 export function generateMetadata(): Metadata {
   const b = measureAgainstBenchmark("k24");
@@ -94,6 +96,7 @@ export default function WhatAGramMeansPage() {
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-6 sm:py-10">
+      <JsonLd data={[articleJsonLd("/column/what-a-gram-means", generateMetadata()), columnBreadcrumb("/column/what-a-gram-means", generateMetadata())]} />
       <p className="mb-2 text-sm font-medium text-accent-strong">
         <Link href="/column" className="hover:underline">
           コラム

@@ -8,6 +8,8 @@ import {
 } from "@/components/HallmarkDiagrams";
 import { PURITY_FINENESS } from "@/lib/units";
 import { PURITY_LABELS, GOLD_PURITIES, PLATINUM_PURITIES } from "@/lib/types";
+import JsonLd from "@/components/JsonLd";
+import { articleJsonLd, columnBreadcrumb } from "@/lib/structuredData";
 
 export const metadata: Metadata = {
   title: "金の刻印はどこにある？「750」「K18」「GP」の見分け方",
@@ -30,6 +32,7 @@ const PLATED = [
 export default function HallmarkPage() {
   return (
     <div className="mx-auto max-w-2xl px-4 py-6 sm:py-10">
+      <JsonLd data={[articleJsonLd("/column/hallmark", metadata), columnBreadcrumb("/column/hallmark", metadata)]} />
       <p className="mb-2 text-sm font-medium text-accent-strong">
         <Link href="/column" className="hover:underline">
           コラム

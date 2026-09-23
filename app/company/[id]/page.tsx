@@ -16,6 +16,8 @@ import CampaignNotice from "@/components/CampaignNotice";
 import CompanyLogo from "@/components/CompanyLogo";
 import ReliabilityBadge from "@/components/ReliabilityBadge";
 import PrBadge from "@/components/PrBadge";
+import JsonLd from "@/components/JsonLd";
+import { breadcrumbJsonLd } from "@/lib/structuredData";
 
 /** 本文に混ぜる日付。ISO表記のままだと文章の中で浮く */
 function jaDate(iso: string): string {
@@ -124,6 +126,14 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-6 sm:py-10">
+      {/* 検索結果でURLの代わりに階層を出す。下のパンくずと同じ並びにすること */}
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "買取店を比較", path: "/compare" },
+          { name: "買取店一覧", path: "/company" },
+          { name: company.name, path: `/company/${company.id}` },
+        ])}
+      />
       <nav className="mb-4 text-xs text-muted">
         <Link href="/compare" className="underline underline-offset-2">
           買取店を比較

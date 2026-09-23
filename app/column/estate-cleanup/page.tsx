@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import JsonLd from "@/components/JsonLd";
+import { articleJsonLd, columnBreadcrumb } from "@/lib/structuredData";
 
 export const metadata: Metadata = {
   title: "遺品整理・生前整理で貴金属を手放すときの心構え｜査定に出す前に知っておきたいこと",
@@ -11,6 +13,7 @@ export const metadata: Metadata = {
 export default function EstateCleanupColumnPage() {
   return (
     <div className="mx-auto max-w-2xl px-4 py-6 sm:py-10">
+      <JsonLd data={[articleJsonLd("/column/estate-cleanup", metadata), columnBreadcrumb("/column/estate-cleanup", metadata)]} />
       <p className="mb-2 text-sm font-medium text-accent-strong">
         <Link href="/column" className="hover:underline">
           コラム

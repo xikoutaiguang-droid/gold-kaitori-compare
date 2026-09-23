@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import JsonLd from "@/components/JsonLd";
+import { articleJsonLd, columnBreadcrumb } from "@/lib/structuredData";
 
 export const metadata: Metadata = {
   title: "金相場はなぜ変動するのか｜国際価格・為替との関係をやさしく解説",
@@ -11,6 +13,7 @@ export const metadata: Metadata = {
 export default function PriceFactorsColumnPage() {
   return (
     <div className="mx-auto max-w-2xl px-4 py-6 sm:py-10">
+      <JsonLd data={[articleJsonLd("/column/price-factors", metadata), columnBreadcrumb("/column/price-factors", metadata)]} />
       <p className="mb-2 text-sm font-medium text-accent-strong">
         <Link href="/column" className="hover:underline">
           コラム

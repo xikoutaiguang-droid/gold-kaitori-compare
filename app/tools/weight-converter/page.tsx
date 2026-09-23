@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import TrustBadges from "@/components/TrustBadges";
 import WeightUnitConverter from "@/components/WeightUnitConverter";
+import JsonLd from "@/components/JsonLd";
+import { breadcrumbJsonLd } from "@/lib/structuredData";
 
 export const metadata: Metadata = {
   title: "g・匁・オンス換算ツール｜金・貴金属の重さ単位変換",
@@ -34,7 +36,15 @@ export default function WeightConverterPage() {
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-6 sm:py-10">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <JsonLd
+        data={[
+          jsonLd,
+          breadcrumbJsonLd([
+            { name: "計算ツール", path: "/tools" },
+            { name: "g・匁・オンス換算", path: "/tools/weight-converter" },
+          ]),
+        ]}
+      />
       <h1 className="font-serif-jp mb-2 text-xl font-semibold sm:text-2xl">g・匁・オンス換算ツール</h1>
       <p className="mb-6 text-base text-muted">
         グラム・匁(もんめ)・トロイオンス・キログラムを相互に変換できます。金やプラチナの重さを、

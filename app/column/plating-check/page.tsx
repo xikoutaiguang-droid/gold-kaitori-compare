@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import JsonLd from "@/components/JsonLd";
+import { articleJsonLd, columnBreadcrumb } from "@/lib/structuredData";
 
 export const metadata: Metadata = {
   title: "メッキと金の簡単な見分け方｜磁石でできる自宅チェック",
@@ -36,7 +38,7 @@ export default function PlatingCheckColumnPage() {
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-6 sm:py-10">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <JsonLd data={[articleJsonLd("/column/plating-check", metadata), columnBreadcrumb("/column/plating-check", metadata), jsonLd]} />
       <p className="mb-2 text-sm font-medium text-accent-strong">
         <Link href="/column" className="hover:underline">
           コラム

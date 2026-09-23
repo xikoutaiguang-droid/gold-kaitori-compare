@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import { getCompanies } from "@/lib/companies";
 import { REGION_PAGES, getRegionPageBySlug } from "@/lib/regionPages";
 import CompanyTable from "@/components/CompanyTable";
+import JsonLd from "@/components/JsonLd";
+import { breadcrumbJsonLd } from "@/lib/structuredData";
 
 export function generateStaticParams() {
   return REGION_PAGES.map((r) => ({ region: r.slug }));
@@ -37,6 +39,12 @@ export default async function RegionComparePage({
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-6 sm:py-10">
+      <JsonLd
+        data={breadcrumbJsonLd([
+          { name: "買取店を比較", path: "/compare" },
+          { name: `${config.label}の買取相場`, path: `/compare/${slug}` },
+        ])}
+      />
       <h1 className="font-serif-jp mb-2 text-xl font-semibold sm:text-2xl">
         {config.label}の金・貴金属買取相場比較
       </h1>

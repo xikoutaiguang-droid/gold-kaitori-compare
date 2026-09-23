@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getMeasuredOn, measureSpread } from "@/lib/spread";
 import { PURITY_LABELS } from "@/lib/types";
+import JsonLd from "@/components/JsonLd";
+import { articleJsonLd, columnBreadcrumb } from "@/lib/structuredData";
 
 // 社数は本文と同じく実データから取る。ここだけ固定値にすると、
 // 掲載社が増減したときにタイトルだけが嘘になる。
@@ -58,6 +60,7 @@ export default function PriceGapColumnPage() {
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-6 sm:py-10">
+      <JsonLd data={[articleJsonLd("/column/price-gap", generateMetadata()), columnBreadcrumb("/column/price-gap", generateMetadata())]} />
       <p className="mb-2 text-sm font-medium text-accent-strong">
         <Link href="/column" className="hover:underline">
           コラム

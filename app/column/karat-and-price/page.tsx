@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { KARAT_ORDER, measureKaratPricing, medianK24 } from "@/lib/karat";
 import { PURITY_LABELS } from "@/lib/types";
+import JsonLd from "@/components/JsonLd";
+import { articleJsonLd, columnBreadcrumb } from "@/lib/structuredData";
 
 export function generateMetadata(): Metadata {
   return {
@@ -44,6 +46,7 @@ export default function KaratAndPricePage() {
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-6 sm:py-10">
+      <JsonLd data={[articleJsonLd("/column/karat-and-price", generateMetadata()), columnBreadcrumb("/column/karat-and-price", generateMetadata())]} />
       <p className="mb-2 text-sm font-medium text-accent-strong">
         <Link href="/column" className="hover:underline">
           コラム

@@ -6,6 +6,8 @@ import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import MobileTabBar from "@/components/MobileTabBar";
+import JsonLd from "@/components/JsonLd";
+import { siteJsonLd } from "@/lib/structuredData";
 import { SITE_NAME, SITE_URL, ADSENSE_PUBLISHER_ID, GSC_VERIFICATION, GA_MEASUREMENT_ID } from "@/lib/siteConfig";
 
 const geistSans = Geist({
@@ -65,6 +67,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             crossOrigin="anonymous"
           />
         )}
+        {/* サイトそのものと運営者の情報。各ページの構造化データはここを @id で参照する */}
+        <JsonLd data={siteJsonLd()} />
       </head>
       <body className="min-h-full flex flex-col">
         {GA_MEASUREMENT_ID && (

@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import JsonLd from "@/components/JsonLd";
+import { articleJsonLd, columnBreadcrumb } from "@/lib/structuredData";
 
 export const metadata: Metadata = {
   title: "査定額を上げるコツ｜売る前にできる準備まとめ",
@@ -34,6 +36,7 @@ const tips = [
 export default function MultipleQuotesColumnPage() {
   return (
     <div className="mx-auto max-w-2xl px-4 py-6 sm:py-10">
+      <JsonLd data={[articleJsonLd("/column/multiple-quotes", metadata), columnBreadcrumb("/column/multiple-quotes", metadata)]} />
       <p className="mb-2 text-sm font-medium text-accent-strong">
         <Link href="/column" className="hover:underline">
           コラム

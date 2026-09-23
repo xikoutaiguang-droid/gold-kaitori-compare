@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import Link from "next/link";
+import JsonLd from "@/components/JsonLd";
+import { articleJsonLd, breadcrumbJsonLd } from "@/lib/structuredData";
+import { SITE_NAME } from "@/lib/siteConfig";
 
 export const metadata: Metadata = {
   title: "金・貴金属を売ったときの税金｜イラストでやさしく解説",
@@ -37,7 +40,7 @@ export default function TaxGuidePage() {
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-6 sm:py-10">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <JsonLd data={[articleJsonLd("/guide/tax", metadata), breadcrumbJsonLd([{ name: SITE_NAME, path: "/" }, { name: "ガイド", path: "/guide/tax" }]), jsonLd]} />
       <h1 className="font-serif-jp mb-2 text-xl font-semibold sm:text-2xl">
         金・貴金属を売ったときの税金について
       </h1>
