@@ -80,3 +80,8 @@ export const REGION_PAGES: RegionPageConfig[] = [
 export function getRegionPageBySlug(slug: string): RegionPageConfig | undefined {
   return REGION_PAGES.find((r) => r.slug === slug);
 }
+
+/** 会社データの対応地域から、その地域のページを引く。「全国」には個別ページが無い。 */
+export function getRegionPageByRegion(region: Region): RegionPageConfig | undefined {
+  return REGION_PAGES.find((r) => r.region === region);
+}

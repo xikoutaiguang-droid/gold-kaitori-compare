@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import JsonLd from "@/components/JsonLd";
 import { articleJsonLd, columnBreadcrumb } from "@/lib/structuredData";
+import OtherColumns from "@/components/OtherColumns";
 
 export const metadata: Metadata = {
   title: "メッキと金の簡単な見分け方｜磁石でできる自宅チェック",
@@ -119,6 +120,7 @@ export default function PlatingCheckColumnPage() {
           ← コラム一覧に戻る
         </Link>
       </p>
+      <OtherColumns current="/column/plating-check" />
     </div>
   );
 }

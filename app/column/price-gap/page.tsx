@@ -4,6 +4,7 @@ import { getMeasuredOn, measureSpread } from "@/lib/spread";
 import { PURITY_LABELS } from "@/lib/types";
 import JsonLd from "@/components/JsonLd";
 import { articleJsonLd, columnBreadcrumb } from "@/lib/structuredData";
+import OtherColumns from "@/components/OtherColumns";
 
 // 社数は本文と同じく実データから取る。ここだけ固定値にすると、
 // 掲載社が増減したときにタイトルだけが嘘になる。
@@ -243,6 +244,7 @@ export default function PriceGapColumnPage() {
           買取店ごとのページで、順位と中央値との差を見る
         </Link>
       </div>
+      <OtherColumns current="/column/price-gap" />
     </div>
   );
 }

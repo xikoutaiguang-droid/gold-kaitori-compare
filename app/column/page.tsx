@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { COLUMNS } from "@/lib/columns";
 
 export const metadata: Metadata = {
   title: "金・貴金属買取コラム",
@@ -7,48 +8,6 @@ export const metadata: Metadata = {
   alternates: { canonical: "/column" },
 };
 
-const columns = [
-  {
-    href: "/column/hallmark",
-    title: "金の刻印はどこにある？「750」「K18」「GP」の見分け方",
-    desc: "刻印の位置を図で示し、造幣局のホールマークやメッキ表記との違いまで",
-  },
-  {
-    href: "/column/karat-and-price",
-    title: "K18は「金75%」。では値段も75%になるのか",
-    desc: "刻印が示す含有率と、実際に払われている金額を各社の公表価格から比べました",
-  },
-  {
-    href: "/column/what-a-gram-means",
-    title: "「1gいくら」は、店ごとに同じ意味ではない",
-    desc: "各社の注意書きまで読むと、同じ単価が指しているものが揃っていませんでした",
-  },
-  {
-    href: "/column/price-gap",
-    title: "同じ日に、同じ金を、各社はいくらで買うのか",
-    desc: "当サイトが集めた各社の公表価格を実際に測り、得と損の大きさを比べました",
-  },
-  {
-    href: "/column/plating-check",
-    title: "メッキと金の簡単な見分け方",
-    desc: "磁石を使った自宅でできる簡易チェックと、その限界について",
-  },
-  {
-    href: "/column/multiple-quotes",
-    title: "査定額を上げるコツ",
-    desc: "相見積もりをはじめ、売る前にできる準備をまとめました",
-  },
-  {
-    href: "/column/price-factors",
-    title: "金相場はなぜ変動するのか",
-    desc: "国際価格・為替・世界情勢との関係をやさしく解説",
-  },
-  {
-    href: "/column/estate-cleanup",
-    title: "遺品整理・生前整理で貴金属を手放すときの心構え",
-    desc: "気持ちの整理から実務的な注意点まで",
-  },
-];
 
 export default function ColumnIndexPage() {
   return (
@@ -58,7 +17,7 @@ export default function ColumnIndexPage() {
         金・貴金属を売る前に知っておくと安心できることを、専門用語をできるだけ使わずにまとめました。
       </p>
       <ul className="flex flex-col gap-3">
-        {columns.map((c) => (
+        {COLUMNS.map((c) => (
           <li key={c.href}>
             <Link
               href={c.href}

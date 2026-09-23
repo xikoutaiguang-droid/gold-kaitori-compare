@@ -18,6 +18,7 @@ import ReliabilityBadge from "@/components/ReliabilityBadge";
 import PrBadge from "@/components/PrBadge";
 import JsonLd from "@/components/JsonLd";
 import { breadcrumbJsonLd } from "@/lib/structuredData";
+import { getRegionPageByRegion } from "@/lib/regionPages";
 
 /** 本文に混ぜる日付。ISO表記のままだと文章の中で浮く */
 function jaDate(iso: string): string {
@@ -259,7 +260,31 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
         <h2 className="font-serif-jp mb-3 text-lg font-semibold">対応地域と規模</h2>
         <dl className="grid grid-cols-[7rem_1fr] gap-y-2 text-sm">
           <dt className="text-muted">対応地域</dt>
-          <dd>{company.regions.join("・")}</dd>
+          {/* 地域名はその地域の一覧ページへの入口にする。この店を見ている人は
+              「同じ地域の他の店」を見たいことが多く、地域ページ側も
+              /compare からの1本しかリンクが無かった。 */}
+          <dd className="flex flex-wrap gap-x-1 gap-y-1">
+            {company.regions.map((r, i) => {
+              const page = getRegionPageByRegion(r);
+              return (
+                <span key={r} className="inline-flex items-center">
+                  {i > 0 && <span className="mr-1 text-muted">・</span>}
+                  {page ? (
+                    <Link
+                      href={`/compare/${page.slug}`}
+                      className="underline underline-offset-2 hover:text-accent"
+                    >
+                      {r}
+                    </Link>
+                  ) : (
+                    <Link href="/compare" className="underline underline-offset-2 hover:text-accent">
+                      {r}
+                    </Link>
+                  )}
+                </span>
+              );
+            })}
+          </dd>
           <dt className="text-muted">店舗数</dt>
           <dd>
             {company.storeCount === null

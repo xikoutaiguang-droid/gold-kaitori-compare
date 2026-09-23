@@ -4,6 +4,7 @@ import { KARAT_ORDER, measureKaratPricing, medianK24 } from "@/lib/karat";
 import { PURITY_LABELS } from "@/lib/types";
 import JsonLd from "@/components/JsonLd";
 import { articleJsonLd, columnBreadcrumb } from "@/lib/structuredData";
+import OtherColumns from "@/components/OtherColumns";
 
 export function generateMetadata(): Metadata {
   return {
@@ -227,6 +228,7 @@ export default function KaratAndPricePage() {
           刻印がないとき、メッキかどうかを確かめる方法
         </Link>
       </div>
+      <OtherColumns current="/column/karat-and-price" />
     </div>
   );
 }

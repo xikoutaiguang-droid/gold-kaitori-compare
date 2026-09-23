@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import JsonLd from "@/components/JsonLd";
 import { articleJsonLd, columnBreadcrumb } from "@/lib/structuredData";
+import OtherColumns from "@/components/OtherColumns";
 
 export const metadata: Metadata = {
   title: "遺品整理・生前整理で貴金属を手放すときの心構え｜査定に出す前に知っておきたいこと",
@@ -96,6 +97,7 @@ export default function EstateCleanupColumnPage() {
           ← コラム一覧に戻る
         </Link>
       </p>
+      <OtherColumns current="/column/estate-cleanup" />
     </div>
   );
 }

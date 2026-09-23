@@ -4,7 +4,7 @@ import Link from "next/link";
 import { getCompanies } from "@/lib/companies";
 import CompanyTable from "@/components/CompanyTable";
 import MarketClosedNotice from "@/components/MarketClosedNotice";
-import { REGION_PAGES } from "@/lib/regionPages";
+import RegionLinks from "@/components/RegionLinks";
 import { getCompaniesForIndex } from "@/lib/companyPages";
 
 export const metadata: Metadata = {
@@ -62,17 +62,7 @@ export default function ComparePage() {
 
       <section className="mt-12 border-t border-border pt-8">
         <h2 className="font-serif-jp mb-3 text-lg font-semibold">地域から探す</h2>
-        <div className="flex flex-wrap gap-2">
-          {REGION_PAGES.map((r) => (
-            <Link
-              key={r.slug}
-              href={`/compare/${r.slug}`}
-              className="rounded-full border border-border px-3.5 py-1.5 text-sm text-foreground/80 transition hover:border-accent/40 hover:bg-accent-soft"
-            >
-              {r.label}
-            </Link>
-          ))}
-        </div>
+        <RegionLinks />
       </section>
     </div>
   );

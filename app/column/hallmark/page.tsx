@@ -10,6 +10,7 @@ import { PURITY_FINENESS } from "@/lib/units";
 import { PURITY_LABELS, GOLD_PURITIES, PLATINUM_PURITIES } from "@/lib/types";
 import JsonLd from "@/components/JsonLd";
 import { articleJsonLd, columnBreadcrumb } from "@/lib/structuredData";
+import OtherColumns from "@/components/OtherColumns";
 
 export const metadata: Metadata = {
   title: "金の刻印はどこにある？「750」「K18」「GP」の見分け方",
@@ -196,6 +197,7 @@ export default function HallmarkPage() {
           その純度に、実際いくら払われているのかを測った記事
         </Link>
       </div>
+      <OtherColumns current="/column/hallmark" />
     </div>
   );
 }

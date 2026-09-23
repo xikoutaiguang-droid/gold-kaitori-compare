@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import JsonLd from "@/components/JsonLd";
 import { articleJsonLd, columnBreadcrumb } from "@/lib/structuredData";
+import OtherColumns from "@/components/OtherColumns";
 
 export const metadata: Metadata = {
   title: "金相場はなぜ変動するのか｜国際価格・為替との関係をやさしく解説",
@@ -79,6 +80,7 @@ export default function PriceFactorsColumnPage() {
           ← コラム一覧に戻る
         </Link>
       </p>
+      <OtherColumns current="/column/price-factors" />
     </div>
   );
 }

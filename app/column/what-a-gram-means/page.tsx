@@ -10,6 +10,7 @@ import { getCompanyById } from "@/lib/companyPages";
 import { getActiveCampaigns } from "@/lib/campaigns";
 import JsonLd from "@/components/JsonLd";
 import { articleJsonLd, columnBreadcrumb } from "@/lib/structuredData";
+import OtherColumns from "@/components/OtherColumns";
 
 export function generateMetadata(): Metadata {
   const b = measureAgainstBenchmark("k24");
@@ -374,6 +375,7 @@ export default function WhatAGramMeansPage() {
           店ごとの差が実際いくらになるかを測った記事
         </Link>
       </div>
+      <OtherColumns current="/column/what-a-gram-means" />
     </div>
   );
 }

@@ -8,6 +8,7 @@ import TrustBadges from "@/components/TrustBadges";
 import MarketClosedNotice from "@/components/MarketClosedNotice";
 import WeeklyChange from "@/components/WeeklyChange";
 import OperatorMessage from "@/components/OperatorMessage";
+import RegionLinks from "@/components/RegionLinks";
 
 /**
  * トップページの検索結果での見え方。
@@ -142,6 +143,16 @@ export default function Home() {
           icon={<ColumnIcon />}
         />
       </div>
+
+      {/* 地域ページへの入口。トップからの1本が、この9ページにとっては
+          サイト内でいちばん強いリンクになる。 */}
+      <section className="mt-10 border-t border-border pt-8">
+        <h2 className="font-serif-jp mb-1 text-lg font-semibold">地域から探す</h2>
+        <p className="mb-3 text-sm text-muted">
+          その地域に店舗を出している会社だけを、同じ並びで比べられます。
+        </p>
+        <RegionLinks />
+      </section>
     </div>
   );
 }

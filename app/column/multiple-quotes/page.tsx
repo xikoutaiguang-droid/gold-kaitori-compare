@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import JsonLd from "@/components/JsonLd";
 import { articleJsonLd, columnBreadcrumb } from "@/lib/structuredData";
+import OtherColumns from "@/components/OtherColumns";
 
 export const metadata: Metadata = {
   title: "査定額を上げるコツ｜売る前にできる準備まとめ",
@@ -81,6 +82,7 @@ export default function MultipleQuotesColumnPage() {
           ← コラム一覧に戻る
         </Link>
       </p>
+      <OtherColumns current="/column/multiple-quotes" />
     </div>
   );
 }
