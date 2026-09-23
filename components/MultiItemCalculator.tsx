@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import type { Company, Purity } from "@/lib/types";
+import type { PriceHistory } from "@/lib/priceHistory";
+import { priceChangeSince } from "@/lib/sinceLastVisit";
 import { PURITY_LABELS, GOLD_PURITIES, PLATINUM_PURITIES, SILVER_PURITIES } from "@/lib/types";
 import { getOutboundUrl, hasAffiliateLink } from "@/lib/outboundLink";
 import { trackOutboundClick } from "@/lib/analytics";
@@ -13,6 +15,11 @@ import PrBadge from "@/components/PrBadge";
 
 const PURITY_OPTIONS: Purity[] = [...GOLD_PURITIES, ...PLATINUM_PURITIES, ...SILVER_PURITIES];
 const STORAGE_KEY = "gold-kaitori-compare:multi-items";
+/**
+ * この端末で前回この画面を見た日。品物とは別に持つ。
+ * 同じ日に何度開いても基準は動かさないので、「前回からの差」が読んでいる間に消えない。
+ */
+const LAST_SEEN_KEY = "gold-kaitori-compare:items-last-seen";
 
 interface Item {
   id: string;
@@ -22,13 +29,26 @@ interface Item {
   purity: Purity;
 }
 
+/** 本文に混ぜる日付。ISO表記のままだと読みにくい */
+function jaDate(iso: string): string {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso);
+  return m ? `${Number(m[2])}月${Number(m[3])}日` : iso;
+}
+
 function newItem(): Item {
   return { id: crypto.randomUUID(), name: "", weight: "", stoneWeight: "", purity: "k18" };
 }
 
-export default function MultiItemCalculator({ companies }: { companies: Company[] }) {
+export default function MultiItemCalculator({
+  companies,
+  history,
+}: {
+  companies: Company[];
+  history: PriceHistory;
+}) {
   const [items, setItems] = useState<Item[]>([]);
   const [loaded, setLoaded] = useState(false);
+  const [lastSeen, setLastSeen] = useState<string | null>(null);
 
   // 初回マウント時にlocalStorageから復元する。SSRとの不一致を避けるため
   // マウント後にのみ読み込み、読み込み前は空リストのまま描画する。
@@ -40,6 +60,17 @@ export default function MultiItemCalculator({ companies }: { companies: Company[
       if (raw) setItems(JSON.parse(raw));
     } catch {
       // 読み込みに失敗しても空リストから始めれば良いだけなので無視する
+    }
+    // 前回この画面を見た日を読み、今日の日付で更新しておく。
+    // 日付が変わったときだけ基準を進めるので、同じ日のうちは差が安定して見える。
+    try {
+      const today = new Date().toISOString().slice(0, 10);
+      const prev = localStorage.getItem(LAST_SEEN_KEY);
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      if (prev && prev < today) setLastSeen(prev);
+      if (prev !== today) localStorage.setItem(LAST_SEEN_KEY, today);
+    } catch {
+      // 使えない環境では「前回」が出ないだけで、計算そのものには影響しない
     }
     setLoaded(true);
   }, []);
@@ -61,6 +92,15 @@ export default function MultiItemCalculator({ companies }: { companies: Company[
   const availablePurities = PURITY_OPTIONS.filter((p) =>
     companies.some((c) => c.priceData.prices[p] !== undefined)
   );
+
+  // 保存されている品物の純度について、前回この画面を見た日からの相場の動きを出す。
+  // 買取店は自社の「今日」しか出せない。前回との差を出せるのは日次の記録がある側だけで、
+  // これがこのサイトに戻ってくる理由になる。登録も通知も要らず端末の中で完結する。
+  const changes = lastSeen
+    ? [...new Set(items.map((i) => i.purity))]
+        .map((p) => priceChangeSince(history, p, lastSeen))
+        .filter((c): c is NonNullable<typeof c> => c !== null && c.diff !== 0)
+    : [];
 
   const goldWeightOf = (item: Item) => {
     const w = Number(item.weight);
@@ -90,6 +130,34 @@ export default function MultiItemCalculator({ companies }: { companies: Company[
           「石の重さ」欄に入力してください。
         </CaveatNote>
       </div>
+
+      {changes.length > 0 && (
+        <div className="mb-4 rounded-2xl border border-accent/40 bg-accent-soft/30 p-4 text-sm">
+          <p className="mb-2 font-medium">前回ご覧になったときからの相場の動き</p>
+          <ul className="flex flex-col gap-1">
+            {changes.map((c) => (
+              <li key={c.purity} className="flex items-baseline justify-between gap-2">
+                <span className="text-muted">
+                  {PURITY_LABELS[c.purity]}
+                  <span className="ml-2 text-xs">{jaDate(c.since)}比</span>
+                </span>
+                <span
+                  className={`tabular-nums font-semibold ${
+                    c.diff > 0 ? "text-emerald-700 dark:text-emerald-400" : "text-foreground/80"
+                  }`}
+                >
+                  {c.diff > 0 ? "+" : ""}
+                  {c.diff.toLocaleString("ja-JP")}円/g
+                </span>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-2 text-xs leading-relaxed text-muted">
+            掲載各社の公表価格の平均です。特定の店の査定額ではなく、相場がどちらに動いたかの目安として
+            ご覧ください。保存した品物はこの端末の中だけにあり、当サイトには送信されません。
+          </p>
+        </div>
+      )}
 
       <div className="flex flex-col gap-3">
         {items.map((item, index) => (

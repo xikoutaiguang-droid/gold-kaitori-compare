@@ -5,7 +5,15 @@ import type { Company } from "@/lib/types";
 import SimulatorForm from "@/components/SimulatorForm";
 import MultiItemCalculator from "@/components/MultiItemCalculator";
 
-export default function SimulatorTabs({ companies }: { companies: Company[] }) {
+import type { PriceHistory } from "@/lib/priceHistory";
+
+export default function SimulatorTabs({
+  companies,
+  history,
+}: {
+  companies: Company[];
+  history: PriceHistory;
+}) {
   const [mode, setMode] = useState<"single" | "multi">("single");
 
   return (
@@ -32,7 +40,7 @@ export default function SimulatorTabs({ companies }: { companies: Company[] }) {
       {mode === "single" ? (
         <SimulatorForm companies={companies} />
       ) : (
-        <MultiItemCalculator companies={companies} />
+        <MultiItemCalculator companies={companies} history={history} />
       )}
     </div>
   );

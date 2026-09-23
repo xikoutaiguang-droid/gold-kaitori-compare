@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { getCompanies } from "@/lib/companies";
 import SimulatorTabs from "@/components/SimulatorTabs";
+import { getPriceHistory } from "@/lib/priceHistory";
 import TrustBadges from "@/components/TrustBadges";
 
 export const metadata: Metadata = {
@@ -70,7 +71,7 @@ export default function SimulatorPage() {
           "会員登録・電話番号の入力なしで計算できます",
         ]}
       />
-      <SimulatorTabs companies={companies} />
+      <SimulatorTabs companies={companies} history={getPriceHistory()} />
 
       <section className="mt-12 border-t border-border pt-8">
         <h2 className="font-serif-jp mb-4 text-lg font-semibold">よくある質問</h2>
