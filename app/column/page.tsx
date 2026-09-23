@@ -9,6 +9,11 @@ export const metadata: Metadata = {
 
 const columns = [
   {
+    href: "/column/karat-and-price",
+    title: "K18は「金75%」。では値段も75%になるのか",
+    desc: "刻印が示す含有率と、実際に払われている金額を各社の公表価格から比べました",
+  },
+  {
     href: "/column/what-a-gram-means",
     title: "「1gいくら」は、店ごとに同じ意味ではない",
     desc: "各社の注意書きまで読むと、同じ単価が指しているものが揃っていませんでした",
