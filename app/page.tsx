@@ -22,13 +22,25 @@ import OperatorMessage from "@/components/OperatorMessage";
  *
  * 社数は実データから数える。固定値にすると掲載社が増減したときに嘘になる。
  */
+/**
+ * 説明文の冒頭に出す買取店。知名度が高く、社名で検索されうる先を選んでいる。
+ * 名前は固定で書かず、掲載データから引く。掲載から外れた社を説明文だけが
+ * 名乗り続けることがないようにするため。
+ */
+const FEATURED_IDS = ["otakaraya", "kaitori-daikichi", "komehyo", "nanboya", "jewel-cafe"];
+
 export function generateMetadata(): Metadata {
-  const priced = getCompanies().filter((c) => c.priceData.prices.k24 !== undefined).length;
+  const companies = getCompanies();
+  const priced = companies.filter((c) => c.priceData.prices.k24 !== undefined).length;
+  const featured = FEATURED_IDS.map((id) => companies.find((c) => c.id === id))
+    .filter((c): c is NonNullable<typeof c> => Boolean(c) && c!.priceData.prices.k24 !== undefined)
+    .map((c) => c.name);
+
   const title = `金・プラチナ買取 今日の${priced}社の価格と順位`;
   const description =
-    `金・プラチナ買取${priced}社の今日の価格を1gあたりで横並び。` +
-    `各社が何位か、中央値と何円違うかまで分かるので、提示された金額が妥当か判断できます。` +
-    `重さを入れるだけの概算計算つき。`;
+    (featured.length ? `${featured.join("・")}など` : "") +
+    `${priced}社の今日の買取価格を1gあたりで比較。` +
+    `各社が何位か、中央値と何円違うかまで分かります。重さを入れるだけの概算計算つき。`;
 
   return {
     title: { absolute: title },
