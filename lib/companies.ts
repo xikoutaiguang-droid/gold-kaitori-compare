@@ -146,6 +146,73 @@ export const DIAGNOSIS_CRITERIA: { id: CriteriaId; label: string; description: s
  * 単純な平均順位方式を採用しているのは、基準ごとの単位が異なる(店舗数/円/スコア)ため、
  * 加重和よりも「どの基準でも上位に来る会社が総合的に評価される」方式の方が説明しやすいため。
  */
+/**
+ * 各基準での「値」。取れていない場合は null を返し、0 を代入しない。
+ *
+ * 以前は `storeCount ?? 0` と書いていたため、店舗数を公表していない会社が
+ * 「0店舗」として最下位に並んでいた。掲載しているmajor区分10社のうち6社が
+ * 非公表なので、コメ兵やなんぼやのような大手が「大手に任せたい」で消えていた。
+ * 口コミ(`avgRating ?? 0`)も同じで、未取得の5社が★0.0の店として扱われていた。
+ * 公表していないことは、実在する最低値より悪い評価にはならない。
+ */
+function valueFor(criterion: CriteriaId, purity: Purity, pool: Company[]): (c: Company) => number | null {
+  switch (criterion) {
+    case "major": {
+      // 規模の問いに答えるのは tier(major/midsize/boutique)で、店舗数はその中の目安。
+      // 非公表の社は、同じ tier で公表している社の中央値とみなす。
+      // プール全体の中位に置くと tier をまたいでしまい、大手が中堅より下に出る。
+      const medianByTier = new Map<Company["tier"], number>();
+      for (const tier of ["major", "midsize", "boutique"] as const) {
+        const known = pool
+          .filter((c) => c.tier === tier && c.storeCount !== null)
+          .map((c) => c.storeCount as number)
+          .sort((x, y) => x - y);
+        if (known.length) medianByTier.set(tier, known[(known.length - 1) >> 1]);
+      }
+      return (c) => {
+        const count = c.storeCount ?? medianByTier.get(c.tier) ?? null;
+        return count === null ? null : TIER_BASE[c.tier] + count;
+      };
+    }
+    case "highPrice":
+      return (c) => c.priceData.prices[purity] ?? null;
+    case "trusted":
+      return (c) => c.trustScore;
+    case "hospitality":
+      return (c) => c.googleReview?.avgRating ?? null;
+    default:
+      return () => null;
+  }
+}
+
+/** tier の順序を数値にしたもの。同じ tier 内で店舗数が効くよう十分に離す */
+const TIER_BASE: Record<Company["tier"], number> = {
+  major: 2_000_000,
+  midsize: 1_000_000,
+  boutique: 0,
+};
+
+/**
+ * 値の大きい順に1位から並べる。値が無い社は最下位にせず、
+ * 値がある社の中央の順位に置く。有利にも不利にもしないための扱い。
+ */
+function rankWithUnknowns(
+  pool: Company[],
+  value: (c: Company) => number | null,
+): Map<string, number> {
+  const known = pool
+    .map((c) => ({ c, v: value(c) }))
+    .filter((x): x is { c: Company; v: number } => x.v !== null && Number.isFinite(x.v))
+    .sort((a, b) => b.v - a.v);
+
+  const ranks = new Map<string, number>();
+  known.forEach((x, i) => ranks.set(x.c.id, i + 1));
+
+  const medianRank = known.length ? (known.length + 1) / 2 : 1;
+  for (const c of pool) if (!ranks.has(c.id)) ranks.set(c.id, medianRank);
+  return ranks;
+}
+
 export function diagnose(
   companies: Company[],
   criteria: CriteriaId[],
@@ -162,23 +229,9 @@ export function diagnose(
   for (const c of pool) ranks.set(c.id, []);
 
   for (const criterion of criteria) {
-    const sorted = [...pool].sort((a, b) => {
-      switch (criterion) {
-        case "major":
-          return (b.storeCount ?? 0) - (a.storeCount ?? 0);
-        case "highPrice":
-          return (b.priceData.prices[purity] ?? 0) - (a.priceData.prices[purity] ?? 0);
-        case "trusted":
-          return b.trustScore - a.trustScore;
-        case "hospitality":
-          return (b.googleReview?.avgRating ?? 0) - (a.googleReview?.avgRating ?? 0);
-        default:
-          return 0;
-      }
-    });
-    sorted.forEach((c, index) => {
-      ranks.get(c.id)!.push(index + 1);
-    });
+    const value = valueFor(criterion, purity, pool);
+    const ranked = rankWithUnknowns(pool, value);
+    for (const [id, rank] of ranked) ranks.get(id)!.push(rank);
   }
 
   return pool
