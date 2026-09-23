@@ -3,6 +3,8 @@ import { getPriceHistory } from "@/lib/priceHistory";
 import { getFuturesOutlook, getLatestOutlookEntry, resolveOutlookHistory } from "@/lib/futuresOutlook";
 import PersonalTrend from "@/components/PersonalTrend";
 import FuturesOutlook from "@/components/FuturesOutlook";
+import Link from "next/link";
+import { measureTimingVsShop } from "@/lib/timingVsShop";
 
 export const metadata: Metadata = {
   title: "金は今が売り時？買取相場の推移で確認する",
@@ -61,6 +63,8 @@ export default function TrendPage() {
     })),
   };
 
+  const timing = measureTimingVsShop("k24");
+
   return (
     <div className="mx-auto max-w-2xl px-4 py-6 sm:py-10">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
@@ -71,6 +75,27 @@ export default function TrendPage() {
       </p>
 
       <PersonalTrend history={history} />
+
+      {/* 「待つべきか」を考えに来た人には、待って得られる額と、
+          今日店を選び直して得られる額を並べたものが直接の答えになる。 */}
+      {timing && (
+        <section className="mt-12 border-t border-border pt-8">
+          <h2 className="font-serif-jp mb-3 text-lg font-semibold">待つのと、店を選び直すのと</h2>
+          <p className="mb-4 text-sm leading-relaxed text-foreground/80">
+            当サイトが{timing.days}日ぶん記録した{timing.panelSize}社の価格で測ると、
+            相場が{timing.days}日かけて動いた幅は{timing.medianRange.toLocaleString("ja-JP")}円/g、
+            一方で同じ日の店による差はまん中で{timing.gapMedian.toLocaleString("ja-JP")}円/gありました。
+            待って得られるかもしれない額より、今日どこに持ち込むかのほうが
+            {timing.gapMedian > timing.medianRange ? "大きく効いています" : "確実に効きます"}。
+          </p>
+          <Link
+            href="/column/timing-vs-shop"
+            className="inline-flex min-h-11 items-center rounded-lg border border-border bg-surface px-4 text-sm font-medium transition hover:border-accent/40 hover:bg-accent-soft/30"
+          >
+            測り方と各社の値動きを見る
+          </Link>
+        </section>
+      )}
 
       <section className="mt-12 border-t border-border pt-8">
         <h2 className="font-serif-jp mb-4 text-lg font-semibold">市場の先行き予想と、実際の答え合わせ</h2>
