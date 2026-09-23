@@ -1,10 +1,15 @@
 /**
- * その日の各社の価格を、社別の履歴に追記する。
+ * その日取得した各社の価格を、社別の履歴に追記する。
  *
  * priceHistory.json は各社の平均しか持たないので、「この店が先週いくらだったか」は
  * そこからは出せない。日次ジョブの最後にこれを走らせて、社別の値も残す。
  *
- * 1日に2回実行されるため、同じ日の記録は上書きする。あとの実行のほうが新しい。
+ * 記録する日付は実行日ではなく、その社が価格を公表した日(priceData.updatedAt)。
+ * 取得に失敗した社は companies.json の値が前回のまま残るので、実行日で書くと
+ * 「今日もこの値だった」という測っていない記録を作ってしまう。公表日で書けば、
+ * 失敗した社はすでにある記録を上書きするだけで、日数は増えない。
+ *
+ * 1日に2回実行されるため、同じ公表日の記録は後の実行で上書きする。
  */
 import { readFile, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
@@ -14,18 +19,11 @@ const DATA_DIR = path.join(path.dirname(fileURLToPath(import.meta.url)), "..", "
 const HISTORY = path.join(DATA_DIR, "companyPriceHistory.json");
 const COMPANIES = path.join(DATA_DIR, "companies.json");
 
+const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
+
 async function main() {
   const companies = JSON.parse(await readFile(COMPANIES, "utf8"));
-
-  const snapshot = {};
-  for (const c of companies) {
-    const prices = c?.priceData?.prices;
-    if (prices && Object.keys(prices).length) snapshot[c.id] = prices;
-  }
-  if (!Object.keys(snapshot).length) {
-    console.error("価格を持つ会社が1社もないため、追記しません");
-    process.exit(1);
-  }
+  const today = new Date().toISOString().slice(0, 10);
 
   let history;
   try {
@@ -35,22 +33,40 @@ async function main() {
   }
   if (!Array.isArray(history.entries)) history.entries = [];
 
-  const today = new Date().toISOString().slice(0, 10);
-  const existing = history.entries.findIndex((e) => e.date === today);
-  const entry = { date: today, companies: snapshot };
+  const byDate = new Map(history.entries.map((e) => [e.date, e.companies]));
+  const earliest = history.entries.length ? history.entries[0].date : today;
 
-  if (existing >= 0) {
-    history.entries[existing] = entry;
-  } else {
-    history.entries.push(entry);
-    history.entries.sort((a, b) => a.date.localeCompare(b.date));
+  let written = 0;
+  let skipped = 0;
+  for (const c of companies) {
+    const prices = c?.priceData?.prices;
+    if (!prices || !Object.keys(prices).length) continue;
+    const updatedAt = c?.priceData?.updatedAt;
+    // 公表日が読めない、記録開始より前、未来の日付 -- どれも信用できないので入れない
+    if (!updatedAt || !ISO_DATE.test(updatedAt) || updatedAt < earliest || updatedAt > today) {
+      skipped++;
+      continue;
+    }
+    if (!byDate.has(updatedAt)) byDate.set(updatedAt, {});
+    byDate.get(updatedAt)[c.id] = prices;
+    written++;
   }
+
+  if (!written) {
+    console.error("記録できる価格が1社もないため、追記しません");
+    process.exit(1);
+  }
+
+  history.entries = [...byDate.entries()]
+    .sort((a, b) => a[0].localeCompare(b[0]))
+    .map(([date, cs]) => ({ date, companies: cs }));
   history.recordingStartedAt = history.entries[0].date;
 
   await writeFile(HISTORY, JSON.stringify(history, null, 2) + "\n", "utf8");
   console.log(
-    `社別履歴: ${today} を${existing >= 0 ? "更新" : "追加"}しました ` +
-      `(${Object.keys(snapshot).length}社 / 通算${history.entries.length}日)`,
+    `社別履歴: ${written}社を公表日で記録しました` +
+      `${skipped ? `(公表日が古い/読めない ${skipped}社は除外)` : ""} ` +
+      `/ 通算${history.entries.length}日 (最新 ${history.entries.at(-1).date})`,
   );
 }
 

@@ -47,14 +47,19 @@ export default function CompanyIndexPage() {
                       </span>
                     )}
                   </span>
-                  <span className="block truncate text-xs text-muted">
-                    {c.regions.join("・")}
-                    {c.storeCount === null
-                      ? ""
-                      : c.storeCount === 0
-                        ? "／実店舗なし"
-                        : `／約${c.storeCount}店舗`}
-                    {c.googleReview ? `／口コミ ${c.googleReview.avgRating.toFixed(2)}` : ""}
+                  {/* 全部を1つの truncate に入れると、地域を8つ持つ全国チェーンでは
+                      文字列が幅の2倍になり、後ろにある店舗数と口コミが丸ごと消えていた。
+                      短くて固定幅の店舗数・口コミを縮まない側に置き、地域だけを詰める。 */}
+                  <span className="flex items-center text-xs text-muted">
+                    <span className="min-w-0 truncate">{c.regions.join("・")}</span>
+                    <span className="shrink-0">
+                      {c.storeCount === null
+                        ? ""
+                        : c.storeCount === 0
+                          ? "／実店舗なし"
+                          : `／約${c.storeCount}店舗`}
+                      {c.googleReview ? `／口コミ ${c.googleReview.avgRating.toFixed(2)}` : ""}
+                    </span>
                   </span>
                 </span>
                 <span className="shrink-0 text-right text-sm tabular-nums">

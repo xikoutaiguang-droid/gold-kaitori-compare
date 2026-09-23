@@ -5,11 +5,15 @@
  * 過去の各社の価格は履歴の中に残っている。priceHistory.json には各社の単純平均しか
  * 入れていなかったため、「この店が先週いくらだったか」は今まで取り出せなかった。
  *
- * 1日に2回実行しているので、日付ごとにいちばん新しいコミットを採る。
+ * 記録する日付は、コミットした日ではなく、その社が価格を公表した日
+ * (priceData.updatedAt)を使う。取得に失敗した日は companies.json の値が前日のまま
+ * コミットされるので、コミット日で並べると「その日もその値だった」という記録を
+ * 勝手に作ってしまう。updatedAt で並べれば、取れなかった日はそもそも記録が増えない。
+ *
  * 一度実行すれば足りる想定だが、何度実行しても同じ結果になるよう書いてある。
  */
 import { execFileSync } from "node:child_process";
-import { readFile, writeFile } from "node:fs/promises";
+import { writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 
@@ -21,11 +25,10 @@ function git(args) {
   return execFileSync("git", args, { encoding: "utf8", maxBuffer: 64 * 1024 * 1024 });
 }
 
-/** 日付 -> その日最後のコミットSHA */
+/** 日付 -> その日最後のコミットSHA(新しい順に見て最初に出てきたもの) */
 function lastCommitPerDay() {
   const lines = git(["log", "--format=%H %ad", "--date=short", "--", TARGET]).trim().split("\n");
   const byDay = new Map();
-  // git log は新しい順。各日で最初に出てきたものがその日の最後のコミット
   for (const line of lines) {
     const [sha, date] = line.split(" ");
     if (sha && date && !byDay.has(date)) byDay.set(date, sha);
@@ -40,54 +43,54 @@ function snapshotAt(sha) {
   } catch {
     return null;
   }
-  let companies;
   try {
-    companies = JSON.parse(raw);
+    return JSON.parse(raw);
   } catch {
     return null;
   }
-  const out = {};
-  for (const c of companies) {
-    const prices = c?.priceData?.prices;
-    if (prices && Object.keys(prices).length) out[c.id] = prices;
-  }
-  return Object.keys(out).length ? out : null;
 }
 
-/**
- * 取得が壊れていた期間。ここで記録された値は「その社が公表していた価格」ではなく
- * 「当サイトが表示してしまっていた古い値」なので、履歴から外す。
- *
- * 残したままにすると、取得を直した日に大きな変動があったように見える。
- * 実際なんぼやは、旧エンドポイントの停止に気づいて差し替えた日に +1,860円/g 動いた
- * ように表示された。相場ではなく、こちらの修復である。
- * until(その日を含む)までを除外する。
- */
-const BROKEN_UNTIL = {
-  // 取得元JSONが2025-11-02で更新停止。2026-09-23に別エンドポイントへ差し替えた
-  nanboya: "2026-09-22",
-  // 日次ジョブが取得に失敗し続け、2026-09-22に手動で取り直すまで9/11の値のままだった
-  goldmrs: "2026-09-21",
-  refasta: "2026-09-21",
-};
-
-function stripBroken(companies, date) {
-  const out = { ...companies };
-  for (const [id, until] of Object.entries(BROKEN_UNTIL)) {
-    if (date <= until) delete out[id];
-  }
-  return out;
-}
+const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
 
 async function main() {
   const days = lastCommitPerDay();
-  const entries = [];
-  for (const [date, sha] of days) {
+  if (!days.length) {
+    console.error("コミット履歴が読めませんでした");
+    process.exit(1);
+  }
+  const firstCommitDay = days[0][0];
+
+  /** 公表日 -> { 社ID -> 価格 } */
+  const byDate = new Map();
+  let ignoredOlderThanRange = 0;
+  let ignoredNoDate = 0;
+
+  for (const [commitDay, sha] of days) {
     const companies = snapshotAt(sha);
     if (!companies) continue;
-    const cleaned = stripBroken(companies, date);
-    if (Object.keys(cleaned).length) entries.push({ date, companies: cleaned });
+    for (const c of companies) {
+      const prices = c?.priceData?.prices;
+      if (!prices || !Object.keys(prices).length) continue;
+      const updatedAt = c?.priceData?.updatedAt;
+      if (!updatedAt || !ISO_DATE.test(updatedAt)) {
+        ignoredNoDate++;
+        continue;
+      }
+      // 取得が壊れて何か月も前の値が居座っていたもの(なんぼやの2025-11-02など)は、
+      // 記録開始日を不自然に過去へ引き延ばすだけなので入れない。
+      if (updatedAt < firstCommitDay || updatedAt > commitDay) {
+        ignoredOlderThanRange++;
+        continue;
+      }
+      if (!byDate.has(updatedAt)) byDate.set(updatedAt, {});
+      // 同じ公表日の値は、あとに取得したコミットのほうを採る(1日に2回更新する店がある)
+      byDate.get(updatedAt)[c.id] = prices;
+    }
   }
+
+  const entries = [...byDate.entries()]
+    .sort((a, b) => a[0].localeCompare(b[0]))
+    .map(([date, companies]) => ({ date, companies }));
 
   if (!entries.length) {
     console.error("履歴から1日ぶんも取り出せませんでした");
@@ -97,19 +100,17 @@ async function main() {
   const payload = {
     recordingStartedAt: entries[0].date,
     notes:
-      "各社の公表買取価格(円/g)を日次で記録したもの。1日に2回取得しているため、" +
-      "その日の最後に取得した値を採用している。" +
-      "2026-09-23より前の分は git のコミット履歴から復元した。" +
-      "取得が壊れていた期間の値(なんぼや〜9/22、ゴールドミセスとリファスタ〜9/21)は、" +
-      "その社の公表価格ではなく当サイトが表示していた古い値なので除いてある。",
+      "各社の公表買取価格(円/g)の記録。日付はその社が価格を公表した日(公式サイトの表示日)で、" +
+      "当サイトが取得した日ではない。取得に失敗した日は記録が増えないため、" +
+      "値が動いていない日と取れなかった日が混ざらない。" +
+      "2026-09-23より前の分は git のコミット履歴から復元した。",
     entries,
   };
   await writeFile(OUT, JSON.stringify(payload, null, 2) + "\n", "utf8");
 
-  const size = JSON.stringify(payload).length;
-  console.log(`${entries.length}日ぶんを書き出しました (${entries[0].date} 〜 ${entries[entries.length - 1].date})`);
-  console.log(`社数(最新日): ${Object.keys(entries[entries.length - 1].companies).length}`);
-  console.log(`ファイル: ${Math.round(size / 1024)}KB`);
+  console.log(`${entries.length}日ぶんを書き出しました (${entries[0].date} 〜 ${entries.at(-1).date})`);
+  console.log(`社数(最新日): ${Object.keys(entries.at(-1).companies).length}`);
+  console.log(`除外: 公表日なし ${ignoredNoDate}件 / 範囲外の公表日 ${ignoredOlderThanRange}件`);
 }
 
 main().catch((err) => {

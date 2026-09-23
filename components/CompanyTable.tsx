@@ -102,8 +102,11 @@ export default function CompanyTable({
                 <span className="w-5 shrink-0 text-center text-xs text-muted">{i + 1}</span>
                 <CompanyLogo id={c.id} name={c.name} size={32} />
                 <div className="min-w-0 flex-1">
-                  <div className="flex items-center gap-x-2">
-                    <p className="truncate font-medium">{c.name}</p>
+                  {/* 社名は truncate しない。PRバッジと価格に挟まれて幅が68pxしか残らず、
+                      「ブランドオフ」が「ブランド…」になって、どの店か読めなくなっていた。
+                      折り返しを許し、バッジは社名の後ろに流す。 */}
+                  <div className="flex flex-wrap items-center gap-x-2">
+                    <p className="font-medium break-keep">{c.name}</p>
                     {hasAffiliateLink(c) && <PrBadge />}
                   </div>
                   {/* ★評価は名前と同じ行に置くと、PRバッジや長い社名と重なって

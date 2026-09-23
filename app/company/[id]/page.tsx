@@ -10,7 +10,6 @@ import {
   PLATINUM_PURITIES,
   PURITY_LABELS,
   SILVER_PURITIES,
-  type Purity,
 } from "@/lib/types";
 import { getCampaignsForCompany } from "@/lib/campaigns";
 import CampaignNotice from "@/components/CampaignNotice";
@@ -165,7 +164,11 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
             <StandingTable title="シルバー" standings={silver} />
             {weekChange && (
               <p className="mb-3 text-sm leading-relaxed text-foreground/80">
-                {company.name}のK24は、1週間前（{jaDate(weekChange.since)}）の
+                {/* 記録が飛ぶ日があるので「1週間前」と決め打ちにしない。
+                    実際に何日前と比べたかを書く。 */}
+                {company.name}のK24は、
+                {weekChange.daysCompared === 7 ? "1週間前" : `${weekChange.daysCompared}日前`}（
+                {jaDate(weekChange.since)}）の
                 {weekChange.past.toLocaleString("ja-JP")}円/gから{" "}
                 <span
                   className={`font-semibold tabular-nums ${

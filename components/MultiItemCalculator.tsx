@@ -66,7 +66,6 @@ export default function MultiItemCalculator({
     try {
       const today = new Date().toISOString().slice(0, 10);
       const prev = localStorage.getItem(LAST_SEEN_KEY);
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       if (prev && prev < today) setLastSeen(prev);
       if (prev !== today) localStorage.setItem(LAST_SEEN_KEY, today);
     } catch {
@@ -273,8 +272,9 @@ export default function MultiItemCalculator({
                           <div className="flex items-center gap-3">
                             <span className="w-5 shrink-0 text-center text-xs text-muted">{i + 1}</span>
                             <CompanyLogo id={company.id} name={company.name} size={32} />
-                            <span className="flex min-w-0 flex-1 items-center gap-1.5 truncate font-medium">
-                              <span className="truncate">{company.name}</span>
+                            {/* 社名を truncate すると PRバッジと金額に挟まれて切れる。折り返させる。 */}
+                            <span className="flex min-w-0 flex-1 flex-wrap items-center gap-x-1.5 font-medium">
+                              <span className="break-keep">{company.name}</span>
                               {hasAffiliateLink(company) && <PrBadge />}
                             </span>
                             <span className="shrink-0 text-lg font-semibold tabular-nums">

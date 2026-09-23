@@ -26,6 +26,18 @@ const CAMPAIGN_MAX_VERIFY_AGE_DAYS = 14;
 /** 終了がこの日数以内に迫ったキャンペーンは、切れる前に確認を促す */
 const CAMPAIGN_ENDING_SOON_DAYS = 3;
 
+/**
+ * 最後に取得できてからこの日数を超えて失敗が続いていたら、一時的な不通ではなく
+ * ソースが壊れたものとして扱う。ジョブは1日2回なので、2日 = 4回連続の失敗。
+ */
+const STALE_FETCH_DAYS = 2;
+
+/**
+ * 失敗が続いていても、表示中の値がこの日数以内ならジョブは落とさない(報告だけ)。
+ * これを超えたら、読む人が見る価格に影響が出ているので落とす。
+ */
+const DISPLAY_IMPACT_DAYS = 3;
+
 function ageInDays(iso, today) {
   const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso ?? "");
   if (!m) return null;
@@ -63,10 +75,39 @@ async function main() {
     .sort((a, b) => (b.age ?? 0) - (a.age ?? 0));
 
   const staleIds = new Set(stale.map((c) => c.id));
+
   // 取得に失敗しても、前回の値がまだ新しいなら実害は出ていない。一時的な不通は珍しくないので、
   // それで毎回落とすとやはり点検が見られなくなる。古い値が実際に表示されている場合だけ落とす。
+  //
+  // ただし「表示中の値が新しい」だけでは足りない。値の日付(updatedAt)は店が公表した日で、
+  // こちらが取れた日ではない。手で直した値が入っていると、自動取得が一度も通っていなくても
+  // updatedAt は新しいままになり、壊れたソースが何日でも見逃される
+  // (ゴールドミセスとリファスタが実際にこの状態だった)。
+  // 最後に取得できた日時(fetchedAt)を見て、続いている失敗は一時的な不通と分けて扱う。
+  const fetchedAtById = new Map(
+    companies.map((c) => [c.id, c.priceData?.fetchedAt ? c.priceData.fetchedAt.slice(0, 10) : null]),
+  );
+  const isOngoing = (f) => {
+    const last = fetchedAtById.get(f.id);
+    if (last === undefined) return false; // companies.json に無いIDは別の問題として扱わない
+    if (last === null) return true; // 一度も取得できていない
+    const age = ageInDays(last, today);
+    return age === null || age > STALE_FETCH_DAYS;
+  };
+
   const blockingFailures = failures.filter((f) => staleIds.has(f.id));
-  const transientFailures = failures.filter((f) => !staleIds.has(f.id));
+  const rest = failures.filter((f) => !staleIds.has(f.id));
+  const ongoingFailures = rest.filter(isOngoing);
+  const transientFailures = rest.filter((f) => !isOngoing(f));
+
+  // 続いている失敗でも、表示している値がまだ新しいうちは読む人に実害が出ていない。
+  // そこで落とすと、CIのIPだけ弾くサイトのせいで点検が永久に赤くなり、また誰も見なくなる。
+  // 表示中の値が古くなり始めたら落とす。取れない状態が続けば必然的にそこへ至る。
+  const updatedAtById = new Map(companies.map((c) => [c.id, c.priceData?.updatedAt ?? null]));
+  const ongoingWithImpact = ongoingFailures.filter((f) => {
+    const age = ageInDays(updatedAtById.get(f.id), today);
+    return age === null || age > DISPLAY_IMPACT_DAYS;
+  });
 
   const lines = [];
   lines.push(
@@ -76,6 +117,17 @@ async function main() {
   if (blockingFailures.length) {
     lines.push("", `取得に失敗し、表示中の価格も古くなっているソース (${blockingFailures.length}件):`);
     for (const f of blockingFailures) lines.push(`  - ${f.id}: ${f.error}`);
+  }
+  if (ongoingFailures.length) {
+    lines.push("", `取得の失敗が続いているソース (${ongoingFailures.length}件):`);
+    for (const f of ongoingFailures) {
+      const last = fetchedAtById.get(f.id);
+      lines.push(`  - ${f.id}: ${f.error} / 最後に取得できたのは ${last ?? "記録なし"}`);
+    }
+    lines.push("  表示中の価格は手で直したものか、取得できていた頃の値です。ソースを直してください。");
+    if (!ongoingWithImpact.length) {
+      lines.push(`  (表示中の値はまだ${DISPLAY_IMPACT_DAYS}日以内なので、このジョブは落としません)`);
+    }
   }
   if (transientFailures.length) {
     lines.push("", `取得に失敗したが、前回の値がまだ新しいソース (${transientFailures.length}件):`);
@@ -135,7 +187,7 @@ async function main() {
     await appendFile(process.env.GITHUB_STEP_SUMMARY, `## 価格取得の点検\n\n\`\`\`\n${report}\n\`\`\`\n`, "utf8");
   }
 
-  if (blockingFailures.length || stale.length || campaignIssues.length) {
+  if (blockingFailures.length || ongoingWithImpact.length || stale.length || campaignIssues.length) {
     console.error("\n点検に引っかかりました。上記を確認してください。");
     process.exit(1);
   }

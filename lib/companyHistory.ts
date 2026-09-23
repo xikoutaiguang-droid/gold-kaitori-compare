@@ -10,7 +10,8 @@ import type { Purity } from "@/lib/types";
  */
 export interface CompanyHistoryEntry {
   date: string;
-  companies: Record<string, Partial<Record<Purity, number>>>;
+  /** その日に価格を公表した社だけが入る。取れなかった社はキーごと無い。 */
+  companies: Record<string, Partial<Record<Purity, number>> | undefined>;
 }
 
 export interface CompanyPriceHistory {
@@ -39,8 +40,9 @@ export interface CompanyPriceChange {
 /**
  * ある社の、指定日数前からの価格の変化。
  *
- * その社の記録が無い日は飛ばして、指定日数前かそれより古い直近の記録と比べる。
- * 記録が足りない、その純度を公表していない、値が動いていない場合は null。
+ * 記録は「その社が価格を公表した日」で並んでいるので、日付が飛ぶことがある。
+ * 番号で何件か遡るのではなく、日付で「指定日数前かそれより古い、いちばん新しい記録」を
+ * 探す。実際に何日前と比べたかは daysCompared に入れて、呼ぶ側が言い切らずに済むようにする。
  */
 export function companyPriceChange(
   companyId: string,
@@ -50,33 +52,37 @@ export function companyPriceChange(
   const { entries } = getCompanyPriceHistory();
   if (entries.length < 2) return null;
 
-  const latestEntry = entries[entries.length - 1];
-  const latest = latestEntry.companies[companyId]?.[purity];
-  if (latest === undefined) return null;
+  // その社の記録だけを取り出す。公表日が飛んでいる社があるため、全体の最新日ではなく
+  // その社の最新の公表日を基準にする。
+  const own = entries
+    .map((e) => ({ date: e.date, price: e.companies[companyId]?.[purity] }))
+    .filter((e): e is { date: string; price: number } => e.price !== undefined);
+  if (own.length < 2) return null;
 
-  const targetIndex = entries.length - 1 - daysBack;
-  if (targetIndex < 0) return null;
+  const latest = own[own.length - 1];
+  const target = new Date(latest.date);
+  target.setUTCDate(target.getUTCDate() - daysBack);
+  const targetDate = target.toISOString().slice(0, 10);
 
-  // 指定日から遡って、その社の値がある最初の記録を探す
-  let pastEntry: CompanyHistoryEntry | null = null;
-  for (let i = targetIndex; i >= 0; i--) {
-    if (entries[i].companies[companyId]?.[purity] !== undefined) {
-      pastEntry = entries[i];
-      break;
-    }
+  // 指定日以前でいちばん新しい記録。無ければ記録が足りないので出さない
+  let past: { date: string; price: number } | null = null;
+  for (const e of own) {
+    if (e.date <= targetDate) past = e;
+    else break;
   }
-  if (!pastEntry) return null;
+  if (!past || past.price === latest.price) return null;
 
-  const past = pastEntry.companies[companyId]![purity]!;
-  if (past === latest) return null;
+  const daysCompared = Math.round(
+    (new Date(latest.date).getTime() - new Date(past.date).getTime()) / 86_400_000,
+  );
 
   return {
     purity,
-    since: pastEntry.date,
-    past,
-    latest,
-    latestDate: latestEntry.date,
-    diff: latest - past,
-    daysCompared: entries.length - 1 - entries.indexOf(pastEntry),
+    since: past.date,
+    past: past.price,
+    latest: latest.price,
+    latestDate: latest.date,
+    diff: latest.price - past.price,
+    daysCompared,
   };
 }
