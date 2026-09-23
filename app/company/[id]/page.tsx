@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getCompanies, formatFetchedAt } from "@/lib/companies";
 import { getCompanyById, getRelatedCompanies, getStandings } from "@/lib/companyPages";
+import { companyPriceChange } from "@/lib/companyHistory";
 import { getAffiliateLinks } from "@/lib/outboundLink";
 import {
   GOLD_PURITIES,
@@ -16,6 +17,12 @@ import CampaignNotice from "@/components/CampaignNotice";
 import CompanyLogo from "@/components/CompanyLogo";
 import ReliabilityBadge from "@/components/ReliabilityBadge";
 import PrBadge from "@/components/PrBadge";
+
+/** 本文に混ぜる日付。ISO表記のままだと文章の中で浮く */
+function jaDate(iso: string): string {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso);
+  return m ? `${Number(m[2])}月${Number(m[3])}日` : iso;
+}
 
 export function generateStaticParams() {
   return getCompanies().map((c) => ({ id: c.id }));
@@ -110,6 +117,9 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
   const silver = getStandings(company, SILVER_PURITIES);
   const hasPrice = gold.length + platinum.length + silver.length > 0;
   const campaigns = getCampaignsForCompany(company.id);
+  // この店自身の価格が1週間でどう動いたか。各社の公式サイトは今日の値しか
+  // 載せないので、ある店の推移を出せるのは日次で記録しているこちら側だけ。
+  const weekChange = companyPriceChange(company.id, "k24", 7);
   const links = getAffiliateLinks(company);
   const related = getRelatedCompanies(company);
 
@@ -153,6 +163,23 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
             <StandingTable title="金" standings={gold} />
             <StandingTable title="プラチナ" standings={platinum} />
             <StandingTable title="シルバー" standings={silver} />
+            {weekChange && (
+              <p className="mb-3 text-sm leading-relaxed text-foreground/80">
+                {company.name}のK24は、1週間前（{jaDate(weekChange.since)}）の
+                {weekChange.past.toLocaleString("ja-JP")}円/gから{" "}
+                <span
+                  className={`font-semibold tabular-nums ${
+                    weekChange.diff > 0
+                      ? "text-emerald-700 dark:text-emerald-400"
+                      : "text-foreground/80"
+                  }`}
+                >
+                  {weekChange.diff > 0 ? "+" : ""}
+                  {weekChange.diff.toLocaleString("ja-JP")}円/g
+                </span>{" "}
+                動きました。相場そのものの動きと、この社の値付けの両方が含まれます。
+              </p>
+            )}
             <p className="text-xs text-muted">
               出典:{" "}
               <a

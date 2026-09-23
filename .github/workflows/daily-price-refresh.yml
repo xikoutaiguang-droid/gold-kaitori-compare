@@ -43,6 +43,11 @@ jobs:
         run: node scripts/scrape/append-history.mjs
         continue-on-error: true
 
+      # 平均だけでは「この店が先週いくらだったか」が出せないので、社別も残す。
+      - name: 社別の価格を履歴に追記
+        run: node scripts/scrape/append-company-history.mjs
+        continue-on-error: true
+
       - name: 金先物の見通しを記録
         run: node scripts/scrape/record-futures-outlook.mjs
         continue-on-error: true
