@@ -11,9 +11,22 @@ import raw from "@/data/campaigns.json";
  * これは人が各社のページを見て転記したものなので、確認が止まればそのまま古くなる。
  * なので「載せない」のではなく「古くなったら自動的に消える」ようにしている。
  */
+/**
+ * 企画の性質。「30名に抽選」と「全員に35%増額」を同じ言葉でまとめると、
+ * 読む人が期待値を大きく取り違える。並べる以上は区別して出す。
+ */
+export type CampaignKind = "guaranteed" | "coupon" | "lottery";
+
+export const CAMPAIGN_KIND_LABEL: Record<CampaignKind, string> = {
+  guaranteed: "条件を満たせば全員",
+  coupon: "クーポンの提示が必要",
+  lottery: "抽選",
+};
+
 export interface Campaign {
   id: string;
   companyId: string;
+  kind: CampaignKind;
   title: string;
   /** 内容の要約。転記元の文言を短くまとめたもの */
   summary: string;

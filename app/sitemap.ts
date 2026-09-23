@@ -18,6 +18,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/guide/tax",
     "/privacy",
     "/company",
+    "/campaign",
     "/column",
     "/column/karat-and-price",
     "/column/what-a-gram-means",

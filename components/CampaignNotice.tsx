@@ -1,4 +1,4 @@
-import type { ActiveCampaign } from "@/lib/campaigns";
+import { CAMPAIGN_KIND_LABEL, type ActiveCampaign } from "@/lib/campaigns";
 
 function jaDate(iso: string): string {
   const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso);
@@ -24,6 +24,9 @@ export default function CampaignNotice({ campaigns }: { campaigns: ActiveCampaig
               実施中
             </span>
             <span className="text-sm font-semibold">{c.title}</span>
+            <span className="rounded border border-border bg-surface px-1.5 py-0.5 text-[11px] text-muted">
+              {CAMPAIGN_KIND_LABEL[c.kind]}
+            </span>
             <span className="text-xs text-muted">
               {/* 各社の告知は本日を含めて数えていることが多い。同じ日を指しているのに
                   数字だけ1つずれると、リンク先と見比べた人には誤りに見える。
