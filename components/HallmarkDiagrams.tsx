@@ -38,22 +38,26 @@ function Figure({
 export function RingDiagram() {
   return (
     <Figure title="指輪" caption="内側（腕の部分の裏）に刻まれています。外からは見えないので、外して内周を一周見てください。">
-      <svg viewBox="0 0 220 120" className="h-auto w-full max-w-[260px]" role="img" aria-label="指輪の内側に刻印がある位置を示した図">
+      {/* 刻印は輪の内側の面にある。輪の絵に文字を重ねると外周と重なって
+          「どの面か」が伝わらないので、拡大鏡で内側だけを見せる。 */}
+      <svg viewBox="0 0 260 130" className="h-auto w-full max-w-[280px]" role="img" aria-label="指輪の内側の面に刻印があることを、拡大図で示した図">
         <title>指輪の刻印位置</title>
-        {/* 外周と内周 */}
-        <ellipse cx="70" cy="60" rx="44" ry="46" strokeWidth="2" {...stroke} />
-        <ellipse cx="70" cy="60" rx="30" ry="33" strokeWidth="2" {...stroke} />
-        {/* 内側の刻印 */}
-        <rect x="55" y="80" width="30" height="13" rx="2" strokeWidth="1.4" {...stroke} />
-        <text x="70" y="90" textAnchor="middle" fontSize="9" fill="currentColor">
+        <ellipse cx="54" cy="62" rx="40" ry="42" strokeWidth="2" {...stroke} />
+        <ellipse cx="54" cy="62" rx="26" ry="28" strokeWidth="2" {...stroke} />
+        {/* 内側の下端を強調 */}
+        <path d="M36 84 q18 10 36 0" strokeWidth="3.5" {...stroke} opacity="0.85" />
+        {/* 拡大鏡への引き出し */}
+        <path d="M76 88 L120 96" strokeWidth="1.4" strokeDasharray="3 3" {...stroke} />
+        {/* 拡大鏡 */}
+        <circle cx="180" cy="62" r="42" strokeWidth="2" {...stroke} />
+        <path d="M150 92 L128 110" strokeWidth="3" {...stroke} />
+        {/* 拡大鏡の中：平らにした内側の面 */}
+        <path d="M148 44 q32 -6 64 0" strokeWidth="1.6" {...stroke} opacity="0.6" />
+        <path d="M148 80 q32 6 64 0" strokeWidth="1.6" {...stroke} opacity="0.6" />
+        <text x="180" y="68" textAnchor="middle" fontSize="20" fill="currentColor">
           K18
         </text>
-        {/* 引き出し線 */}
-        <path d="M88 86 L128 86" strokeWidth="1.4" strokeDasharray="3 3" {...stroke} />
-        <text x="134" y="83" fontSize="10" fill="currentColor">
-          ここ
-        </text>
-        <text x="134" y="96" fontSize="9" fill="currentColor" opacity="0.7">
+        <text x="54" y="122" textAnchor="middle" fontSize="9" fill="currentColor" opacity="0.7">
           内側の面
         </text>
       </svg>
@@ -71,19 +75,19 @@ export function ClaspDiagram() {
       <svg viewBox="0 0 220 120" className="h-auto w-full max-w-[260px]" role="img" aria-label="ネックレスの留め具付近に刻印がある位置を示した図">
         <title>ネックレスの刻印位置</title>
         {/* 鎖 */}
-        <path d="M14 46 q26 -22 52 0 q26 22 52 0" strokeWidth="2" {...stroke} />
-        {/* 留め具 */}
-        <rect x="120" y="36" width="26" height="20" rx="5" strokeWidth="2" {...stroke} />
-        {/* プレート */}
-        <rect x="150" y="38" width="32" height="16" rx="2" strokeWidth="1.4" {...stroke} />
-        <text x="166" y="50" textAnchor="middle" fontSize="9" fill="currentColor">
+        <path d="M12 44 q24 -20 48 0 q24 20 48 0" strokeWidth="2" {...stroke} />
+        {/* 留め具。鎖の端に続けて置く */}
+        <rect x="108" y="34" width="26" height="20" rx="5" strokeWidth="2" {...stroke} />
+        {/* プレートは留め具に接している。離すと別部品に見える */}
+        <rect x="134" y="36" width="38" height="16" rx="2" strokeWidth="1.6" {...stroke} />
+        <text x="153" y="48" textAnchor="middle" fontSize="11" fill="currentColor">
           750
         </text>
-        <path d="M166 60 L166 80" strokeWidth="1.4" strokeDasharray="3 3" {...stroke} />
-        <text x="166" y="94" textAnchor="middle" fontSize="10" fill="currentColor">
+        <path d="M153 56 L153 76" strokeWidth="1.4" strokeDasharray="3 3" {...stroke} />
+        <text x="153" y="92" textAnchor="middle" fontSize="10" fill="currentColor">
           ここ
         </text>
-        <text x="166" y="107" textAnchor="middle" fontSize="9" fill="currentColor" opacity="0.7">
+        <text x="153" y="106" textAnchor="middle" fontSize="9" fill="currentColor" opacity="0.7">
           留め具のそば
         </text>
       </svg>
