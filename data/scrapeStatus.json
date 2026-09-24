@@ -1,27 +1,27 @@
 {
-  "ranAt": "2026-09-23T10:28:49.860Z",
-  "ok": 18,
-  "ng": 2,
+  "ranAt": "2026-09-24T07:19:08.366Z",
+  "ok": 20,
+  "ng": 0,
   "sources": [
     {
       "id": "otakaraya",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-09-23",
+      "updatedAt": "2026-09-24",
       "warning": null
     },
     {
       "id": "komehyo",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-09-23",
+      "updatedAt": "2026-09-24",
       "warning": null
     },
     {
       "id": "kaitori-daikichi",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-09-18",
+      "updatedAt": "2026-09-24",
       "warning": null
     },
     {
@@ -34,83 +34,84 @@
       "id": "nanboya",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-09-18",
+      "updatedAt": "2026-09-24",
       "warning": null
     },
     {
       "id": "jewel-cafe",
       "ok": true,
       "priceCount": 5,
-      "updatedAt": "2026-09-23",
+      "updatedAt": "2026-09-24",
       "warning": null
     },
     {
       "id": "kaitori-elite",
       "ok": true,
       "priceCount": 8,
-      "updatedAt": "2026-09-23",
+      "updatedAt": "2026-09-24",
       "warning": null
     },
     {
       "id": "kingram",
       "ok": true,
       "priceCount": 12,
-      "updatedAt": "2026-09-18",
+      "updatedAt": "2026-09-24",
       "warning": null
     },
     {
       "id": "best-life",
       "ok": true,
       "priceCount": 12,
-      "updatedAt": "2026-09-23",
+      "updatedAt": "2026-09-24",
       "warning": null
     },
     {
       "id": "brand-revalue",
       "ok": true,
       "priceCount": 8,
-      "updatedAt": "2026-09-23",
+      "updatedAt": "2026-09-24",
       "warning": null
     },
     {
       "id": "gem-sigma",
       "ok": true,
       "priceCount": 12,
-      "updatedAt": "2026-09-23",
+      "updatedAt": "2026-09-24",
       "warning": null
     },
     {
       "id": "galleryrare",
       "ok": true,
       "priceCount": 12,
-      "updatedAt": "2026-09-23",
+      "updatedAt": "2026-09-24",
       "warning": null
     },
     {
       "id": "manekiya",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-09-23",
+      "updatedAt": "2026-09-24",
       "warning": null
     },
     {
       "id": "takayama78",
       "ok": true,
       "priceCount": 1,
-      "updatedAt": "2026-09-21",
+      "updatedAt": "2026-09-24",
       "warning": null
     },
     {
       "id": "goldmrs",
-      "ok": false,
-      "skipped": false,
-      "error": "Fetch failed: https://goldmrs.jp/ -> 403 Forbidden"
+      "ok": true,
+      "priceCount": 12,
+      "updatedAt": "2026-09-24",
+      "warning": null
     },
     {
       "id": "nexus13",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-09-23",
+      "updatedAt": "2026-09-24",
       "warning": null
     },
     {
@@ -124,7 +125,7 @@
       "id": "okuraya",
       "ok": true,
       "priceCount": 6,
-      "updatedAt": "2026-09-18",
+      "updatedAt": "2026-09-24",
       "warning": null
     },
     {
@@ -155,14 +156,15 @@
       "id": "rodeodrive",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-09-23",
+      "updatedAt": "2026-09-24",
       "warning": null
     },
     {
       "id": "refasta",
-      "ok": false,
-      "skipped": false,
-      "error": "fetch failed"
+      "ok": true,
+      "priceCount": 13,
+      "updatedAt": "2026-09-24",
+      "warning": null
     },
     {
       "id": "netoff",
