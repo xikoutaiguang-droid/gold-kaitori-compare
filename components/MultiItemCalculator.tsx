@@ -12,6 +12,7 @@ import PriceBar from "@/components/PriceBar";
 import CaveatNote from "@/components/CaveatNote";
 import ShareResult from "@/components/ShareResult";
 import PrBadge from "@/components/PrBadge";
+import AggregatorNote from "@/components/AggregatorNote";
 
 const PURITY_OPTIONS: Purity[] = [...GOLD_PURITIES, ...PLATINUM_PURITIES, ...SILVER_PURITIES];
 const STORAGE_KEY = "gold-kaitori-compare:multi-items";
@@ -100,6 +101,12 @@ export default function MultiItemCalculator({
         .map((p) => priceChangeSince(history, p, lastSeen))
         .filter((c): c is NonNullable<typeof c> => c !== null && c.diff !== 0)
     : [];
+
+  // 単価を公表していないため、どの順位にも入れられない社の数。
+  // 「順位に出ていない店がある」ことを読む人に伝えるために数える。
+  const unlistedCount = companies.filter(
+    (c) => Object.keys(c.priceData.prices).length === 0,
+  ).length;
 
   const goldWeightOf = (item: Item) => {
     const w = Number(item.weight);
@@ -294,6 +301,11 @@ export default function MultiItemCalculator({
             );
           })}
         </div>
+      )}
+
+      {/* 順位のあとに置く。順位の中には混ぜない(公表単価だけで決めた並びを歪めないため) */}
+      {items.length > 0 && (
+        <AggregatorNote unlistedCount={unlistedCount} source="multi-item-simulator" />
       )}
 
       <p className="mt-6 text-xs text-muted">
