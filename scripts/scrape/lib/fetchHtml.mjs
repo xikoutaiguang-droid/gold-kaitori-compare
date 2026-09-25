@@ -1,10 +1,15 @@
 // スクレイパー共通のHTTP取得ユーティリティ。
+//
+// 名乗る連絡先は実在していなければ意味がない。既定値が example.com と
+// you@example.com のままで、環境変数も設定されていなかったため、
+// 「実在の連絡先を名乗る」という下の方針が実態として守られていなかった。
+// 当サイトの問い合わせフォームがあるページを指すようにしてある。
 // なんぼや等、一部サイトはrobots.txtでClaudeBot/GPTBot等の名指しAIクローラーを
 // Disallowしている。本ツールはそれらの名称を騙らず、実在の連絡先を含む
 // 自社User-Agentを名乗ることで、robots.txtの意図を尊重する。
 const USER_AGENT =
   process.env.SCRAPER_USER_AGENT ??
-  "GoldCompareBot/0.1 (+https://example.com/bot; contact: you@example.com)";
+  "GoldCompareBot/0.1 (+https://kin-hikaku.com/privacy)";
 
 /**
  * 単純な直列実行用の待機。同一サイトへの連続アクセスを避けるため、

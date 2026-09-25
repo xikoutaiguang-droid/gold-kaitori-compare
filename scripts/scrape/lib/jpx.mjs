@@ -15,7 +15,7 @@
 const INDEX_URL = "https://www.jpx.co.jp/markets/derivatives/settlement-price/index.html";
 const USER_AGENT =
   process.env.SCRAPER_USER_AGENT ??
-  "GoldCompareBot/0.1 (+https://example.com/bot; contact: you@example.com)";
+  "GoldCompareBot/0.1 (+https://kin-hikaku.com/privacy)";
 
 async function fetchBuffer(url) {
   const res = await fetch(url, { headers: { "User-Agent": USER_AGENT } });
