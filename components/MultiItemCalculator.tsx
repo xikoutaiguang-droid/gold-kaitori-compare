@@ -115,6 +115,34 @@ export default function MultiItemCalculator({
     return Math.max(0, w - sw);
   };
 
+  // まとめて1社に売った場合の合計。
+  //
+  // 品物ごとの順位とは別に出す。品物ごとだけだと「結局いくらになるのか」が分からず、
+  // 合計だけだと「この指輪はA社、ネックレスはB社」という使い分けが見えなくなる。
+  // どちらも答えになる問いが違うので、両方出す。
+  //
+  // 合計を出せるのは、入力された品物の純度を「すべて」公表している社だけ。
+  // 1つでも欠けている社を、その品だけ0円として足すと不当に低く見える。
+  // 足せない社は数だけ伝えて、順位には入れない。
+  const totals = (() => {
+    const valid = items.filter((i) => goldWeightOf(i) > 0);
+    if (!valid.length) return null;
+    const ranked = companies
+      .filter((c) => valid.every((i) => c.priceData.prices[i.purity] !== undefined))
+      .map((c) => ({
+        company: c,
+        amount: valid.reduce(
+          (sum, i) => sum + (c.priceData.prices[i.purity] as number) * goldWeightOf(i),
+          0,
+        ),
+      }))
+      .sort((a, b) => b.amount - a.amount);
+    if (ranked.length < 2) return null;
+    // 価格を1つでも公表している社のうち、純度が足りずに合計を出せなかった社
+    const priced = companies.filter((c) => Object.keys(c.priceData.prices).length > 0).length;
+    return { ranked, skipped: priced - ranked.length, itemCount: valid.length };
+  })();
+
   // 品物ごとに、どの会社が一番高く買い取ってくれるかを個別に見せる。
   // 合計額に丸めてしまうと「この指輪はA社、このネックレスはB社が高い」といった
   // 使い分けが分からなくなるため、あえて合算しない設計にしている。
@@ -234,6 +262,55 @@ export default function MultiItemCalculator({
       >
         + 品物を追加
       </button>
+
+      {/* まとめて1社に売る場合。品物ごとの順位より先に出す。
+          「結局いくらになるのか」のほうが、多くの人にとって先に来る問いだから。 */}
+      {totals && (
+        <section className="mt-8 rounded-2xl border border-accent/40 bg-accent-soft/40 p-4">
+          <h2 className="font-serif-jp mb-1 text-lg font-semibold">
+            {totals.itemCount}点まとめて1社に売るなら
+          </h2>
+          <p className="mb-3 text-xs leading-relaxed text-muted">
+            入力した純度をすべて公表している{totals.ranked.length}社で計算しています。
+            {totals.skipped > 0 && (
+              <>
+                他の{totals.skipped}社は、この中のどれかの純度を公表していないため合計を出せません
+                （安いという意味ではありません）。
+              </>
+            )}
+          </p>
+          <ol className="flex flex-col gap-1.5">
+            {totals.ranked.slice(0, 5).map((r, i) => {
+              const diff = totals.ranked[0].amount - r.amount;
+              return (
+                <li
+                  key={r.company.id}
+                  className="flex items-baseline gap-2 border-b border-border/60 pb-1.5 last:border-0"
+                >
+                  <span className="w-5 shrink-0 text-center text-xs text-muted">{i + 1}</span>
+                  <span className="min-w-0 flex-1 break-keep text-sm font-medium">
+                    {r.company.name}
+                  </span>
+                  <span className="shrink-0 text-right">
+                    <span className="block text-base font-semibold tabular-nums">
+                      約{Math.round(r.amount).toLocaleString("ja-JP")}円
+                    </span>
+                    {i > 0 && (
+                      <span className="block text-xs tabular-nums text-muted">
+                        1位と{Math.round(diff).toLocaleString("ja-JP")}円差
+                      </span>
+                    )}
+                  </span>
+                </li>
+              );
+            })}
+          </ol>
+          <p className="mt-3 text-xs leading-relaxed text-muted">
+            1社にまとめるといちばん高いのがこの順ですが、品物ごとに店を分けたほうが多くなることもあります。
+            下の品物ごとの順位も見てください。
+          </p>
+        </section>
+      )}
 
       {items.length > 0 && (
         <div className="mt-8 flex flex-col gap-8">
