@@ -2,6 +2,14 @@
 
 import { useState } from "react";
 import CompanyLogo from "@/components/CompanyLogo";
+import RemoteBuyers from "@/components/RemoteBuyers";
+import type { RemoteOption } from "@/lib/services";
+
+/**
+ * 店舗が近くにあっても、これ以上離れていれば「持ち込み以外の方法」も出す。
+ * 片道この距離を往復して1点売るのは、人によっては選ばない。
+ */
+const FAR_KM = 10;
 
 interface NearbyResult {
   companyId: string;
@@ -14,7 +22,15 @@ interface NearbyResult {
 
 type Status = "idle" | "locating" | "loading" | "done" | "error";
 
-export default function NearbyFinder() {
+export default function NearbyFinder({
+  remote,
+  purityLabel,
+  totalCompanies,
+}: {
+  remote: RemoteOption[];
+  purityLabel: string;
+  totalCompanies: number;
+}) {
   const [status, setStatus] = useState<Status>("idle");
   const [results, setResults] = useState<NearbyResult[]>([]);
   const [errorMessage, setErrorMessage] = useState("");
@@ -51,7 +67,7 @@ export default function NearbyFinder() {
       () => {
         setStatus("error");
         setErrorMessage("現在地を取得できませんでした。ブラウザの位置情報の許可設定をご確認ください。");
-      }
+      },
     );
   };
 
@@ -72,12 +88,33 @@ export default function NearbyFinder() {
         ボタンを押すとブラウザが位置情報の利用許可を求めます。取得した位置情報はこの検索のためだけに使い、保存はしません。
       </p>
 
-      {status === "error" && <p className="mt-4 text-sm text-red-600 dark:text-red-400">{errorMessage}</p>}
+      {status === "error" && (
+        <>
+          <p className="mt-4 text-sm text-red-600 dark:text-red-400">{errorMessage}</p>
+          {/* 位置情報を出さない/出せない人も、ここで行き止まりにしない */}
+          <RemoteBuyers
+            options={remote}
+            purityLabel={purityLabel}
+            totalCompanies={totalCompanies}
+            source="nearby_no_location"
+          />
+        </>
+      )}
 
       {status === "done" && (
         <div className="mt-6">
           {results.length === 0 ? (
-            <p className="text-sm text-muted">半径30km以内に該当する店舗が見つかりませんでした。</p>
+            <>
+              <p className="text-sm text-muted">
+                半径30km以内に該当する店舗が見つかりませんでした。店舗に持ち込む以外の方法なら売れます。
+              </p>
+              <RemoteBuyers
+                options={remote}
+                purityLabel={purityLabel}
+                totalCompanies={totalCompanies}
+                source="nearby_none"
+              />
+            </>
           ) : (
             <ul className="flex flex-col gap-2.5">
               {results.map((r) => (
@@ -88,7 +125,9 @@ export default function NearbyFinder() {
                       <p className="truncate font-medium">{r.storeName}</p>
                       <p className="truncate text-xs text-muted">{r.address}</p>
                     </div>
-                    <span className="shrink-0 text-sm font-semibold text-accent-strong">{r.distanceKm}km</span>
+                    <span className="shrink-0 text-sm font-semibold text-accent-strong">
+                      {r.distanceKm}km
+                    </span>
                   </div>
                   {r.mapsUrl && (
                     <div className="mt-2.5 pl-11">
@@ -105,6 +144,14 @@ export default function NearbyFinder() {
                 </li>
               ))}
             </ul>
+          )}
+          {results.length > 0 && Math.min(...results.map((r) => r.distanceKm)) >= FAR_KM && (
+            <RemoteBuyers
+              options={remote}
+              purityLabel={purityLabel}
+              totalCompanies={totalCompanies}
+              source="nearby_far"
+            />
           )}
         </div>
       )}

@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import NearbyFinder from "@/components/NearbyFinder";
 import TrustBadges from "@/components/TrustBadges";
+import { getCompanies } from "@/lib/companies";
+import { remoteBuyers } from "@/lib/services";
+import { PURITY_LABELS } from "@/lib/types";
 
 export const metadata: Metadata = {
   title: "あなたの近くの買取店を探す",
@@ -19,7 +22,11 @@ export default function NearbyPage() {
       <TrustBadges
         items={["取得した位置情報は保存されず、この検索のためだけに使われます", "位置情報を許可しなくても他の機能は通常どおり使えます"]}
       />
-      <NearbyFinder />
+      <NearbyFinder
+        remote={remoteBuyers("k24")}
+        purityLabel={PURITY_LABELS.k24}
+        totalCompanies={getCompanies().length}
+      />
     </div>
   );
 }
