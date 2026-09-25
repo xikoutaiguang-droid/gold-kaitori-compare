@@ -1,7 +1,7 @@
 {
-  "ranAt": "2026-09-25T00:10:27.461Z",
-  "ok": 20,
-  "ng": 0,
+  "ranAt": "2026-09-25T07:58:13.714Z",
+  "ok": 18,
+  "ng": 2,
   "sources": [
     {
       "id": "otakaraya",
@@ -21,7 +21,7 @@
       "id": "kaitori-daikichi",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-09-24",
+      "updatedAt": "2026-09-25",
       "warning": null
     },
     {
@@ -34,7 +34,7 @@
       "id": "nanboya",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-09-24",
+      "updatedAt": "2026-09-25",
       "warning": null
     },
     {
@@ -55,7 +55,7 @@
       "id": "kingram",
       "ok": true,
       "priceCount": 12,
-      "updatedAt": "2026-09-24",
+      "updatedAt": "2026-09-25",
       "warning": null
     },
     {
@@ -97,15 +97,14 @@
       "id": "takayama78",
       "ok": true,
       "priceCount": 1,
-      "updatedAt": "2026-09-24",
+      "updatedAt": "2026-09-25",
       "warning": null
     },
     {
       "id": "goldmrs",
-      "ok": true,
-      "priceCount": 12,
-      "updatedAt": "2026-09-24",
-      "warning": null
+      "ok": false,
+      "skipped": false,
+      "error": "Fetch failed: https://goldmrs.jp/ -> 403 Forbidden"
     },
     {
       "id": "nexus13",
@@ -118,14 +117,14 @@
       "id": "ginzaya",
       "ok": true,
       "priceCount": 1,
-      "updatedAt": "2026-09-24",
+      "updatedAt": "2026-09-25",
       "warning": null
     },
     {
       "id": "okuraya",
       "ok": true,
       "priceCount": 6,
-      "updatedAt": "2026-09-24",
+      "updatedAt": "2026-09-25",
       "warning": null
     },
     {
@@ -156,21 +155,20 @@
       "id": "rodeodrive",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-09-24",
+      "updatedAt": "2026-09-25",
       "warning": null
     },
     {
       "id": "refasta",
-      "ok": true,
-      "priceCount": 13,
-      "updatedAt": "2026-09-24",
-      "warning": null
+      "ok": false,
+      "skipped": false,
+      "error": "fetch failed"
     },
     {
       "id": "netoff",
       "ok": true,
       "priceCount": 8,
-      "updatedAt": "2026-09-18",
+      "updatedAt": "2026-09-25",
       "warning": null
     }
   ]
