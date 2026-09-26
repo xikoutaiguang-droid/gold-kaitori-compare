@@ -11,6 +11,20 @@ import type { RemoteOption } from "@/lib/services";
  */
 const FAR_KM = 10;
 
+const REMOTE_HEADING = "近くに店舗が無くても売れる店";
+
+function remoteLead(count: number, total: number) {
+  return (
+    <>
+      自宅まで来てもらう「出張」か、送って査定してもらう「宅配」に対応していると、
+      各社の公式サイトで確認できた{count}社です。
+      {count === total
+        ? "当サイトの掲載店はすべて、どちらかの方法に対応していました。"
+        : `当サイトの掲載${total}社のうち、この方法を確認できたのがこの${count}社です。`}
+    </>
+  );
+}
+
 interface NearbyResult {
   companyId: string;
   companyName: string;
@@ -95,8 +109,9 @@ export default function NearbyFinder({
           <RemoteBuyers
             options={remote}
             purityLabel={purityLabel}
-            totalCompanies={totalCompanies}
             source="nearby_no_location"
+            heading={REMOTE_HEADING}
+            lead={remoteLead(remote.length, totalCompanies)}
           />
         </>
       )}
@@ -111,8 +126,9 @@ export default function NearbyFinder({
               <RemoteBuyers
                 options={remote}
                 purityLabel={purityLabel}
-                totalCompanies={totalCompanies}
                 source="nearby_none"
+                heading={REMOTE_HEADING}
+                lead={remoteLead(remote.length, totalCompanies)}
               />
             </>
           ) : (
@@ -149,8 +165,9 @@ export default function NearbyFinder({
             <RemoteBuyers
               options={remote}
               purityLabel={purityLabel}
-              totalCompanies={totalCompanies}
               source="nearby_far"
+              heading={REMOTE_HEADING}
+              lead={remoteLead(remote.length, totalCompanies)}
             />
           )}
         </div>

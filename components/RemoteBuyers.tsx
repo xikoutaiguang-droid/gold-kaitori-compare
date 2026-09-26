@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import Link from "next/link";
 import CompanyLogo from "@/components/CompanyLogo";
 import PrBadge from "@/components/PrBadge";
@@ -50,14 +50,16 @@ function quoteFor(o: RemoteOption): string | undefined {
 export default function RemoteBuyers({
   options,
   purityLabel,
-  totalCompanies,
   source,
+  heading,
+  lead,
 }: {
   options: RemoteOption[];
   purityLabel: string;
-  /** 当サイトの掲載社数。全社が該当するなら、そう書けるようにするため */
-  totalCompanies: number;
   source: string;
+  heading: string;
+  /** 何を並べたものかの説明。場面ごとに違うので呼び出し側で書く */
+  lead: ReactNode;
 }) {
   const [expanded, setExpanded] = useState(false);
   if (!options.length) return null;
@@ -68,13 +70,9 @@ export default function RemoteBuyers({
 
   return (
     <section className="mt-6 rounded-2xl border border-border bg-surface p-4">
-      <h3 className="mb-2 text-sm font-semibold">近くに店舗が無くても売れる店</h3>
+      <h3 className="mb-2 text-sm font-semibold">{heading}</h3>
       <p className="mb-4 text-sm leading-relaxed text-foreground/80">
-        自宅まで来てもらう「出張」か、送って査定してもらう「宅配」に対応していると、
-        各社の公式サイトで確認できた{options.length}社です。
-        {options.length === totalCompanies
-          ? "当サイトの掲載店はすべて、どちらかの方法に対応していました。"
-          : `当サイトの掲載${totalCompanies}社のうち、この方法を確認できたのがこの${options.length}社です。`}
+        {lead}
         並び順は{purityLabel}の公表単価が高い順({priced}
         社)で、広告の有無は順番に入れていません。
       </p>

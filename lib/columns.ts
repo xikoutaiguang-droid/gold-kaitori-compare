@@ -13,6 +13,11 @@ export interface ColumnEntry {
 
 export const COLUMNS: ColumnEntry[] = [
   {
+    href: "/column/visit-purchase",
+    title: "出張買取の8日間 — 取り消せる場合と、取り消せない場合",
+    desc: "自宅に来てもらう買取だけにかかる法律を、条文と消費者庁の記載から。頼み方で扱いが変わります",
+  },
+  {
     href: "/column/fees",
     title: "金買取の手数料は、どこでいくら引かれるのか",
     desc: "「手数料無料」の意味が店ごとに違うこと、あとから引かれる場合に実質単価がいくらになるかを各社の記載から",

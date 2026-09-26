@@ -301,18 +301,20 @@ export interface RemoteOption {
 }
 
 /**
- * 近くに店舗が無い人でも売れる社を、公表単価の高い順に返す。
+ * 指定した方法に対応している社を、公表単価の高い順に返す。
  *
  * 並べる根拠は単価だけで、報酬の有無は順番に入れない。
  * 単価を公表していない社は最後に置く。0円とみなして最下位にするのとは違い、
  * 「分からないから順位に入れられない」ことを表示側で書けるようにする。
+ *
+ * @param services 受け付ける方法。先に書いたものから順にリンクを探す
  */
-export function remoteBuyers(purity: Purity = "k24"): RemoteOption[] {
+export function buyersFor(services: ServiceId[], purity: Purity = "k24"): RemoteOption[] {
   const live = getCompanies();
   const all = rawCompanies as Company[];
 
   const rows: RemoteOption[] = SERVICE_RECORDS.flatMap((rec) => {
-    if (!rec.visit && !rec.shipping) return [];
+    if (!services.some((sv) => rec[sv])) return [];
     const base = all.find((c) => c.id === rec.companyId);
     if (!base) return [];
     const current = live.find((c) => c.id === rec.companyId);
@@ -329,7 +331,7 @@ export function remoteBuyers(purity: Purity = "k24"): RemoteOption[] {
       checkedAt: rec.checkedAt,
       storeCount: base.storeCount,
       isAffiliate: hasAffiliateLink(base),
-      ...remoteCta(base, rec),
+      ...remoteCta(base, rec, services),
     };
     return [row];
   });
@@ -342,31 +344,59 @@ export function remoteBuyers(purity: Purity = "k24"): RemoteOption[] {
   });
 }
 
+/** 店舗に行かなくても売れる社(出張または宅配)。/nearby で店舗が見つからなかった人向け */
+export function remoteBuyers(purity: Purity = "k24"): RemoteOption[] {
+  return buyersFor(["shipping", "visit"], purity);
+}
+
+/** 出張買取に対応していると確認できた社 */
+export function visitBuyers(purity: Purity = "k24"): RemoteOption[] {
+  return buyersFor(["visit"], purity);
+}
+
+/** 方法ごとの対応社数。記事の本文に数を書くため */
+export function serviceCounts(): Record<ServiceId, number> {
+  return {
+    storefront: SERVICE_RECORDS.filter((r) => r.storefront).length,
+    visit: SERVICE_RECORDS.filter((r) => r.visit).length,
+    shipping: SERVICE_RECORDS.filter((r) => r.shipping).length,
+  };
+}
+
+/** その方法でしか売れない社(他の方法を確認できていない社) */
+export function onlyVia(service: ServiceId): string[] {
+  const others = (["storefront", "visit", "shipping"] as ServiceId[]).filter((s) => s !== service);
+  return SERVICE_RECORDS.filter((r) => r[service] && others.every((s) => !r[s])).map((r) => r.companyId);
+}
+
 /**
- * 近くに店舗が無い人に出すリンクを選ぶ。
+ * その場面で押すべきリンクを選ぶ。
  *
  * 代表リンクをそのまま使うと行き先がずれる。コメ兵の代表リンクは「店頭買取予約」で、
  * 店舗が近くに無いと分かった直後の人に来店予約を出すことになる。
- * だから、確認できている方法(宅配・出張)に対応するリンクを優先して選ぶ。
+ * だから、その場面で扱っている方法(services の順)に対応するリンクを先に探す。
  */
+const CTA_KEYWORD: Record<ServiceId, string> = {
+  storefront: "店頭",
+  visit: "出張",
+  shipping: "宅配",
+};
+
+const CTA_LABEL: Record<ServiceId, string> = {
+  storefront: "来店予約をする",
+  visit: "出張買取を申し込む",
+  shipping: "宅配買取を申し込む",
+};
+
 function remoteCta(
   company: Company,
   rec: ServiceRecord,
+  services: ServiceId[],
 ): { ctaUrl: string; ctaLabel: string; ctaService: ServiceId | null } {
   const links = getAffiliateLinks(company);
-  const wanted: { service: ServiceId; keyword: string; label: string }[] = [];
-  if (rec.shipping)
-    wanted.push({
-      service: "shipping",
-      keyword: "宅配",
-      label: "宅配買取を申し込む",
-    });
-  if (rec.visit)
-    wanted.push({
-      service: "visit",
-      keyword: "出張",
-      label: "出張買取を申し込む",
-    });
+  const wanted = services
+    .filter((sv) => rec[sv])
+    .map((sv) => ({ service: sv, keyword: CTA_KEYWORD[sv], label: CTA_LABEL[sv] }));
 
   for (const w of wanted) {
     const hit = links.find((l) => l.label.includes(w.keyword));
