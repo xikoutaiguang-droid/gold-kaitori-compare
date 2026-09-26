@@ -88,6 +88,62 @@ export function formatFetchedAt(iso: string | undefined): string | null {
   return `${mm}月${dd}日 ${hh}:${mi}`;
 }
 
+/** 「2026-09-25」を「9月25日」にする。表示用 */
+export function formatPriceDay(iso: string | undefined | null): string | null {
+  if (!iso) return null;
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso);
+  return m ? `${Number(m[2])}月${Number(m[3])}日` : iso;
+}
+
+export interface PriceDateSummary {
+  /** 公表日ごとの社数。新しい日が先 */
+  byDate: { date: string; count: number }[];
+  /** いちばん新しい公表日 */
+  latest: string | null;
+  /** 当サイトが最後に価格を取りに行った時刻(ISO) */
+  fetchedAt: string | null;
+  /** 価格を出せている社数 */
+  priced: number;
+}
+
+/**
+ * 表示している価格が「いつのものか」をまとめる。
+ *
+ * トップページは各社の価格を並べておきながら、日付をどこにも出していなかった。
+ * 「本日の買取価格ランキング」とだけ書いていたが、各社の公表日は揃わないし、
+ * 当サイトの取得は1日3回なので、今日の日付が入っているとは限らない。
+ * /about には「ページ内に更新日を必ず表示している」と書いてあり、そこも守れていなかった。
+ *
+ * 日付は各社が価格を公表した日(updatedAt)で、当サイトが取りに行った時刻(fetchedAt)とは
+ * 別物。前者が「いつの価格か」、後者が「いつ確認したか」なので、両方出す。
+ */
+export function priceDateSummary(companies: Company[] = getCompanies()): PriceDateSummary {
+  const priced = companies.filter((c) => Object.keys(c.priceData.prices).length > 0);
+
+  const counts = new Map<string, number>();
+  for (const c of priced) {
+    const d = c.priceData.updatedAt;
+    if (!d) continue;
+    counts.set(d, (counts.get(d) ?? 0) + 1);
+  }
+  const byDate = [...counts.entries()]
+    .map(([date, count]) => ({ date, count }))
+    .sort((a, b) => (a.date < b.date ? 1 : -1));
+
+  const fetchedAt = priced
+    .map((c) => c.priceData.fetchedAt)
+    .filter((v): v is string => Boolean(v))
+    .sort()
+    .pop();
+
+  return {
+    byDate,
+    latest: byDate[0]?.date ?? null,
+    fetchedAt: fetchedAt ?? null,
+    priced: priced.length,
+  };
+}
+
 /** 鮮度の判定を通していない元データ。古さそのものを点検したいとき用 */
 export function getCompaniesUnfiltered(): Company[] {
   return rawCompanies as Company[];

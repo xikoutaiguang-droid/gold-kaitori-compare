@@ -6,6 +6,7 @@ import { getCompanies } from "@/lib/companies";
 import RankingCard from "@/components/RankingCard";
 import TrustBadges from "@/components/TrustBadges";
 import MarketClosedNotice from "@/components/MarketClosedNotice";
+import PriceFreshness from "@/components/PriceFreshness";
 import WeeklyChange from "@/components/WeeklyChange";
 import OperatorMessage from "@/components/OperatorMessage";
 import RegionLinks from "@/components/RegionLinks";
@@ -92,6 +93,10 @@ export default function Home() {
         <RankingCard companies={companies} purity="pt850" limit={3} />
         <RankingCard companies={companies} purity="ag" limit={3} />
       </div>
+
+      {/* いつの価格かを、価格のすぐ下に置く。/about で「更新日を必ず表示している」と
+          書いているのに、このページだけどこにも日付が無かった。 */}
+      <PriceFreshness className="mb-8 sm:mb-10" />
 
       {/* 価格の直後に置く。順位より前に出すと、検索から来た人が求めている
           今日の数字が下がる。2日前にそれを測って直したばかり。 */}

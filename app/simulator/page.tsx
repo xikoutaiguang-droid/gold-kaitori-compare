@@ -5,6 +5,7 @@ import { getCompanies } from "@/lib/companies";
 import SimulatorTabs from "@/components/SimulatorTabs";
 import { getPriceHistory } from "@/lib/priceHistory";
 import TrustBadges from "@/components/TrustBadges";
+import PriceFreshness from "@/components/PriceFreshness";
 
 export const metadata: Metadata = {
   title: "金・貴金属買取シミュレーター｜重さを入力するだけで買取額を計算",
@@ -72,6 +73,7 @@ export default function SimulatorPage() {
         ]}
       />
       <SimulatorTabs companies={companies} history={getPriceHistory()} />
+      <PriceFreshness className="mt-4" />
 
       <section className="mt-12 border-t border-border pt-8">
         <h2 className="font-serif-jp mb-4 text-lg font-semibold">よくある質問</h2>

@@ -2,11 +2,27 @@
 
 import type { Company, Purity } from "@/lib/types";
 import { PURITY_LABELS } from "@/lib/types";
+import { formatPriceDay } from "@/lib/companies";
 import { getOutboundUrl, hasAffiliateLink } from "@/lib/outboundLink";
 import { trackOutboundClick } from "@/lib/analytics";
 import CompanyLogo from "@/components/CompanyLogo";
 import PriceBar from "@/components/PriceBar";
 import PrBadge from "@/components/PrBadge";
+
+/**
+ * 並べた社の公表日。1日に揃っていればその日、ばらけていれば範囲で出す。
+ * 同じ月なら「9月24〜25日」と畳む。カードの見出し行に収めるため。
+ */
+function rangeLabel(dates: string[]): string | null {
+  if (!dates.length) return null;
+  const first = dates[0];
+  const last = dates[dates.length - 1];
+  if (first === last) return formatPriceDay(first);
+  if (first.slice(0, 7) === last.slice(0, 7)) {
+    return `${formatPriceDay(first)}〜${Number(last.slice(8, 10))}日`;
+  }
+  return `${formatPriceDay(first)}〜${formatPriceDay(last)}`;
+}
 
 export default function RankingCard({
   companies,
@@ -24,12 +40,17 @@ export default function RankingCard({
 
   const maxPrice = Math.max(1, ...ranked.map((c) => c.priceData.prices[purity] ?? 0));
 
+  // 「本日の」と書いていたが、各社の公表日は揃わないし、当サイトの取得も1日3回なので
+  // 今日とは限らない。並べた社の公表日をそのまま出す。
+  const dates = [...new Set(ranked.map((c) => c.priceData.updatedAt).filter(Boolean))].sort();
+  const dateLabel = rangeLabel(dates as string[]);
+
   return (
     <div className="rounded-2xl border border-border bg-surface p-4 shadow-sm sm:p-5">
       <div className="mb-4">
         <p className="whitespace-nowrap text-xl font-bold text-foreground">{PURITY_LABELS[purity]}</p>
-        <p className="mt-0.5 whitespace-nowrap text-xs text-muted">
-          本日の買取価格ランキング TOP{ranked.length}
+        <p className="mt-0.5 text-xs text-muted">
+          {dateLabel ? `${dateLabel}時点の買取価格 TOP${ranked.length}` : `買取価格 TOP${ranked.length}`}
         </p>
       </div>
       {ranked.length === 0 ? (

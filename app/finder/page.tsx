@@ -3,6 +3,7 @@ import Image from "next/image";
 import { getCompanies } from "@/lib/companies";
 import DiagnosisForm from "@/components/DiagnosisForm";
 import TrustBadges from "@/components/TrustBadges";
+import PriceFreshness from "@/components/PriceFreshness";
 
 export const metadata: Metadata = {
   title: "買取店診断｜重視するポイントで選ぶ金・貴金属買取店",
@@ -45,6 +46,7 @@ export default function FinderPage() {
         items={["選んだ内容は保存・送信されず、その場で結果を計算するだけです", "会員登録なしで診断結果を見られます"]}
       />
       <DiagnosisForm companies={companies} />
+      <PriceFreshness className="mt-4" />
 
       <section className="mt-12 border-t border-border pt-8">
         <h2 className="font-serif-jp mb-4 text-lg font-semibold">この診断でできること</h2>
