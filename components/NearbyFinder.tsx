@@ -2,28 +2,16 @@
 
 import { useState } from "react";
 import CompanyLogo from "@/components/CompanyLogo";
-import RemoteBuyers from "@/components/RemoteBuyers";
-import type { RemoteOption } from "@/lib/services";
 
 /**
- * 店舗が近くにあっても、これ以上離れていれば「持ち込み以外の方法」も出す。
+ * 店舗が近くにあっても、これ以上離れていれば下の一覧を案内する。
  * 片道この距離を往復して1点売るのは、人によっては選ばない。
  */
 const FAR_KM = 10;
 
-const REMOTE_HEADING = "近くに店舗が無くても売れる店";
+/** 検索結果の下に置いてある一覧への案内。文言を1か所にまとめる */
+const SEE_BELOW = "このページの下に、店舗へ行かずに売れる店をまとめています。";
 
-function remoteLead(count: number, total: number) {
-  return (
-    <>
-      自宅まで来てもらう「出張」か、送って査定してもらう「宅配」に対応していると、
-      各社の公式サイトで確認できた{count}社です。
-      {count === total
-        ? "当サイトの掲載店はすべて、どちらかの方法に対応していました。"
-        : `当サイトの掲載${total}社のうち、この方法を確認できたのがこの${count}社です。`}
-    </>
-  );
-}
 
 interface NearbyResult {
   companyId: string;
@@ -36,15 +24,7 @@ interface NearbyResult {
 
 type Status = "idle" | "locating" | "loading" | "done" | "error";
 
-export default function NearbyFinder({
-  remote,
-  purityLabel,
-  totalCompanies,
-}: {
-  remote: RemoteOption[];
-  purityLabel: string;
-  totalCompanies: number;
-}) {
+export default function NearbyFinder() {
   const [status, setStatus] = useState<Status>("idle");
   const [results, setResults] = useState<NearbyResult[]>([]);
   const [errorMessage, setErrorMessage] = useState("");
@@ -106,31 +86,16 @@ export default function NearbyFinder({
         <>
           <p className="mt-4 text-sm text-red-600 dark:text-red-400">{errorMessage}</p>
           {/* 位置情報を出さない/出せない人も、ここで行き止まりにしない */}
-          <RemoteBuyers
-            options={remote}
-            purityLabel={purityLabel}
-            source="nearby_no_location"
-            heading={REMOTE_HEADING}
-            lead={remoteLead(remote.length, totalCompanies)}
-          />
+          <p className="mt-2 text-sm text-muted">{SEE_BELOW}</p>
         </>
       )}
 
       {status === "done" && (
         <div className="mt-6">
           {results.length === 0 ? (
-            <>
-              <p className="text-sm text-muted">
-                半径30km以内に該当する店舗が見つかりませんでした。店舗に持ち込む以外の方法なら売れます。
-              </p>
-              <RemoteBuyers
-                options={remote}
-                purityLabel={purityLabel}
-                source="nearby_none"
-                heading={REMOTE_HEADING}
-                lead={remoteLead(remote.length, totalCompanies)}
-              />
-            </>
+            <p className="text-sm text-muted">
+              半径30km以内に該当する店舗が見つかりませんでした。{SEE_BELOW}
+            </p>
           ) : (
             <ul className="flex flex-col gap-2.5">
               {results.map((r) => (
@@ -162,13 +127,9 @@ export default function NearbyFinder({
             </ul>
           )}
           {results.length > 0 && Math.min(...results.map((r) => r.distanceKm)) >= FAR_KM && (
-            <RemoteBuyers
-              options={remote}
-              purityLabel={purityLabel}
-              source="nearby_far"
-              heading={REMOTE_HEADING}
-              lead={remoteLead(remote.length, totalCompanies)}
-            />
+            <p className="mt-4 text-sm text-muted">
+              いちばん近い店舗でも{FAR_KM}km以上あります。{SEE_BELOW}
+            </p>
           )}
         </div>
       )}

@@ -44,6 +44,52 @@ export default function ToolsPage() {
           </Link>
         ))}
       </div>
+
+      {/* カード2枚だけで説明が無く、サイト内でいちばん中身の薄いページだった。
+          どちらのツールも「単位が揃っていないと比べられない」場面のためにある。 */}
+      <section className="mt-10 border-t border-border pt-8">
+        <h2 className="font-serif-jp mb-3 text-lg font-semibold">どんなときに使うか</h2>
+        <div className="flex flex-col gap-5 text-sm leading-relaxed text-foreground/80">
+          <div>
+            <h3 className="mb-1 font-semibold text-foreground">単位が揃っていないと、金額を比べられない</h3>
+            <p>
+              当サイトの比較表は1gあたりの価格で並べていますが、手元の品物の重さが
+              グラムで分かっているとは限りません。古い指輪や帯留めは
+              <strong>匁（もんめ・1匁 = 3.75g）</strong>で書かれていることがありますし、
+              海外の金価格は
+              <strong>トロイオンス（1トロイオンス = 31.1035g）</strong>
+              あたりのドル建てで出ます。ニュースで見た「1オンス◯ドル」を
+              日本の店の「1g◯円」と直接見比べることはできません。
+              g・匁・オンス換算はそのためのものです。
+            </p>
+          </div>
+          <div>
+            <h3 className="mb-1 font-semibold text-foreground">純度別の計算は、提示額の検算に使う</h3>
+            <p>
+              K18の刻印は金が75%という意味なので、10gのK18リングに含まれる純金は7.5gです。
+              ただし各社が公表しているのは純度別の単価（K18ならK18の1gあたり）なので、
+              売るときの概算は
+              <Link href="/simulator" className="underline underline-offset-2 hover:text-accent">
+                シミュレーター
+              </Link>
+              に重さを入れるほうが早く出ます。含有量計算が役に立つのは、
+              提示された金額が含有量から見て妥当かを確かめたいときです。
+              純度と金額の関係は
+              <Link
+                href="/column/karat-and-price"
+                className="underline underline-offset-2 hover:text-accent"
+              >
+                「K18は金75%。では値段も75%になるのか」
+              </Link>
+              で実際の公表価格から検証しています。
+            </p>
+          </div>
+          <p className="text-xs text-muted">
+            どちらのツールも計算はブラウザの中だけで行い、入力した内容はサーバーに送信しません。
+            結果は目安であり、実際の査定額は品物の状態や付属品によって変わります。
+          </p>
+        </div>
+      </section>
     </div>
   );
 }
