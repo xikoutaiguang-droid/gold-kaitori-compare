@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getCompanies, formatFetchedAt } from "@/lib/companies";
+import { getCompanies, formatFetchedAt, formatPriceDay } from "@/lib/companies";
+import { serviceRecord, SERVICE_LABEL, type ServiceId } from "@/lib/services";
 import { getCompanyById, getRelatedCompanies, getStandings, getMarketToday } from "@/lib/companyPages";
 import { companyPriceChange } from "@/lib/companyHistory";
 import { getAffiliateLinks } from "@/lib/outboundLink";
@@ -337,6 +338,55 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
           </dd>
         </dl>
       </section>
+
+      {/* ---- 買取方法 ---- */}
+      {/* 店名で検索して来る人がまず知りたいのは「家まで来るのか、送れるのか」。
+          各社の公式サイトを読んで確認できたものだけを出す。
+          確認できなかった方法は欄を作らない(非対応とは書かない)。 */}
+      {(() => {
+        const svc = serviceRecord(company.id);
+        if (!svc) return null;
+        const methods = (["storefront", "visit", "shipping"] as ServiceId[]).filter((m) => svc[m]);
+        if (!methods.length) return null;
+        return (
+          <section className="mb-8">
+            <h2 className="font-serif-jp mb-3 text-lg font-semibold">買取方法</h2>
+            <ul className="flex flex-col gap-3">
+              {methods.map((m) => {
+                const ev = svc[m];
+                const area = m === "visit" ? svc.visit?.area : undefined;
+                return (
+                  <li key={m} className="rounded-xl border border-border bg-surface p-3">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="rounded border border-border px-2 py-0.5 text-sm font-medium">
+                        {SERVICE_LABEL[m]}買取
+                      </span>
+                      {area && <span className="text-xs text-muted">対応エリア: {area}</span>}
+                    </div>
+                    {ev?.quote && (
+                      <p className="mt-1.5 text-sm leading-relaxed text-foreground/80">「{ev.quote}」</p>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+            <p className="mt-2 text-xs leading-relaxed text-muted">
+              引用は
+              <a
+                href={svc.sourceUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:no-underline"
+              >
+                同社の公式サイト
+              </a>
+              の記載で、{formatPriceDay(svc.checkedAt)}に読んだものです。
+              ここに無い方法は当サイトで確認できなかっただけで、対応していないという意味ではありません。
+              出張の対応エリアは、公式に全国と書かれている場合のみ記載しています。
+            </p>
+          </section>
+        );
+      })()}
 
       {/* ---- 口コミ ---- */}
       {company.googleReview && (
