@@ -23,8 +23,23 @@ const MAX_AGE_DAYS = 10;
 /** lib/campaigns.ts の CAMPAIGN_MAX_VERIFY_AGE_DAYS と揃えること */
 const CAMPAIGN_MAX_VERIFY_AGE_DAYS = 14;
 
-/** 終了がこの日数以内に迫ったキャンペーンは、切れる前に確認を促す */
+/** 終了がこの日数以内に迫ったキャンペーンは、切れる前に確認を促す(報告のみ) */
 const CAMPAIGN_ENDING_SOON_DAYS = 3;
+
+/**
+ * 終了したキャンペーンを、この日数までは残っていても落とさない。
+ *
+ * 以前は「あと3日で終了」も「終了済み」もジョブを落としていた。キャンペーンには必ず
+ * 終わりが来るので、これは日次ジョブが恒常的に赤くなることを意味する。実際9月24日から
+ * 9月27日まで8回連続で赤く、その間このジョブは価格の取得に問題があるのかどうかを
+ * 何も伝えなくなっていた(取得は正常だった)。このファイルの冒頭に書いたとおり、
+ * 常に赤い点検は読まれない点検で、それでは無いのと変わらない。
+ *
+ * 終了したキャンペーンも、期限切れの転記も、表示側(lib/campaigns.ts)が自動的に隠すので、
+ * 読む人に間違った情報は出ない。だから「近く終わる」「終わった」は報告にとどめ、
+ * 放置が続いた場合だけ落とす。落とすのは読む人に影響が出るか、直さないと直らないものに限る。
+ */
+const CAMPAIGN_ENDED_GRACE_DAYS = 14;
 
 /**
  * 最後に取得できてからこの日数を超えて失敗が続いていたら、一時的な不通ではなく
@@ -148,33 +163,45 @@ async function main() {
   } catch {
     // まだ無い場合は点検対象なし
   }
-  const campaignIssues = [];
+  const campaignBlocking = [];
+  const campaignNotes = [];
   const knownIds = new Set(companies.map((c) => c.id));
   for (const c of campaigns.campaigns ?? []) {
     // 会社IDを打ち間違えると、エラーも出ないまま単に表示されなくなる。
     // 「キャンペーンが無い」のと見分けが付かないので、ここで拾う。
     if (!knownIds.has(c.companyId)) {
-      campaignIssues.push(`  - ${c.id}: companyId "${c.companyId}" は companies.json に存在しません。表示されません。`);
+      campaignBlocking.push(`  - ${c.id}: companyId "${c.companyId}" は companies.json に存在しません。表示されません。`);
       continue;
     }
     const left = ageInDays(c.endsAt, today);
     const verifiedAge = ageInDays(c.verifiedAt, today);
     if (left === null || verifiedAge === null) {
-      campaignIssues.push(`  - ${c.id}: 日付を読めません (endsAt=${c.endsAt} verifiedAt=${c.verifiedAt})`);
+      campaignBlocking.push(`  - ${c.id}: 日付を読めません (endsAt=${c.endsAt} verifiedAt=${c.verifiedAt})`);
+    } else if (left > CAMPAIGN_ENDED_GRACE_DAYS) {
+      campaignBlocking.push(
+        `  - ${c.id}: 終了から${left}日。data/campaigns.json から削除するか、後継の内容に更新してください。`,
+      );
     } else if (left > 0) {
-      campaignIssues.push(`  - ${c.id}: 終了済み (${c.endsAt} / ${left}日前)。data/campaigns.json から削除するか、後継の内容に更新してください。`);
+      campaignNotes.push(`  - ${c.id}: 終了済み (${c.endsAt} / ${left}日前)。表示からは外れています。`);
     } else if (verifiedAge > CAMPAIGN_MAX_VERIFY_AGE_DAYS) {
-      campaignIssues.push(`  - ${c.id}: 最終確認から${verifiedAge}日。表示から外れています。${c.sourceUrl} を見て verifiedAt を更新してください。`);
+      campaignBlocking.push(
+        `  - ${c.id}: 最終確認から${verifiedAge}日。期限内なのに表示から外れています。${c.sourceUrl} を見て verifiedAt を更新してください。`,
+      );
     } else if (-left <= CAMPAIGN_ENDING_SOON_DAYS) {
-      campaignIssues.push(`  - ${c.id}: あと${-left}日で終了。後継のキャンペーンが出ていないか確認してください。`);
+      campaignNotes.push(`  - ${c.id}: あと${-left}日で終了。後継のキャンペーンが出ていないか確認してください。`);
     }
   }
-  if (campaignIssues.length) {
-    lines.push("", `キャンペーンの要確認 (${campaignIssues.length}件):`);
-    lines.push(...campaignIssues);
+  if (campaignBlocking.length) {
+    lines.push("", `キャンペーンの要修正 (${campaignBlocking.length}件):`);
+    lines.push(...campaignBlocking);
+  }
+  if (campaignNotes.length) {
+    lines.push("", `キャンペーンのお知らせ (${campaignNotes.length}件):`);
+    lines.push(...campaignNotes);
+    lines.push("  表示は正しいままなので、このジョブは落としません。");
   }
 
-  if (!failures.length && !stale.length && !campaignIssues.length) {
+  if (!failures.length && !stale.length && !campaignBlocking.length && !campaignNotes.length) {
     lines.push("", "全ソース正常。古い価格もキャンペーンの確認漏れもありません。");
   }
 
@@ -187,7 +214,7 @@ async function main() {
     await appendFile(process.env.GITHUB_STEP_SUMMARY, `## 価格取得の点検\n\n\`\`\`\n${report}\n\`\`\`\n`, "utf8");
   }
 
-  if (blockingFailures.length || ongoingWithImpact.length || stale.length || campaignIssues.length) {
+  if (blockingFailures.length || ongoingWithImpact.length || stale.length || campaignBlocking.length) {
     console.error("\n点検に引っかかりました。上記を確認してください。");
     process.exit(1);
   }
