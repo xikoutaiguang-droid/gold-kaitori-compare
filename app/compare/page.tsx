@@ -5,6 +5,7 @@ import { getCompanies } from "@/lib/companies";
 import CompanyTable from "@/components/CompanyTable";
 import MarketClosedNotice from "@/components/MarketClosedNotice";
 import RegionLinks from "@/components/RegionLinks";
+import CompanyLinks from "@/components/CompanyLinks";
 import { getCompaniesForIndex } from "@/lib/companyPages";
 
 export const metadata: Metadata = {
@@ -63,6 +64,13 @@ export default function ComparePage() {
       <section className="mt-12 border-t border-border pt-8">
         <h2 className="font-serif-jp mb-3 text-lg font-semibold">地域から探す</h2>
         <RegionLinks />
+      </section>
+
+      {/* 上の比較表は店名を押すと各社の公式サイトへ出ていく(rel="nofollow sponsored")ので、
+          当サイトの各社ページへはここから行けるようにする。 */}
+      <section className="mt-10 border-t border-border pt-8">
+        <h2 className="font-serif-jp mb-3 text-lg font-semibold">買取店から探す</h2>
+        <CompanyLinks />
       </section>
     </div>
   );

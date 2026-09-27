@@ -10,6 +10,7 @@ import PriceFreshness from "@/components/PriceFreshness";
 import WeeklyChange from "@/components/WeeklyChange";
 import OperatorMessage from "@/components/OperatorMessage";
 import RegionLinks from "@/components/RegionLinks";
+import CompanyLinks from "@/components/CompanyLinks";
 
 /**
  * トップページの検索結果での見え方。
@@ -157,6 +158,17 @@ export default function Home() {
           その地域に店舗を出している会社だけを、同じ並びで比べられます。
         </p>
         <RegionLinks />
+      </section>
+
+      {/* 店名で検索して来る人がいちばん多い(「ネクサス 金」「なんぼや 買取」など)のに、
+          トップからその店のページへ行く道が無かった。25ページとも /company からの
+          1本だけで、8社はクロールすらされていない。 */}
+      <section className="mt-10 border-t border-border pt-8">
+        <h2 className="font-serif-jp mb-1 text-lg font-semibold">買取店から探す</h2>
+        <p className="mb-3 text-sm text-muted">
+          その店の今日の単価・対応地域・口コミ・手数料の扱いをまとめたページに移動します。
+        </p>
+        <CompanyLinks />
       </section>
     </div>
   );
