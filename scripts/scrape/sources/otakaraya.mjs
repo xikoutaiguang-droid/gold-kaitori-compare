@@ -1,5 +1,6 @@
 import * as cheerio from "cheerio";
 import { fetchText } from "../lib/fetchHtml.mjs";
+import { parseJaDate } from "../lib/date.mjs";
 
 const URL = "https://www.otakaraya.jp/gold/souba/";
 
@@ -41,5 +42,13 @@ export async function scrape() {
     throw new Error("otakaraya: 価格を1件も取得できませんでした(ページ構造が変わった可能性)");
   }
 
-  return { prices, updatedAt: new Date().toISOString().slice(0, 10) };
+  // 相場表の上に「2026年09月25日 14:00 更新」と出ている。土日はここが金曜のまま止まる。
+  // 以前は実行日を入れていたので、金曜の価格に日曜の日付が付いていた。
+  const stamp = $(".pm-rate-table-date li").first().text();
+  const updatedAt = parseJaDate(stamp);
+  if (!updatedAt) {
+    throw new Error("otakaraya: 相場表の更新日を読めませんでした(.pm-rate-table-date の構造が変わった可能性)");
+  }
+
+  return { prices, updatedAt };
 }

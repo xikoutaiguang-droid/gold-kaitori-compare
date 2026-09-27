@@ -1,5 +1,6 @@
 import * as cheerio from "cheerio";
 import { fetchText } from "../lib/fetchHtml.mjs";
+import { todayJst } from "../lib/date.mjs";
 
 // 日本語パスなのでエンコード済みURLを直接指定する(元は https://takayama78.co.jp/買取カテゴリ/ )
 const URL = "https://takayama78.co.jp/%E8%B2%B7%E5%8F%96%E3%82%AB%E3%83%86%E3%82%B4%E3%83%AA/";
@@ -31,7 +32,7 @@ export async function scrape() {
   const year = new Date().getFullYear();
   const updatedAt = dateMatch
     ? `${year}-${dateMatch[1].padStart(2, "0")}-${dateMatch[2].padStart(2, "0")}`
-    : new Date().toISOString().slice(0, 10);
+    : todayJst();
 
   if (Object.keys(prices).length === 0) {
     throw new Error("takayama78: 価格を取得できませんでした(ページ構造が変わった可能性)");

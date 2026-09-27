@@ -1,5 +1,6 @@
 import * as cheerio from "cheerio";
 import { fetchText } from "../lib/fetchHtml.mjs";
+import { todayJst } from "../lib/date.mjs";
 
 const URL = "https://e-kaitori.jp/kaitori/gold/";
 
@@ -43,5 +44,5 @@ export async function scrape() {
     throw new Error("best-life: 価格を1件も取得できませんでした(ページ構造が変わった可能性)");
   }
 
-  return { prices, updatedAt: new Date().toISOString().slice(0, 10) };
+  return { prices, updatedAt: todayJst() };
 }

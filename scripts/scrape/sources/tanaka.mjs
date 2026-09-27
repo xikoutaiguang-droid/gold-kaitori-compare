@@ -1,5 +1,6 @@
 import * as cheerio from "cheerio";
 import { fetchText } from "../lib/fetchHtml.mjs";
+import { todayJst } from "../lib/date.mjs";
 
 const URL = "https://gold.tanaka.co.jp/commodity/souba/";
 
@@ -25,7 +26,7 @@ export async function scrapeReferenceRate() {
     .find("span")
     .text();
   const dateMatch = heading.match(/(\d{4})年(\d{2})月(\d{2})日/);
-  const updatedAt = dateMatch ? `${dateMatch[1]}-${dateMatch[2]}-${dateMatch[3]}` : new Date().toISOString().slice(0, 10);
+  const updatedAt = dateMatch ? `${dateMatch[1]}-${dateMatch[2]}-${dateMatch[3]}` : todayJst();
 
   return { prices: { k24: value }, updatedAt };
 }

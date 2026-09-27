@@ -1,5 +1,6 @@
 import * as cheerio from "cheerio";
 import { fetchText } from "../lib/fetchHtml.mjs";
+import { todayJst } from "../lib/date.mjs";
 
 // トップページに金・プラチナ・銀すべての相場表が埋め込まれている(タブ切り替えはCSSのみ)。
 const URL = "https://kinkaimasu.jp/";
@@ -55,7 +56,7 @@ export async function scrape() {
   const dateMatch = html.match(/(\d{4})\/(\d{2})\/(\d{2})\s*\d{2}:\d{2}更新/);
   const updatedAt = dateMatch
     ? `${dateMatch[1]}-${dateMatch[2]}-${dateMatch[3]}`
-    : new Date().toISOString().slice(0, 10);
+    : todayJst();
 
   return { prices, updatedAt };
 }

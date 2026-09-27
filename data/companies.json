@@ -27,8 +27,8 @@
         "pt850": 8252,
         "ag": 340
       },
-      "updatedAt": "2026-09-27",
-      "fetchedAt": "2026-09-27T08:19:06.580Z"
+      "updatedAt": "2026-09-25",
+      "fetchedAt": "2026-09-27T08:37:47.708Z"
     },
     "scrapeMethod": "html",
     "notes": "価格は計算ツールの<select id=\"rateSimulation--select\">内option要素のvalue属性(円)から取得。",
@@ -77,7 +77,7 @@
         "ag": 325
       },
       "updatedAt": "2026-09-25",
-      "fetchedAt": "2026-09-27T08:19:34.368Z"
+      "fetchedAt": "2026-09-27T08:38:10.477Z"
     },
     "scrapeMethod": "json",
     "notes": "価格は同社の価格ページが呼んでいる /ajax/metal-price/metal-list.json から取得。同社はインゴットとスクラップを別建てで公表しているため、他社の宝飾品向け単価と揃えてスクラップ側(k24_scrap等)を採用している。旧エンドポイント /ajax/metals-market-prices.json は2025-11-02で更新停止しており使用しない。",
@@ -124,7 +124,7 @@
         "ag": 217
       },
       "updatedAt": "2026-09-27",
-      "fetchedAt": "2026-09-27T08:19:27.563Z"
+      "fetchedAt": "2026-09-27T08:38:05.669Z"
     },
     "scrapeMethod": "html",
     "notes": "価格は<select id=\"js-simulation-metal\">内option要素のdata-price属性(円)から取得。他社と比べやや低めの水準だったため、次回スクレイパー実行時に再確認すること。",
@@ -184,7 +184,7 @@
         "ag": 340
       },
       "updatedAt": "2026-09-25",
-      "fetchedAt": "2026-09-27T08:19:30.769Z"
+      "fetchedAt": "2026-09-27T08:38:07.340Z"
     },
     "scrapeMethod": "json",
     "notes": "価格表示ページ(/list/gold/k18/souba/)はJSで書き換える方式で静的HTML取得は信頼できなかったが、ページが裏で叩いている実際のJSON API(list_gold/today_gold.json)をブラウザのNetworkタブで特定し、直接取得する方式に切り替えた。scrap(地金化した貴金属)区分の価格を採用し、他社と条件を揃えている。",
@@ -251,8 +251,8 @@
         "k18": 17730,
         "k14": 13055
       },
-      "updatedAt": "2026-09-27",
-      "fetchedAt": "2026-09-27T08:19:39.312Z"
+      "updatedAt": "2026-09-25",
+      "fetchedAt": "2026-09-27T08:38:12.752Z"
     },
     "scrapeMethod": "html",
     "notes": "Cloudflare content-signalでClaudeBot/GPTBot等AI系クローラーを個別Disallow。scraper実装時はUser-Agentと利用規約に要注意。",
@@ -299,7 +299,7 @@
         "k9": 8301
       },
       "updatedAt": "2026-09-27",
-      "fetchedAt": "2026-09-27T08:19:42.602Z"
+      "fetchedAt": "2026-09-27T08:38:15.406Z"
     },
     "scrapeMethod": "html",
     "notes": "Cloudflare content-signalでClaudeBot等を個別Disallow。scraper実装時は要注意。",
@@ -355,7 +355,7 @@
         "ag": 325
       },
       "updatedAt": "2026-09-25",
-      "fetchedAt": "2026-09-27T08:19:46.315Z"
+      "fetchedAt": "2026-09-27T08:38:17.915Z"
     },
     "scrapeMethod": "js-embed",
     "notes": "価格はページ内script変数(window.marketData)にJSONとして埋め込み。ベストライフと価格が完全一致しており、共通データベンダーの可能性あり。",
@@ -403,7 +403,7 @@
         "ag": 325
       },
       "updatedAt": "2026-09-27",
-      "fetchedAt": "2026-09-27T08:19:49.458Z"
+      "fetchedAt": "2026-09-27T08:38:20.284Z"
     },
     "scrapeMethod": "html",
     "notes": "キングラムと価格が完全一致。価格は静的HTMLに直接出力されており取得しやすい。「ベストライフ」は同名の介護・保険会社が多数存在し、Google口コミの公式ドメイン照合では信頼できる一致が得られなかったため、googleReviewは未設定のままにしている。"
@@ -432,7 +432,7 @@
         "k9": 8035
       },
       "updatedAt": "2026-09-27",
-      "fetchedAt": "2026-09-27T08:19:51.704Z"
+      "fetchedAt": "2026-09-27T08:38:22.137Z"
     },
     "scrapeMethod": "html",
     "googleReview": {
@@ -481,7 +481,7 @@
         "pt850": 8458
       },
       "updatedAt": "2026-09-25",
-      "fetchedAt": "2026-09-27T08:19:54.434Z"
+      "fetchedAt": "2026-09-27T08:38:25.402Z"
     },
     "scrapeMethod": "pending",
     "notes": "K24〜K9・プラチナまで純度別に日次価格を公開していることは確認済み。具体的数値は未取得。",
@@ -527,7 +527,7 @@
         "pt850": 7326
       },
       "updatedAt": "2026-09-27",
-      "fetchedAt": "2026-09-27T08:19:57.587Z"
+      "fetchedAt": "2026-09-27T08:38:27.816Z"
     },
     "scrapeMethod": "pending",
     "notes": "K24〜K9・プラチナまで純度別に日次価格を公開していることは確認済み。具体的数値は未取得。",
@@ -585,7 +585,7 @@
         "ag": 340
       },
       "updatedAt": "2026-09-27",
-      "fetchedAt": "2026-09-27T08:20:01.304Z"
+      "fetchedAt": "2026-09-27T08:38:29.792Z"
     },
     "scrapeMethod": "pending",
     "googleReview": {
@@ -621,7 +621,7 @@
         "pt900": 8610
       },
       "updatedAt": "2026-09-26",
-      "fetchedAt": "2026-09-27T08:20:06.067Z"
+      "fetchedAt": "2026-09-27T08:38:32.553Z"
     },
     "scrapeMethod": "html",
     "notes": "相場ページはトップページ内の「本日現在の金相場」見出し直後の表から取得(K18・Pt900のみ掲載)。所在地は「店舗情報・アクセス」ページで福岡県筑紫野市と確認済み(全国展開ではなく1店舗のみ)。ドメイン比較ロジックの不具合(.co.jp同士が誤って一致する)修正後に再検証した結果、以前サンプルとして採用していた「逸品質屋 丸高」は誤マッチと判明し除外した。"
@@ -655,7 +655,7 @@
         "pt850": 8197
       },
       "updatedAt": "2026-09-27",
-      "fetchedAt": "2026-09-27T08:27:28.034Z"
+      "fetchedAt": "2026-09-27T08:38:34.786Z"
     },
     "scrapeMethod": "html",
     "notes": "「インゴット(500g以上)」24,293円/gは地金の買取価格でK24とは別区分。K24(純度100%)は23,811円/g。",
@@ -699,8 +699,8 @@
         "pt850": 8165,
         "ag": 315
       },
-      "updatedAt": "2026-09-27",
-      "fetchedAt": "2026-09-27T08:20:17.113Z"
+      "updatedAt": "2026-09-26",
+      "fetchedAt": "2026-09-27T08:38:36.491Z"
     },
     "scrapeMethod": "html",
     "googleReview": {
@@ -730,7 +730,7 @@
         "k24": 23569
       },
       "updatedAt": "2026-09-26",
-      "fetchedAt": "2026-09-27T08:20:19.627Z"
+      "fetchedAt": "2026-09-27T08:38:38.273Z"
     },
     "scrapeMethod": "html",
     "notes": "サイト上は単一レートのみの表示で、純度別の内訳は確認できていない(k24として暫定計上)。",
@@ -768,7 +768,7 @@
         "pt850": 7860
       },
       "updatedAt": "2026-09-26",
-      "fetchedAt": "2026-09-27T08:20:22.062Z"
+      "fetchedAt": "2026-09-27T08:38:39.965Z"
     },
     "scrapeMethod": "html",
     "notes": "「大蔵」という同名の全国チェーンは確認できず、最も近い候補として採用。ユーザーの意図と異なる可能性あり、要確認。Google口コミの公式ドメイン照合でも一致する店舗が確認できなかったため、googleReviewは未設定のままにしている。"
@@ -941,7 +941,7 @@
         "ag": 210
       },
       "updatedAt": "2026-09-27",
-      "fetchedAt": "2026-09-27T08:20:30.566Z"
+      "fetchedAt": "2026-09-27T08:38:47.773Z"
     },
     "scrapeMethod": "html",
     "googleReview": {
@@ -986,7 +986,7 @@
         "ag": 212
       },
       "updatedAt": "2026-09-27",
-      "fetchedAt": "2026-09-27T08:27:36.720Z"
+      "fetchedAt": "2026-09-27T08:38:52.800Z"
     },
     "scrapeMethod": "html",
     "googleReview": {
@@ -1024,7 +1024,7 @@
         "pt850": 6359
       },
       "updatedAt": "2026-09-25",
-      "fetchedAt": "2026-09-27T08:20:40.378Z"
+      "fetchedAt": "2026-09-27T08:38:54.347Z"
     },
     "scrapeMethod": "js-embed",
     "notes": "価格は店頭相場(baseK/basePt)に固定の掛け率(0.8倍を含む)を適用した計算式で決まる。掲載価格は他社より2割前後低い水準になるが、これは掲載ミスではなく実際にサイトが表示している値(2026/09/04時点で確認)。 なお口コミ評価は掲載していない: 実店舗を持たないため、Google検索でヒットするのは本社・物流センターなど非対面拠点のみで、買取サービスの評価として代表性がないと判断した。",

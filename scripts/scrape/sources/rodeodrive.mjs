@@ -1,5 +1,6 @@
 import * as cheerio from "cheerio";
 import { fetchText } from "../lib/fetchHtml.mjs";
+import { todayJst } from "../lib/date.mjs";
 
 const URL = "https://kaitori.rodeodrive.co.jp/gold/";
 
@@ -52,7 +53,7 @@ export async function scrape() {
   const dateMatch = html.match(/(\d{4})\/(\d{2})\/(\d{2})\s*<\/span><span>更新/);
   const updatedAt = dateMatch
     ? `${dateMatch[1]}-${dateMatch[2]}-${dateMatch[3]}`
-    : new Date().toISOString().slice(0, 10);
+    : todayJst();
 
   return { prices, updatedAt };
 }

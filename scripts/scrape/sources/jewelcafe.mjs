@@ -1,5 +1,6 @@
 import * as cheerio from "cheerio";
 import { fetchText } from "../lib/fetchHtml.mjs";
+import { parseJaDate } from "../lib/date.mjs";
 
 const URL = "https://jewel-cafe.jp/kaitori/gold/";
 
@@ -41,5 +42,14 @@ export async function scrape() {
     throw new Error("jewel-cafe: 価格を1件も取得できませんでした(ページ構造が変わった可能性)");
   }
 
-  return { prices, updatedAt: new Date().toISOString().slice(0, 10) };
+  // ページに <time datetime="2026-09-25T19:45:26+09:00" itemprop="dateModified"> があり、
+  // 日本時間のオフセット付きで書かれている。表示用の「2026年9月25日19:45更新！」より確実。
+  // 同社は「平日午前9-11時に更新いたします」と書いており、土日はここが止まる。
+  const machine = $("time[itemprop='dateModified']").attr("datetime");
+  const updatedAt = parseJaDate(machine) ?? parseJaDate($(".price-date-badge").first().text());
+  if (!updatedAt) {
+    throw new Error("jewel-cafe: 更新日を読めませんでした(dateModified の構造が変わった可能性)");
+  }
+
+  return { prices, updatedAt };
 }

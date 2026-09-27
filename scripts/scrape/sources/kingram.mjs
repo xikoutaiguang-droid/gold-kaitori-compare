@@ -1,4 +1,5 @@
 import { fetchText } from "../lib/fetchHtml.mjs";
+import { todayJst } from "../lib/date.mjs";
 
 const URL = "https://kingram.jp/lineup/goldplatinum/gold/";
 
@@ -50,5 +51,5 @@ export async function scrape() {
     throw new Error("kingram: 価格を1件も取得できませんでした(ページ構造が変わった可能性)");
   }
 
-  return { prices, updatedAt: updatedAt ?? new Date().toISOString().slice(0, 10) };
+  return { prices, updatedAt: updatedAt ?? todayJst() };
 }

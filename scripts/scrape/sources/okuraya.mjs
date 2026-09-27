@@ -1,5 +1,6 @@
 import * as cheerio from "cheerio";
 import { fetchText } from "../lib/fetchHtml.mjs";
+import { todayJst } from "../lib/date.mjs";
 
 const URL = "https://okuraya.jp/";
 
@@ -39,7 +40,7 @@ export async function scrape() {
 
   const dateText = $(".content-kaitoriToday .date").first().text();
   const dateMatch = dateText.match(/(\d{4})年(\d{2})月(\d{2})日/);
-  const updatedAt = dateMatch ? `${dateMatch[1]}-${dateMatch[2]}-${dateMatch[3]}` : new Date().toISOString().slice(0, 10);
+  const updatedAt = dateMatch ? `${dateMatch[1]}-${dateMatch[2]}-${dateMatch[3]}` : todayJst();
 
   if (Object.keys(prices).length === 0) {
     throw new Error("okuraya: 価格を1件も取得できませんでした(ページ構造が変わった可能性)");

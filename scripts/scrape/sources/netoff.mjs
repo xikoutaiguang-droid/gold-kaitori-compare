@@ -1,4 +1,5 @@
 import { fetchText } from "../lib/fetchHtml.mjs";
+import { todayJst } from "../lib/date.mjs";
 
 // 価格表示ページ(/brand/jewelry/gold/)は<span id="K24"></span>等の空箱にJSが値を書き込む方式。
 // 実際の値はこの静的JSファイル内のbaseK/basePtと固定の計算式で決まっており、
@@ -37,7 +38,7 @@ export async function scrape() {
 
   const updatedAt = dateMatch
     ? `${dateMatch[1]}-${dateMatch[2].padStart(2, "0")}-${dateMatch[3].padStart(2, "0")}`
-    : new Date().toISOString().slice(0, 10);
+    : todayJst();
 
   return { prices, updatedAt };
 }

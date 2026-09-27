@@ -1,13 +1,13 @@
 {
-  "ranAt": "2026-09-27T08:20:41.881Z",
-  "ok": 18,
-  "ng": 2,
+  "ranAt": "2026-09-27T08:38:55.861Z",
+  "ok": 20,
+  "ng": 0,
   "sources": [
     {
       "id": "otakaraya",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-09-27",
+      "updatedAt": "2026-09-25",
       "warning": null
     },
     {
@@ -41,7 +41,7 @@
       "id": "jewel-cafe",
       "ok": true,
       "priceCount": 5,
-      "updatedAt": "2026-09-27",
+      "updatedAt": "2026-09-25",
       "warning": null
     },
     {
@@ -102,15 +102,16 @@
     },
     {
       "id": "goldmrs",
-      "ok": false,
-      "skipped": false,
-      "error": "Fetch failed: https://goldmrs.jp/ -> 403 Forbidden"
+      "ok": true,
+      "priceCount": 12,
+      "updatedAt": "2026-09-27",
+      "warning": null
     },
     {
       "id": "nexus13",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-09-27",
+      "updatedAt": "2026-09-26",
       "warning": null
     },
     {
@@ -160,9 +161,10 @@
     },
     {
       "id": "refasta",
-      "ok": false,
-      "skipped": false,
-      "error": "fetch failed"
+      "ok": true,
+      "priceCount": 13,
+      "updatedAt": "2026-09-27",
+      "warning": null
     },
     {
       "id": "netoff",

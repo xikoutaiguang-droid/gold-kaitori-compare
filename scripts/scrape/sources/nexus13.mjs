@@ -1,5 +1,6 @@
 import * as cheerio from "cheerio";
 import { fetchText } from "../lib/fetchHtml.mjs";
+import { parseJaDate } from "../lib/date.mjs";
 
 const URL = "https://www.nexus13.co.jp/metals/";
 
@@ -67,5 +68,12 @@ export async function scrape() {
     throw new Error("nexus13: 価格を1件も取得できませんでした(ページ構造が変わった可能性)");
   }
 
-  return { prices, updatedAt: new Date().toISOString().slice(0, 10) };
+  // 価格表の上に「更新日時：2026/9/26」と出ている。実行日ではなくこれを使う。
+  const stamp = $(".mod_date").first().text();
+  const updatedAt = parseJaDate(stamp);
+  if (!updatedAt) {
+    throw new Error("nexus13: 価格表の更新日を読めませんでした(.mod_date の構造が変わった可能性)");
+  }
+
+  return { prices, updatedAt };
 }

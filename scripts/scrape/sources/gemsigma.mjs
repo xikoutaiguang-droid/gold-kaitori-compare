@@ -1,5 +1,6 @@
 import * as cheerio from "cheerio";
 import { fetchText } from "../lib/fetchHtml.mjs";
+import { todayJst } from "../lib/date.mjs";
 
 const URL = "https://gem-sigma.com/gold/gold/";
 
@@ -49,7 +50,7 @@ export async function scrape() {
   const dateMatch = dayText.match(/(\d{4})\/(\d{1,2})\/(\d{1,2})/);
   const updatedAt = dateMatch
     ? `${dateMatch[1]}-${dateMatch[2].padStart(2, "0")}-${dateMatch[3].padStart(2, "0")}`
-    : new Date().toISOString().slice(0, 10);
+    : todayJst();
 
   if (Object.keys(prices).length === 0) {
     throw new Error("gem-sigma: 価格を1件も取得できませんでした(ページ構造が変わった可能性)");
