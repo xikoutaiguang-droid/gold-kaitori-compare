@@ -1,7 +1,7 @@
 {
-  "ranAt": "2026-09-28T01:07:03.806Z",
-  "ok": 20,
-  "ng": 0,
+  "ranAt": "2026-09-28T08:48:10.658Z",
+  "ok": 18,
+  "ng": 2,
   "sources": [
     {
       "id": "otakaraya",
@@ -21,7 +21,7 @@
       "id": "kaitori-daikichi",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-09-25",
+      "updatedAt": "2026-09-28",
       "warning": null
     },
     {
@@ -41,7 +41,7 @@
       "id": "jewel-cafe",
       "ok": true,
       "priceCount": 5,
-      "updatedAt": "2026-09-25",
+      "updatedAt": "2026-09-28",
       "warning": null
     },
     {
@@ -55,7 +55,7 @@
       "id": "kingram",
       "ok": true,
       "priceCount": 12,
-      "updatedAt": "2026-09-25",
+      "updatedAt": "2026-09-28",
       "warning": null
     },
     {
@@ -97,15 +97,14 @@
       "id": "takayama78",
       "ok": true,
       "priceCount": 1,
-      "updatedAt": "2026-09-26",
+      "updatedAt": "2026-09-28",
       "warning": null
     },
     {
       "id": "goldmrs",
-      "ok": true,
-      "priceCount": 12,
-      "updatedAt": "2026-09-27",
-      "warning": null
+      "ok": false,
+      "skipped": false,
+      "error": "Fetch failed: https://goldmrs.jp/ -> 403 Forbidden"
     },
     {
       "id": "nexus13",
@@ -125,7 +124,7 @@
       "id": "okuraya",
       "ok": true,
       "priceCount": 6,
-      "updatedAt": "2026-09-26",
+      "updatedAt": "2026-09-28",
       "warning": null
     },
     {
@@ -156,21 +155,20 @@
       "id": "rodeodrive",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-09-27",
+      "updatedAt": "2026-09-28",
       "warning": null
     },
     {
       "id": "refasta",
-      "ok": true,
-      "priceCount": 13,
-      "updatedAt": "2026-09-28",
-      "warning": null
+      "ok": false,
+      "skipped": false,
+      "error": "fetch failed"
     },
     {
       "id": "netoff",
       "ok": true,
       "priceCount": 8,
-      "updatedAt": "2026-09-25",
+      "updatedAt": "2026-09-28",
       "warning": null
     }
   ]
