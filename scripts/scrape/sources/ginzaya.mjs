@@ -12,10 +12,22 @@ export async function scrape() {
   const html = await fetchText(URL);
   const $ = cheerio.load(html);
 
-  const priceText = $(".chart-bg-box .price .num").first().text();
+  const priceEl = $(".chart-bg-box .price .num").first();
+  if (priceEl.length === 0) {
+    throw new Error("ginzaya: 価格の要素が見つかりませんでした(ページ構造が変わった可能性)");
+  }
+
+  const priceText = priceEl.text();
   const value = Number(priceText.replace(/[^\d]/g, ""));
   if (!Number.isFinite(value) || value <= 0) {
-    throw new Error("ginzaya: 価格を取得できませんでした(ページ構造が変わった可能性)");
+    // 要素はあるのに0が入っている。2026-09-28に実際に起きた。
+    // 同じURLをブラウザから読むと正しい値(23,558円/g)が入ったHTMLが返るので、
+    // ページがJSで描かれているのではなく、こちらに返ってくるキャッシュが
+    // 0のまま固まっている。0を書き込むと順位が壊れるので、必ず失敗させる。
+    throw new Error(
+      `ginzaya: 掲載値が0でした(取得したHTMLの表示日: ${$(".chart-bg-box .title").first().text().trim() || "不明"})。` +
+        "ブラウザでは正しい値が出るため、同社側のキャッシュが壊れている可能性があります。",
+    );
   }
 
   const titleText = $(".chart-bg-box .title").first().text();
