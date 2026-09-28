@@ -1,5 +1,6 @@
 import { loadCompanies, saveCompanies, applyPriceUpdate } from "./lib/store.mjs";
 import { sleep } from "./lib/fetchHtml.mjs";
+import { todayJst } from "./lib/date.mjs";
 import { writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
@@ -71,18 +72,76 @@ const SOURCES = [
   netoff,
 ];
 
+/** --stale で対象が0件のときは、取得も書き込みもせずに終える */
+function staleEmpty(staleOnly, targets) {
+  if (!staleOnly || targets.length > 0) return false;
+  console.log(`全社が${todayJst()}の価格を出しています。取りに行く先はありません。`);
+  return true;
+}
+
 const DELAY_MS = 1500; // 同一運用者からの連続アクセスを避けるための最低限のインターバル
 
+/**
+ * 日付が今日でない社だけを選ぶ(--stale)。
+ *
+ * 全社を1時間おきに取りに行くと、1日600件を超える取得になる。1店舗しかない社も
+ * 混ざっているので、それは相手のサイトに対して過剰。実際に遅れているのは
+ * 「まだ今日の値を出していない社」だけなので、そこだけ追いかける。
+ * 追いかける対象は日中のうちに減っていき、全社が更新された時点で0件になる。
+ *
+ * 価格を公表していない社(scrapeMethod: "pending")は対象外。何度取りに行っても
+ * 数値が存在しない。
+ *
+ * 更新が MAX_CHASE_DAYS より前で止まっている社も追わない。毎日は更新しない社や
+ * 取得が壊れている社を1時間おきに叩いても、今日の値は出てこない。そちらは
+ * 1日3回の通常実行と check-freshness の担当。
+ */
+const MAX_CHASE_DAYS = 5;
+
+function daysSince(iso, todayIso) {
+  const a = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso ?? "");
+  const b = /^(\d{4})-(\d{2})-(\d{2})$/.exec(todayIso);
+  if (!a || !b) return null;
+  const d1 = Date.UTC(Number(a[1]), Number(a[2]) - 1, Number(a[3]));
+  const d2 = Date.UTC(Number(b[1]), Number(b[2]) - 1, Number(b[3]));
+  return Math.round((d2 - d1) / 86400000);
+}
+
+function staleTargets(companies) {
+  const today = todayJst();
+  const lagging = new Set(
+    companies
+      .filter((c) => c.scrapeMethod !== "pending")
+      .filter((c) => Object.keys(c.priceData?.prices ?? {}).length > 0)
+      .filter((c) => c.priceData?.updatedAt !== today)
+      .filter((c) => {
+        const age = daysSince(c.priceData?.updatedAt, today);
+        return age !== null && age <= MAX_CHASE_DAYS;
+      })
+      .map((c) => c.id),
+  );
+  return SOURCES.filter((s) => lagging.has(s.id));
+}
+
 async function main() {
-  const only = process.argv[2]; // 例: `node index.mjs otakaraya` で1社だけ実行
-  const targets = only ? SOURCES.filter((s) => s.id === only) : SOURCES;
+  const arg = process.argv[2]; // 例: `node index.mjs otakaraya` で1社だけ実行
+  const staleOnly = arg === "--stale";
+  const only = staleOnly ? undefined : arg;
+
+  const companies = await loadCompanies();
+
+  const targets = staleOnly
+    ? staleTargets(companies)
+    : only
+      ? SOURCES.filter((s) => s.id === only)
+      : SOURCES;
 
   if (only && targets.length === 0) {
     console.error(`不明な会社ID: ${only}`);
     process.exit(1);
   }
 
-  const companies = await loadCompanies();
+  if (staleEmpty(staleOnly, targets)) return;
   let okCount = 0;
   let ngCount = 0;
   const status = [];
@@ -116,8 +175,8 @@ async function main() {
   // 失敗をログに出すだけでは足りなかった。ワークフローは continue-on-error で緑のまま進み、
   // 古い価格が残ったことに誰も気づかない。実際になんぼやは10か月そのままだった。
   // 結果をファイルに残してコミットに載せ、差分として目に入るようにする。
-  // 1社だけ実行したときは全体の記録を壊さないよう書き出さない。
-  if (!only) {
+  // 1社だけ・遅れている社だけを実行したときは、全体の記録を壊さないよう書き出さない。
+  if (!only && !staleOnly) {
     await writeStatus({ ranAt: new Date().toISOString(), ok: okCount, ng: ngCount, sources: status });
   }
 

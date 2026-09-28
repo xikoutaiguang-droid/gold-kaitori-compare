@@ -1,0 +1,74 @@
+name: Catch-up refresh
+
+# 1日3回の Daily price refresh とは役割が違う。
+#
+# 通常実行は全25社を取りに行くが、走る時刻は決まっている。各社が価格を出す時刻は
+# バラバラで(コメ兵は14時ごろ、ジュエルカフェは19:45の更新を確認している)、
+# 通常実行の直後に更新した社は、次の回まで前日の日付のまま表示されることになる。
+# 実際9月28日の午前中、掲載20社のうち8社が9月25日(金)のままだった。
+#
+# そこで「まだ今日の値になっていない社だけ」を1時間おきに取りに行く。
+# 全社を毎時取りに行くと1日600件を超える取得になり、1店舗しかない社も含まれる以上
+# 相手に対して過剰なので、対象は遅れている社に限る(scripts/scrape/index.mjs --stale)。
+# 対象は日中に減っていき、全社が更新された時点で0件になって何も取りに行かなくなる。
+
+on:
+  schedule:
+    # 日本時間の9時台〜19時台を1時間おき。25分に寄せているのは、毎時00分は
+    # ワークフローが集中して実行が落とされやすいため(通常実行でも同じ理由で外している)。
+    # 田中貴金属の建値公表が9:30なので、各社が動き出すのはそれ以降。
+    - cron: "25 0-10 * * 1-5"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+# 通常実行と同時に走ると push がぶつかる。後から来たものを待たせる。
+concurrency:
+  group: price-refresh
+  cancel-in-progress: false
+
+jobs:
+  catch-up:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - run: npm ci
+
+      # 建値も1日のうちに動く。先に取っておくと、各社の値との突き合わせが同じ日で揃う。
+      - name: 田中貴金属の参考価格を取得
+        run: node scripts/scrape/update-reference-rate.mjs
+        continue-on-error: true
+
+      - name: 今日の日付になっていない社だけ取得
+        run: node scripts/scrape/index.mjs --stale
+        continue-on-error: true
+
+      # 同じ日の記録は上書きされるので、日中に何度走っても増えない。
+      - name: 履歴に反映
+        run: |
+          node scripts/scrape/append-history.mjs || true
+          node scripts/scrape/append-company-history.mjs || true
+
+      - name: 変更をコミット・push
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/
+          git diff --cached --quiet && echo "変更なし" || git commit -m "chore: 遅れている社の価格を追加取得 $(date -u +%Y-%m-%dT%H:%MZ)"
+          for i in 1 2 3; do
+            git push && exit 0
+            echo "push に失敗しました。リベースして再試行します ($i/3)"
+            git pull --rebase --autostash origin main || true
+            sleep 5
+          done
+          git push
+
+      # 点検は通常実行の担当。こちらで落とすと、取りに行く先が無い時間帯まで
+      # 赤くなって意味を失う。取得に失敗しても continue-on-error で素通りさせる。
