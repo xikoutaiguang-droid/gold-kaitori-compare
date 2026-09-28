@@ -355,7 +355,7 @@
         "ag": 325
       },
       "updatedAt": "2026-09-25",
-      "fetchedAt": "2026-09-28T03:22:28.046Z"
+      "fetchedAt": "2026-09-28T03:24:55.701Z"
     },
     "scrapeMethod": "js-embed",
     "notes": "価格はページ内script変数(window.marketData)にJSONとして埋め込み。ベストライフと価格が完全一致しており、共通データベンダーの可能性あり。",
