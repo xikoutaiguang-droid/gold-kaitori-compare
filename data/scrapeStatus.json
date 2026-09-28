@@ -1,5 +1,5 @@
 {
-  "ranAt": "2026-09-28T14:04:08.874Z",
+  "ranAt": "2026-09-28T17:51:30.607Z",
   "ok": 18,
   "ng": 2,
   "sources": [
@@ -14,7 +14,7 @@
       "id": "komehyo",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-09-28",
+      "updatedAt": "2026-09-29",
       "warning": null
     },
     {
@@ -48,7 +48,7 @@
       "id": "kaitori-elite",
       "ok": true,
       "priceCount": 8,
-      "updatedAt": "2026-09-28",
+      "updatedAt": "2026-09-29",
       "warning": null
     },
     {
@@ -62,35 +62,35 @@
       "id": "best-life",
       "ok": true,
       "priceCount": 12,
-      "updatedAt": "2026-09-28",
+      "updatedAt": "2026-09-29",
       "warning": null
     },
     {
       "id": "brand-revalue",
       "ok": true,
       "priceCount": 8,
-      "updatedAt": "2026-09-28",
+      "updatedAt": "2026-09-29",
       "warning": null
     },
     {
       "id": "gem-sigma",
       "ok": true,
       "priceCount": 12,
-      "updatedAt": "2026-09-28",
+      "updatedAt": "2026-09-29",
       "warning": null
     },
     {
       "id": "galleryrare",
       "ok": true,
       "priceCount": 12,
-      "updatedAt": "2026-09-28",
+      "updatedAt": "2026-09-29",
       "warning": null
     },
     {
       "id": "manekiya",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-09-28",
+      "updatedAt": "2026-09-29",
       "warning": null
     },
     {
