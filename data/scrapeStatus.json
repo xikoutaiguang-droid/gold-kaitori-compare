@@ -1,5 +1,5 @@
 {
-  "ranAt": "2026-09-29T16:11:18.138Z",
+  "ranAt": "2026-09-30T08:41:59.075Z",
   "ok": 18,
   "ng": 2,
   "sources": [
@@ -7,7 +7,7 @@
       "id": "otakaraya",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-09-29",
+      "updatedAt": "2026-09-30",
       "warning": null
     },
     {
@@ -21,7 +21,7 @@
       "id": "kaitori-daikichi",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-09-29",
+      "updatedAt": "2026-09-30",
       "warning": null
     },
     {
@@ -34,14 +34,14 @@
       "id": "nanboya",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-09-29",
+      "updatedAt": "2026-09-30",
       "warning": null
     },
     {
       "id": "jewel-cafe",
       "ok": true,
       "priceCount": 5,
-      "updatedAt": "2026-09-29",
+      "updatedAt": "2026-09-30",
       "warning": null
     },
     {
@@ -55,7 +55,7 @@
       "id": "kingram",
       "ok": true,
       "priceCount": 12,
-      "updatedAt": "2026-09-29",
+      "updatedAt": "2026-09-30",
       "warning": null
     },
     {
@@ -97,7 +97,7 @@
       "id": "takayama78",
       "ok": true,
       "priceCount": 1,
-      "updatedAt": "2026-09-29",
+      "updatedAt": "2026-09-30",
       "warning": null
     },
     {
@@ -110,7 +110,7 @@
       "id": "nexus13",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-09-29",
+      "updatedAt": "2026-09-30",
       "warning": null
     },
     {
@@ -155,7 +155,7 @@
       "id": "rodeodrive",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-09-29",
+      "updatedAt": "2026-09-30",
       "warning": null
     },
     {
@@ -168,7 +168,7 @@
       "id": "netoff",
       "ok": true,
       "priceCount": 8,
-      "updatedAt": "2026-09-29",
+      "updatedAt": "2026-09-30",
       "warning": null
     }
   ]
