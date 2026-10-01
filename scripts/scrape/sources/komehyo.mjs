@@ -1,6 +1,6 @@
 import * as cheerio from "cheerio";
 import { fetchText } from "../lib/fetchHtml.mjs";
-import { todayJst } from "../lib/date.mjs";
+import { parseJaDate } from "../lib/date.mjs";
 
 const URL = "https://komehyo.jp/kaitori/gold/souba/";
 
@@ -40,5 +40,14 @@ export async function scrape() {
     throw new Error("komehyo: 価格を1件も取得できませんでした(ページ構造が変わった可能性)");
   }
 
-  return { prices, updatedAt: todayJst() };
+  // 価格表の見出し直下に「（最終更新日：2026-10-01）」と出ている。
+  // 実行日を入れていたため、同社がまだ前日の表を出している深夜の取得で
+  // 1日進んだ日付が付いていた。
+  const stamp = $("p:contains('最終更新日')").first().text();
+  const updatedAt = parseJaDate(stamp);
+  if (!updatedAt) {
+    throw new Error("komehyo: 最終更新日を読めませんでした(ページ構造が変わった可能性)");
+  }
+
+  return { prices, updatedAt };
 }

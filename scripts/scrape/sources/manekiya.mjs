@@ -1,6 +1,6 @@
 import * as cheerio from "cheerio";
 import { fetchText } from "../lib/fetchHtml.mjs";
-import { todayJst } from "../lib/date.mjs";
+import { parseJaDate } from "../lib/date.mjs";
 
 const URL = "https://manekiya.shop/rate";
 
@@ -49,5 +49,14 @@ export async function scrape() {
     throw new Error("manekiya: 価格を1件も取得できませんでした(ページ構造が変わった可能性)");
   }
 
-  return { prices, updatedAt: todayJst() };
+  // 価格一覧の末尾に「※2026年10月1日現在（当社調べ）」と出ている。
+  // トップページでは <li class="research"> に入っているが、取得先の /rate では
+  // 別の作りなので、クラスではなく「〜現在」という文言で拾う。
+  const stamp = html.match(/(\d{4})年\s*(\d{1,2})月\s*(\d{1,2})日\s*現在/);
+  const updatedAt = stamp ? parseJaDate(stamp[0]) : null;
+  if (!updatedAt) {
+    throw new Error("manekiya: 更新日(「〜年〜月〜日現在」)を読めませんでした(ページ構造が変わった可能性)");
+  }
+
+  return { prices, updatedAt };
 }

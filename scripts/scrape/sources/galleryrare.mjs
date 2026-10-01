@@ -1,6 +1,6 @@
 import * as cheerio from "cheerio";
 import { fetchText } from "../lib/fetchHtml.mjs";
-import { todayJst } from "../lib/date.mjs";
+import { parseJaDate } from "../lib/date.mjs";
 
 const URL = "https://galleryrare.jp/goldplatinum/";
 
@@ -38,5 +38,14 @@ export async function scrape() {
     throw new Error("galleryrare: 価格を1件も取得できませんでした(ページ構造が変わった可能性)");
   }
 
-  return { prices, updatedAt: todayJst() };
+  // 相場表の上に <div class="result__update"><time>更新日：2026年10月1日</time></div> がある。
+  // time の datetime 属性は 2026-08-20 のまま放置されていて当てにならないので、
+  // 表示されている文字のほうを読む。同社の更新は11時ごろで、それ以前に取ると前日のまま。
+  const stamp = $(".result__update").first().text();
+  const updatedAt = parseJaDate(stamp);
+  if (!updatedAt) {
+    throw new Error("galleryrare: 更新日を読めませんでした(.result__update の構造が変わった可能性)");
+  }
+
+  return { prices, updatedAt };
 }
