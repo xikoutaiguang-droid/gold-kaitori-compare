@@ -1,4 +1,5 @@
 import { loadCompanies, saveCompanies, applyPriceUpdate } from "./lib/store.mjs";
+import { rejectImplausible } from "./lib/plausibility.mjs";
 import { sleep } from "./lib/fetchHtml.mjs";
 import { todayJst } from "./lib/date.mjs";
 import { writeFile } from "node:fs/promises";
@@ -129,6 +130,10 @@ async function main() {
   const only = staleOnly ? undefined : arg;
 
   const companies = await loadCompanies();
+  // 更新前の値を控えておく。取得後に「その社だけ市場と違う動き方をしていないか」を見るため。
+  const before = new Map(
+    companies.map((c) => [c.id, { prices: { ...(c.priceData?.prices ?? {}) }, updatedAt: c.priceData?.updatedAt }]),
+  );
 
   const targets = staleOnly
     ? staleTargets(companies)
@@ -168,6 +173,20 @@ async function main() {
       if (!skipped) ngCount++;
     }
     await sleep(DELAY_MS);
+  }
+
+  // 取得できた値が、その社だけ market と違う動き方をしていないかを見る。
+  // 例: リファスタは9月28日に全純度が一斉に+13.7%動いた(市場は-1.45%)。
+  // ページ上の別の表を拾っていた疑いが強く、そのまま載せると順位が入れ替わる。
+  // 怪しい値は書き込まず、前回の値を残す。古い値のほうが、嘘の値よりましなので。
+  const rejected = rejectImplausible(companies, before);
+  for (const r of rejected) {
+    console.error(`[却下] ${r.id}: ${r.reason}`);
+    const row = status.find((s) => s.id === r.id);
+    if (row) {
+      row.rejected = true;
+      row.rejectReason = r.reason;
+    }
   }
 
   await saveCompanies(companies);

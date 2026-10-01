@@ -1,7 +1,7 @@
 {
-  "ranAt": "2026-10-01T13:29:39.495Z",
-  "ok": 11,
-  "ng": 9,
+  "ranAt": "2026-10-01T14:06:49.693Z",
+  "ok": 20,
+  "ng": 0,
   "sources": [
     {
       "id": "otakaraya",
@@ -53,15 +53,17 @@
     },
     {
       "id": "kingram",
-      "ok": false,
-      "skipped": false,
-      "error": "fetch failed"
+      "ok": true,
+      "priceCount": 12,
+      "updatedAt": "2026-10-01",
+      "warning": null
     },
     {
       "id": "best-life",
-      "ok": false,
-      "skipped": false,
-      "error": "fetch failed"
+      "ok": true,
+      "priceCount": 12,
+      "updatedAt": "2026-10-01",
+      "warning": null
     },
     {
       "id": "brand-revalue",
@@ -72,9 +74,10 @@
     },
     {
       "id": "gem-sigma",
-      "ok": false,
-      "skipped": false,
-      "error": "fetch failed"
+      "ok": true,
+      "priceCount": 12,
+      "updatedAt": "2026-10-01",
+      "warning": null
     },
     {
       "id": "galleryrare",
@@ -85,9 +88,10 @@
     },
     {
       "id": "manekiya",
-      "ok": false,
-      "skipped": false,
-      "error": "fetch failed"
+      "ok": true,
+      "priceCount": 13,
+      "updatedAt": "2026-10-01",
+      "warning": null
     },
     {
       "id": "takayama78",
@@ -98,9 +102,10 @@
     },
     {
       "id": "goldmrs",
-      "ok": false,
-      "skipped": false,
-      "error": "fetch failed"
+      "ok": true,
+      "priceCount": 12,
+      "updatedAt": "2026-10-01",
+      "warning": null
     },
     {
       "id": "nexus13",
@@ -111,15 +116,17 @@
     },
     {
       "id": "ginzaya",
-      "ok": false,
-      "skipped": false,
-      "error": "fetch failed"
+      "ok": true,
+      "priceCount": 1,
+      "updatedAt": "2026-10-01",
+      "warning": null
     },
     {
       "id": "okuraya",
-      "ok": false,
-      "skipped": false,
-      "error": "fetch failed"
+      "ok": true,
+      "priceCount": 6,
+      "updatedAt": "2026-10-01",
+      "warning": null
     },
     {
       "id": "brandoff",
@@ -147,15 +154,17 @@
     },
     {
       "id": "rodeodrive",
-      "ok": false,
-      "skipped": false,
-      "error": "fetch failed"
+      "ok": true,
+      "priceCount": 13,
+      "updatedAt": "2026-10-01",
+      "warning": null
     },
     {
       "id": "refasta",
-      "ok": false,
-      "skipped": false,
-      "error": "fetch failed"
+      "ok": true,
+      "priceCount": 13,
+      "updatedAt": "2026-10-01",
+      "warning": null
     },
     {
       "id": "netoff",

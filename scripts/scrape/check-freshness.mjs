@@ -124,6 +124,10 @@ async function main() {
     return age === null || age > DISPLAY_IMPACT_DAYS;
   });
 
+  // 値が怪しくて書き込まなかった社。表示には古い値が出ているので、
+  // 放っておくとそのまま古い値が載り続ける。
+  const rejected = (status?.sources ?? []).filter((s) => s.rejected);
+
   const lines = [];
   lines.push(
     `取得: 成功 ${status?.ok ?? "?"} / 失敗 ${failures.length} / 対象外 ${skipped.length}` +
@@ -148,6 +152,12 @@ async function main() {
     lines.push("", `取得に失敗したが、前回の値がまだ新しいソース (${transientFailures.length}件):`);
     for (const f of transientFailures) lines.push(`  - ${f.id}: ${f.error}`);
     lines.push("  一時的な不通の可能性があります。続くようならソースを確認してください。");
+  }
+  if (rejected.length) {
+    lines.push("", `値が不自然で書き込まなかったソース (${rejected.length}件):`);
+    for (const r of rejected) lines.push(`  - ${r.id}: ${r.rejectReason}`);
+    lines.push("  取得先のページを見て、本当にその価格になったのかを確かめてください。");
+    lines.push("  正しければ `node scripts/scrape/index.mjs <会社ID>` と1社だけ実行すれば書き込めます。");
   }
   if (stale.length) {
     lines.push("", `${MAX_AGE_DAYS}日より古い価格 (${stale.length}社):`);
@@ -201,7 +211,7 @@ async function main() {
     lines.push("  表示は正しいままなので、このジョブは落としません。");
   }
 
-  if (!failures.length && !stale.length && !campaignBlocking.length && !campaignNotes.length) {
+  if (!failures.length && !stale.length && !rejected.length && !campaignBlocking.length && !campaignNotes.length) {
     lines.push("", "全ソース正常。古い価格もキャンペーンの確認漏れもありません。");
   }
 
@@ -214,7 +224,13 @@ async function main() {
     await appendFile(process.env.GITHUB_STEP_SUMMARY, `## 価格取得の点検\n\n\`\`\`\n${report}\n\`\`\`\n`, "utf8");
   }
 
-  if (blockingFailures.length || ongoingWithImpact.length || stale.length || campaignBlocking.length) {
+  if (
+    blockingFailures.length ||
+    ongoingWithImpact.length ||
+    stale.length ||
+    rejected.length ||
+    campaignBlocking.length
+  ) {
     console.error("\n点検に引っかかりました。上記を確認してください。");
     process.exit(1);
   }
