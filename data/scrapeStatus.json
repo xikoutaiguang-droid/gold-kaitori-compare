@@ -1,5 +1,5 @@
 {
-  "ranAt": "2026-10-01T04:24:46.163Z",
+  "ranAt": "2026-10-01T09:04:17.814Z",
   "ok": 18,
   "ng": 2,
   "sources": [
@@ -55,7 +55,7 @@
       "id": "kingram",
       "ok": true,
       "priceCount": 12,
-      "updatedAt": "2026-09-30",
+      "updatedAt": "2026-10-01",
       "warning": null
     },
     {
