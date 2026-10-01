@@ -40,6 +40,14 @@ export interface FeeDisclosure {
    * どちらかを隠すと、読む人がその食い違いに自分で気づけない。
    */
   contrast?: { quote: string; sourceUrl: string };
+  /**
+   * どこまで読んだか。
+   *
+   * 価格ページだけを読んでいたときは、リファスタとネクサスの差し引きに気づけなかった。
+   * どちらも規約や宅配買取の注意事項のほうに書いてある。「無料と書いてあった」と
+   * 「無料だと確かめた」は違うので、どこまで見たかを持っておく。
+   */
+  checkedScope?: "price" | "terms";
 }
 
 export const FEE_DISCLOSURES: FeeDisclosure[] = [
@@ -60,15 +68,17 @@ export const FEE_DISCLOSURES: FeeDisclosure[] = [
   },
   {
     companyId: "komehyo",
+    checkedScope: "terms",
     model: "free",
     quote: "店頭買取、宅配買取共に手数料は一切かかりません",
-    sourceUrl: "https://komehyo.jp/kaitori/gold/souba/",
-    checkedAt: "2026-09-22",
+    sourceUrl: "https://komehyo.jp/kaitori/faq/",
+    checkedAt: "2026-10-01",
   },
   // ここから下は2026-10-01に各社の価格ページを読んで追加した。
   // 引用はすべて、取得したHTMLに同じ文字列があることを確認している。
   {
     companyId: "nanboya",
+    checkedScope: "terms",
     model: "deducted",
     quote:
       "買取相場価格に手数料は含まれておりません。手数料に関しては実物拝見時にご案内させていただきます。",
@@ -83,6 +93,7 @@ export const FEE_DISCLOSURES: FeeDisclosure[] = [
   },
   {
     companyId: "brand-revalue",
+    checkedScope: "terms",
     model: "deducted",
     quote: "買取相場価格に手数料は含まれておりません",
     sourceUrl: "https://brandrevalue.com/cat/gold/souba",
@@ -93,6 +104,7 @@ export const FEE_DISCLOSURES: FeeDisclosure[] = [
     // 宅配買取のページでは「代金から差し引くことは行っていない」と明記している。
     // 後者のほうが読む人の問い(引かれるのか)に直接答えているので、そちらを採る。
     companyId: "galleryrare",
+    checkedScope: "terms",
     model: "free",
     quote:
       "ご利用や査定は無料となっておりますので、手数料などの費用はいただいておりません。お買取りの代金から差し引くといったことは行っておりません。",
@@ -105,6 +117,7 @@ export const FEE_DISCLOSURES: FeeDisclosure[] = [
   },
   {
     companyId: "kaitori-elite",
+    checkedScope: "terms",
     model: "free",
     quote: "金・プラチナの買取手数料・査定料￥０なので安心してご利用いただけます",
     sourceUrl: "https://kaitori-off.net/gold/",
@@ -112,6 +125,7 @@ export const FEE_DISCLOSURES: FeeDisclosure[] = [
   },
   {
     companyId: "goldmrs",
+    checkedScope: "terms",
     model: "free",
     quote: "当店では、手数料は一切いただいておりません。査定は無料となっております。",
     sourceUrl: "https://goldmrs.jp/",
@@ -121,6 +135,7 @@ export const FEE_DISCLOSURES: FeeDisclosure[] = [
     // 貴金属ページには「手数料は一切いただきません」とあるが、
     // 宅配買取の注意事項に金額別の差し引きが書かれている。
     companyId: "nexus13",
+    checkedScope: "terms",
     model: "deducted",
     quote:
       "少量のお取り扱いに関しては 送料・事務手数料他をご負担いただく場合 がございます。",
@@ -137,6 +152,7 @@ export const FEE_DISCLOSURES: FeeDisclosure[] = [
   },
   {
     companyId: "rodeodrive",
+    checkedScope: "terms",
     model: "free",
     quote: "当社は査定および買取に際して手数料をいただいておりません。",
     sourceUrl: "https://kaitori.rodeodrive.co.jp/gold/",
@@ -147,6 +163,7 @@ export const FEE_DISCLOSURES: FeeDisclosure[] = [
     // 利用規約には宅配買取の負担金が定められている。当サイトを見て
     // 「K18のネックレスを送ろう」とする人は、まさにその対象商品に当たる。
     companyId: "refasta",
+    checkedScope: "terms",
     model: "deducted",
     quote:
       "宅配買取サービス時に、本項2号【対象商品】のご依頼で、買取金額が20万円未満だった場合、以下のご負担金を頂戴致します。",
@@ -164,6 +181,7 @@ export const FEE_DISCLOSURES: FeeDisclosure[] = [
   },
   {
     companyId: "netoff",
+    checkedScope: "terms",
     model: "free",
     quote: "送料・手数料・査定料・振込手数料・キャンセル料・返送料 すべて0円！",
     sourceUrl: "https://www.netoff.co.jp/brand/jewelry/gold/",
@@ -171,6 +189,7 @@ export const FEE_DISCLOSURES: FeeDisclosure[] = [
   },
   {
     companyId: "kaitori-daikichi",
+    checkedScope: "terms",
     model: "free",
     quote: "査定料、出張料、キャンセル料などの手数料は全て無料です。",
     sourceUrl: "https://www.kaitori-daikichi.jp/",
@@ -178,6 +197,7 @@ export const FEE_DISCLOSURES: FeeDisclosure[] = [
   },
   {
     companyId: "okuraya",
+    checkedScope: "terms",
     model: "free",
     quote: "大蔵屋は一切手数料はかかりません!",
     sourceUrl: "https://okuraya.jp/",
