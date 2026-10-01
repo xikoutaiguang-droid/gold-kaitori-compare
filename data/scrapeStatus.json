@@ -1,7 +1,7 @@
 {
-  "ranAt": "2026-10-01T09:04:17.814Z",
-  "ok": 18,
-  "ng": 2,
+  "ranAt": "2026-10-01T13:29:39.495Z",
+  "ok": 11,
+  "ng": 9,
   "sources": [
     {
       "id": "otakaraya",
@@ -53,17 +53,15 @@
     },
     {
       "id": "kingram",
-      "ok": true,
-      "priceCount": 12,
-      "updatedAt": "2026-10-01",
-      "warning": null
+      "ok": false,
+      "skipped": false,
+      "error": "fetch failed"
     },
     {
       "id": "best-life",
-      "ok": true,
-      "priceCount": 12,
-      "updatedAt": "2026-10-01",
-      "warning": null
+      "ok": false,
+      "skipped": false,
+      "error": "fetch failed"
     },
     {
       "id": "brand-revalue",
@@ -74,10 +72,9 @@
     },
     {
       "id": "gem-sigma",
-      "ok": true,
-      "priceCount": 12,
-      "updatedAt": "2026-10-01",
-      "warning": null
+      "ok": false,
+      "skipped": false,
+      "error": "fetch failed"
     },
     {
       "id": "galleryrare",
@@ -88,10 +85,9 @@
     },
     {
       "id": "manekiya",
-      "ok": true,
-      "priceCount": 13,
-      "updatedAt": "2026-10-01",
-      "warning": null
+      "ok": false,
+      "skipped": false,
+      "error": "fetch failed"
     },
     {
       "id": "takayama78",
@@ -104,7 +100,7 @@
       "id": "goldmrs",
       "ok": false,
       "skipped": false,
-      "error": "Fetch failed: https://goldmrs.jp/ -> 403 Forbidden"
+      "error": "fetch failed"
     },
     {
       "id": "nexus13",
@@ -115,17 +111,15 @@
     },
     {
       "id": "ginzaya",
-      "ok": true,
-      "priceCount": 1,
-      "updatedAt": "2026-10-01",
-      "warning": null
+      "ok": false,
+      "skipped": false,
+      "error": "fetch failed"
     },
     {
       "id": "okuraya",
-      "ok": true,
-      "priceCount": 6,
-      "updatedAt": "2026-10-01",
-      "warning": null
+      "ok": false,
+      "skipped": false,
+      "error": "fetch failed"
     },
     {
       "id": "brandoff",
@@ -153,10 +147,9 @@
     },
     {
       "id": "rodeodrive",
-      "ok": true,
-      "priceCount": 13,
-      "updatedAt": "2026-10-01",
-      "warning": null
+      "ok": false,
+      "skipped": false,
+      "error": "fetch failed"
     },
     {
       "id": "refasta",
