@@ -1,7 +1,7 @@
 {
-  "ranAt": "2026-10-01T14:41:12.037Z",
-  "ok": 19,
-  "ng": 1,
+  "ranAt": "2026-10-01T16:45:18.934Z",
+  "ok": 17,
+  "ng": 3,
   "sources": [
     {
       "id": "otakaraya",
@@ -14,15 +14,14 @@
       "id": "komehyo",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-01",
+      "updatedAt": "2026-10-02",
       "warning": null
     },
     {
       "id": "kaitori-daikichi",
-      "ok": true,
-      "priceCount": 13,
-      "updatedAt": "2026-10-01",
-      "warning": null
+      "ok": false,
+      "skipped": false,
+      "error": "Fetch failed: https://www.kaitori-daikichi.jp/list_gold/today_gold.json -> 502 Bad Gateway"
     },
     {
       "id": "e-daikoku",
@@ -48,7 +47,7 @@
       "id": "kaitori-elite",
       "ok": true,
       "priceCount": 8,
-      "updatedAt": "2026-10-01",
+      "updatedAt": "2026-10-02",
       "warning": null
     },
     {
@@ -62,21 +61,21 @@
       "id": "best-life",
       "ok": true,
       "priceCount": 12,
-      "updatedAt": "2026-10-01",
+      "updatedAt": "2026-10-02",
       "warning": null
     },
     {
       "id": "brand-revalue",
       "ok": true,
       "priceCount": 8,
-      "updatedAt": "2026-10-01",
+      "updatedAt": "2026-10-02",
       "warning": null
     },
     {
       "id": "gem-sigma",
       "ok": true,
       "priceCount": 12,
-      "updatedAt": "2026-10-01",
+      "updatedAt": "2026-10-02",
       "warning": null
     },
     {
@@ -102,10 +101,9 @@
     },
     {
       "id": "goldmrs",
-      "ok": true,
-      "priceCount": 12,
-      "updatedAt": "2026-10-01",
-      "warning": null
+      "ok": false,
+      "skipped": false,
+      "error": "Fetch failed: https://goldmrs.jp/ -> 403 Forbidden"
     },
     {
       "id": "nexus13",
