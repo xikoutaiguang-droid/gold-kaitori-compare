@@ -7,6 +7,7 @@ import MarketClosedNotice from "@/components/MarketClosedNotice";
 import RegionLinks from "@/components/RegionLinks";
 import CompanyLinks from "@/components/CompanyLinks";
 import { getCompaniesForIndex } from "@/lib/companyPages";
+import JsonLd from "@/components/JsonLd";
 
 export const metadata: Metadata = {
   title: "金・貴金属買取相場比較｜純度・地域別に主要買取店の価格を一覧比較",
@@ -15,12 +16,39 @@ export const metadata: Metadata = {
   alternates: { canonical: "/compare" },
 };
 
+// 画面に出ているFAQセクションと同じ内容にする(JsonLdだけ別の文言にしない)
+const faq = [
+  {
+    q: "K24とK18では、買取価格はどのくらい違いますか？",
+    a: "K24(純金)が最も高く、K18はその純度分(約75%)だけ単価が下がります。ただし単純な掛け算にはならない店もあるため、正確には当ページの表で純度ごとの実際の価格を確認してください。",
+  },
+  {
+    q: "なぜ店によって買取価格が違うのですか？",
+    a: "国際価格や為替という共通の土台は同じでも、各社の手数料や運営コストの違いが上乗せ・差し引きされるためです。詳しくは「金相場はなぜ変動するのか」のコラムでも解説しています。",
+  },
+  {
+    q: "価格はどのくらいの頻度で更新されますか？",
+    a: "当サイトは各社の公式サイトが公表している価格を毎日自動で取得し、このページに反映しています。価格を公表していない店や、取得が一時的に止まっている店は、その旨を明記したうえで掲載しています。",
+  },
+];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faq.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+
 export default function ComparePage() {
   const companies = getCompanies();
   const byCompany = getCompaniesForIndex();
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-6 sm:py-10">
+      <JsonLd data={faqJsonLd} />
       <div className="mb-4 flex justify-center">
         <Image
           src="/compare-illustration.jpg"
@@ -71,6 +99,18 @@ export default function ComparePage() {
       <section className="mt-10 border-t border-border pt-8">
         <h2 className="font-serif-jp mb-3 text-lg font-semibold">買取店から探す</h2>
         <CompanyLinks />
+      </section>
+
+      <section className="mt-12 border-t border-border pt-8">
+        <h2 className="font-serif-jp mb-4 text-lg font-semibold">よくある質問</h2>
+        <dl className="flex flex-col gap-5">
+          {faq.map((f) => (
+            <div key={f.q}>
+              <dt className="font-medium">{f.q}</dt>
+              <dd className="mt-1 text-sm text-muted">{f.a}</dd>
+            </div>
+          ))}
+        </dl>
       </section>
     </div>
   );
