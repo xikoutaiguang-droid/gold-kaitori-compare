@@ -205,6 +205,17 @@ export const FEE_DISCLOSURES: FeeDisclosure[] = [
   },
 ];
 
+/**
+ * 価格ページには「手数料は無料」と書いてあるのに、規約や宅配買取の案内では
+ * 金額を決めて差し引いている社。2026-10-01時点でリファスタとネクサスの2社。
+ *
+ * この記事がいちばん伝えるべきなのはここだと思う。価格ページだけを読んでいた
+ * 当サイトは、どちらの差し引きにも気づけていなかった。
+ */
+export function hiddenInTerms(): DisclosureRow[] {
+  return measureFeeLandscape().rows.filter((r) => r.model === "deducted" && r.contrast && r.condition);
+}
+
 /** その社の手数料の記載。無ければ undefined */
 export function feeDisclosureFor(companyId: string): FeeDisclosure | undefined {
   return FEE_DISCLOSURES.find((d) => d.companyId === companyId);

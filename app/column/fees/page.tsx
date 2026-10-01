@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { measureFeeLandscape, franchiseCompanies, FEE_MODEL_LABEL } from "@/lib/fees";
+import { measureFeeLandscape, franchiseCompanies, hiddenInTerms, FEE_MODEL_LABEL } from "@/lib/fees";
 import { measureFeeImpact, MANEKIYA_FEE } from "@/lib/priceMeaning";
 import { PURITY_LABELS } from "@/lib/types";
 import JsonLd from "@/components/JsonLd";
@@ -9,13 +9,15 @@ import OtherColumns from "@/components/OtherColumns";
 
 export function generateMetadata(): Metadata {
   const f = measureFeeLandscape();
+  const hidden = hiddenInTerms().length;
   return {
     title: "金買取の手数料は、どこでいくら引かれるのか",
     description:
       `「手数料無料」と書いてあっても、受け取る金額が表示単価どおりとは限りません。` +
-      `1gあたりの価格を公表している${f.priced}社の価格ページを読み、手数料の扱いが` +
-      `${f.disclosed}社で${f.distinctModels}通りに分かれていることと、あとから引かれる場合に` +
-      `実質単価が何円下がるかを計算しました。`,
+      `${f.priced}社について価格ページだけでなく利用規約や宅配買取の案内まで読んだところ、` +
+      `${hidden}社は価格ページに手数料はかからないと書きながら、規約では金額を決めて差し引いていました。` +
+      `手数料の扱いが${f.disclosed}社で${f.distinctModels}通りに分かれていることと、` +
+      `あとから引かれる場合に実質単価が何円下がるかを計算しています。`,
     alternates: { canonical: "/column/fees" },
   };
 }
@@ -37,6 +39,7 @@ export default function FeesPage() {
   const k24 = measureFeeImpact("manekiya", "k24", K24_WEIGHTS).filter((r) => r.fee !== null);
   const k18 = measureFeeImpact("manekiya", "k18", K18_WEIGHTS).filter((r) => r.fee !== null);
   const franchises = franchiseCompanies();
+  const hidden = hiddenInTerms();
   const deducted = f.rows.find((r) => r.model === "deducted");
   const shown = k18.length ? k18 : k24;
   const worst = shown.length
@@ -61,9 +64,15 @@ export default function FeesPage() {
       </h1>
       <p className="mb-8 text-base leading-relaxed text-muted">
         「手数料無料」と書いてある店でも、受け取る金額が表示単価どおりとは限りません。
-        当サイトが価格を追っている{f.priced}社の価格ページを読んだところ、
-        手数料の扱いは{f.disclosed}社で{f.distinctModels}通りに分かれていました。
-        同じ「無料」の2文字が、別のことを指しています。
+        当サイトが価格を追っている{f.priced}社について、価格ページに加えて利用規約や
+        宅配買取の案内まで読んだところ、手数料の扱いは{f.disclosed}社で
+        {f.distinctModels}通りに分かれていました。同じ「無料」の2文字が、別のことを指しています。
+        {hidden.length > 0 && (
+          <>
+            そのうち{hidden.length}社は、価格ページに「手数料は一切かかりません」と書きながら、
+            規約のほうで金額を決めて差し引いていました。
+          </>
+        )}
       </p>
 
       {/* ---- 3つの形 ---- */}
@@ -244,18 +253,79 @@ export default function FeesPage() {
         </p>
       </section>
 
+      {/* ---- 規約に書いてある場合 ---- */}
+      {hidden.length > 0 && (
+        <section className="mb-10">
+          <h2 className="font-serif-jp mb-3 text-lg font-semibold">
+            価格ページの「無料」と、規約に書いてある金額が違う社がある
+          </h2>
+          <p className="mb-4 text-sm leading-relaxed text-foreground/80">
+            当サイトは最初、各社の価格ページだけを読んでいました。それだと見落とすものがあります。
+            下の{hidden.length}社は、価格ページには手数料がかからないと書いてあるのに、
+            利用規約や宅配買取の案内のほうに、いくら引くかが決められていました。
+            どちらもその会社自身の記載です。
+          </p>
+          <div className="flex flex-col gap-4">
+            {hidden.map((r) => (
+              <div key={r.companyId} className="rounded-xl border border-amber-500/40 bg-amber-50/60 p-4 dark:bg-amber-950/20">
+                <div className="mb-2 flex flex-wrap items-baseline gap-x-2">
+                  <Link href={`/company/${r.companyId}`} className="font-semibold hover:underline">
+                    {r.name}
+                  </Link>
+                  {r.k24 !== null && (
+                    <span className="text-sm text-muted">
+                      {PURITY_LABELS.k24} {yen(r.k24)}円/g
+                    </span>
+                  )}
+                </div>
+                <dl className="flex flex-col gap-2 text-sm leading-relaxed">
+                  <div>
+                    <dt className="text-xs font-medium text-muted">価格ページでの説明</dt>
+                    <dd className="text-foreground/80">「{r.contrast!.quote}」</dd>
+                  </div>
+                  <div>
+                    <dt className="text-xs font-medium text-muted">規約・宅配買取の案内での説明</dt>
+                    <dd className="text-foreground/80">「{r.quote}」</dd>
+                    <dd className="mt-1 text-foreground/80">{r.condition}</dd>
+                  </div>
+                </dl>
+                <p className="mt-2 text-xs leading-relaxed text-muted">
+                  <a href={r.contrast!.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline hover:no-underline">
+                    価格ページ
+                  </a>
+                  ／
+                  <a href={r.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline hover:no-underline">
+                    規約のページ
+                  </a>
+                  （どちらも{jaDate(r.checkedAt)}閲覧）
+                </p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-4 text-sm leading-relaxed text-foreground/80">
+            どちらの条件も、少額で、ブランド品ではない貴金属を、宅配で送る場合に当たります。
+            金のネックレスを1本売るような、このサイトを見ている人にいちばん多いであろう売り方です。
+            店頭に持ち込む場合や、金額が大きい場合は対象外と書かれています。
+          </p>
+        </section>
+      )}
+
       {/* ---- どれだけ公表されているか ---- */}
       <section className="mb-10">
-        <h2 className="font-serif-jp mb-3 text-lg font-semibold">価格ページを見て分かる社は多くない</h2>
+        <h2 className="font-serif-jp mb-3 text-lg font-semibold">どこまで読めば分かるのか</h2>
         <p className="mb-3 text-sm leading-relaxed text-foreground/80">
-          1gあたりの価格を公表している{f.priced}社のうち、手数料の扱いまで価格ページに
-          書かれていることを当サイトが確認できたのは{f.disclosed}社です。
-          残りが取っているという意味ではありません。別のページに書かれているかもしれませんし、
-          当サイトが見つけられていないだけかもしれません。
+          1gあたりの価格を公表している{f.priced}社のうち、手数料の扱いを確認できたのは{f.disclosed}社です。
+          残りが取っているという意味ではありません。どこにも書かれていないのか、
+          当サイトが見つけられていないだけなのかは区別できません。
+        </p>
+        <p className="mb-3 text-sm leading-relaxed text-foreground/80">
+          確認できた社については、各社ページに「価格ページのみ確認」か
+          「利用規約・よくある質問・宅配買取の案内まで確認」かを書いています。
+          上の{hidden.length}社の例のとおり、どこまで読んだかで答えが変わるためです。
         </p>
         <p className="text-sm leading-relaxed text-foreground/80">
-          ただ、価格を見に来た人がその場で気づけるかという点では、{f.disclosed}社以外は
-          分からないままになります。単価だけを見て比べると、この部分が抜け落ちます。
+          価格を見に来た人がその場で気づけるか、という点で言えば、
+          規約まで開く人はほとんどいないはずです。単価だけを見て比べると、この部分が抜け落ちます。
         </p>
       </section>
 
@@ -297,7 +367,8 @@ export default function FeesPage() {
       <section className="mb-10 rounded-xl border border-border bg-surface p-4">
         <h2 className="font-serif-jp mb-2 text-base font-semibold">この記事の数字について</h2>
         <p className="text-xs leading-relaxed text-muted">
-          引用は各社の価格ページから転記したもので、閲覧日を併記しています。
+          引用は各社の価格ページ・利用規約・よくある質問・宅配買取の案内から転記したもので、
+          閲覧日を併記しています。転記にあたっては、取得したHTMLに同じ文字列があることを1件ずつ確認しています。
           記載は予告なく変わるため、実際に売る前にはご自身でも確認してください。
           単価と順位は当サイトが毎日取得している各社の公表価格から、ページを作るたびに
           計算し直しています。分析料の金額は
