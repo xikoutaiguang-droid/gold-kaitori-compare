@@ -1,7 +1,7 @@
 {
-  "ranAt": "2026-10-01T14:36:54.171Z",
-  "ok": 20,
-  "ng": 0,
+  "ranAt": "2026-10-01T14:41:12.037Z",
+  "ok": 19,
+  "ng": 1,
   "sources": [
     {
       "id": "otakaraya",
@@ -161,10 +161,9 @@
     },
     {
       "id": "refasta",
-      "ok": true,
-      "priceCount": 13,
-      "updatedAt": "2026-10-01",
-      "warning": null
+      "ok": false,
+      "skipped": false,
+      "error": "fetch failed"
     },
     {
       "id": "netoff",
