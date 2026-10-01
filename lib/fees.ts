@@ -30,6 +30,16 @@ export interface FeeDisclosure {
   sourceUrl: string;
   /** その文言を読んだ日 */
   checkedAt: string;
+  /**
+   * いつ・いくら引かれるのか。条件つきの社に書く。
+   * 「手数料あり」とだけ出すと、条件に当たらない人まで身構えることになる。
+   */
+  condition?: string;
+  /**
+   * 同じ社の別のページに、上と食い違う書き方がある場合にそれを残す。
+   * どちらかを隠すと、読む人がその食い違いに自分で気づけない。
+   */
+  contrast?: { quote: string; sourceUrl: string };
 }
 
 export const FEE_DISCLOSURES: FeeDisclosure[] = [
@@ -37,6 +47,7 @@ export const FEE_DISCLOSURES: FeeDisclosure[] = [
     companyId: "manekiya",
     model: "deducted",
     quote: "分析料は商品1点ごとにかかります",
+    condition: "商品1点ごと。買取金額に応じて1,000〜10,000円(税抜)。",
     sourceUrl: "https://manekiya.com/rate",
     checkedAt: "2026-09-22",
   },
@@ -107,12 +118,24 @@ export const FEE_DISCLOSURES: FeeDisclosure[] = [
     checkedAt: "2026-10-01",
   },
   {
+    // 価格ページのよくある質問には「買取手数料など一切掛かりません」とあるが、
+    // 利用規約には宅配買取の負担金が定められている。当サイトを見て
+    // 「K18のネックレスを送ろう」とする人は、まさにその対象商品に当たる。
     companyId: "refasta",
-    model: "free",
+    model: "deducted",
     quote:
-      "貴金属の場合「重量」×「単価」とシンプルな計算方法で、買取手数料など一切掛かりませんのでご安心願えますでしょうか。",
-    sourceUrl: "https://kinkaimasu.jp/",
+      "宅配買取サービス時に、本項2号【対象商品】のご依頼で、買取金額が20万円未満だった場合、以下のご負担金を頂戴致します。",
+    condition:
+      "宅配買取で、ノンブランドの貴金属製品のみ(または宝石のみ等)を送り、1度の成約が20万円未満だった場合。" +
+      "ベーシック宅配買取1,650円(税込)、スピード宅配買取は1,100円(税込)で、成約金額から差し引かれます。" +
+      "店頭買取と、ブランドジュエリー等を含む依頼は対象外と書かれています。",
+    sourceUrl: "https://kinkaimasu.jp/kiyaku/",
     checkedAt: "2026-10-01",
+    contrast: {
+      quote:
+        "貴金属の場合「重量」×「単価」とシンプルな計算方法で、買取手数料など一切掛かりませんのでご安心願えますでしょうか。",
+      sourceUrl: "https://kinkaimasu.jp/",
+    },
   },
   {
     companyId: "netoff",

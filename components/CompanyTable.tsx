@@ -178,13 +178,19 @@ export default function CompanyTable({
               {/* 単価から別途引くと自社で書いている社は、その旨を並びの中に出す。
                   順位は公表単価で付けているので、同じ順位でも受け取る額は同じではない。
                   priceCaveat に金額まで書けている社(まねきや)はそちらのほうが詳しいので出さない。 */}
-              {!c.priceCaveat && feeDisclosureFor(c.id)?.model === "deducted" && (
-                <div className="mt-2 pl-8">
-                  <CaveatNote>
-                    この単価から手数料が別途引かれると同社が記載しています(金額は要確認)
-                  </CaveatNote>
-                </div>
-              )}
+              {!c.priceCaveat &&
+                feeDisclosureFor(c.id)?.model === "deducted" &&
+                (() => {
+                  const fee = feeDisclosureFor(c.id)!;
+                  return (
+                    <div className="mt-2 pl-8">
+                      <CaveatNote>
+                        {fee.condition ??
+                          "この単価から手数料が別途引かれると同社が記載しています(金額は要確認)"}
+                      </CaveatNote>
+                    </div>
+                  );
+                })()}
             </>
           );
 

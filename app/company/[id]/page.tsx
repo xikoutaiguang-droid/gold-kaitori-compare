@@ -370,6 +370,25 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
             >
               <p className="text-sm font-semibold">{FEE_MODEL_LABEL[fee.model]}</p>
               <p className="mt-2 text-sm leading-relaxed text-foreground/80">「{fee.quote}」</p>
+              {fee.condition && (
+                <p className="mt-2 text-sm leading-relaxed text-foreground/80">{fee.condition}</p>
+              )}
+              {fee.contrast && (
+                <p className="mt-2 rounded-lg border border-border bg-surface-2/60 p-2.5 text-xs leading-relaxed text-muted">
+                  いっぽう同社の
+                  <a
+                    href={fee.contrast.sourceUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline hover:no-underline"
+                  >
+                    価格ページ
+                  </a>
+                  には「{fee.contrast.quote}」とあります。どちらも同社の記載です。
+                  当サイトはどちらが正しいかを判断できないので、両方そのまま載せています。
+                  申し込む前に、ご自身の品物と金額で当てはまるかを確認してください。
+                </p>
+              )}
               <p className="mt-2 text-xs leading-relaxed text-muted">
                 {jaDate(fee.checkedAt)}に
                 <a
