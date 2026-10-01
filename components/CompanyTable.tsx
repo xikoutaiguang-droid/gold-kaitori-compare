@@ -9,6 +9,7 @@ import { trackOutboundClick } from "@/lib/analytics";
 import CompanyLogo from "@/components/CompanyLogo";
 import PriceBar from "@/components/PriceBar";
 import CaveatNote from "@/components/CaveatNote";
+import { feeDisclosureFor } from "@/lib/fees";
 import ReferenceDiff from "@/components/ReferenceDiff";
 import PrBadge from "@/components/PrBadge";
 
@@ -172,6 +173,16 @@ export default function CompanyTable({
               {c.priceCaveat && (
                 <div className="mt-2 pl-8">
                   <CaveatNote>{c.priceCaveat}</CaveatNote>
+                </div>
+              )}
+              {/* 単価から別途引くと自社で書いている社は、その旨を並びの中に出す。
+                  順位は公表単価で付けているので、同じ順位でも受け取る額は同じではない。
+                  priceCaveat に金額まで書けている社(まねきや)はそちらのほうが詳しいので出さない。 */}
+              {!c.priceCaveat && feeDisclosureFor(c.id)?.model === "deducted" && (
+                <div className="mt-2 pl-8">
+                  <CaveatNote>
+                    この単価から手数料が別途引かれると同社が記載しています(金額は要確認)
+                  </CaveatNote>
                 </div>
               )}
             </>

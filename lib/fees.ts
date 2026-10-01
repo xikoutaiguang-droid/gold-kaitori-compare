@@ -54,7 +54,93 @@ export const FEE_DISCLOSURES: FeeDisclosure[] = [
     sourceUrl: "https://komehyo.jp/kaitori/gold/souba/",
     checkedAt: "2026-09-22",
   },
+  // ここから下は2026-10-01に各社の価格ページを読んで追加した。
+  // 引用はすべて、取得したHTMLに同じ文字列があることを確認している。
+  {
+    companyId: "nanboya",
+    model: "deducted",
+    quote:
+      "買取相場価格に手数料は含まれておりません。手数料に関しては実物拝見時にご案内させていただきます。",
+    sourceUrl: "https://nanboya.com/gold-kaitori/",
+    checkedAt: "2026-10-01",
+  },
+  {
+    companyId: "brand-revalue",
+    model: "deducted",
+    quote: "買取相場価格に手数料は含まれておりません",
+    sourceUrl: "https://brandrevalue.com/cat/gold/souba",
+    checkedAt: "2026-10-01",
+  },
+  {
+    companyId: "galleryrare",
+    model: "deducted",
+    quote: "参考買取価格に手数料は含まれておりません",
+    sourceUrl: "https://galleryrare.jp/goldplatinum/",
+    checkedAt: "2026-10-01",
+  },
+  {
+    companyId: "kaitori-elite",
+    model: "free",
+    quote: "金・プラチナの買取手数料・査定料￥０なので安心してご利用いただけます",
+    sourceUrl: "https://kaitori-off.net/gold/",
+    checkedAt: "2026-10-01",
+  },
+  {
+    companyId: "goldmrs",
+    model: "free",
+    quote: "当店では、手数料は一切いただいておりません。査定は無料となっております。",
+    sourceUrl: "https://goldmrs.jp/",
+    checkedAt: "2026-10-01",
+  },
+  {
+    companyId: "nexus13",
+    model: "free",
+    quote: "手数料は一切いただきません",
+    sourceUrl: "https://www.nexus13.co.jp/metals/",
+    checkedAt: "2026-10-01",
+  },
+  {
+    companyId: "rodeodrive",
+    model: "free",
+    quote: "当社は査定および買取に際して手数料をいただいておりません。",
+    sourceUrl: "https://kaitori.rodeodrive.co.jp/gold/",
+    checkedAt: "2026-10-01",
+  },
+  {
+    companyId: "refasta",
+    model: "free",
+    quote:
+      "貴金属の場合「重量」×「単価」とシンプルな計算方法で、買取手数料など一切掛かりませんのでご安心願えますでしょうか。",
+    sourceUrl: "https://kinkaimasu.jp/",
+    checkedAt: "2026-10-01",
+  },
+  {
+    companyId: "netoff",
+    model: "free",
+    quote: "送料・手数料・査定料・振込手数料・キャンセル料・返送料 すべて0円！",
+    sourceUrl: "https://www.netoff.co.jp/brand/jewelry/gold/",
+    checkedAt: "2026-10-01",
+  },
+  {
+    companyId: "kaitori-daikichi",
+    model: "free",
+    quote: "査定料、出張料、キャンセル料などの手数料は全て無料です。",
+    sourceUrl: "https://www.kaitori-daikichi.jp/",
+    checkedAt: "2026-10-01",
+  },
+  {
+    companyId: "okuraya",
+    model: "free",
+    quote: "大蔵屋は一切手数料はかかりません!",
+    sourceUrl: "https://okuraya.jp/",
+    checkedAt: "2026-10-01",
+  },
 ];
+
+/** その社の手数料の記載。無ければ undefined */
+export function feeDisclosureFor(companyId: string): FeeDisclosure | undefined {
+  return FEE_DISCLOSURES.find((d) => d.companyId === companyId);
+}
 
 export const FEE_MODEL_LABEL: Record<FeeModel, string> = {
   deducted: "表示単価から、あとで引かれる",

@@ -20,6 +20,7 @@ import PrBadge from "@/components/PrBadge";
 import JsonLd from "@/components/JsonLd";
 import { breadcrumbJsonLd } from "@/lib/structuredData";
 import { getRegionPageByRegion } from "@/lib/regionPages";
+import { feeDisclosureFor, FEE_MODEL_LABEL } from "@/lib/fees";
 
 /** 本文に混ぜる日付。ISO表記のままだと文章の中で浮く */
 function jaDate(iso: string): string {
@@ -349,6 +350,48 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
           </dd>
         </dl>
       </section>
+
+      {/* ---- 手数料 ---- */}
+      {/* 「1gいくら」を見た人が最後に受け取る額は、ここで変わる。
+          当サイトが順位を付けているのは各社が公表している単価で、
+          そこから引かれるものがあると書いている社が実際にある。 */}
+      {(() => {
+        const fee = feeDisclosureFor(company.id);
+        if (!fee) return null;
+        return (
+          <section className="mb-8">
+            <h2 className="font-serif-jp mb-3 text-lg font-semibold">手数料の扱い</h2>
+            <div
+              className={`rounded-xl border p-4 ${
+                fee.model === "deducted"
+                  ? "border-amber-500/40 bg-amber-50/60 dark:bg-amber-950/20"
+                  : "border-border bg-surface"
+              }`}
+            >
+              <p className="text-sm font-semibold">{FEE_MODEL_LABEL[fee.model]}</p>
+              <p className="mt-2 text-sm leading-relaxed text-foreground/80">「{fee.quote}」</p>
+              <p className="mt-2 text-xs leading-relaxed text-muted">
+                {jaDate(fee.checkedAt)}に
+                <a
+                  href={fee.sourceUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline hover:no-underline"
+                >
+                  同社のページ
+                </a>
+                で確認した記載です。当サイトの順位は各社が公表している単価で付けており、
+                そこから引かれるものは含めていません。
+              </p>
+            </div>
+            <p className="mt-2 text-sm">
+              <Link href="/column/fees" className="font-medium text-accent-strong hover:underline">
+                手数料の引かれ方を各社で比べる →
+              </Link>
+            </p>
+          </section>
+        );
+      })()}
 
       {/* ---- 買取方法 ---- */}
       {/* 店名で検索して来る人がまず知りたいのは「家まで来るのか、送れるのか」。
