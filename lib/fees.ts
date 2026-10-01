@@ -74,6 +74,12 @@ export const FEE_DISCLOSURES: FeeDisclosure[] = [
       "買取相場価格に手数料は含まれておりません。手数料に関しては実物拝見時にご案内させていただきます。",
     sourceUrl: "https://nanboya.com/gold-kaitori/",
     checkedAt: "2026-10-01",
+    contrast: {
+      // 無料だと書かれているのは査定料・送料・出張費・振込手数料で、
+      // 単価に含まれていない「手数料」のことではない。並べて読めるようにしておく。
+      quote: "査定料、送料（宅配買取）、出張費（出張買取）、振込手数料などは、一切いただいておりません。",
+      sourceUrl: "https://nanboya.com/gold-kaitori/yokuaru-questions/",
+    },
   },
   {
     companyId: "brand-revalue",
@@ -83,11 +89,19 @@ export const FEE_DISCLOSURES: FeeDisclosure[] = [
     checkedAt: "2026-10-01",
   },
   {
+    // 価格ページには「参考買取価格に手数料は含まれておりません」という一文があるが、
+    // 宅配買取のページでは「代金から差し引くことは行っていない」と明記している。
+    // 後者のほうが読む人の問い(引かれるのか)に直接答えているので、そちらを採る。
     companyId: "galleryrare",
-    model: "deducted",
-    quote: "参考買取価格に手数料は含まれておりません",
-    sourceUrl: "https://galleryrare.jp/goldplatinum/",
+    model: "free",
+    quote:
+      "ご利用や査定は無料となっておりますので、手数料などの費用はいただいておりません。お買取りの代金から差し引くといったことは行っておりません。",
+    sourceUrl: "https://galleryrare.jp/flow/takuhai/",
     checkedAt: "2026-10-01",
+    contrast: {
+      quote: "参考買取価格に手数料は含まれておりません",
+      sourceUrl: "https://galleryrare.jp/goldplatinum/",
+    },
   },
   {
     companyId: "kaitori-elite",
@@ -104,11 +118,22 @@ export const FEE_DISCLOSURES: FeeDisclosure[] = [
     checkedAt: "2026-10-01",
   },
   {
+    // 貴金属ページには「手数料は一切いただきません」とあるが、
+    // 宅配買取の注意事項に金額別の差し引きが書かれている。
     companyId: "nexus13",
-    model: "free",
-    quote: "手数料は一切いただきません",
-    sourceUrl: "https://www.nexus13.co.jp/metals/",
+    model: "deducted",
+    quote:
+      "少量のお取り扱いに関しては 送料・事務手数料他をご負担いただく場合 がございます。",
+    condition:
+      "宅配買取のみ。買取金額が15万円未満だと支払金額から送料、10万円未満だと送料と事務手数料770円、" +
+      "7万円未満で宅配キットを使うとさらに実費550円〜が差し引かれます。" +
+      "同社の例では買取金額68,000円が、送料1,034円と事務手数料770円を引いて66,196円になります。",
+    sourceUrl: "https://www.nexus13.co.jp/buy2/notice.php",
     checkedAt: "2026-10-01",
+    contrast: {
+      quote: "手数料は一切いただきません",
+      sourceUrl: "https://www.nexus13.co.jp/metals/",
+    },
   },
   {
     companyId: "rodeodrive",
