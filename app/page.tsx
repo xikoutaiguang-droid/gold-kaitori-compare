@@ -11,6 +11,7 @@ import WeeklyChange from "@/components/WeeklyChange";
 import OperatorMessage from "@/components/OperatorMessage";
 import RegionLinks from "@/components/RegionLinks";
 import CompanyLinks from "@/components/CompanyLinks";
+import PurityLinks from "@/components/PurityLinks";
 
 /**
  * トップページの検索結果での見え方。
@@ -158,6 +159,17 @@ export default function Home() {
           その地域に店舗を出している会社だけを、同じ並びで比べられます。
         </p>
         <RegionLinks />
+      </section>
+
+      {/* 検索されているのは「K18 買取価格 今日」のように純度を含む言い方だが、
+          /compare の純度セレクタはクライアント側の切り替えなので検索結果に出ない。
+          純度ごとの入口をここから張る。 */}
+      <section className="mt-10 border-t border-border pt-8">
+        <h2 className="font-serif-jp mb-1 text-lg font-semibold">純度から探す</h2>
+        <p className="mb-3 text-sm text-muted">
+          その純度の今日の高値・中央値と、重さ別のおおよその金額が出ます。
+        </p>
+        <PurityLinks />
       </section>
 
       {/* 店名で検索して来る人がいちばん多い(「ネクサス 金」「なんぼや 買取」など)のに、

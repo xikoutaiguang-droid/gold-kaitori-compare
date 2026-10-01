@@ -17,11 +17,14 @@ const PURITY_OPTIONS: Purity[] = [...GOLD_PURITIES, ...PLATINUM_PURITIES, ...SIL
 export default function CompanyTable({
   companies,
   initialRegion = "全国",
+  initialPurity = "k24",
 }: {
   companies: Company[];
   initialRegion?: Region | "全国";
+  /** 純度別ページから開いたときの初期選択。切り替えは従来どおりできる */
+  initialPurity?: Purity;
 }) {
-  const [purity, setPurity] = useState<Purity>("k24");
+  const [purity, setPurity] = useState<Purity>(initialPurity);
   const [region, setRegion] = useState<Region | "全国">(initialRegion);
 
   const availablePurities = useMemo(

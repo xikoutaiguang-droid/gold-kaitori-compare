@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/siteConfig";
 import { REGION_PAGES } from "@/lib/regionPages";
+import { PURITY_PAGES } from "@/lib/purityPages";
 import { getCompanies } from "@/lib/companies";
 import { COLUMNS } from "@/lib/columns";
 
@@ -26,9 +27,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // 記事を足したときにどちらかが漏れて、載せたのに登録されない状態になる。
   const columnPages = COLUMNS.map((c) => c.href);
   const regionPages = REGION_PAGES.map((r) => `/compare/${r.slug}`);
+  const purityPages = PURITY_PAGES.map((p) => `/price/${p.slug}`);
   const companyPages = getCompanies().map((c) => `/company/${c.id}`);
 
-  return [...pages, ...columnPages, ...regionPages, ...companyPages].map((path) => ({
+  return [...pages, ...columnPages, ...regionPages, ...purityPages, ...companyPages].map((path) => ({
     url: `${SITE_URL}${path}`,
     lastModified: new Date(),
     changeFrequency: path.startsWith("/compare") ? "daily" : "weekly",
