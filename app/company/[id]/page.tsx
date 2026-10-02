@@ -20,6 +20,8 @@ import PrBadge from "@/components/PrBadge";
 import JsonLd from "@/components/JsonLd";
 import { breadcrumbJsonLd } from "@/lib/structuredData";
 import { getRegionPageByRegion } from "@/lib/regionPages";
+import MarketChange from "@/components/MarketChange";
+import { getPriceHistory } from "@/lib/priceHistory";
 import { feeDisclosureFor, FEE_MODEL_LABEL } from "@/lib/fees";
 
 /** 本文に混ぜる日付。ISO表記のままだと文章の中で浮く */
@@ -390,6 +392,10 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
           </dd>
         </dl>
       </section>
+
+      {/* 2回目以降に来た人に「前回見た日から相場がどう動いたか」を出す。
+          この社の価格の話ではないので、文言は「掲載社の平均」としている。 */}
+      {hasPrice && <MarketChange history={getPriceHistory()} />}
 
       {/* ---- 手数料 ---- */}
       {/* 「1gいくら」を見た人が最後に受け取る額は、ここで変わる。

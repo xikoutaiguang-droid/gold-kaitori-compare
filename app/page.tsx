@@ -7,7 +7,8 @@ import RankingCard from "@/components/RankingCard";
 import TrustBadges from "@/components/TrustBadges";
 import MarketClosedNotice from "@/components/MarketClosedNotice";
 import PriceFreshness from "@/components/PriceFreshness";
-import WeeklyChange from "@/components/WeeklyChange";
+import MarketChange from "@/components/MarketChange";
+import { getPriceHistory } from "@/lib/priceHistory";
 import OperatorMessage from "@/components/OperatorMessage";
 import RegionLinks from "@/components/RegionLinks";
 import CompanyLinks from "@/components/CompanyLinks";
@@ -101,8 +102,9 @@ export default function Home() {
       <PriceFreshness className="mb-8 sm:mb-10" />
 
       {/* 価格の直後に置く。順位より前に出すと、検索から来た人が求めている
-          今日の数字が下がる。2日前にそれを測って直したばかり。 */}
-      <WeeklyChange />
+          今日の数字が下がる。2日前にそれを測って直したばかり。
+          2回目以降の訪問では「前回見た日からの差」に変わる。 */}
+      <MarketChange history={getPriceHistory()} />
 
       <OperatorMessage />
 
