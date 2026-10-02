@@ -349,6 +349,11 @@ export function remoteBuyers(purity: Purity = "k24"): RemoteOption[] {
   return buyersFor(["shipping", "visit"], purity);
 }
 
+/** 宅配買取に対応していると確認できた社 */
+export function shippingBuyers(purity: Purity = "k24"): RemoteOption[] {
+  return buyersFor(["shipping"], purity);
+}
+
 /** 出張買取に対応していると確認できた社 */
 export function visitBuyers(purity: Purity = "k24"): RemoteOption[] {
   return buyersFor(["visit"], purity);

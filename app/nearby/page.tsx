@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import NearbyFinder from "@/components/NearbyFinder";
+import MethodTabs from "@/components/MethodTabs";
 import TrustBadges from "@/components/TrustBadges";
 import { getCompanies } from "@/lib/companies";
 import RemoteBuyers from "@/components/RemoteBuyers";
@@ -23,6 +24,7 @@ export default function NearbyPage() {
       <p className="mb-6 text-base text-muted">
         現在地をもとに、比較対象の買取店の中から近い店舗を距離順に表示します。店舗名をタップするとGoogleマップで道順を確認できます。
       </p>
+      <MethodTabs current="/nearby" />
       <TrustBadges
         items={["取得した位置情報は保存されず、この検索のためだけに使われます", "位置情報を許可しなくても他の機能は通常どおり使えます"]}
       />

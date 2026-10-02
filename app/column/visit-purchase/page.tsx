@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import MethodTabs from "@/components/MethodTabs";
 import JsonLd from "@/components/JsonLd";
 import OtherColumns from "@/components/OtherColumns";
 import RemoteBuyers from "@/components/RemoteBuyers";
@@ -60,6 +61,7 @@ export default function VisitPurchasePage() {
       <h1 className="font-serif-jp mb-2 text-xl font-semibold sm:text-2xl">
         出張買取の8日間 — 取り消せる場合と、取り消せない場合
       </h1>
+      <MethodTabs current="/column/visit-purchase" />
       <p className="mb-8 text-base leading-relaxed text-muted">
         当サイトが価格を追っている{SERVICE_RECORDS.length}社のうち、{n.visit}
         社が自宅まで来る出張買取に対応していました。

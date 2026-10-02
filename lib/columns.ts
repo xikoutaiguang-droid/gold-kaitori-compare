@@ -13,6 +13,11 @@ export interface ColumnEntry {
 
 export const COLUMNS: ColumnEntry[] = [
   {
+    href: "/column/mail-in-purchase",
+    title: "金の宅配買取で、送る前に確かめる3つのこと",
+    desc: "8日間の取り消しが付くのは出張だけ。返送料と、少額のときに引かれる額を各社の規約から",
+  },
+  {
     href: "/column/visit-purchase",
     title: "出張買取の8日間 — 取り消せる場合と、取り消せない場合",
     desc: "自宅に来てもらう買取だけにかかる法律を、条文と消費者庁の記載から。頼み方で扱いが変わります",
