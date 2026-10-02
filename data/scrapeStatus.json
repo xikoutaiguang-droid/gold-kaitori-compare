@@ -1,7 +1,7 @@
 {
-  "ranAt": "2026-10-02T07:31:01.935Z",
-  "ok": 19,
-  "ng": 1,
+  "ranAt": "2026-10-02T08:39:44.314Z",
+  "ok": 18,
+  "ng": 2,
   "sources": [
     {
       "id": "otakaraya",
@@ -102,10 +102,9 @@
     },
     {
       "id": "goldmrs",
-      "ok": true,
-      "priceCount": 12,
-      "updatedAt": "2026-10-02",
-      "warning": null
+      "ok": false,
+      "skipped": false,
+      "error": "Fetch failed: https://goldmrs.jp/ -> 403 Forbidden"
     },
     {
       "id": "nexus13",
