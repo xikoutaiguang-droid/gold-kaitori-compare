@@ -131,6 +131,9 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
   const platinum = getStandings(company, PLATINUM_PURITIES);
   const silver = getStandings(company, SILVER_PURITIES);
   const hasPrice = gold.length + platinum.length + silver.length > 0;
+  // ファーストビューに出す2つ。検索されているのはこの2つの純度が中心で、
+  // 全部並べると「結局いくらか」が読み取りにくくなる。
+  const headline = [...gold, ...platinum].filter((s) => s.purity === "k24" || s.purity === "k18");
   const campaigns = getCampaignsForCompany(company.id);
   // この店自身の価格が1週間でどう動いたか。各社の公式サイトは今日の値しか
   // 載せないので、ある店の推移を出せるのは日次で記録しているこちら側だけ。
@@ -168,6 +171,43 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
           {company.name}の金・貴金属買取
         </h1>
       </div>
+      {/* ---- 今日の価格(ファーストビュー) ---- */}
+      {/* このページに来る人の検索語は「ネクサス 金相場」「コメ兵 金買取価格 今日」で、
+          知りたいのは数字ひとつ。これまでは店の規模の説明が先に来ていて、
+          価格は見出しと説明文のあとだった。順番を入れ替える。 */}
+      {headline.length > 0 && (
+        <section className="mb-5 rounded-2xl border border-accent/30 bg-accent-soft/40 p-4">
+          <div className="mb-3 flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+            <h2 className="text-sm font-semibold">今日の買取価格</h2>
+            {company.priceData.updatedAt && (
+              <span className="text-xs text-muted">{jaDate(company.priceData.updatedAt)}時点</span>
+            )}
+          </div>
+          <dl className="flex flex-col gap-3">
+            {headline.map((s) => (
+              <div key={s.purity} className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                <dt className="w-20 shrink-0 text-sm text-muted">{PURITY_LABELS[s.purity]}</dt>
+                <dd className="text-2xl font-bold tabular-nums leading-none text-accent-strong">
+                  {s.price.toLocaleString("ja-JP")}
+                  <span className="ml-1 text-sm font-normal text-foreground/70">円/g</span>
+                </dd>
+                <dd className="text-xs text-muted">
+                  掲載{s.total}社中{s.rank}位 ・{" "}
+                  {s.diff === 0
+                    ? "中央値と同じ"
+                    : `中央値より${s.diff > 0 ? "+" : ""}${s.diff.toLocaleString("ja-JP")}円`}
+                </dd>
+              </div>
+            ))}
+          </dl>
+          <p className="mt-3 text-sm">
+            <a href="#prices" className="font-medium text-accent-strong hover:underline">
+              すべての純度と他社との比較を見る ↓
+            </a>
+          </p>
+        </section>
+      )}
+
       <p className="mb-6 text-base text-muted">{company.trustNotes}</p>
 
       {campaigns.length > 0 && (
@@ -177,7 +217,7 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
       )}
 
       {/* ---- 価格 ---- */}
-      <section className="mb-8">
+      <section id="prices" className="mb-8 scroll-mt-4">
         <h2 className="font-serif-jp mb-3 text-lg font-semibold">買取参考価格と他社との比較</h2>
         {hasPrice ? (
           <>
