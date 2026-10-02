@@ -1,5 +1,5 @@
 {
-  "ranAt": "2026-10-02T01:31:04.284Z",
+  "ranAt": "2026-10-02T07:31:01.935Z",
   "ok": 19,
   "ng": 1,
   "sources": [
@@ -41,7 +41,7 @@
       "id": "jewel-cafe",
       "ok": true,
       "priceCount": 5,
-      "updatedAt": "2026-10-01",
+      "updatedAt": "2026-10-02",
       "warning": null
     },
     {
@@ -55,7 +55,7 @@
       "id": "kingram",
       "ok": true,
       "priceCount": 12,
-      "updatedAt": "2026-10-01",
+      "updatedAt": "2026-10-02",
       "warning": null
     },
     {
@@ -169,7 +169,7 @@
       "id": "netoff",
       "ok": true,
       "priceCount": 8,
-      "updatedAt": "2026-09-30",
+      "updatedAt": "2026-10-02",
       "warning": null
     }
   ]
