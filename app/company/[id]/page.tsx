@@ -76,7 +76,39 @@ export async function generateMetadata({
   };
 }
 
-function StandingTable({
+/**
+ * 順位の印。1〜3位だけ色を付ける。
+ *
+ * 文字の大きさも色も全部同じだと、13行の表はただの数字の壁になる。
+ * このサイトを見に来る理由は「で、この店は高いのか」なので、
+ * そこだけ目に入るようにする。
+ */
+function RankMark({ rank, total }: { rank: number; total: number }) {
+  const top = rank <= 3;
+  return (
+    <span
+      className={`inline-flex shrink-0 items-center justify-center rounded px-1.5 py-0.5 tabular-nums sm:w-[5.5rem] ${
+        top ? "bg-accent-soft font-semibold text-accent-strong" : "text-muted"
+      }`}
+    >
+      {total}社中{rank}位
+    </span>
+  );
+}
+
+/**
+ * 純度ごとの価格・順位・中央値との差。
+ *
+ * もとは4列の <table> に min-w-[420px] を付けていた。375pxの端末では
+ * 入れ物が343pxしかないため、4列目の「中央値との差」が常に画面の外にあり、
+ * 横スクロールしないと読めなかった。比較サイトで一番見せたい列がそれでは
+ * 意味がないので、表をやめて1件ずつの行にしてある。
+ *
+ * 狭いときは2行(純度+価格 / 順位+差)、sm以上では1行に並ぶ。
+ * 見出し行が無くても読めるよう、セルの中に「19社中3位」「中央値+418円」と
+ * 単位ごと書いている。
+ */
+function StandingRows({
   title,
   standings,
 }: {
@@ -86,41 +118,58 @@ function StandingTable({
   if (!standings.length) return null;
   return (
     <div className="mb-6">
-      <h3 className="mb-2 text-sm font-semibold">{title}</h3>
-      <div className="overflow-x-auto">
-        <table className="w-full min-w-[420px] border-collapse text-sm">
-          <thead>
-            <tr className="border-b border-border text-left text-xs text-muted">
-              <th className="py-2 pr-3 font-medium">純度</th>
-              <th className="py-2 pr-3 text-right font-medium">買取参考価格</th>
-              <th className="py-2 pr-3 text-right font-medium">掲載社中の順位</th>
-              <th className="py-2 text-right font-medium">中央値との差</th>
-            </tr>
-          </thead>
-          <tbody>
-            {standings.map((s) => (
-              <tr key={s.purity} className="border-b border-border/60">
-                <td className="py-2 pr-3">{PURITY_LABELS[s.purity]}</td>
-                <td className="py-2 pr-3 text-right tabular-nums">
-                  {s.price.toLocaleString("ja-JP")}円/g
-                </td>
-                <td className="py-2 pr-3 text-right tabular-nums text-muted">
-                  {s.total}社中 {s.rank}位
-                </td>
-                <td
-                  className={`py-2 text-right tabular-nums ${
-                    s.diff > 0 ? "text-emerald-700 dark:text-emerald-400" : s.diff < 0 ? "text-muted" : "text-muted"
-                  }`}
-                >
-                  {s.diff > 0 ? "+" : ""}
-                  {s.diff.toLocaleString("ja-JP")}円
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <h3 className="mb-1.5 text-sm font-semibold">{title}</h3>
+      <ul className="border-y border-border divide-y divide-border/60">
+        {standings.map((s) => (
+          <li
+            key={s.purity}
+            className="flex flex-wrap items-baseline gap-x-3 gap-y-0.5 py-2.5"
+          >
+            <span className="w-20 shrink-0 text-sm">{PURITY_LABELS[s.purity]}</span>
+            <span className="grow text-right text-base font-semibold tabular-nums">
+              {s.price.toLocaleString("ja-JP")}
+              <span className="ml-0.5 text-xs font-normal text-muted">円/g</span>
+            </span>
+            <span className="flex w-full items-center justify-end gap-2 text-xs sm:w-52 sm:shrink-0">
+              <RankMark rank={s.rank} total={s.total} />
+              <span
+                className={`tabular-nums sm:w-28 sm:text-right ${
+                  s.diff > 0 ? "text-emerald-700 dark:text-emerald-400" : "text-muted"
+                }`}
+              >
+                {s.diff === 0
+                  ? "中央値と同じ"
+                  : `中央値${s.diff > 0 ? "+" : ""}${s.diff.toLocaleString("ja-JP")}円`}
+              </span>
+            </span>
+          </li>
+        ))}
+      </ul>
     </div>
+  );
+}
+
+/**
+ * 長い注記を畳む。
+ *
+ * 消すのではなく畳むだけ。HTMLには残るので検索にも載るし、読みたい人は開ける。
+ * 根拠を消すと「当サイトがそう言っている」だけの注意書きになってしまうが、
+ * 画面では4行の灰色の文が数字より目立っていた。表に出すのは要点だけにする。
+ */
+function FinePrint({
+  summary,
+  children,
+}: {
+  summary: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <details className="mt-1.5 text-xs text-muted">
+      <summary className="cursor-pointer underline underline-offset-2 hover:text-accent">
+        {summary}
+      </summary>
+      <div className="mt-1.5 leading-relaxed">{children}</div>
+    </details>
   );
 }
 
@@ -136,6 +185,10 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
   // ファーストビューに出す2つ。検索されているのはこの2つの純度が中心で、
   // 全部並べると「結局いくらか」が読み取りにくくなる。
   const headline = [...gold, ...platinum].filter((s) => s.purity === "k24" || s.purity === "k18");
+  // 銀座屋のようにK24しか公表していない社では、下の節に出せる純度が
+  // ファーストビューと同じ1件しかない。それでも「すべての純度を見る」と誘うと、
+  // 降りた先に同じ行が1本あるだけになる。見るものが増えるときだけ誘う。
+  const hasMoreThanHeadline = gold.length + platinum.length + silver.length > headline.length;
   const campaigns = getCampaignsForCompany(company.id);
   // この店自身の価格が1週間でどう動いたか。各社の公式サイトは今日の値しか
   // 載せないので、ある店の推移を出せるのは日次で記録しているこちら側だけ。
@@ -202,19 +255,21 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
               </div>
             ))}
           </dl>
-          <p className="mt-3 text-sm">
-            <a href="#prices" className="font-medium text-accent-strong hover:underline">
-              すべての純度と他社との比較を見る ↓
-            </a>
-          </p>
+          {hasMoreThanHeadline && (
+            <p className="mt-3 text-sm">
+              <a href="#prices" className="font-medium text-accent-strong hover:underline">
+                すべての純度と他社との比較を見る ↓
+              </a>
+            </p>
+          )}
         </section>
       )}
 
-      <p className="mb-6 text-base text-muted">{company.trustNotes}</p>
+      <p className="mb-6 text-base leading-relaxed">{company.trustNotes}</p>
 
       {campaigns.length > 0 && (
         <section className="mb-8">
-          <CampaignNotice campaigns={campaigns} />
+          <CampaignNotice campaigns={campaigns} compact />
         </section>
       )}
 
@@ -223,13 +278,16 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
         <h2 className="font-serif-jp mb-3 text-lg font-semibold">買取参考価格と他社との比較</h2>
         {hasPrice ? (
           <>
-            <p className="mb-4 text-sm text-muted">
-              {company.name}が公開している1gあたりの買取参考価格を、当サイト掲載社と横並びにしたものです。
-              順位はその純度を公開している社の中での順位、差は中央値との差額です。
+            <p className="mb-4 text-sm text-foreground/80">
+              {company.name}が公開している1gあたりの価格を、当サイト掲載社と並べたものです。
+              <span className="text-muted">
+                {" "}
+                順位はその純度を公開している社の中での順位、差は中央値との差額です。
+              </span>
             </p>
-            <StandingTable title="金" standings={gold} />
-            <StandingTable title="プラチナ" standings={platinum} />
-            <StandingTable title="シルバー" standings={silver} />
+            <StandingRows title="金" standings={gold} />
+            <StandingRows title="プラチナ" standings={platinum} />
+            <StandingRows title="シルバー" standings={silver} />
             {weekChange && (
               <p className="mb-3 text-sm leading-relaxed text-foreground/80">
                 {/* 記録が飛ぶ日があるので「1週間前」と決め打ちにしない。
@@ -261,15 +319,20 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
               >
                 {company.name}の公表価格ページ
               </a>
-              {company.priceData.updatedAt ? `（${company.priceData.updatedAt} 時点）` : ""}
+              {company.priceData.updatedAt
+                ? `（${jaDate(company.priceData.updatedAt)}時点）`
+                : ""}
               {formatFetchedAt(company.priceData.fetchedAt) && (
                 <>
                   {" / "}
-                  当サイトの取得: {formatFetchedAt(company.priceData.fetchedAt)}（日本時間）。
-                  1日に複数回価格を変える店もあるため、取得後に動いていることがあります。
+                  取得 {formatFetchedAt(company.priceData.fetchedAt)}
                 </>
               )}
             </p>
+            <FinePrint summary="この価格はいつのものか">
+              1日に複数回価格を変える店もあるため、当サイトが取得したあとに動いていることがあります。
+              申し込む前に、上の公表価格ページで最新の金額をご確認ください。
+            </FinePrint>
           </>
         ) : company.priceData.staleDays !== undefined ? (
           <p className="text-sm text-muted">
@@ -383,12 +446,12 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
           </dd>
           <dt className="text-muted">信頼度の目安</dt>
           <dd>
-            {company.trustScore} / 5
-            <span className="ml-2 text-xs text-muted">
+            <span className="font-semibold tabular-nums">{company.trustScore} / 5</span>
+            <FinePrint summary="この数字の付け方">
               店舗数・上場や資本提携の有無・運営年数などの公開情報を参考に、当サイトが付けた目安です。
               計算式はなく運営者の判断が入っているため、価格の順位とは性質が異なります。
               安全性を保証するものではありません。
-            </span>
+            </FinePrint>
           </dd>
         </dl>
       </section>
@@ -435,7 +498,7 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
                   申し込む前に、ご自身の品物と金額で当てはまるかを確認してください。
                 </p>
               )}
-              <p className="mt-2 text-xs leading-relaxed text-muted">
+              <p className="mt-2 text-xs text-muted">
                 {jaDate(fee.checkedAt)}に
                 <a
                   href={fee.sourceUrl}
@@ -445,19 +508,19 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
                 >
                   同社のページ
                 </a>
-                で確認した記載です
-                {fee.checkedScope === "terms"
-                  ? "(価格ページに加えて、利用規約・よくある質問・宅配買取の案内まで読んでいます)"
-                  : "(価格ページのみ確認しています)"}
-                。当サイトの順位は各社が公表している単価で付けており、そこから引かれるものは含めていません。
+                で確認した記載です。
               </p>
               {/* 読んだのは公表ページであって、実際の取引ではない。
                   リファスタとネクサスのように、ページによって書き方が違う社が実際にある。 */}
-              <p className="mt-2 text-xs leading-relaxed text-muted">
-                当サイトが読んでいるのは各社が公表しているページで、実際の取引を確かめたものではありません。
+              <FinePrint summary="どこまで確認したか">
+                {fee.checkedScope === "terms"
+                  ? "価格ページに加えて、利用規約・よくある質問・宅配買取の案内まで読んでいます。"
+                  : "価格ページのみ確認しています。"}
+                当サイトの順位は各社が公表している単価で付けており、そこから引かれるものは含めていません。
+                読んでいるのは各社が公表しているページで、実際の取引を確かめたものではありません。
                 品物の種類・金額・買取方法によって別の費用がかかる場合があり、記載が後から変わることもあります。
                 申し込む前に、ご自身の品物と金額で当てはまるかを必ずご確認ください。
-              </p>
+              </FinePrint>
             </div>
             <p className="mt-2 text-sm">
               <Link href="/column/fees" className="font-medium text-accent-strong hover:underline">
@@ -499,7 +562,7 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
                 );
               })}
             </ul>
-            <p className="mt-2 text-xs leading-relaxed text-muted">
+            <p className="mt-2 text-xs text-muted">
               引用は
               <a
                 href={svc.sourceUrl}
@@ -509,10 +572,12 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
               >
                 同社の公式サイト
               </a>
-              の記載で、{formatPriceDay(svc.checkedAt)}に読んだものです。
+              の記載（{formatPriceDay(svc.checkedAt)}に確認）。
+            </p>
+            <FinePrint summary="ここに無い方法について">
               ここに無い方法は当サイトで確認できなかっただけで、対応していないという意味ではありません。
               出張の対応エリアは、公式に全国と書かれている場合のみ記載しています。
-            </p>
+            </FinePrint>
           </section>
         );
       })()}
@@ -533,10 +598,12 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
           </div>
           <p className="text-xs text-muted">
             全店舗の集計ではなく、代表的な{company.googleReview.sampleSize}店舗を
-            {company.googleReview.sampledAt}時点でサンプリングした参考値です。
-            対象店舗: {company.googleReview.sampledStores.join("、")}
-            {company.googleReview.note ? `／${company.googleReview.note}` : ""}
+            {jaDate(company.googleReview.sampledAt)}時点でサンプリングした参考値です。
           </p>
+          <FinePrint summary="対象にした店舗">
+            {company.googleReview.sampledStores.join("、")}
+            {company.googleReview.note ? `／${company.googleReview.note}` : ""}
+          </FinePrint>
         </section>
       )}
 
