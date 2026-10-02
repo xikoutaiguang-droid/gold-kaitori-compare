@@ -1,13 +1,13 @@
 {
-  "ranAt": "2026-10-01T16:45:18.934Z",
-  "ok": 17,
-  "ng": 3,
+  "ranAt": "2026-10-02T01:31:04.284Z",
+  "ok": 19,
+  "ng": 1,
   "sources": [
     {
       "id": "otakaraya",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-01",
+      "updatedAt": "2026-10-02",
       "warning": null
     },
     {
@@ -19,9 +19,10 @@
     },
     {
       "id": "kaitori-daikichi",
-      "ok": false,
-      "skipped": false,
-      "error": "Fetch failed: https://www.kaitori-daikichi.jp/list_gold/today_gold.json -> 502 Bad Gateway"
+      "ok": true,
+      "priceCount": 13,
+      "updatedAt": "2026-10-02",
+      "warning": null
     },
     {
       "id": "e-daikoku",
@@ -33,7 +34,7 @@
       "id": "nanboya",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-01",
+      "updatedAt": "2026-10-02",
       "warning": null
     },
     {
@@ -82,48 +83,49 @@
       "id": "galleryrare",
       "ok": true,
       "priceCount": 12,
-      "updatedAt": "2026-10-01",
+      "updatedAt": "2026-10-02",
       "warning": null
     },
     {
       "id": "manekiya",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-01",
+      "updatedAt": "2026-10-02",
       "warning": null
     },
     {
       "id": "takayama78",
       "ok": true,
       "priceCount": 1,
-      "updatedAt": "2026-10-01",
+      "updatedAt": "2026-10-02",
       "warning": null
     },
     {
       "id": "goldmrs",
-      "ok": false,
-      "skipped": false,
-      "error": "Fetch failed: https://goldmrs.jp/ -> 403 Forbidden"
+      "ok": true,
+      "priceCount": 12,
+      "updatedAt": "2026-10-02",
+      "warning": null
     },
     {
       "id": "nexus13",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-01",
+      "updatedAt": "2026-10-02",
       "warning": null
     },
     {
       "id": "ginzaya",
       "ok": true,
       "priceCount": 1,
-      "updatedAt": "2026-10-01",
+      "updatedAt": "2026-10-02",
       "warning": null
     },
     {
       "id": "okuraya",
       "ok": true,
       "priceCount": 6,
-      "updatedAt": "2026-10-01",
+      "updatedAt": "2026-10-02",
       "warning": null
     },
     {
@@ -154,7 +156,7 @@
       "id": "rodeodrive",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-01",
+      "updatedAt": "2026-10-02",
       "warning": null
     },
     {
