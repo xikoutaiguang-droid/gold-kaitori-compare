@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import type { Company, Purity } from "@/lib/types";
 import { PURITY_LABELS } from "@/lib/types";
 import { formatPriceDay } from "@/lib/companies";
@@ -59,22 +60,18 @@ export default function RankingCard({
         <ul className="flex flex-col gap-3">
           {ranked.map((c, i) => {
             const value = c.priceData.prices[purity]!;
-            return (
-              <li key={c.id}>
-                <a
-                  href={getOutboundUrl(c)}
-                  target="_blank"
-                  rel="nofollow sponsored noopener"
-                  onClick={() =>
-                    trackOutboundClick({
-                      shopId: c.id,
-                      shopName: c.name,
-                      hasAffiliate: hasAffiliateLink(c),
-                      source: "ranking",
-                    })
-                  }
-                  className="-mx-1 flex items-center gap-3 rounded-lg px-1 py-0.5 transition sm:hover:bg-accent-soft"
-                >
+            // 提携のある社だけ、その社のサイトへ直接送る。
+            // 提携の無い社を公式サイトへ送ると、報酬も入らず、読む人も
+            // 単価しか分からないページに出ていくだけになる。実際トップページの
+            // 1〜5位は全社が提携なしで、いちばん目立つ場所から
+            // 1円にもならない外部送客をしていた。当サイトの各社ページなら、
+            // 今日の単価・順位・買取方法・手数料まで載っていて、
+            // そこから公式サイトにも行ける。
+            const affiliate = hasAffiliateLink(c);
+            const rowClass =
+              "-mx-1 flex items-center gap-3 rounded-lg px-1 py-0.5 transition sm:hover:bg-accent-soft";
+            const body = (
+              <>
                   <span className="w-4 shrink-0 text-center text-xs text-muted">{i + 1}</span>
                   <CompanyLogo id={c.id} name={c.name} size={26} />
                   <div className="min-w-0 flex-1">
@@ -96,7 +93,33 @@ export default function RankingCard({
                     </p>
                     <p className="mt-1 text-[11px] text-muted">円/g</p>
                   </div>
-                </a>
+              </>
+            );
+
+            return (
+              <li key={c.id}>
+                {affiliate ? (
+                  <a
+                    href={getOutboundUrl(c)}
+                    target="_blank"
+                    rel="nofollow sponsored noopener"
+                    onClick={() =>
+                      trackOutboundClick({
+                        shopId: c.id,
+                        shopName: c.name,
+                        hasAffiliate: true,
+                        source: "ranking",
+                      })
+                    }
+                    className={rowClass}
+                  >
+                    {body}
+                  </a>
+                ) : (
+                  <Link href={`/company/${c.id}`} className={rowClass}>
+                    {body}
+                  </Link>
+                )}
               </li>
             );
           })}
