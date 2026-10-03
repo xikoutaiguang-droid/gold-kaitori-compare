@@ -81,7 +81,7 @@ export default async function PurityPricePage({
                   {yen(m.high)}
                   <span className="ml-0.5 text-xs font-normal">円/g</span>
                 </dd>
-                <dd className="mt-0.5 break-keep text-xs text-muted">{m.highName}</dd>
+                <dd className="mt-0.5 break-keep text-xs text-muted [overflow-wrap:anywhere]">{m.highName}</dd>
               </div>
               <div>
                 <dt className="text-xs text-muted">中央値</dt>
@@ -97,7 +97,7 @@ export default async function PurityPricePage({
                   {yen(m.low)}
                   <span className="ml-0.5 text-xs font-normal">円/g</span>
                 </dd>
-                <dd className="mt-0.5 break-keep text-xs text-muted">{m.lowName}</dd>
+                <dd className="mt-0.5 break-keep text-xs text-muted [overflow-wrap:anywhere]">{m.lowName}</dd>
               </div>
             </dl>
             <p className="mt-3 text-sm leading-relaxed text-foreground/80">

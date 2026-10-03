@@ -243,7 +243,7 @@ export default function TimingVsShopPage() {
             <tbody>
               {m.shops.map((s) => (
                 <tr key={s.name} className="border-b border-border">
-                  <td className="py-2 break-keep">{s.name}</td>
+                  <td className="py-2 break-keep [overflow-wrap:anywhere]">{s.name}</td>
                   <td className="py-2 text-right tabular-nums">{yen(s.low)}</td>
                   <td className="py-2 text-right tabular-nums">{yen(s.high)}</td>
                   <td className="py-2 text-right tabular-nums">{yen(s.range)}</td>

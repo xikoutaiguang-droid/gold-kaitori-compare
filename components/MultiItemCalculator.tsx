@@ -288,7 +288,7 @@ export default function MultiItemCalculator({
                   className="flex items-baseline gap-2 border-b border-border/60 pb-1.5 last:border-0"
                 >
                   <span className="w-5 shrink-0 text-center text-xs text-muted">{i + 1}</span>
-                  <span className="min-w-0 flex-1 break-keep text-sm font-medium">
+                  <span className="min-w-0 flex-1 break-keep text-sm font-medium [overflow-wrap:anywhere]">
                     {r.company.name}
                   </span>
                   <span className="shrink-0 text-right">
@@ -358,7 +358,7 @@ export default function MultiItemCalculator({
                             <CompanyLogo id={company.id} name={company.name} size={32} />
                             {/* 社名を truncate すると PRバッジと金額に挟まれて切れる。折り返させる。 */}
                             <span className="flex min-w-0 flex-1 flex-wrap items-center gap-x-1.5 font-medium">
-                              <span className="break-keep">{company.name}</span>
+                              <span className="break-keep [overflow-wrap:anywhere]">{company.name}</span>
                               {hasAffiliateLink(company) && <PrBadge />}
                             </span>
                             <span className="shrink-0 text-lg font-semibold tabular-nums">

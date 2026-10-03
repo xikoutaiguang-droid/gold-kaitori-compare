@@ -131,7 +131,7 @@ export default function SimulatorForm({ companies }: { companies: Company[] }) {
                 {/* 社名を truncate すると、PRバッジと金額に挟まれて
                     「ブラリバ(ブランドリバリュー)」が半分で切れる。折り返させる。 */}
                 <span className="flex min-w-0 flex-1 flex-wrap items-center gap-x-1.5 font-medium">
-                  <span className="break-keep">{company.name}</span>
+                  <span className="break-keep [overflow-wrap:anywhere]">{company.name}</span>
                   {hasAffiliateLink(company) && <PrBadge />}
                 </span>
                 <span className="shrink-0 text-lg font-semibold tabular-nums">

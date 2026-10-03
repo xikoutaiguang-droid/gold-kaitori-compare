@@ -84,7 +84,7 @@ export default function RemoteBuyers({
               <CompanyLogo id={o.id} name={o.name} size={32} />
               <div className="min-w-0 flex-1">
                 <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-                  <span className="break-keep font-medium">{o.name}</span>
+                  <span className="break-keep font-medium [overflow-wrap:anywhere]">{o.name}</span>
                   {o.isAffiliate && <PrBadge />}
                 </div>
                 <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs">

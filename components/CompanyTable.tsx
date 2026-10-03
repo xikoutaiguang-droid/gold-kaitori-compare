@@ -15,6 +15,20 @@ import PrBadge from "@/components/PrBadge";
 
 const PURITY_OPTIONS: Purity[] = [...GOLD_PURITIES, ...PLATINUM_PURITIES, ...SILVER_PURITIES];
 
+/**
+ * 社名を「ブラリバ」と「(ブランドリバリュー)」に分ける。
+ *
+ * 括弧つきの正式名称は、どの会社か分かるためにあるので消さない。ただし価格の
+ * 左に残る幅は375pxの端末で147pxしかなく、15文字を1行に押し込むと価格に重なる
+ * (Safariは word-break:keep-all のとき括弧の前でも折らない)。かといって
+ * どこでも折らせると3行になる。括弧の中だけ小さく下ろすと、どちらも1行に収まる。
+ * 括弧の無い社名はこれまでと同じ見え方になる。
+ */
+function splitName(name: string): { main: string; sub: string | null } {
+  const m = /^(.+?)\s*([(（].+[)）])$/.exec(name);
+  return m ? { main: m[1], sub: m[2] } : { main: name, sub: null };
+}
+
 export default function CompanyTable({
   companies,
   initialRegion = "全国",
@@ -95,6 +109,8 @@ export default function CompanyTable({
       <ul className="flex flex-col gap-2.5">
         {rows.map((c, i) => {
           const value = c.priceData.prices[purity];
+          // この純度の価格が無い社で「ほかに何なら対応しているか」を出すために使う
+          const otherPurities = Object.keys(c.priceData.prices) as Purity[];
           const links = getAffiliateLinks(c);
           const cardClassName = `rounded-xl border p-3.5 shadow-sm transition ${
             i === 0 && value !== undefined ? "border-accent/40 bg-accent-soft/60" : "border-border bg-surface"
@@ -110,9 +126,16 @@ export default function CompanyTable({
                       「ブランドオフ」が「ブランド…」になって、どの店か読めなくなっていた。
                       折り返しを許し、バッジは社名の後ろに流す。 */}
                   <div className="flex flex-wrap items-center gap-x-2">
-                    <p className="font-medium break-keep">{c.name}</p>
+                    <p className="font-medium break-keep [overflow-wrap:anywhere]">
+                      {splitName(c.name).main}
+                    </p>
                     {hasAffiliateLink(c) && <PrBadge />}
                   </div>
+                  {splitName(c.name).sub && (
+                    <p className="break-keep text-xs text-muted [overflow-wrap:anywhere]">
+                      {splitName(c.name).sub}
+                    </p>
+                  )}
                   {/* ★評価は名前と同じ行に置くと、PRバッジや長い社名と重なって
                       右側の価格ブロックに食い込む(どちらも shrink-0 のため互いに縮まない)。
                       地域と同じ2行目に下ろして、行全体で折り返せるようにする。 */}
@@ -124,21 +147,15 @@ export default function CompanyTable({
                     // 左の社名・評価の領域を51pxまで潰して文字をはみ出させていた。
                     // 価格だけを右に置き、比較はカード幅いっぱいの別行に出す。
                     <p className="text-lg font-semibold tabular-nums">{value.toLocaleString()}円</p>
+                  ) : otherPurities.length === 0 ? (
+                    <p className="text-sm text-muted">公式に価格表示なし</p>
                   ) : (
-                    (() => {
-                      const otherPurities = Object.keys(c.priceData.prices) as Purity[];
-                      if (otherPurities.length === 0) {
-                        return <p className="text-sm text-muted">公式に価格表示なし</p>;
-                      }
-                      return (
-                        <>
-                          <p className="text-sm text-muted">データ取得中</p>
-                          <p className="text-[11px] text-muted">
-                            {otherPurities.map((p) => PURITY_LABELS[p]).join("・")}は対応
-                          </p>
-                        </>
-                      );
-                    })()
+                    // 「K24(純金)・K22・K20・…・シルバーは対応」も右カラムには置かない。
+                    // 12純度ぶん並ぶと490pxの折り返さない1行になり、shrink-0 のこの枠が
+                    // そこまで広がってページ全体を610pxにしていた。固定の下部ナビまで
+                    // 引き伸ばされて、/price/k21-6 などが横スクロールしていた。
+                    // 短い「データ取得中」だけを右に残し、純度の列挙は下の行に下ろす。
+                    <p className="text-sm text-muted">データ取得中</p>
                   )}
                 </div>
               </div>
@@ -159,6 +176,11 @@ export default function CompanyTable({
                   {c.regions.join("・") || "地域不明"}
                   {c.storeCount ? ` ・ ${c.storeCount}店舗` : ""}
                 </span>
+                {value === undefined && otherPurities.length > 0 && (
+                  <span className="w-full">
+                    {otherPurities.map((p) => PURITY_LABELS[p]).join("・")}は対応
+                  </span>
+                )}
                 {value !== undefined && referenceValue !== undefined && (
                   <span className="ml-auto">
                     <ReferenceDiff value={value} referenceValue={referenceValue} />
