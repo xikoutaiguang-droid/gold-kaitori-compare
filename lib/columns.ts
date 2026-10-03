@@ -13,6 +13,11 @@ export interface ColumnEntry {
 
 export const COLUMNS: ColumnEntry[] = [
   {
+    href: "/column/retail-vs-buy",
+    title: "「金が最高値」の数字では、売れません",
+    desc: "買うときの値段と売るときの値段は同じ日でも別。金・プラチナ・銀で、差の割合がまるで違います",
+  },
+  {
     href: "/column/weekend",
     // 見出しも本文も記録から作っているので、ここにも数字は書かない。
     // 日曜が0%でなくなる日が来たら記事側の見出しが変わる。
