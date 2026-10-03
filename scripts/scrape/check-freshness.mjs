@@ -78,8 +78,11 @@ async function main() {
 
   // 会社が価格を公開していないため実装していないソースは失敗ではない。
   // これを混ぜると点検が常に赤くなり、本当の失敗が埋もれる。
-  const skipped = (status?.sources ?? []).filter((s) => !s.ok && s.skipped);
-  const failures = (status?.sources ?? []).filter((s) => !s.ok && !s.skipped);
+  const skipped = (status?.sources ?? []).filter((s) => !s.ok && s.skipped && !s.ciBlocked);
+  // CIから弾かれるので手元のPCに回しているソース。失敗ではないが「公表していない会社」
+  // でもないので、数を混ぜない。これが本当に取れなくなったら、下の「古い価格」で出る。
+  const deferred = (status?.sources ?? []).filter((s) => !s.ok && s.ciBlocked);
+  const failures = (status?.sources ?? []).filter((s) => !s.ok && !s.skipped && !s.ciBlocked);
 
   // 価格を公表している前提の社だけを対象にする。そもそも公表していない社は
   // updatedAt が無く、古いのではなく最初から無い。
@@ -124,6 +127,18 @@ async function main() {
     return age === null || age > DISPLAY_IMPACT_DAYS;
   });
 
+  // CIから手元のPCへ回したソースの見張り。
+  //
+  // これを失敗の一覧から外したことで、「取得の失敗が続いている」の判定からも
+  // 外れてしまった。CIが失敗していないのは事実だが、手元のPCが動かなければ
+  // 誰も取っていないのに誰も気づかない、という穴になる。
+  // CIが取れたかどうかではなく「最後に実際に取れたのはいつか」を見る。
+  // 価格そのものが MAX_AGE_DAYS(10日) に達する前に、ここで気づけるようにする。
+  const deferredStale = deferred
+    .map((d) => ({ id: d.id, last: fetchedAtById.get(d.id) ?? null }))
+    .map((d) => ({ ...d, age: d.last === null ? null : ageInDays(d.last, today) }))
+    .filter((d) => d.age === null || d.age > DISPLAY_IMPACT_DAYS);
+
   // 値が怪しくて書き込まなかった社。表示には古い値が出ているので、
   // 放っておくとそのまま古い値が載り続ける。
   const rejected = (status?.sources ?? []).filter((s) => s.rejected);
@@ -131,7 +146,8 @@ async function main() {
   const lines = [];
   lines.push(
     `取得: 成功 ${status?.ok ?? "?"} / 失敗 ${failures.length} / 対象外 ${skipped.length}` +
-      (skipped.length ? `(価格を公表していない会社)` : ""),
+      (skipped.length ? `(価格を公表していない会社)` : "") +
+      (deferred.length ? ` / 手元のPCで取得 ${deferred.length}` : ""),
   );
   if (blockingFailures.length) {
     lines.push("", `取得に失敗し、表示中の価格も古くなっているソース (${blockingFailures.length}件):`);
@@ -147,6 +163,14 @@ async function main() {
     if (!ongoingWithImpact.length) {
       lines.push(`  (表示中の値はまだ${DISPLAY_IMPACT_DAYS}日以内なので、このジョブは落としません)`);
     }
+  }
+  if (deferredStale.length) {
+    lines.push("", `手元のPCでの取得が止まっているソース (${deferredStale.length}件):`);
+    for (const d of deferredStale) {
+      lines.push(`  - ${d.id}: 最後に取得できたのは ${d.last ?? "記録なし"}${d.age === null ? "" : ` (${d.age}日前)`}`);
+    }
+    lines.push("  CIからは取得できないソースなので、手元のPCの定期実行が動いているかを見てください。");
+    lines.push("  (scripts/local-refresh.cmd / タスク「kin-hikaku 価格取得」と .local/local-refresh.log)");
   }
   if (transientFailures.length) {
     lines.push("", `取得に失敗したが、前回の値がまだ新しいソース (${transientFailures.length}件):`);
@@ -227,6 +251,7 @@ async function main() {
   if (
     blockingFailures.length ||
     ongoingWithImpact.length ||
+    deferredStale.length ||
     stale.length ||
     rejected.length ||
     campaignBlocking.length

@@ -18,6 +18,20 @@ const AU_CODE_TO_PURITY = {
   "9": "k9",
 };
 
+/**
+ * GitHub Actions のIPからは取得できない。
+ *
+ * data/scrapeStatus.json の履歴を数えると CIからは31回試して1度も成功していない。同じコードで、同じ時間帯に
+ * 手元のPCから実行すると通る。WAFがクラウドの共有IPを弾いているとみられる。
+ * User-Agentを偽ったりプロキシを挟めば抜けられるかもしれないが、それは
+ * 相手が拒んでいるものを騙して取りに行くことなので、しない。
+ *
+ * 再試行の回数を増やしても0%は0%のままなので、CIでは最初から実行しない。
+ * 値は scripts/local-refresh.mjs の定期実行(手元のPC)で取得する。
+ * 手元からも取れなくなれば、check-freshness.mjs の「古い価格」で落ちる。
+ */
+export const ciBlocked = "GitHub Actionsから31回中0回成功。手元のPCからは取得できている";
+
 export const id = "refasta";
 
 export async function scrape() {

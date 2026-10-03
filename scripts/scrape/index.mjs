@@ -82,6 +82,12 @@ function staleEmpty(staleOnly, targets) {
 
 const DELAY_MS = 1500; // 同一運用者からの連続アクセスを避けるための最低限のインターバル
 
+// クラウドの共有IPを弾くサイトがある(リファスタ・ゴールドミセス)。
+// CIでは最初から実行せず、手元のPCの定期実行に任せる。実行元で挙動を変えるのは
+// 本来避けたいが、31回試して0回という結果が出ているものを毎回叩き続けても、
+// 相手に迷惑をかけて点検を赤くするだけで、価格は1円も新しくならない。
+const ON_CI = process.env.CI === "true" || process.env.GITHUB_ACTIONS === "true";
+
 /**
  * 日付が今日でない社だけを選ぶ(--stale)。
  *
@@ -152,6 +158,17 @@ async function main() {
   const status = [];
 
   for (const source of targets) {
+    if (ON_CI && source.ciBlocked) {
+      console.log(`[--] ${source.id}: CIからは取得できないため実行しません (${source.ciBlocked})`);
+      status.push({
+        id: source.id,
+        ok: false,
+        skipped: true,
+        ciBlocked: true,
+        error: `CIからは取得できないソースです(${source.ciBlocked})。手元のPCの定期実行で取得します。`,
+      });
+      continue;
+    }
     try {
       const result = await source.scrape();
       applyPriceUpdate(companies, source.id, result.prices, result.updatedAt);
