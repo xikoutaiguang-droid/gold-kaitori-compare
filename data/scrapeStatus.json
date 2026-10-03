@@ -1,7 +1,7 @@
 {
-  "ranAt": "2026-10-03T02:08:57.879Z",
-  "ok": 20,
-  "ng": 0,
+  "ranAt": "2026-10-03T08:17:03.112Z",
+  "ok": 18,
+  "ng": 1,
   "sources": [
     {
       "id": "otakaraya",
@@ -102,10 +102,10 @@
     },
     {
       "id": "goldmrs",
-      "ok": true,
-      "priceCount": 12,
-      "updatedAt": "2026-10-03",
-      "warning": null
+      "ok": false,
+      "skipped": true,
+      "ciBlocked": true,
+      "error": "CIからは取得できないソースです(GitHub Actionsから31回中0回成功。手元のPCからは5回中5回成功)。手元のPCの定期実行で取得します。"
     },
     {
       "id": "nexus13",
@@ -161,10 +161,9 @@
     },
     {
       "id": "refasta",
-      "ok": true,
-      "priceCount": 13,
-      "updatedAt": "2026-10-03",
-      "warning": null
+      "ok": false,
+      "skipped": false,
+      "error": "https://kinkaimasu.jp/ を 5回試して取得できませんでした: fetch failed (UNABLE_TO_VERIFY_LEAF_SIGNATURE: unable to verify the first certificate) / fetch failed (UNABLE_TO_VERIFY_LEAF_SIGNATURE: unable to verify the first certificate) / fetch failed (UNABLE_TO_VERIFY_LEAF_SIGNATURE: unable to verify the first certificate) / fetch failed (UNABLE_TO_VERIFY_LEAF_SIGNATURE: unable to verify the first certificate) / fetch failed (UNABLE_TO_VERIFY_LEAF_SIGNATURE: unable to verify the first certificate)"
     },
     {
       "id": "netoff",
