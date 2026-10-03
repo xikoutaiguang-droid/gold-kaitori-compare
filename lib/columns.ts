@@ -13,6 +13,13 @@ export interface ColumnEntry {
 
 export const COLUMNS: ColumnEntry[] = [
   {
+    href: "/column/weekend",
+    // 見出しも本文も記録から作っているので、ここにも数字は書かない。
+    // 日曜が0%でなくなる日が来たら記事側の見出しが変わる。
+    title: "土日に金を売ると損をするのか",
+    desc: "曜日ごとに各社の価格がどう動くかを、毎日の記録から測りました。基準が出ない日と、週明けの動き方",
+  },
+  {
     href: "/column/mail-in-purchase",
     title: "金の宅配買取で、送る前に確かめる3つのこと",
     desc: "8日間の取り消しが付くのは出張だけ。返送料と、少額のときに引かれる額を各社の規約から",

@@ -289,7 +289,7 @@ export default function TimingVsShopPage() {
       <section className="mb-10 rounded-xl border border-border bg-surface p-4">
         <h2 className="font-serif-jp mb-2 text-base font-semibold">この記録について</h2>
         <p className="text-xs leading-relaxed text-muted">
-          各社が公式サイトで公表している買取参考価格を、当サイトが1日2回取得して記録したものです。
+          各社が公式サイトで公表している買取参考価格を、当サイトが毎日くりかえし取得して記録したものです。
           日付はその社が価格を公表した日で、取得できなかった日は記録していません。
           買取店の公式サイトは自社の当日の価格しか載せないため、過去にさかのぼった比較は
           記録している側でしか作れません。数字はページを作るたびに最新の記録から計算し直しています。
