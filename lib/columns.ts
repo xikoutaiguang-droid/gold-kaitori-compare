@@ -13,6 +13,11 @@ export interface ColumnEntry {
 
 export const COLUMNS: ColumnEntry[] = [
   {
+    href: "/column/identity-check",
+    title: "1万円未満なら、法律は本人確認を求めていない",
+    desc: "古物営業法の条文と金額(1万円)、その例外から外される古物の一覧をe-Govの原文で。貴金属は入っていません",
+  },
+  {
     href: "/column/retail-vs-buy",
     title: "「金が最高値」の数字では、売れません",
     desc: "買うときの値段と売るときの値段は同じ日でも別。金・プラチナ・銀で、差の割合がまるで違います",
