@@ -16,9 +16,20 @@ import type { Purity } from "@/lib/types";
 const DOW = ["日", "月", "火", "水", "木", "金", "土"] as const;
 export type DayLabel = (typeof DOW)[number];
 
-/** 曜日。記録の日付は日本時間の「その店が公表した日」なので、JSTで数える */
+/**
+ * 曜日。
+ *
+ * new Date("2026-10-04T00:00:00+09:00").getDay() は使えない。getDay() は
+ * 実行環境のタイムゾーンで曜日を返すので、UTCで動くVercelのビルドでは
+ * 日本時間の日曜が土曜として数えられ、曜日が丸ごと1日ずれる。
+ * (実際それで本番だけ「日曜は78%」= 月曜の値 になった。手元のJSTでは正しく出る。)
+ * 記録の日付は「その店がその日に公表した」というカレンダー上の日付なので、
+ * 時刻を持ち込まずに数える。
+ */
 function dayOf(iso: string): DayLabel {
-  return DOW[new Date(`${iso}T00:00:00+09:00`).getDay()];
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso);
+  if (!m) return DOW[0];
+  return DOW[new Date(Date.UTC(Number(m[1]), Number(m[2]) - 1, Number(m[3]))).getUTCDay()];
 }
 
 function median(values: number[]): number | null {

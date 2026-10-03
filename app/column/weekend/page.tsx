@@ -34,10 +34,14 @@ export function generateMetadata(): Metadata {
   };
 }
 
+// getDay() は実行環境のタイムゾーン依存で、UTCのビルドだと曜日が1日ずれる。
+// カレンダー上の日付として数える(lib/weekendPrices.ts の dayOf と同じ理由)。
 function jaDate(iso: string): string {
   const d = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso);
   if (!d) return iso;
-  const w = ["日", "月", "火", "水", "木", "金", "土"][new Date(`${iso}T00:00:00+09:00`).getDay()];
+  const w = ["日", "月", "火", "水", "木", "金", "土"][
+    new Date(Date.UTC(Number(d[1]), Number(d[2]) - 1, Number(d[3]))).getUTCDay()
+  ];
   return `${Number(d[2])}月${Number(d[3])}日(${w})`;
 }
 
