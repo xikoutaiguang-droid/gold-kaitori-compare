@@ -7,9 +7,39 @@
 // なんぼや等、一部サイトはrobots.txtでClaudeBot/GPTBot等の名指しAIクローラーを
 // Disallowしている。本ツールはそれらの名称を騙らず、実在の連絡先を含む
 // 自社User-Agentを名乗ることで、robots.txtの意図を尊重する。
+import { readFileSync, readdirSync } from "node:fs";
+import { fileURLToPath } from "node:url";
+import { dirname, join } from "node:path";
+import { rootCertificates } from "node:tls";
+import { Agent } from "undici";
+
 const USER_AGENT =
   process.env.SCRAPER_USER_AGENT ??
   "GoldCompareBot/0.1 (+https://kin-hikaku.com/privacy)";
+
+// サーバが送ってこない中間証明書を、こちらで補う。
+//
+// リファスタ(kinkaimasu.jp)はTLSの握手でリーフ証明書しか送らない。6回接続して
+// 6回とも openssl が「unable to verify the first certificate」を返す。
+// ブラウザや curl は証明書に書かれた取得先(AIA)から足りない一枚を自分で取りに行くが、
+// Node/OpenSSL はそれをしないので検証に失敗する。これが
+// 「GitHub Actionsから31回中0回」「手元のPCから5回中2回」の正体だった
+// (手元でたまに通るのは、ブラウザ等が取得した中間証明書がWindowsの証明書ストアに
+//  残っているときだけ通るため)。WAFによる遮断ではなかった。
+//
+// 足すのは、発行元自身の公開リポジトリから取った中間証明書だけ。その発行元の
+// ルートは Node の既定の120件に最初から入っているので、検証は従来どおり
+// 既定のルートまで繋がることを要求する。緩めていない。
+// rejectUnauthorized:false や NODE_TLS_REJECT_UNAUTHORIZED=0 は使わない。
+// 詳しくは lib/ca/README.md。
+const CA_DIR = join(dirname(fileURLToPath(import.meta.url)), "ca");
+const EXTRA_CA = readdirSync(CA_DIR)
+  .filter((f) => f.endsWith(".pem"))
+  .map((f) => readFileSync(join(CA_DIR, f), "utf8"));
+
+const dispatcher = new Agent({
+  connect: { ca: [...rootCertificates, ...EXTRA_CA] },
+});
 
 /**
  * 単純な直列実行用の待機。同一サイトへの連続アクセスを避けるため、
@@ -80,6 +110,7 @@ export async function fetchText(url) {
         },
         // 応答が返ってこないまま掴まれ続けると、後続の社の取得まで道連れになる。
         signal: AbortSignal.timeout(TIMEOUT_MS),
+        dispatcher,
       });
 
       if (res.ok) return await res.text();

@@ -18,19 +18,22 @@ const AU_CODE_TO_PURITY = {
   "9": "k9",
 };
 
-/**
- * GitHub Actions のIPからは取得できない。
+/*
+ * 以前ここには「GitHub ActionsのIPから31回中0回なので、CIでは実行しない」と
+ * 書いていた。遮断だと決めつけていたが、違った。
  *
- * data/scrapeStatus.json の履歴を数えると CIからは31回試して1度も成功していない。同じコードで、同じ時間帯に
- * 手元のPCから実行すると通る。WAFがクラウドの共有IPを弾いているとみられる。
- * User-Agentを偽ったりプロキシを挟めば抜けられるかもしれないが、それは
- * 相手が拒んでいるものを騙して取りに行くことなので、しない。
+ * 失敗の中身を記録するようにしたところ、31回とも
+ *   UNABLE_TO_VERIFY_LEAF_SIGNATURE: unable to verify the first certificate
+ * だった。このサイトはTLSの握手でリーフ証明書しか送らず、中間証明書を省いている
+ * (openssl s_client で6回接続して6回とも Verify return code: 21)。
+ * ブラウザや curl は足りない一枚をAIAから自分で取りに行くので表示できるが、
+ * Node はそれをしない。手元のPCでたまに通っていたのは、ブラウザ等が取得した
+ * 中間証明書がWindowsの証明書ストアに残っていたときだけ通っていたから。
+ * CIにはその残りが無いので0/31になっていた。1つの原因で両方を説明できる。
  *
- * 再試行の回数を増やしても0%は0%のままなので、CIでは最初から実行しない。
- * 値は scripts/local-refresh.mjs の定期実行(手元のPC)で取得する。
- * 手元からも取れなくなれば、check-freshness.mjs の「古い価格」で落ちる。
+ * 中間証明書を lib/ca/ に置いて補うようにしたので、CIでも通るはずである。
+ * 実行元で挙動を変える必要はない。
  */
-export const ciBlocked = "GitHub Actionsから31回中0回成功。手元のPCからは取得できている";
 
 export const id = "refasta";
 
