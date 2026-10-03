@@ -9,6 +9,9 @@ const TABS = [
   { href: "/simulator", label: "計算", icon: CalcIcon },
   { href: "/finder", label: "診断", icon: FinderIcon },
   { href: "/nearby", label: "近く", icon: NearbyIcon },
+  // スマホではフッターまで降りないとコラムに辿り着けなかった。
+  // 375pxで6等分すると1つ62pxで、3文字でも収まる。
+  { href: "/column", label: "コラム", icon: ColumnIcon },
 ];
 
 export default function MobileTabBar() {
@@ -16,7 +19,7 @@ export default function MobileTabBar() {
 
   return (
     <nav
-      className="fixed inset-x-0 bottom-0 z-20 border-t border-border bg-background/95 backdrop-blur sm:hidden"
+      className="fixed inset-x-0 bottom-0 z-20 border-t border-border bg-background/95 backdrop-blur md:hidden"
       style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
       aria-label="モバイルナビゲーション"
     >
@@ -86,6 +89,21 @@ function NearbyIcon({ active }: { active: boolean }) {
         strokeLinejoin="round"
       />
       <circle cx="12" cy="10" r="2.4" />
+    </svg>
+  );
+}
+
+/** コラム。読みものなので、文字の並んだ紙面に見えるようにする */
+function ColumnIcon({ active }: { active: boolean }) {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={active ? 2.4 : 1.8}>
+      <path
+        d="M4 5.5A1.5 1.5 0 0 1 5.5 4h9A1.5 1.5 0 0 1 16 5.5v13A1.5 1.5 0 0 0 17.5 20h-12A1.5 1.5 0 0 1 4 18.5v-13Z"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path d="M16 8h2.5A1.5 1.5 0 0 1 20 9.5v9a1.5 1.5 0 0 1-1.5 1.5" strokeLinecap="round" />
+      <path d="M7 8h6M7 11.5h6M7 15h3.5" strokeLinecap="round" />
     </svg>
   );
 }

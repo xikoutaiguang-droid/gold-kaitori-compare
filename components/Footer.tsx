@@ -7,7 +7,7 @@ export default function Footer() {
           バーの高さぶんの余白を最後の要素であるフッターに持たせる。
           main 側に付けても、フッターはその外側にあるので効かない。
           ホームバーのある端末では safe-area-inset-bottom のぶんだけバーも下に伸びる。 */}
-      <div className="mx-auto max-w-5xl px-4 pt-6 pb-[calc(5rem+env(safe-area-inset-bottom))] text-xs leading-relaxed text-muted sm:pb-6">
+      <div className="mx-auto max-w-5xl px-4 pt-6 pb-[calc(5rem+env(safe-area-inset-bottom))] text-xs leading-relaxed text-muted md:pb-6">
         <p>
           掲載している買取価格・信頼度スコアは各社公式サイト等の公開情報をもとにした参考値です。
           実際の査定額を保証するものではなく、品物の状態・重量・純度・相場変動により変わります。
