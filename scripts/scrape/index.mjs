@@ -88,6 +88,9 @@ const DELAY_MS = 1500; // 同一運用者からの連続アクセスを避ける
 // 相手に迷惑をかけて点検を赤くするだけで、価格は1円も新しくならない。
 const ON_CI = process.env.CI === "true" || process.env.GITHUB_ACTIONS === "true";
 
+/** plausibility.mjs の MIN_SAMPLE と揃えること。ログの文言にしか使わない */
+const MIN_SAMPLE_NOTE = "5社必要";
+
 /**
  * 日付が今日でない社だけを選ぶ(--stale)。
  *
@@ -196,7 +199,21 @@ async function main() {
   // 例: リファスタは9月28日に全純度が一斉に+13.7%動いた(市場は-1.45%)。
   // ページ上の別の表を拾っていた疑いが強く、そのまま載せると順位が入れ替わる。
   // 怪しい値は書き込まず、前回の値を残す。古い値のほうが、嘘の値よりましなので。
-  const rejected = rejectImplausible(companies, before);
+  const { rejected, market, sample } = rejectImplausible(companies, before, {
+    singleSource: Boolean(only),
+  });
+  // 判定できたのか、できなかったのかを必ず書く。黙っているのと
+  // 「調べて問題なし」は読む側から見分けが付かない。
+  if (only) {
+    console.log("[判定] 1社だけの実行なので、値の妥当性は判定していません。");
+  } else if (market === null) {
+    console.log(
+      `[判定] この回に動いたのは${sample}社で、市場の動きを決められませんでした` +
+        `(${MIN_SAMPLE_NOTE})。動いた幅そのもので判定しています。`,
+    );
+  } else {
+    console.log(`[判定] この回に動いた${sample}社の中央値は${market.toFixed(1)}%。これを基準にしました。`);
+  }
   for (const r of rejected) {
     console.error(`[却下] ${r.id}: ${r.reason}`);
     const row = status.find((s) => s.id === r.id);
