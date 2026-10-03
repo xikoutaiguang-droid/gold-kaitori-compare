@@ -187,7 +187,7 @@ export const SERVICE_RECORDS: ServiceRecord[] = [
   {
     companyId: "nexus13",
     sourceUrl: "https://www.nexus13.co.jp/",
-    checkedAt: "2026-09-25",
+    checkedAt: "2026-10-03",
     storefront: {
       quote: "「その場で査定・その場で現金お支払い」の店頭買取を是非ご利用ください。",
     },
