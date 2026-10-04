@@ -49,7 +49,9 @@ export async function columnOgImage(href: string) {
           flexDirection: "column",
           justifyContent: "space-between",
           padding: "72px 80px",
-          background: "linear-gradient(135deg, #1c1917 0%, #292524 55%, #3f3a34 100%)",
+          // 単色にしている。グラデーションはPNGで圧縮が効かず、1枚70KBになっていた。
+          // 記事の先頭と一覧にも同じ画像を出すので、重さがそのままページの重さになる。
+          background: "#1c1917",
           color: "#faf9f7",
           fontFamily: "NotoSansJP",
         }}

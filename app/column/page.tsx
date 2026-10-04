@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import { COLUMNS } from "@/lib/columns";
 import JsonLd from "@/components/JsonLd";
 import { breadcrumbJsonLd, collectionJsonLd } from "@/lib/structuredData";
@@ -42,16 +41,17 @@ export default function ColumnIndexPage() {
             >
               {/* 記事と同じ画像(共有されたときに出るもの)をそのまま使う。
                   一覧専用の画像を別に作ると、見出しを直したときに片方だけ古くなる。
-                  i < 2 だけ先に読む。残りは画面に入ってから。 */}
-              <Image
+                  i < 2 だけ先に読む。残りは画面に入ってから。
+                  next/image を使わない理由は components/ColumnHero.tsx に書いてある。 */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
                 src={`${c.href}/opengraph-image`}
                 alt=""
                 width={1200}
                 height={630}
-                priority={i < 2}
-                loading={i < 2 ? undefined : "lazy"}
-                sizes="(max-width: 768px) 100vw, 672px"
-                className="h-auto w-full border-b border-border"
+                loading={i < 2 ? "eager" : "lazy"}
+                decoding="async"
+                className="block h-auto w-full border-b border-border"
               />
               <div className="p-4 sm:p-5">
                 <p className="font-semibold">{c.title}</p>
