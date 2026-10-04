@@ -95,11 +95,39 @@ function extractPairs(src) {
   return pairs;
 }
 
+/**
+ * URLを変数やテンプレートリテラルで組んでいる行を見つける。
+ *
+ * この読み取りは構文解析をしないので、sourceUrl が文字列でないレコードは
+ * 黙って照合対象から外れる。外れたことは出力に出ないため、
+ * 「全部一致しました」と言いながら実は見ていない、という状態になりうる。
+ * 実際 lib/pawnLaw.ts を足したとき、6件が照合されないまま緑になっていた。
+ */
+function unscannableLines(src, file) {
+  const out = [];
+  src.split(/\r?\n/).forEach((line, i) => {
+    const t = line.trim();
+    // 型宣言(sourceUrl: string)、コメント、別のオブジェクトから詰め替えている行
+    // (sourceUrl: rec.sourceUrl)は、引用の出典ではないので数えない。
+    // 鳴りっぱなしの警告は読まれなくなるので、拾うのは本当に照合から外れる書き方だけ。
+    if (t.startsWith("*") || t.startsWith("//")) return;
+    const m = /(?:sourceUrl|verifyUrl)\??:\s*(.+)$/.exec(t);
+    if (!m) return;
+    const value = m[1].trim();
+    if (value.startsWith('"') || /^string\b/.test(value) || /^\w+\.\w+/.test(value)) return;
+    out.push(`${file}:${i + 1} ${t}`);
+  });
+  return out;
+}
+
 async function main() {
-  const files = ["lib/fees.ts", "lib/services.ts", "lib/taxLaw.ts"];
+  const files = ["lib/fees.ts", "lib/services.ts", "lib/taxLaw.ts", "lib/pawnLaw.ts"];
   const pairs = [];
+  const unscannable = [];
   for (const f of files) {
-    pairs.push(...extractPairs(await readFile(path.join(ROOT, f), "utf8")).map((p) => ({ ...p, from: f })));
+    const src = await readFile(path.join(ROOT, f), "utf8");
+    unscannable.push(...unscannableLines(src, f));
+    pairs.push(...extractPairs(src).map((p) => ({ ...p, from: f })));
   }
 
   // 同じURLは1回だけ取りに行く
@@ -110,6 +138,12 @@ async function main() {
   }
 
   console.log(`引用 ${pairs.length}件 / 出典 ${byUrl.size}件を照合します`);
+  if (unscannable.length) {
+    console.log(`
+URLが文字列で書かれていないため照合できない行 (${unscannable.length}件):`);
+    for (const u of unscannable) console.log(`  - ${u}`);
+    console.log("  URLは変数で組まずに、1件ずつそのまま書いてください。");
+  }
   const missing = [];
   const unreachable = [];
 

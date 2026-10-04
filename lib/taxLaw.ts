@@ -31,6 +31,8 @@ export const TAX_CHECKED_AT = "2026年10月4日";
 /** 国税庁タックスアンサーの、いつ現在の法令かの表示 */
 export const NTA_AS_OF = "令和8年4月1日現在法令等";
 
+// 記事の「参考」欄で使う。レコードの sourceUrl はここを参照せず、1件ずつ
+// 文字列で書いてある(変数で組むと照合スクリプトの対象から外れるため)。
 export const NTA_3161 = "https://www.nta.go.jp/taxes/shiraberu/taxanswer/joto/3161.htm";
 export const NTA_3105 = "https://www.nta.go.jp/taxes/shiraberu/taxanswer/joto/3105.htm";
 export const NTA_3152 = "https://www.nta.go.jp/taxes/shiraberu/taxanswer/joto/3152.htm";
@@ -42,27 +44,27 @@ export const TAX_QUOTES: Record<string, LawQuote> = {
     label: "国税庁 タックスアンサー No.3161「金地金の譲渡による所得」",
     quote:
       "金地金を売ったときの所得は、原則、譲渡所得として、給与所得など他の所得と合わせて総合課税の対象となります。",
-    sourceUrl: NTA_3161,
+    sourceUrl: "https://www.nta.go.jp/taxes/shiraberu/taxanswer/joto/3161.htm",
   },
   continuousIsBusiness: {
     sourceId: "nta-3161-business",
     label: "国税庁 タックスアンサー No.3161「金地金の譲渡による所得」",
     quote:
       "金地金の譲渡が営利を目的として継続的に行われている場合には、その実態に応じて事業所得または雑所得となります。",
-    sourceUrl: NTA_3161,
+    sourceUrl: "https://www.nta.go.jp/taxes/shiraberu/taxanswer/joto/3161.htm",
   },
   gainFormula: {
     sourceId: "nta-3161-formula",
     label: "国税庁 タックスアンサー No.3161「金地金の譲渡による所得」",
     quote: "譲渡価額－（取得費＋譲渡費用）＝金地金の譲渡益",
-    sourceUrl: NTA_3161,
+    sourceUrl: "https://www.nta.go.jp/taxes/shiraberu/taxanswer/joto/3161.htm",
   },
   deductionFormula: {
     sourceId: "nta-3161-deduction",
     label: "国税庁 タックスアンサー No.3161「金地金の譲渡による所得」",
     quote:
       "｛［金地金の譲渡益］＋［その年の金地金以外の総合課税の譲渡益］｝－譲渡所得の特別控除50万円＝課税される譲渡所得の金額",
-    sourceUrl: NTA_3161,
+    sourceUrl: "https://www.nta.go.jp/taxes/shiraberu/taxanswer/joto/3161.htm",
   },
   deductionCap: {
     sourceId: "nta-3161-cap",
@@ -70,26 +72,26 @@ export const TAX_QUOTES: Record<string, LawQuote> = {
     quote:
       "譲渡所得の特別控除の額は、その年の金地金の譲渡益とそれ以外の総合課税の譲渡益の合計額に対して50万円です。" +
       "これらの譲渡益の合計額が50万円以下のときはその金額までしか控除できません。",
-    sourceUrl: NTA_3161,
+    sourceUrl: "https://www.nta.go.jp/taxes/shiraberu/taxanswer/joto/3161.htm",
   },
   longTermHalf: {
     sourceId: "nta-3161-half",
     label: "国税庁 タックスアンサー No.3161「金地金の譲渡による所得」",
     quote: "（譲渡所得の金額）× 1/2 = 課税される譲渡所得の金額",
-    sourceUrl: NTA_3161,
+    sourceUrl: "https://www.nta.go.jp/taxes/shiraberu/taxanswer/joto/3161.htm",
   },
   dailyGoods: {
     sourceId: "nta-3105-daily",
     label: "国税庁 タックスアンサー No.3105「譲渡所得の対象となる資産と課税方法」",
     quote: "家具、じゅう器、通勤用の自動車、衣服などの生活に通常必要な動産の譲渡による所得です。",
-    sourceUrl: NTA_3105,
+    sourceUrl: "https://www.nta.go.jp/taxes/shiraberu/taxanswer/joto/3105.htm",
   },
   dailyGoodsException: {
     sourceId: "nta-3105-exception",
     label: "国税庁 タックスアンサー No.3105「譲渡所得の対象となる資産と課税方法」",
     quote:
       "ただし、貴金属や宝石、書画、骨とうなどで、1個または1組の価額が30万円を超えるものの譲渡による所得は除きます。",
-    sourceUrl: NTA_3105,
+    sourceUrl: "https://www.nta.go.jp/taxes/shiraberu/taxanswer/joto/3105.htm",
   },
 
   // ---- 法令 ----

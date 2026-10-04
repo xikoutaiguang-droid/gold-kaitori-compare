@@ -102,6 +102,14 @@ export default function TaxPage() {
         買った値段を覚えていない昔の品でも、考え方は変わりません。
       </p>
 
+      <p className="mb-8 text-sm leading-relaxed text-muted">
+        条文まではいらない、要点だけ知りたいという場合は{" "}
+        <Link href="/guide/tax" className="underline underline-offset-2">
+          金・貴金属を売ったときの税金
+        </Link>
+        に、同じ内容をやさしくまとめています。
+      </p>
+
       {/* ---- 1. 身につけていた品 ---- */}
       <section className="mb-10">
         <h2 className="font-serif-jp mb-3 text-lg font-semibold">

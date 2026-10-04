@@ -54,6 +54,16 @@ export default function TaxGuidePage() {
         金額や状況によって迷う場合は税務署や税理士にご確認ください。
       </div>
 
+      {/* 同じ話を条文の原文で確かめた記事がある。どちらが要るかは読む人で違うので、
+          やさしい側からも入口を出しておく。 */}
+      <p className="mb-8 text-sm leading-relaxed">
+        ここに書いた決まりを、所得税法の条文と国税庁の原文で1つずつ確かめた記事もあります。
+        30万円・50万円・200万円がそれぞれ何の金額なのかを整理しています →{" "}
+        <Link href="/column/tax" className="text-accent-strong underline underline-offset-2">
+          金を売って税金がかかるのは、売った額ではなくもうけです
+        </Link>
+      </p>
+
       <div className="flex flex-col gap-5 sm:gap-6">
         <GuideCard icon={<RingIcon />} title="基本は「非課税」です">
           普段使っていた指輪やネックレスなど、生活のために持っていたもの(「生活用動産」といいます)を
