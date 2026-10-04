@@ -10,6 +10,7 @@ import PriceBar from "@/components/PriceBar";
 import CaveatNote from "@/components/CaveatNote";
 import ShareResult from "@/components/ShareResult";
 import PrBadge from "@/components/PrBadge";
+import { deductionFor, UNDISCLOSED_FEE_COMPANIES } from "@/lib/feeDeductions";
 
 const PURITY_OPTIONS: Purity[] = [...GOLD_PURITIES, ...PLATINUM_PURITIES, ...SILVER_PURITIES];
 
@@ -17,6 +18,9 @@ export default function SimulatorForm({ companies }: { companies: Company[] }) {
   const [weight, setWeight] = useState<string>("10");
   const [stoneWeight, setStoneWeight] = useState<string>("");
   const [purity, setPurity] = useState<Purity>("k18");
+  // 差し引きは持ち込み方で変わる。リファスタとネクサスは宅配のときだけ引かれ、
+  // まねきやの分析料は店頭でもかかる。既定は店頭(引かれるものが少ないほう)。
+  const [method, setMethod] = useState<"storefront" | "shipping">("storefront");
 
   const availablePurities = useMemo(
     () => PURITY_OPTIONS.filter((p) => companies.some((c) => c.priceData.prices[p] !== undefined)),
@@ -31,14 +35,38 @@ export default function SimulatorForm({ companies }: { companies: Company[] }) {
   const results = useMemo(() => {
     return [...companies]
       .filter((c) => c.priceData.prices[purity] !== undefined)
-      .map((c) => ({
-        company: c,
-        amount: (c.priceData.prices[purity] as number) * (validWeight ? goldWeight : 0),
-      }))
+      .map((c) => {
+        const amount = (c.priceData.prices[purity] as number) * (validWeight ? goldWeight : 0);
+        const d = deductionFor(c.id, amount, method);
+        // 引かれる額が分かっている社だけ、手取りを出す。
+        // 未公表の社に勝手な数字を置くと、順位が作り話になる。
+        const known = d && !d.none && d.amount !== null ? d.amount : 0;
+        return {
+          company: c,
+          amount,
+          deduction: d,
+          net: amount - known,
+          // 金額が出せない社。順位の比較からは外して、注記だけ出す
+          uncertain:
+            (d && !d.none && d.amount === null) || UNDISCLOSED_FEE_COMPANIES.includes(c.id),
+        };
+      })
       .sort((a, b) => b.amount - a.amount);
-  }, [companies, purity, goldWeight, validWeight]);
+  }, [companies, purity, goldWeight, validWeight, method]);
 
   const maxAmount = Math.max(1, ...results.map((r) => r.amount));
+
+  // 表示単価の1位と、手取りの1位が入れ替わるかどうか。
+  // 入れ替わるときだけ上に出す。常に出すと注意書きとして読み飛ばされる。
+  const flipped = useMemo(() => {
+    if (!validWeight) return null;
+    const comparable = results.filter((r) => !r.uncertain);
+    if (comparable.length < 2) return null;
+    const byGross = comparable[0];
+    const byNet = [...comparable].sort((a, b) => b.net - a.net)[0];
+    if (byNet.company.id === byGross.company.id) return null;
+    return { byGross, byNet };
+  }, [results, validWeight]);
 
   return (
     <div>
@@ -81,6 +109,29 @@ export default function SimulatorForm({ companies }: { companies: Company[] }) {
             ))}
           </select>
         </div>
+        <div>
+          <label className="mb-1 block text-xs font-medium text-muted">持ち込み方</label>
+          <div className="flex rounded-lg border border-border bg-surface p-0.5">
+            {([
+              ["storefront", "店頭"],
+              ["shipping", "宅配"],
+            ] as const).map(([value, label]) => (
+              <button
+                key={value}
+                type="button"
+                onClick={() => setMethod(value)}
+                aria-pressed={method === value}
+                className={`min-h-10 rounded-md px-3.5 text-sm font-medium transition ${
+                  method === value
+                    ? "bg-accent text-accent-foreground"
+                    : "text-foreground/70 hover:bg-accent-soft"
+                }`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
 
       {stoneWeightNum > 0 && (
@@ -106,8 +157,23 @@ export default function SimulatorForm({ companies }: { companies: Company[] }) {
         </div>
       )}
 
+      {flipped && (
+        <div className="mb-4 rounded-xl border border-amber-500/40 bg-amber-50/60 p-4 dark:bg-amber-950/20">
+          <p className="text-sm font-semibold">単価の1位と、手取りの1位が違います</p>
+          <p className="mt-1.5 text-sm leading-relaxed">
+            表示単価では{flipped.byGross.company.name}が1位ですが、各社が公表している差し引きを引くと
+            <strong className="mx-1">{flipped.byNet.company.name}</strong>
+            のほうが
+            <strong className="mx-1 tabular-nums">
+              {Math.round(flipped.byNet.net - flipped.byGross.net).toLocaleString()}円
+            </strong>
+            多く残ります。
+          </p>
+        </div>
+      )}
+
       <ul className="flex flex-col gap-2.5">
-        {results.map(({ company, amount }, i) => (
+        {results.map(({ company, amount, deduction, net, uncertain }, i) => (
           <li key={company.id}>
             <a
               href={getOutboundUrl(company)}
@@ -141,6 +207,39 @@ export default function SimulatorForm({ companies }: { companies: Company[] }) {
               {validWeight && (
                 <div className="mt-2.5 pl-8">
                   <PriceBar value={amount} max={maxAmount} />
+                  {deduction && !deduction.none && (
+                    <p className="mt-2 text-xs leading-relaxed text-amber-700 dark:text-amber-400">
+                      {deduction.amount !== null ? (
+                        <>
+                          ここから{deduction.rule.label}
+                          <strong className="mx-0.5 tabular-nums">
+                            {deduction.amount.toLocaleString()}円
+                          </strong>
+                          {deduction.rule.taxExcluded && "(税抜)"}
+                          {deduction.rule.per === "item" && "が商品1点ごとに"}引かれ、
+                          <strong className="mx-0.5 tabular-nums">
+                            約{Math.round(net).toLocaleString()}円
+                          </strong>
+                          になります。
+                        </>
+                      ) : (
+                        <>
+                          ここから{deduction.rule.label}が引かれます
+                          {deduction.atLeast ? (
+                            <>（分かっているぶんだけで{deduction.atLeast.toLocaleString()}円以上）</>
+                          ) : null}
+                          。
+                        </>
+                      )}
+                      {deduction.note && <span className="block text-muted">{deduction.note}</span>}
+                    </p>
+                  )}
+                  {!deduction && uncertain && (
+                    <p className="mt-2 text-xs leading-relaxed text-amber-700 dark:text-amber-400">
+                      この社は「買取相場価格に手数料は含まれておりません」と書いていますが、
+                      金額は公表されていません。
+                    </p>
+                  )}
                 </div>
               )}
             </a>
