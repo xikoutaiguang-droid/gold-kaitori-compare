@@ -13,6 +13,11 @@ export interface ColumnEntry {
 
 export const COLUMNS: ColumnEntry[] = [
   {
+    href: "/column/how-to-choose",
+    title: "口コミの星が高い店は、高く買ってくれるのか",
+    desc: "評価と買取額を同じ社で突き合わせ、「いちばん高い店」が何日続くかも数えました",
+  },
+  {
     href: "/column/nationwide",
     title: "「全国対応」は、近くに店があるという意味ではない",
     desc: "同じ4文字を名乗る社の店舗数を並べると、桁がいくつも違いました。何を指している言葉なのか",
