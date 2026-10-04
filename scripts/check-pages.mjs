@@ -34,7 +34,9 @@ void fileURLToPath;
 void path;
 
 /** 壊れた値がそのまま文字として出ていないか */
-const BROKEN = ["undefined", "NaN", "[object Object]", "Infinity円", "null円"];
+// 「円円」は、金額を返す関数が単位まで持っているのに、呼ぶ側でも円を書いたとき。
+// 実際 /column/tax が「30万円円」と出していた。見れば分かるのに、見るまで分からない。
+const BROKEN = ["undefined", "NaN", "[object Object]", "Infinity円", "null円", "円円"];
 
 async function get(url) {
   try {

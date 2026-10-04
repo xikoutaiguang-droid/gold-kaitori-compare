@@ -11,6 +11,9 @@
   --accent-strong: #8a6508;
   --accent-foreground: #ffffff;
   --accent-soft: #fdf3e0;
+  /* 表の地色。本文と同じ白だと、表がどこから始まるのか分からなかった */
+  --table-head: #f3efe6;
+  --table-stripe: #faf8f4;
 }
 
 @theme inline {
@@ -39,6 +42,8 @@
     --accent-strong: #e8b923;
     --accent-foreground: #16181d;
     --accent-soft: #2a2410;
+    --table-head: #262320;
+    --table-stripe: #191919;
   }
 }
 
@@ -88,4 +93,65 @@ body {
 
 .column-body h2 {
   line-height: 1.6;
+}
+
+/*
+ * 記事の中の表。
+ *
+ * これまでは本文と同じ白地に細い罫線だけだったので、どこからが表なのか、
+ * どの行が見出しなのかが分かりにくかった。表は「本文とは別のもの」として
+ * 見えたほうがいいので、見出し行に地色を敷き、1行おきに薄く色を替える。
+ *
+ * 文字も小さすぎた。実機では12pxで、本文16pxとの差が大きく、
+ * 数字を読むのに目を近づける必要があった。13pxに上げている
+ * (上げすぎると列が詰まって折り返すので、ここが上限)。
+ */
+.column-body table {
+  font-size: 0.8125rem;
+}
+
+@media (min-width: 640px) {
+  .column-body table {
+    font-size: 0.875rem;
+  }
+}
+
+.column-body thead tr {
+  background: var(--table-head);
+}
+
+.column-body thead th {
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+.column-body tbody tr:nth-child(even) {
+  background: var(--table-stripe);
+}
+
+/* 本文は1.9だが、表の中はそこまで空けると行がばらけて読みにくい */
+.column-body th,
+.column-body td {
+  line-height: 1.65;
+  padding-top: 0.55rem;
+  padding-bottom: 0.55rem;
+}
+
+/*
+ * 本文の文字。16pxだと、1行24文字の画面では小さく感じる。
+ * 見出し・注釈との差は保ったまま、本文だけ1段上げる。
+ */
+.column-body .text-base {
+  font-size: 1.0625rem;
+}
+
+/* 補足の文字が薄すぎたので、記事の中だけ少し濃くする */
+.column-body .text-muted {
+  color: #5a6069;
+}
+
+@media (prefers-color-scheme: dark) {
+  .column-body .text-muted {
+    color: #a6acb6;
+  }
 }

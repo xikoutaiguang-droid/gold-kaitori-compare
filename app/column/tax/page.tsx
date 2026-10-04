@@ -131,11 +131,11 @@ export default function TaxPage() {
         <Quote entry={TAX_QUOTES.dailyGoods} />
         <Quote entry={TAX_QUOTES.dailyGoodsException} />
         <p className="mb-3 text-base leading-relaxed">
-          つまり1個または1組で{man(NON_TAXABLE_ITEM_LIMIT)}円を超えなければ、生活に使っていた品を売った所得は課税されません。指輪やネックレスを1点売る、という多くの場合はここに収まります。
+          つまり1個または1組で{man(NON_TAXABLE_ITEM_LIMIT)}を超えなければ、生活に使っていた品を売った所得は課税されません。指輪やネックレスを1点売る、という多くの場合はここに収まります。
           {g30 && (
             <>
               {" "}
-              {man(NON_TAXABLE_ITEM_LIMIT)}円は、{g30.source}が{jpDate(g30.updatedAt)}に公表した
+              {man(NON_TAXABLE_ITEM_LIMIT)}は、{g30.source}が{jpDate(g30.updatedAt)}に公表した
               1gあたり{Math.round(g30.unitPrice).toLocaleString("ja-JP")}円で換算すると、純金で約
               {formatGrams(g30.grams)}gにあたります。
             </>
@@ -163,19 +163,19 @@ export default function TaxPage() {
         <p className="mb-3 text-base leading-relaxed">国税庁の計算式はこうです。</p>
         <Quote entry={TAX_QUOTES.gainFormula} />
         <p className="mb-3 text-base leading-relaxed">
-          ここからさらに、{man(SPECIAL_DEDUCTION)}円が引かれます。
+          ここからさらに、{man(SPECIAL_DEDUCTION)}が引かれます。
         </p>
         <Quote entry={TAX_QUOTES.deductionFormula} highlight />
         <Quote entry={TAX_QUOTES.deductionCap} />
         <p className="mb-3 text-base leading-relaxed">この50万円は、条文では次のように置かれています。</p>
         <Quote entry={TAX_QUOTES.specialDeductionAct} />
         <p className="mb-3 text-base leading-relaxed">
-          {man(SPECIAL_DEDUCTION)}円は<strong>売った額ではなく、もうけから引く額</strong>です。
-          100万円で売れたとしても、買ったのが80万円なら、もうけは20万円。特別控除の{man(SPECIAL_DEDUCTION)}円に届かないので、その年にほかの総合課税の譲渡益が無ければ課税される譲渡所得は出ません（売るためにかかった費用も引けます）。
+          {man(SPECIAL_DEDUCTION)}は<strong>売った額ではなく、もうけから引く額</strong>です。
+          100万円で売れたとしても、買ったのが80万円なら、もうけは20万円。特別控除の{man(SPECIAL_DEDUCTION)}に届かないので、その年にほかの総合課税の譲渡益が無ければ課税される譲渡所得は出ません（売るためにかかった費用も引けます）。
         </p>
         <p className="text-base leading-relaxed">
           注意したいのは、控除が<strong>その年の合計に対して1回だけ</strong>という点です。引用した注のとおり、金地金の譲渡益とそれ以外の総合課税の譲渡益を合わせて
-          {man(SPECIAL_DEDUCTION)}円が限度になります。何回かに分けて売っても、売るたびに{man(SPECIAL_DEDUCTION)}円引けるわけではありません。
+          {man(SPECIAL_DEDUCTION)}が限度になります。何回かに分けて売っても、売るたびに{man(SPECIAL_DEDUCTION)}引けるわけではありません。
         </p>
       </section>
 
@@ -227,12 +227,12 @@ export default function TaxPage() {
         </p>
         <Quote entry={TAX_QUOTES.paymentRecord} />
         <p className="mb-3 text-base leading-relaxed">
-          {man(PAYMENT_RECORD_LIMIT)}円を超えると税金がかかる、という意味ではありません。かかるかどうかは前の章までの計算で決まり、ここで変わるのは
-          <strong>税務署がその取引を把握するかどうか</strong>だけです。逆に{man(PAYMENT_RECORD_LIMIT)}円以下なら申告しなくてよい、ということでもありません。
+          {man(PAYMENT_RECORD_LIMIT)}を超えると税金がかかる、という意味ではありません。かかるかどうかは前の章までの計算で決まり、ここで変わるのは
+          <strong>税務署がその取引を把握するかどうか</strong>だけです。逆に{man(PAYMENT_RECORD_LIMIT)}以下なら申告しなくてよい、ということでもありません。
           {g200 && (
             <>
               {" "}
-              {man(PAYMENT_RECORD_LIMIT)}円は、{g200.source}の{jpDate(g200.updatedAt)}時点の価格で純金約{formatGrams(g200.grams)}gぶんです。
+              {man(PAYMENT_RECORD_LIMIT)}は、{g200.source}の{jpDate(g200.updatedAt)}時点の価格で純金約{formatGrams(g200.grams)}gぶんです。
             </>
           )}
         </p>
@@ -255,7 +255,7 @@ export default function TaxPage() {
         <h2 className="font-serif-jp mb-3 text-lg font-semibold">何度も売っていると、譲渡所得ではなくなる</h2>
         <Quote entry={TAX_QUOTES.continuousIsBusiness} />
         <p className="text-base leading-relaxed">
-          事業所得や雑所得になると、{man(SPECIAL_DEDUCTION)}円の特別控除も、
+          事業所得や雑所得になると、{man(SPECIAL_DEDUCTION)}の特別控除も、
           5年超で半分になる扱いも使えません。家にあった品をまとめて手放すのと、売買を繰り返すのとでは、同じ「金を売る」でも別の扱いになります。
         </p>
       </section>
@@ -274,21 +274,21 @@ export default function TaxPage() {
             </thead>
             <tbody>
               <tr className="border-b border-border">
-                <td className="px-3 py-2 tabular-nums">{man(NON_TAXABLE_ITEM_LIMIT)}円</td>
+                <td className="px-3 py-2 tabular-nums">{man(NON_TAXABLE_ITEM_LIMIT)}</td>
                 <td className="px-3 py-2">
                   1個または1組がこれを超えると、生活用動産の非課税から外れる
                 </td>
                 <td className="px-3 py-2">所得税法施行令25条</td>
               </tr>
               <tr className="border-b border-border">
-                <td className="px-3 py-2 tabular-nums">{man(SPECIAL_DEDUCTION)}円</td>
+                <td className="px-3 py-2 tabular-nums">{man(SPECIAL_DEDUCTION)}</td>
                 <td className="px-3 py-2">
                   もうけから引ける特別控除。売った額ではなく、その年の譲渡益の合計に対して1回
                 </td>
                 <td className="px-3 py-2">所得税法33条4項</td>
               </tr>
               <tr>
-                <td className="px-3 py-2 tabular-nums">{man(PAYMENT_RECORD_LIMIT)}円</td>
+                <td className="px-3 py-2 tabular-nums">{man(PAYMENT_RECORD_LIMIT)}</td>
                 <td className="px-3 py-2">
                   地金・金貨の売却で、業者が税務署に支払調書を出す線。課税の線ではない
                 </td>
@@ -298,8 +298,8 @@ export default function TaxPage() {
           </table>
         </div>
         <p className="mt-3 text-base leading-relaxed">
-          売る前に見ておくと分かりやすいのは、この順番です。手元の品が生活に使っていたものか、1個または1組で{man(NON_TAXABLE_ITEM_LIMIT)}円を超えるか。超えるなら、買った値段より高く売れたか。高く売れたなら、その差が
-          {man(SPECIAL_DEDUCTION)}円を超えるか。{man(PAYMENT_RECORD_LIMIT)}円は、この判断のどこにも出てきません。
+          売る前に見ておくと分かりやすいのは、この順番です。手元の品が生活に使っていたものか、1個または1組で{man(NON_TAXABLE_ITEM_LIMIT)}を超えるか。超えるなら、買った値段より高く売れたか。高く売れたなら、その差が
+          {man(SPECIAL_DEDUCTION)}を超えるか。{man(PAYMENT_RECORD_LIMIT)}は、この判断のどこにも出てきません。
         </p>
       </section>
 
