@@ -7,6 +7,9 @@ import { getPriceHistory } from "@/lib/priceHistory";
 import TrustBadges from "@/components/TrustBadges";
 import PriceFreshness from "@/components/PriceFreshness";
 import RelatedColumns from "@/components/RelatedColumns";
+import RemoteBuyers from "@/components/RemoteBuyers";
+import { remoteBuyers } from "@/lib/services";
+import { PURITY_LABELS } from "@/lib/types";
 
 export const metadata: Metadata = {
   title: "金・貴金属買取シミュレーター｜重さを入力するだけで買取額を計算",
@@ -80,6 +83,20 @@ export default function SimulatorPage() {
         ]}
       />
       <SimulatorTabs companies={companies} history={getPriceHistory()} />
+
+      {/* 計算結果のすぐ下。いくらになるか分かった直後が、売り方を決める場面になる。
+          結果の順位は単価で付いているので、こちらは別枠だと分かるように見出しを変えている。 */}
+      <RemoteBuyers
+        options={remoteBuyers("k24")}
+        purityLabel={PURITY_LABELS.k24}
+        source="simulator"
+        heading="計算したら、次は売り方を決める"
+        lead={
+          <>
+            店舗に持ち込まなくても、自宅まで来てもらう「出張」か、送って査定してもらう「宅配」で売れます。公式サイトで対応を確認できた社です。
+          </>
+        }
+      />
       <PriceFreshness className="mt-4" />
 
       <section className="mt-12 border-t border-border pt-8">

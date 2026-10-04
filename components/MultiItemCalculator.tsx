@@ -356,8 +356,17 @@ export default function MultiItemCalculator({
                               <span className="break-keep [overflow-wrap:anywhere]">{company.name}</span>
                               {hasAffiliateLink(company) && <PrBadge />}
                             </span>
-                            <span className="shrink-0 text-lg font-semibold tabular-nums">
-                              約{Math.round(amount).toLocaleString()}円
+                            <span className="shrink-0 text-right">
+                              <span className="block text-lg font-semibold tabular-nums">
+                                約{Math.round(amount).toLocaleString()}円
+                              </span>
+                              {/* 1位との差。棒の長さだけだと「どれくらい違うのか」が
+                                  金額で分からない。2位以降にだけ出す。 */}
+                              {i > 0 && (
+                                <span className="block text-xs tabular-nums text-muted">
+                                  1位と{Math.round(ranked[0].amount - amount).toLocaleString()}円差
+                                </span>
+                              )}
                             </span>
                           </div>
                           <div className="mt-2.5 pl-8">

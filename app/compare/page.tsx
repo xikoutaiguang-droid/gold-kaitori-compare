@@ -9,6 +9,9 @@ import CompanyLinks from "@/components/CompanyLinks";
 import { getCompaniesForIndex } from "@/lib/companyPages";
 import JsonLd from "@/components/JsonLd";
 import RelatedColumns from "@/components/RelatedColumns";
+import RemoteBuyers from "@/components/RemoteBuyers";
+import { remoteBuyers } from "@/lib/services";
+import { PURITY_LABELS } from "@/lib/types";
 
 export const metadata: Metadata = {
   title: "金・貴金属買取相場比較｜純度・地域別に主要買取店の価格を一覧比較",
@@ -101,6 +104,19 @@ export default function ComparePage() {
         <h2 className="font-serif-jp mb-3 text-lg font-semibold">買取店から探す</h2>
         <CompanyLinks />
       </section>
+
+      {/* 表の下。表の中には挟まない(順位の間に広告が入ると、何の一覧なのかが濁る)。 */}
+      <RemoteBuyers
+        options={remoteBuyers("k24")}
+        purityLabel={PURITY_LABELS.k24}
+        source="compare"
+        heading="店舗へ行かずに売れる店"
+        lead={
+          <>
+            上の表は単価の比較です。こちらは出張・宅配に対応していると公式サイトで確認できた社を、別の枠として並べています。
+          </>
+        }
+      />
 
       <RelatedColumns context="compare" />
 

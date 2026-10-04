@@ -24,6 +24,7 @@ import MarketChange from "@/components/MarketChange";
 import { getPriceHistory } from "@/lib/priceHistory";
 import { feeDisclosureFor, FEE_MODEL_LABEL } from "@/lib/fees";
 import RelatedColumns from "@/components/RelatedColumns";
+import CompanyCta from "@/components/CompanyCta";
 
 /** 本文に混ぜる日付。ISO表記のままだと文章の中で浮く */
 function jaDate(iso: string): string {
@@ -265,6 +266,9 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
           )}
         </section>
       )}
+
+      {/* 価格のすぐ下。公式への出口はこれまでページの下だけにあった */}
+      <CompanyCta company={company} source="company_top" />
 
       <p className="mb-6 text-base leading-relaxed">{company.trustNotes}</p>
 

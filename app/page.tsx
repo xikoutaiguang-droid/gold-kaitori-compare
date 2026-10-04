@@ -13,6 +13,9 @@ import OperatorMessage from "@/components/OperatorMessage";
 import RegionLinks from "@/components/RegionLinks";
 import CompanyLinks from "@/components/CompanyLinks";
 import PurityLinks from "@/components/PurityLinks";
+import RemoteBuyers from "@/components/RemoteBuyers";
+import { remoteBuyers } from "@/lib/services";
+import { PURITY_LABELS } from "@/lib/types";
 
 /**
  * トップページの検索結果での見え方。
@@ -104,6 +107,21 @@ export default function Home() {
           今日の数字が下がる。2日前にそれを測って直したばかり。
           2回目以降の訪問では「前回見た日からの差」に変わる。 */}
       <MarketChange history={getPriceHistory()} />
+
+      {/* 価格を見たあとに残る「で、どこに持っていくのか」への答え。
+          近くに店が無い人には、順位の1位が答えにならない。
+          順位の中には入れない。並びは公表単価順のままで、広告の有無で動かさない。 */}
+      <RemoteBuyers
+        options={remoteBuyers("k24")}
+        purityLabel={PURITY_LABELS.k24}
+        source="home"
+        heading="近くに店が無い・持ち込む時間が無いとき"
+        lead={
+          <>
+            自宅まで来てもらう「出張」か、送って査定してもらう「宅配」に対応していると、各社の公式サイトで確認できた社です。上のランキングとは別の枠で、こちらは対応している方法で絞っています。
+          </>
+        }
+      />
 
       <OperatorMessage />
 
