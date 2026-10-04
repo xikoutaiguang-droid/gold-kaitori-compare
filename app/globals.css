@@ -12,6 +12,8 @@
   --accent-foreground: #ffffff;
   --accent-soft: #fdf3e0;
   /* 表の地色。本文と同じ白だと、表がどこから始まるのか分からなかった */
+  --page-tint: #f1f0ed;
+  --block-tint: #f7f6f3;
   --table-head: #e7dfcd;
   --table-stripe: #f5f1e8;
 }
@@ -42,6 +44,8 @@
     --accent-strong: #e8b923;
     --accent-foreground: #16181d;
     --accent-soft: #2a2410;
+    --page-tint: #0e0e0f;
+    --block-tint: #202022;
     --table-head: #3a332a;
     --table-stripe: #232220;
   }
@@ -159,4 +163,42 @@ body {
   .column-body .text-muted {
     color: #a6acb6;
   }
+}
+
+/*
+ * 記事の地色。
+ *
+ * 白い紙に白い囲みを置いていたので、本文と表と引用の境目が罫線の細さでしか
+ * 表せていなかった。地を薄い灰色にして、中身のかたまりを白いカードとして
+ * 浮かせる。色で切るほうが、線で切るより先に目に入る。
+ */
+.column-body {
+  background: var(--page-tint);
+}
+
+@layer components {
+  /* 記事の各節を白いカードにする。独自の囲み(枠線や色)を持つ節は、
+     そちらのユーティリティが後から当たるので、この指定に上書きされない */
+  .column-body section {
+    background: var(--surface);
+    border-radius: 1rem;
+    padding: 1.25rem 1.1rem;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 5%);
+  }
+}
+
+/* 引用。色の付いた引用(強調)はそのまま、ふつうの引用だけ地色を変える */
+.column-body blockquote:not([class*="accent"]) {
+  background: var(--block-tint);
+  border-left: 3px solid var(--border);
+}
+
+/* 表を囲む枠。カードの中でもう一段へこませる */
+.column-body .overflow-hidden:has(> table) {
+  background: var(--surface);
+}
+
+/* 節の見出し。本文と同じ太さだと、どこで話が変わったのか分からない */
+.column-body h2 {
+  font-weight: 600;
 }
