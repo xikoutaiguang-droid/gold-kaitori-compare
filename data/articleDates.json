@@ -7,19 +7,35 @@
     },
     "/column/fees": {
       "published": "2026-09-23T22:52:35+09:00",
-      "modified": "2026-10-01T18:35:44+09:00"
+      "modified": "2026-10-04T12:19:48+09:00"
     },
     "/column/hallmark": {
       "published": "2026-09-23T11:13:05+09:00",
-      "modified": "2026-09-23T14:14:09+09:00"
+      "modified": "2026-10-04T12:19:48+09:00"
+    },
+    "/column/how-to-choose": {
+      "published": "2026-10-04T13:46:56+09:00",
+      "modified": "2026-10-04T13:46:56+09:00"
+    },
+    "/column/identity-check": {
+      "published": "2026-10-04T00:45:04+09:00",
+      "modified": "2026-10-04T00:45:04+09:00"
     },
     "/column/karat-and-price": {
       "published": "2026-09-23T09:48:00+09:00",
-      "modified": "2026-09-23T14:14:09+09:00"
+      "modified": "2026-10-04T12:19:48+09:00"
+    },
+    "/column/mail-in-purchase": {
+      "published": "2026-10-02T23:18:01+09:00",
+      "modified": "2026-10-02T23:18:01+09:00"
     },
     "/column/multiple-quotes": {
       "published": "2026-09-15T11:22:04+09:00",
       "modified": "2026-09-23T14:14:09+09:00"
+    },
+    "/column/nationwide": {
+      "published": "2026-10-04T12:56:58+09:00",
+      "modified": "2026-10-04T12:56:58+09:00"
     },
     "/column/plating-check": {
       "published": "2026-09-15T11:22:04+09:00",
@@ -31,19 +47,31 @@
     },
     "/column/price-gap": {
       "published": "2026-09-21T10:59:27+09:00",
-      "modified": "2026-09-23T14:14:09+09:00"
+      "modified": "2026-10-04T12:19:48+09:00"
+    },
+    "/column/retail-vs-buy": {
+      "published": "2026-10-04T00:20:45+09:00",
+      "modified": "2026-10-04T00:20:45+09:00"
+    },
+    "/column/tax": {
+      "published": "2026-10-04T18:44:23+09:00",
+      "modified": "2026-10-04T18:44:23+09:00"
     },
     "/column/timing-vs-shop": {
       "published": "2026-09-23T17:10:35+09:00",
-      "modified": "2026-09-23T17:10:35+09:00"
+      "modified": "2026-10-04T12:19:48+09:00"
     },
     "/column/visit-purchase": {
       "published": "2026-09-26T10:19:54+09:00",
-      "modified": "2026-09-26T10:19:54+09:00"
+      "modified": "2026-10-02T23:18:01+09:00"
+    },
+    "/column/weekend": {
+      "published": "2026-10-03T23:01:07+09:00",
+      "modified": "2026-10-03T23:04:56+09:00"
     },
     "/column/what-a-gram-means": {
       "published": "2026-09-22T15:32:04+09:00",
-      "modified": "2026-09-23T22:52:35+09:00"
+      "modified": "2026-10-04T12:50:50+09:00"
     },
     "/guide/tax": {
       "published": "2026-09-04T18:15:29+09:00",
