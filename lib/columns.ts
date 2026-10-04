@@ -13,6 +13,11 @@ export interface ColumnEntry {
 
 export const COLUMNS: ColumnEntry[] = [
   {
+    href: "/column/nationwide",
+    title: "「全国対応」は、近くに店があるという意味ではない",
+    desc: "同じ4文字を名乗る社の店舗数を並べると、桁がいくつも違いました。何を指している言葉なのか",
+  },
+  {
     href: "/column/identity-check",
     title: "1万円未満なら、法律は本人確認を求めていない",
     desc: "古物営業法の条文と金額(1万円)、その例外から外される古物の一覧をe-Govの原文で。貴金属は入っていません",
