@@ -110,7 +110,10 @@ export default function RemoteBuyers({
                 )}
               </div>
             </div>
-            <div className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-1 pl-11">
+            {/* 375pxではこの2本が折り返して、高さ16〜20pxのリンクが縦4pxの隙間で
+                並んでいた。指で狙うと取り違える距離で、しかも片方は店の外に出る。
+                それぞれに打鍵の高さを持たせ、折り返したときの間隔も空ける。 */}
+            <div className="mt-1.5 flex flex-wrap items-center gap-x-4 gap-y-1 pl-11">
               <a
                 href={o.ctaUrl}
                 target="_blank"
@@ -123,11 +126,14 @@ export default function RemoteBuyers({
                     source,
                   })
                 }
-                className="text-sm font-medium text-accent-strong hover:underline"
+                className="inline-flex min-h-11 items-center text-sm font-medium text-accent-strong hover:underline"
               >
                 {o.ctaLabel} →
               </a>
-              <Link href={`/company/${o.id}`} className="text-xs text-muted hover:underline">
+              <Link
+                href={`/company/${o.id}`}
+                className="inline-flex min-h-11 items-center text-xs text-muted hover:underline"
+              >
                 この店の詳細
               </Link>
             </div>
