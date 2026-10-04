@@ -5,6 +5,7 @@ import { getActiveCampaigns } from "@/lib/campaigns";
 import JsonLd from "@/components/JsonLd";
 import { articleJsonLd, columnBreadcrumb } from "@/lib/structuredData";
 import OtherColumns from "@/components/OtherColumns";
+import ColumnHero from "@/components/ColumnHero";
 
 export function generateMetadata(): Metadata {
   const b = measureAgainstBenchmark("k24");
@@ -95,6 +96,8 @@ export default function WhatAGramMeansPage() {
       <h1 className="font-serif-jp mb-2 text-xl font-semibold sm:text-2xl">
         「1gいくら」は、店ごとに同じ意味ではない
       </h1>
+
+      <ColumnHero href="/column/what-a-gram-means" />
       <p className="mb-8 text-base leading-relaxed text-muted">
         金の買取店はどこも「K24 1gあたり○○円」という数字を出しています。同じ形をしているので、高い順に並べれば比べたことになりそうに見えます。当サイトも、まさにそれをやっています。ところが各社の注意書きまで読むと、同じ「1gいくら」が指しているものが揃っていませんでした。以下で引用しているのは各社が自社サイトに書いていることで、順位・比率・相関はそこから当サイトが計算したものです。口コミの評価だけは各社の公表資料ではなく、当サイトがGoogleマップから集めた数字です。
       </p>

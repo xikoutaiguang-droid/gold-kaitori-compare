@@ -9,6 +9,7 @@ import { onlyVia, serviceCounts, visitBuyers, SERVICE_RECORDS } from "@/lib/serv
 import { PURITY_LABELS } from "@/lib/types";
 import rawCompanies from "@/data/companies.json";
 import type { Company } from "@/lib/types";
+import ColumnHero from "@/components/ColumnHero";
 
 export function generateMetadata(): Metadata {
   const n = serviceCounts();
@@ -61,6 +62,8 @@ export default function VisitPurchasePage() {
       <h1 className="font-serif-jp mb-2 text-xl font-semibold sm:text-2xl">
         出張買取の8日間 — 取り消せる場合と、取り消せない場合
       </h1>
+
+      <ColumnHero href="/column/visit-purchase" />
       <MethodTabs current="/column/visit-purchase" />
       <p className="mb-8 text-base leading-relaxed text-muted">
         当サイトが価格を追っている{SERVICE_RECORDS.length}社のうち、{n.visit}

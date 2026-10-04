@@ -3,6 +3,7 @@ import Link from "next/link";
 import JsonLd from "@/components/JsonLd";
 import { articleJsonLd, columnBreadcrumb } from "@/lib/structuredData";
 import OtherColumns from "@/components/OtherColumns";
+import ColumnHero from "@/components/ColumnHero";
 
 export const metadata: Metadata = {
   title: "遺品整理・生前整理で貴金属を手放すときの心構え｜査定に出す前に知っておきたいこと",
@@ -23,6 +24,8 @@ export default function EstateCleanupColumnPage() {
       <h1 className="font-serif-jp mb-2 text-xl font-semibold sm:text-2xl">
         遺品整理・生前整理で貴金属を手放すときの心構え
       </h1>
+
+      <ColumnHero href="/column/estate-cleanup" />
       <p className="mb-8 text-base leading-relaxed text-muted">
         亡くなった家族の指輪やネックレス、あるいは自分自身の生前整理で出てきたアクセサリー。「売ってもいいのだろうか」と迷う方は少なくありません。実務的な注意点とあわせて、少しでも気持ちが楽になればと思いまとめました。
       </p>

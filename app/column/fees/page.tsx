@@ -6,6 +6,7 @@ import { PURITY_LABELS } from "@/lib/types";
 import JsonLd from "@/components/JsonLd";
 import { articleJsonLd, columnBreadcrumb } from "@/lib/structuredData";
 import OtherColumns from "@/components/OtherColumns";
+import ColumnHero from "@/components/ColumnHero";
 
 export function generateMetadata(): Metadata {
   const f = measureFeeLandscape();
@@ -62,6 +63,8 @@ export default function FeesPage() {
       <h1 className="font-serif-jp mb-2 text-xl font-semibold sm:text-2xl">
         金買取の手数料は、どこでいくら引かれるのか
       </h1>
+
+      <ColumnHero href="/column/fees" />
       <p className="mb-8 text-base leading-relaxed text-muted">
         「手数料無料」と書いてある店でも、受け取る金額が表示単価どおりとは限りません。当サイトが価格を追っている{f.priced}社について、価格ページに加えて利用規約や宅配買取の案内まで読んだところ、手数料の扱いは{f.disclosed}社で
         {f.distinctModels}通りに分かれていました。同じ「無料」の2文字が、別のことを指しています。

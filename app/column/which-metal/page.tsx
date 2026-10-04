@@ -15,6 +15,7 @@ import { FEE_DEDUCTIONS } from "@/lib/feeDeductions";
 import { manekiyaFee, MANEKIYA_FEE } from "@/lib/priceMeaning";
 import { PRICE_MAX_AGE_DAYS } from "@/lib/companies";
 import { PURITY_LABELS } from "@/lib/types";
+import ColumnHero from "@/components/ColumnHero";
 
 const PATH = "/column/which-metal";
 
@@ -74,6 +75,8 @@ export default function WhichMetalPage() {
       <h1 className="font-serif-jp mb-3 text-2xl font-semibold leading-snug sm:text-3xl">
         金・プラチナ・銀、どれがいちばん売りにくいのか
       </h1>
+
+      <ColumnHero href="/column/which-metal" />
 
       <p className="mb-4 text-base leading-relaxed">
         「貴金属買取」と書いてある店でも、全部の金属に値を付けているわけではありません。どの店も自社の価格しか載せないので、「銀を買い取ってくれる店がどれだけあるか」はどこにも書かれていません。当サイトは{total}社の公表価格を毎日取っているので、そこから数えました。

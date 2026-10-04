@@ -5,6 +5,7 @@ import { PURITY_LABELS } from "@/lib/types";
 import JsonLd from "@/components/JsonLd";
 import { articleJsonLd, columnBreadcrumb } from "@/lib/structuredData";
 import OtherColumns from "@/components/OtherColumns";
+import ColumnHero from "@/components/ColumnHero";
 
 // 社数は本文と同じく実データから取る。ここだけ固定値にすると、
 // 掲載社が増減したときにタイトルだけが嘘になる。
@@ -70,6 +71,8 @@ export default function PriceGapColumnPage() {
       <h1 className="font-serif-jp mb-2 text-xl font-semibold sm:text-2xl">
         同じ日に、同じ金を、{k24.count}社はいくらで買うのか
       </h1>
+
+      <ColumnHero href="/column/price-gap" />
       <p className="mb-8 text-base leading-relaxed text-muted">
         「買取店によって金額が違う」とはよく言われますが、実際どれくらい違うのかを数字で見た人は多くありません。当サイトは{k24.count}社の公表買取価格を毎日集めているので、同じ日・同じ純度で並べて測ってみました。
         {measuredOn ? `以下は${jaDate(measuredOn)}時点の公表値です。` : ""}

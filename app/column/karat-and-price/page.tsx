@@ -5,6 +5,7 @@ import { PURITY_LABELS } from "@/lib/types";
 import JsonLd from "@/components/JsonLd";
 import { articleJsonLd, columnBreadcrumb } from "@/lib/structuredData";
 import OtherColumns from "@/components/OtherColumns";
+import ColumnHero from "@/components/ColumnHero";
 
 export function generateMetadata(): Metadata {
   return {
@@ -56,6 +57,8 @@ export default function KaratAndPricePage() {
       <h1 className="font-serif-jp mb-2 text-xl font-semibold sm:text-2xl">
         K18は「金75%」。では値段も75%になるのか
       </h1>
+
+      <ColumnHero href="/column/karat-and-price" />
       <p className="mb-8 text-base leading-relaxed text-muted">
         指輪の内側にある「K18」「750」といった刻印は、その品物に金が何%入っているかを表しています。ここまでは決まった数字なので、どこで調べても同じです。では、その含有率どおりの金額で買い取られるのか。掲載中の買取店が純度ごとに公表している価格を使って、実際に確かめました。
       </p>

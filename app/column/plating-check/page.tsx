@@ -3,6 +3,7 @@ import Link from "next/link";
 import JsonLd from "@/components/JsonLd";
 import { articleJsonLd, columnBreadcrumb } from "@/lib/structuredData";
 import OtherColumns from "@/components/OtherColumns";
+import ColumnHero from "@/components/ColumnHero";
 
 export const metadata: Metadata = {
   title: "メッキと金の簡単な見分け方｜磁石でできる自宅チェック",
@@ -46,6 +47,8 @@ export default function PlatingCheckColumnPage() {
         </Link>
       </p>
       <h1 className="font-serif-jp mb-2 text-xl font-semibold sm:text-2xl">メッキと金の簡単な見分け方</h1>
+
+      <ColumnHero href="/column/plating-check" />
       <p className="mb-8 text-base leading-relaxed text-muted">
         引き出しの奥から出てきたアクセサリー、刻印も見当たらず「金なのかメッキなのか分からない」ということはよくあります。買取に出す前に、自宅で手軽にできる簡易チェックの方法と、その限界をお伝えします。
       </p>

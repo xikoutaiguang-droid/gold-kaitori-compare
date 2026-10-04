@@ -5,6 +5,7 @@ import JsonLd from "@/components/JsonLd";
 import OtherColumns from "@/components/OtherColumns";
 import MethodTabs from "@/components/MethodTabs";
 import { articleJsonLd, columnBreadcrumb } from "@/lib/structuredData";
+import ColumnHero from "@/components/ColumnHero";
 
 const PATH = "/column/nationwide";
 
@@ -65,6 +66,8 @@ export default function NationwidePage() {
       <h1 className="font-serif-jp mb-3 text-2xl font-semibold leading-snug sm:text-3xl">
         {String(meta.title)}
       </h1>
+
+      <ColumnHero href="/column/nationwide" />
 
       <p className="mb-8 text-base leading-relaxed">
         買取店のサイトにはたいてい「全国対応」と書いてあります。近くに店があるのだろうと読めますが、同じ言葉を使っている社の店舗数を並べると、ずいぶん違うものが同じ4文字になっていました。

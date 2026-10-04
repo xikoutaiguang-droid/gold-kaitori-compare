@@ -5,6 +5,7 @@ import { PURITY_LABELS } from "@/lib/types";
 import JsonLd from "@/components/JsonLd";
 import { articleJsonLd, columnBreadcrumb } from "@/lib/structuredData";
 import OtherColumns from "@/components/OtherColumns";
+import ColumnHero from "@/components/ColumnHero";
 
 // 見出しも測った結果で決める。どちらが大きいかは記録が伸びれば入れ替わりうるので、
 // 「店のほうが効く」と決め打ちにしない。
@@ -83,6 +84,8 @@ export default function TimingVsShopPage() {
           ? `金を売るなら、日を選ぶより店を選ぶほうが${ratio}倍効く`
           : `金を売るなら、店を選ぶより日を選ぶほうが${ratio}倍効く`}
       </h1>
+
+      <ColumnHero href="/column/timing-vs-shop" />
       <p className="mb-8 text-base leading-relaxed text-muted">
         「もう少し上がってから売ろう」と待つ人は多いと思います。では、日をずらすと1gあたりいくら変わり、店を変えると1gあたりいくら変わるのか。当サイトが{m.days}日ぶん記録した{m.panelSize}社の公表価格で、両方を同じ単位で並べて測りました。
       </p>

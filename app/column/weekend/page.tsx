@@ -4,6 +4,7 @@ import { measureWeekend } from "@/lib/weekendPrices";
 import JsonLd from "@/components/JsonLd";
 import { articleJsonLd, columnBreadcrumb } from "@/lib/structuredData";
 import OtherColumns from "@/components/OtherColumns";
+import ColumnHero from "@/components/ColumnHero";
 
 const PATH = "/column/weekend";
 
@@ -78,6 +79,8 @@ export default function WeekendPage() {
       <h1 className="font-serif-jp mb-3 text-2xl font-semibold leading-snug sm:text-3xl">
         {String(meta.title)}
       </h1>
+
+      <ColumnHero href="/column/weekend" />
 
       <p className="mb-8 text-base leading-relaxed">
         土日に売ると損をするのか、という疑問があります。各社の公式サイトを見ても、そこに出ているのは今日の数字だけなので答えは出ません。掲載社の価格を{m.days}日ぶん記録してあるので、曜日ごとに測りました。

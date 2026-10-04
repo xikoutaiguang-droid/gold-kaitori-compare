@@ -5,6 +5,7 @@ import { getCompanies } from "@/lib/companies";
 import JsonLd from "@/components/JsonLd";
 import { articleJsonLd, columnBreadcrumb } from "@/lib/structuredData";
 import OtherColumns from "@/components/OtherColumns";
+import ColumnHero from "@/components/ColumnHero";
 
 const PATH = "/column/retail-vs-buy";
 
@@ -99,6 +100,8 @@ export default function RetailVsBuyPage() {
       <h1 className="font-serif-jp mb-3 text-2xl font-semibold leading-snug sm:text-3xl">
         {String(meta.title)}
       </h1>
+
+      <ColumnHero href="/column/retail-vs-buy" />
 
       <p className="mb-8 text-base leading-relaxed">
         ニュースで「金が最高値」と言うとき、出てくるのは<strong>買うときの値段</strong>です。売るときに受け取れるのは、同じ日でもそれより低い額になります。

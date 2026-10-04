@@ -3,6 +3,7 @@ import Link from "next/link";
 import JsonLd from "@/components/JsonLd";
 import { articleJsonLd, columnBreadcrumb } from "@/lib/structuredData";
 import OtherColumns from "@/components/OtherColumns";
+import ColumnHero from "@/components/ColumnHero";
 
 export const metadata: Metadata = {
   title: "査定額を上げるコツ｜売る前にできる準備まとめ",
@@ -44,6 +45,8 @@ export default function MultipleQuotesColumnPage() {
         </Link>
       </p>
       <h1 className="font-serif-jp mb-2 text-xl font-semibold sm:text-2xl">査定額を上げるコツ</h1>
+
+      <ColumnHero href="/column/multiple-quotes" />
       <p className="mb-8 text-base leading-relaxed text-muted">
         金・貴金属の査定額は、売る側のちょっとした準備で変わることがあります。特別なテクニックではなく、誰でもできる基本的なポイントをまとめました。
       </p>

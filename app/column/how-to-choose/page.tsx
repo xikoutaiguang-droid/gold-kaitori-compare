@@ -5,6 +5,7 @@ import { PURITY_LABELS } from "@/lib/types";
 import JsonLd from "@/components/JsonLd";
 import OtherColumns from "@/components/OtherColumns";
 import { articleJsonLd, columnBreadcrumb } from "@/lib/structuredData";
+import ColumnHero from "@/components/ColumnHero";
 
 const PATH = "/column/how-to-choose";
 
@@ -74,6 +75,8 @@ export default function HowToChoosePage() {
       <h1 className="font-serif-jp mb-3 text-2xl font-semibold leading-snug sm:text-3xl">
         {String(meta.title)}
       </h1>
+
+      <ColumnHero href="/column/how-to-choose" />
 
       <p className="mb-8 text-base leading-relaxed">
         店の選び方としてよく聞くのは2つです。口コミの星が高い店にする、または「いちばん高く買う店」を覚えておく。どちらも当サイトの記録で確かめられるので、やってみました。

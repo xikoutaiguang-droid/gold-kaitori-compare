@@ -10,6 +10,7 @@ import { FEE_DISCLOSURES } from "@/lib/fees";
 import { PURITY_LABELS } from "@/lib/types";
 import rawCompanies from "@/data/companies.json";
 import type { Company } from "@/lib/types";
+import ColumnHero from "@/components/ColumnHero";
 
 export function generateMetadata(): Metadata {
   const n = serviceCounts();
@@ -63,6 +64,8 @@ export default function MailInPurchasePage() {
       <h1 className="font-serif-jp mb-2 text-xl font-semibold sm:text-2xl">
         金の宅配買取で、送る前に確かめる3つのこと
       </h1>
+
+      <ColumnHero href="/column/mail-in-purchase" />
       <MethodTabs current="/column/mail-in-purchase" />
       <p className="mb-8 text-base leading-relaxed text-muted">
         当サイトが価格を追っている{SERVICE_RECORDS.length}社のうち、{n.shipping}

@@ -11,6 +11,7 @@ import { PURITY_LABELS, GOLD_PURITIES, PLATINUM_PURITIES } from "@/lib/types";
 import JsonLd from "@/components/JsonLd";
 import { articleJsonLd, columnBreadcrumb } from "@/lib/structuredData";
 import OtherColumns from "@/components/OtherColumns";
+import ColumnHero from "@/components/ColumnHero";
 
 export const metadata: Metadata = {
   title: "金の刻印はどこにある？「750」「K18」「GP」の見分け方",
@@ -42,6 +43,8 @@ export default function HallmarkPage() {
       <h1 className="font-serif-jp mb-2 text-xl font-semibold sm:text-2xl">
         金の刻印はどこにある？「750」「K18」「GP」の見分け方
       </h1>
+
+      <ColumnHero href="/column/hallmark" />
       <p className="mb-8 text-base leading-relaxed text-muted">
         買取価格は純度ごとに決まっているので、自分の品物が何なのか分からないと、いくらになるかも調べられません。純度が書いてあるのは、たいてい品物のどこかに小さく刻まれた文字です。まずはそれを見つけるところからです。
       </p>

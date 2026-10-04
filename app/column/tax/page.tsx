@@ -11,6 +11,7 @@ import {
   gramsOfGold,
 } from "@/lib/taxThresholds";
 import { NTA_3105, NTA_3152, NTA_3161, NTA_AS_OF, TAX_CHECKED_AT, TAX_QUOTES } from "@/lib/taxLaw";
+import ColumnHero from "@/components/ColumnHero";
 
 const PATH = "/column/tax";
 
@@ -90,6 +91,8 @@ export default function TaxPage() {
       <h1 className="font-serif-jp mb-3 text-2xl font-semibold leading-snug sm:text-3xl">
         金を売って税金がかかるのは、売った額ではなくもうけです
       </h1>
+
+      <ColumnHero href="/column/tax" />
 
       <p className="mb-4 text-base leading-relaxed">
         金を売ろうとして税金を調べると、30万円・50万円・200万円という数字が出てきます。この3つは別々のことを指していて、どれも「これを超えたら税金がかかる」という線ではありません。何がどの数字なのかを、所得税法とその施行令、国税庁のタックスアンサーの原文で確かめました。

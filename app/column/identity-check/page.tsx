@@ -3,6 +3,7 @@ import Link from "next/link";
 import JsonLd from "@/components/JsonLd";
 import OtherColumns from "@/components/OtherColumns";
 import { articleJsonLd, columnBreadcrumb } from "@/lib/structuredData";
+import ColumnHero from "@/components/ColumnHero";
 
 const PATH = "/column/identity-check";
 
@@ -41,6 +42,8 @@ export default function IdentityCheckPage() {
       <h1 className="font-serif-jp mb-3 text-2xl font-semibold leading-snug sm:text-3xl">
         1万円未満なら、法律は本人確認を求めていない
       </h1>
+
+      <ColumnHero href="/column/identity-check" />
 
       <p className="mb-8 text-base leading-relaxed">
         金を売ろうとすると、どの店でも身分証を求められます。「身分証なしで売れる店」を探している人もいますが、まず法律が何を求めているかを条文で確かめました。結果として、求めていない場合があります。

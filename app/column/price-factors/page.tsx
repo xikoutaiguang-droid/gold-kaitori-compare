@@ -3,6 +3,7 @@ import Link from "next/link";
 import JsonLd from "@/components/JsonLd";
 import { articleJsonLd, columnBreadcrumb } from "@/lib/structuredData";
 import OtherColumns from "@/components/OtherColumns";
+import ColumnHero from "@/components/ColumnHero";
 
 export const metadata: Metadata = {
   title: "金相場はなぜ変動するのか｜国際価格・為替との関係をやさしく解説",
@@ -21,6 +22,8 @@ export default function PriceFactorsColumnPage() {
         </Link>
       </p>
       <h1 className="font-serif-jp mb-2 text-xl font-semibold sm:text-2xl">金相場はなぜ変動するのか</h1>
+
+      <ColumnHero href="/column/price-factors" />
       <p className="mb-8 text-base leading-relaxed text-muted">
         「昨日と今日で買取価格が違う」ということは珍しくありません。なぜ金の価格が毎日動くのか、仕組みをやさしく説明します。
       </p>

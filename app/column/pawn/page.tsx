@@ -5,6 +5,7 @@ import OtherColumns from "@/components/OtherColumns";
 import { articleJsonLd, columnBreadcrumb } from "@/lib/structuredData";
 import { PAWN_CHECKED_AT, PAWN_QUOTES } from "@/lib/pawnLaw";
 import type { LawQuote } from "@/lib/taxLaw";
+import ColumnHero from "@/components/ColumnHero";
 
 const PATH = "/column/pawn";
 
@@ -66,6 +67,8 @@ export default function PawnPage() {
       <h1 className="font-serif-jp mb-3 text-2xl font-semibold leading-snug sm:text-3xl">
         質屋に金を持ち込むと、売ったことにはなりません
       </h1>
+
+      <ColumnHero href="/column/pawn" />
 
       <p className="mb-4 text-base leading-relaxed">
         金の買取店を探していると、質屋も一緒に出てきます。同じ店が「売る」と「預ける」の両方を扱っていることも多く、カウンターも同じです。ただし契約は別のもので、守っている法律も違います。
