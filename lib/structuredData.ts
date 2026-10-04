@@ -121,3 +121,39 @@ export function columnBreadcrumb(route: string, metadata: Metadata) {
     { name: headlineOf(metadata), path: route },
   ]);
 }
+
+/**
+ * 一覧ページ。画面に並んでいるものを、そのままの順番で示す。
+ *
+ * 一覧ページには Article を出せない(記事ではない)が、何の一覧なのかが
+ * 構造として読めないと、検索エンジンにも回答エンジンにも
+ * 「リンクが並んだページ」としか見えない。並び順と件数は画面と必ず揃える。
+ */
+export function collectionJsonLd(
+  route: string,
+  metadata: Metadata,
+  items: { name: string; path: string; description?: string }[],
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": abs(route),
+    url: abs(route),
+    name: headlineOf(metadata),
+    description: typeof metadata.description === "string" ? metadata.description : undefined,
+    inLanguage: "ja",
+    isPartOf: { "@id": WEBSITE_ID },
+    publisher: person(),
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: items.length,
+      itemListElement: items.map((it, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: it.name,
+        description: it.description,
+        url: abs(it.path),
+      })),
+    },
+  };
+}

@@ -4,6 +4,9 @@ import { getCompaniesForIndex } from "@/lib/companyPages";
 import { hasAffiliateLink } from "@/lib/outboundLink";
 import { getCompanyIdsWithCampaign } from "@/lib/campaigns";
 import CompanyLogo from "@/components/CompanyLogo";
+import JsonLd from "@/components/JsonLd";
+import { breadcrumbJsonLd, collectionJsonLd } from "@/lib/structuredData";
+import { SITE_NAME } from "@/lib/siteConfig";
 
 export const metadata: Metadata = {
   title: "掲載している金・貴金属買取店の一覧",
@@ -19,6 +22,19 @@ export default function CompanyIndexPage() {
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-6 sm:py-10">
+      <JsonLd
+        data={[
+          collectionJsonLd(
+            "/company",
+            metadata,
+            companies.map((c) => ({ name: c.name, path: `/company/${c.id}` })),
+          ),
+          breadcrumbJsonLd([
+            { name: SITE_NAME, path: "/" },
+            { name: "買取店一覧", path: "/company" },
+          ]),
+        ]}
+      />
       <h1 className="font-serif-jp mb-2 text-xl font-semibold sm:text-2xl">
         掲載している金・貴金属買取店
       </h1>

@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { COLUMNS } from "@/lib/columns";
+import JsonLd from "@/components/JsonLd";
+import { breadcrumbJsonLd, collectionJsonLd } from "@/lib/structuredData";
+import { SITE_NAME } from "@/lib/siteConfig";
 
 export const metadata: Metadata = {
   title: "金・貴金属買取コラム",
@@ -12,6 +15,19 @@ export const metadata: Metadata = {
 export default function ColumnIndexPage() {
   return (
     <div className="mx-auto max-w-2xl px-4 py-6 sm:py-10">
+      <JsonLd
+        data={[
+          collectionJsonLd(
+            "/column",
+            metadata,
+            COLUMNS.map((c) => ({ name: c.title, path: c.href, description: c.desc })),
+          ),
+          breadcrumbJsonLd([
+            { name: SITE_NAME, path: "/" },
+            { name: "コラム", path: "/column" },
+          ]),
+        ]}
+      />
       <h1 className="font-serif-jp mb-2 text-xl font-semibold sm:text-2xl">金・貴金属買取コラム</h1>
       <p className="mb-8 text-base leading-relaxed text-muted">
         金・貴金属を売る前に知っておくと安心できることを、専門用語をできるだけ使わずにまとめました。

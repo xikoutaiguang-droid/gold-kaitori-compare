@@ -4,7 +4,9 @@ import { OPERATOR_NAME, CONTACT_FORM_URL, ADSENSE_PUBLISHER_ID, GA_MEASUREMENT_I
 
 export const metadata: Metadata = {
   title: "プライバシーポリシー",
-  description: "金買取相場比較のプライバシーポリシー・個人情報の取り扱いについて",
+  description:
+    "当サイトの個人情報の取り扱い、アクセス解析と広告で使われるCookie、" +
+    "アフィリエイトリンクの扱い、掲載情報の位置づけ、運営者と掲載各社との関係についてまとめています。",
   alternates: { canonical: "/privacy" },
 };
 
