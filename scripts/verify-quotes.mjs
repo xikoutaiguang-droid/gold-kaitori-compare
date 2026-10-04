@@ -54,7 +54,9 @@ function toText(html) {
  */
 function extractPairs(src) {
   const pairs = [];
-  const blocks = src.split(/companyId:\s*"/).slice(1);
+  // companyId は各社の記録、sourceId は法令・官公庁の記録。どちらも
+  // 「ここから次の識別子までが1件」という区切り方は同じ。
+  const blocks = src.split(/\b(?:companyId|sourceId):\s*"/).slice(1);
   const unquote = (s) =>
     s
       .trim()
@@ -77,20 +79,24 @@ function extractPairs(src) {
       rest = raw.replace(contrast[0], "");
     }
 
+    // 法令検索のページは本文をJavaScriptで描くので、取っても引用は入っていない。
+    // そういう出典は verifyUrl に条単位の法令APIを持たせてあるので、そちらを見る。
+    const verify = /verifyUrl:\s*`([^`]+)`|verifyUrl:\s*"([^"]+)"/.exec(rest);
     const url = /sourceUrl:\s*"([^"]+)"/.exec(rest);
-    if (!url) continue;
+    if (!verify && !url) continue;
+    const target = verify ? (verify[1] ?? verify[2]) : url[1];
     const re = /quote:\s*((?:\s*"(?:[^"\\]|\\.)*"\s*\+?)+)/g;
     let m;
     while ((m = re.exec(rest)) !== null) {
       const quote = unquote(m[1]);
-      if (quote.length >= 8) pairs.push({ quote, sourceUrl: url[1], id });
+      if (quote.length >= 8) pairs.push({ quote, sourceUrl: target, id });
     }
   }
   return pairs;
 }
 
 async function main() {
-  const files = ["lib/fees.ts", "lib/services.ts"];
+  const files = ["lib/fees.ts", "lib/services.ts", "lib/taxLaw.ts"];
   const pairs = [];
   for (const f of files) {
     pairs.push(...extractPairs(await readFile(path.join(ROOT, f), "utf8")).map((p) => ({ ...p, from: f })));
