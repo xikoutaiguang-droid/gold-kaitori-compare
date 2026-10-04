@@ -5,6 +5,8 @@ import CompanyTable from "@/components/CompanyTable";
 import JsonLd from "@/components/JsonLd";
 import PriceFreshness from "@/components/PriceFreshness";
 import PurityLinks from "@/components/PurityLinks";
+import RelatedColumns from "@/components/RelatedColumns";
+import { contextForPurity } from "@/lib/relatedColumns";
 import { getCompanies, formatPriceDay } from "@/lib/companies";
 import { breadcrumbJsonLd } from "@/lib/structuredData";
 import { PURITY_PAGES, getPurityPageBySlug, measurePurity } from "@/lib/purityPages";
@@ -181,6 +183,8 @@ export default async function PurityPricePage({
         <h2 className="font-serif-jp mb-3 text-lg font-semibold">各社の{config.label}買取価格</h2>
         <CompanyTable companies={companies} initialPurity={config.purity} />
       </section>
+
+      <RelatedColumns context={contextForPurity(config.purity)} />
 
       <section className="mt-12 border-t border-border pt-8">
         <h2 className="font-serif-jp mb-3 text-lg font-semibold">他の純度の価格を見る</h2>

@@ -5,6 +5,9 @@ import PersonalTrend from "@/components/PersonalTrend";
 import FuturesOutlook from "@/components/FuturesOutlook";
 import Link from "next/link";
 import { measureTimingVsShop } from "@/lib/timingVsShop";
+import RelatedColumns from "@/components/RelatedColumns";
+import JsonLd from "@/components/JsonLd";
+import { priceDatasetJsonLd } from "@/lib/structuredData";
 
 export const metadata: Metadata = {
   title: "金は今が売り時？買取相場の推移で確認する",
@@ -68,6 +71,14 @@ export default function TrendPage() {
   return (
     <div className="mx-auto max-w-2xl px-4 py-6 sm:py-10">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <JsonLd
+        data={priceDatasetJsonLd({
+          route: "/trend",
+          startDate: history.recordingStartedAt,
+          endDate: history.entries.at(-1)?.date ?? null,
+          distributionPath: "/data/prices.json",
+        })}
+      />
       <h1 className="font-serif-jp mb-2 text-xl font-semibold sm:text-2xl">金は今が売り時？</h1>
       <p className="mb-6 text-base text-muted">
         買取相場は日々変動します。まずはこのサイトを見始めてからの価格推移を確認してみましょう。
@@ -130,6 +141,20 @@ export default function TrendPage() {
           ))}
         </dl>
       </section>
+
+      <section className="mt-12 border-t border-border pt-8">
+        <h2 className="font-serif-jp mb-3 text-lg font-semibold">このデータを使う</h2>
+        <p className="text-sm leading-relaxed text-muted">
+          グラフに使っている日次の記録と、各社の当日の価格は{" "}
+          <a href="/data/prices.json" className="underline underline-offset-2">
+            /data/prices.json
+          </a>
+          から、そのまま読める形で取得できます。各社の出典URLと公表日も入っています。
+          引用の際は出典として当サイトと、各レコードの更新日を併せて示してください。
+        </p>
+      </section>
+
+      <RelatedColumns context="trend" />
     </div>
   );
 }

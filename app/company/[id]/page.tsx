@@ -23,6 +23,7 @@ import { getRegionPageByRegion } from "@/lib/regionPages";
 import MarketChange from "@/components/MarketChange";
 import { getPriceHistory } from "@/lib/priceHistory";
 import { feeDisclosureFor, FEE_MODEL_LABEL } from "@/lib/fees";
+import RelatedColumns from "@/components/RelatedColumns";
 
 /** 本文に混ぜる日付。ISO表記のままだと文章の中で浮く */
 function jaDate(iso: string): string {
@@ -660,6 +661,8 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
           </Link>
         </p>
       </section>
+
+      <RelatedColumns context="company" />
     </div>
   );
 }

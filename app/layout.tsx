@@ -48,7 +48,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    images: [SHARE_IMAGE_PATH],
+    // images はここで指定しない。指定すると、記事ごとに作っている
+    // OGP画像(app/column/*/opengraph-image.tsx)があっても、Xでは全記事が
+    // この共通画像になる。未指定なら openGraph の画像が使われる。
   },
   // AdSense審査時のサイト所有権確認用(パブリッシャーID未設定のうちは出力しない)
   other: ADSENSE_PUBLISHER_ID ? { "google-adsense-account": `ca-${ADSENSE_PUBLISHER_ID}` } : undefined,

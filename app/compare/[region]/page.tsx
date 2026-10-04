@@ -6,6 +6,7 @@ import CompanyTable from "@/components/CompanyTable";
 import JsonLd from "@/components/JsonLd";
 import { breadcrumbJsonLd } from "@/lib/structuredData";
 import RegionLinks from "@/components/RegionLinks";
+import RelatedColumns from "@/components/RelatedColumns";
 import Link from "next/link";
 import { getCompaniesForIndex } from "@/lib/companyPages";
 
@@ -82,6 +83,8 @@ export default async function RegionComparePage({
           </div>
         </section>
       )}
+
+      <RelatedColumns context="compare" />
 
       <section className="mt-12 border-t border-border pt-8">
         <h2 className="font-serif-jp mb-3 text-lg font-semibold">他の地域から探す</h2>

@@ -117,6 +117,13 @@ jobs:
         if: always()
         run: node scripts/check-hand-data.mjs
 
+      # OGP画像のフォントは、いま使っている文字だけに絞って同梱している。
+      # 新しい記事で新しい漢字を使うと、エラーにならず豆腐(□)の画像ができる。
+      # 共有されて初めて気づく崩れ方なので、文字のほうを先に確かめる。
+      - name: OGP画像のフォントに、記事タイトルの文字が入っているか
+        if: always()
+        run: node scripts/check-og-font.mjs
+
       - name: 引用が出典の原文と一致するかを照合
         if: always()
         continue-on-error: true

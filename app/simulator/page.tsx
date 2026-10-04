@@ -6,6 +6,7 @@ import SimulatorTabs from "@/components/SimulatorTabs";
 import { getPriceHistory } from "@/lib/priceHistory";
 import TrustBadges from "@/components/TrustBadges";
 import PriceFreshness from "@/components/PriceFreshness";
+import RelatedColumns from "@/components/RelatedColumns";
 
 export const metadata: Metadata = {
   title: "金・貴金属買取シミュレーター｜重さを入力するだけで買取額を計算",
@@ -103,6 +104,8 @@ export default function SimulatorPage() {
           ))}
         </dl>
       </section>
+
+      <RelatedColumns context="simulator" />
     </div>
   );
 }

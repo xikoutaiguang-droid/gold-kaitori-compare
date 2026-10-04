@@ -157,3 +157,43 @@ export function collectionJsonLd(
     },
   };
 }
+
+/**
+ * 日次で記録している価格データそのもの。
+ *
+ * 画面のグラフは人が読むためのもので、機械が読むなら /data/prices.json にある。
+ * 同じ日の各社の価格を並べたものは当サイトにしかないので、引用されるときに
+ * 「どこから取れるか」「いつからいつまでか」を構造として示しておく。
+ * distribution には実際に取得できるURLだけを書く(用意していない形式は書かない)。
+ */
+export function priceDatasetJsonLd(opts: {
+  route: string;
+  startDate: string;
+  endDate: string | null;
+  distributionPath: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Dataset",
+    "@id": abs(opts.route) + "#dataset",
+    name: "金・プラチナ・銀の買取参考価格(日次)",
+    description:
+      "主要な買取店が公式サイトで公表している1gあたりの買取参考価格を毎日取得し、" +
+      "純度別の日次平均として記録したもの。各社の当日値と出典URLも含む。",
+    url: abs(opts.route),
+    inLanguage: "ja",
+    isAccessibleForFree: true,
+    creator: person(),
+    publisher: person(),
+    temporalCoverage: opts.endDate ? `${opts.startDate}/${opts.endDate}` : `${opts.startDate}/..`,
+    variableMeasured: ["買取参考価格(円/g)"],
+    measurementTechnique: "各社公式サイトの公表値を日次で取得",
+    distribution: [
+      {
+        "@type": "DataDownload",
+        encodingFormat: "application/json",
+        contentUrl: abs(opts.distributionPath),
+      },
+    ],
+  };
+}

@@ -8,6 +8,7 @@ import RegionLinks from "@/components/RegionLinks";
 import CompanyLinks from "@/components/CompanyLinks";
 import { getCompaniesForIndex } from "@/lib/companyPages";
 import JsonLd from "@/components/JsonLd";
+import RelatedColumns from "@/components/RelatedColumns";
 
 export const metadata: Metadata = {
   title: "金・貴金属買取相場比較｜純度・地域別に主要買取店の価格を一覧比較",
@@ -100,6 +101,8 @@ export default function ComparePage() {
         <h2 className="font-serif-jp mb-3 text-lg font-semibold">買取店から探す</h2>
         <CompanyLinks />
       </section>
+
+      <RelatedColumns context="compare" />
 
       <section className="mt-12 border-t border-border pt-8">
         <h2 className="font-serif-jp mb-4 text-lg font-semibold">よくある質問</h2>
