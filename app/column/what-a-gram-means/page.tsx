@@ -307,6 +307,10 @@ export default function WhatAGramMeansPage() {
         <Link href="/column/price-gap" className="underline underline-offset-2">
           店ごとの差が実際いくらになるかを測った記事
         </Link>
+        {/* 「1gいくら」の記事なので、そもそも重さの単位が違う場合の入口もここに置く */}
+        <Link href="/tools/weight-converter" className="underline underline-offset-2">
+          重さが匁(もんめ)やオンスで書かれているときの換算
+        </Link>
       </div>
       <OtherColumns current="/column/what-a-gram-means" />
     </div>
