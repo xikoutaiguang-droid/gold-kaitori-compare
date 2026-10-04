@@ -143,5 +143,13 @@ export function deductionFor(
   };
 }
 
-/** 手数料が「かかる」とだけ書かれていて、金額が公表されていない社 */
-export const UNDISCLOSED_FEE_COMPANIES = ["nanboya", "brand-revalue"];
+/**
+ * 手数料が「かかる」とだけ書かれていて、金額が公表されていない社。
+ *
+ * 買取エリートは2026-10-01時点では「買取手数料・査定料￥０」と書いていたので
+ * 無料として扱っていた。10-04に引用を照合し直したらその一文が消えていて、
+ * 「買取相場価格に手数料は含まれておりません」に変わっていたので移した。
+ * シミュレーターでは、この社を「差し引き無し」として手取りの比較に使っていたため、
+ * 直さないと順位の説明そのものが間違ったままになる。
+ */
+export const UNDISCLOSED_FEE_COMPANIES = ["nanboya", "brand-revalue", "kaitori-elite"];
