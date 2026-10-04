@@ -106,10 +106,12 @@ export const FEE_DISCLOSURES: FeeDisclosure[] = [
     companyId: "galleryrare",
     checkedScope: "terms",
     model: "free",
-    quote:
-      "ご利用や査定は無料となっておりますので、手数料などの費用はいただいておりません。お買取りの代金から差し引くといったことは行っておりません。",
+    // 2026-10-04に照合したところ、10-01に読んだ一文はページから消えていた。
+    // 無料だという中身は変わっていないので model はそのままに、
+    // いま書かれている文に引用を差し替える。
+    quote: "ギャラリーレアでは送料、手数料、査定料のすべてが無料！",
     sourceUrl: "https://galleryrare.jp/flow/takuhai/",
-    checkedAt: "2026-10-01",
+    checkedAt: "2026-10-04",
     contrast: {
       quote: "参考買取価格に手数料は含まれておりません",
       sourceUrl: "https://galleryrare.jp/goldplatinum/",
@@ -163,11 +165,14 @@ export const FEE_DISCLOSURES: FeeDisclosure[] = [
       "同社の例では買取金額68,000円が、送料1,034円と事務手数料770円を引いて66,196円になります。" +
       "大阪・十三の店頭買取もあり、同社は「どちらでもお支払いの金額は同じです」と書いています。",
     sourceUrl: "https://www.nexus13.co.jp/buy2/notice.php",
-    checkedAt: "2026-10-03",
-    contrast: {
-      quote: "手数料は一切いただきません",
-      sourceUrl: "https://www.nexus13.co.jp/metals/",
-    },
+    checkedAt: "2026-10-04",
+    // contrast を外した。2026-10-04に照合し直したところ、根拠にしていた
+    // 「手数料は一切いただきません」が /metals/ から消えていた(同ページには
+    // 「手数料」という語が1度も出てこない。JS描画ではなく、価格はHTMLに入っていて
+    // スクレイパーも同じページから取れている)。
+    // 「価格ページでは無料と言い、規約では差し引くと書いている」という並べ方は、
+    // 価格ページ側がそう言っていない以上もう成り立たない。
+    // 差し引きそのもの(上の quote と condition)は同日に読み直して確認済み。
   },
   {
     companyId: "rodeodrive",

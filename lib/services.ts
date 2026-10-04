@@ -189,7 +189,9 @@ export const SERVICE_RECORDS: ServiceRecord[] = [
     sourceUrl: "https://www.nexus13.co.jp/",
     checkedAt: "2026-10-03",
     storefront: {
-      quote: "「その場で査定・その場で現金お支払い」の店頭買取を是非ご利用ください。",
+      // 原文は『』。当サイトは「要約ではなく原文のまま」と書いているので、
+      // 括弧の種類も原文に合わせる(2026-10-04に照合して気づいた)。
+      quote: "『その場で査定・その場で現金お支払い』の店頭買取を是非ご利用ください。",
     },
     shipping: {},
   },
@@ -212,11 +214,11 @@ export const SERVICE_RECORDS: ServiceRecord[] = [
   {
     companyId: "brandoff",
     sourceUrl: "https://kaitori.brandoff.co.jp/",
-    checkedAt: "2026-09-25",
+    // 出張の説明文が書き換わっていた(2026-10-04に照合)。
+    // 店頭と宅配の文はそのまま残っている。
+    checkedAt: "2026-10-04",
     storefront: { quote: "お近くの店舗に持ち込むだけ" },
-    visit: {
-      quote: "ご自宅までブランドオフの査定スタッフがお伺いし お品物を直接拝見した上で査定",
-    },
+    visit: { quote: "お品物が多い時などに便利です" },
     shipping: { quote: "ご自宅から箱に詰めて送るだけ" },
   },
   {
