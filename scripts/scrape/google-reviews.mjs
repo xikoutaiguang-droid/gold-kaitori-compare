@@ -199,6 +199,18 @@ async function main() {
   }
 
   for (const company of targets) {
+    // 実店舗を持たない社は対象外。
+    //
+    // 2026-10-04、ネットオフ(実店舗なし・宅配のみ)で
+    // 「ネットオフ㈱ 大府第2商品センター」が一致し、★1.0(17件)が入った。
+    // 物流センターに付いた口コミであって、買取の応対を表したものではない。
+    // しかもこれ1件で、評価と買取額の相関が 0.126 → 0.748 に跳ね、
+    // /column/how-to-choose の見出しが「相関がありました」に変わるところだった。
+    // 店が無い社のGoogleの場所は事務所や倉庫なので、最初から見に行かない。
+    if (company.storeCount === 0) {
+      console.log(`[対象外] ${company.name}: 実店舗が無いため、場所の口コミは買取の評価にならない`);
+      continue;
+    }
     console.log(`[調査中] ${company.name}`);
     const result = await sampleCompany(company);
     if (result) {

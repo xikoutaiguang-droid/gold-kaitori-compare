@@ -74,6 +74,15 @@ export function measureShopChoice(purity: Purity = "k24"): ShopChoice | null {
   const name = new Map(all.map((c) => [c.id, c.name]));
 
   const rated: RatingRow[] = all
+    // 実店舗を持たない社は入れない。
+    //
+    // Googleの口コミは「場所」に付く。店が無い社だと事務所や倉庫が一致してしまい、
+    // 買取の応対とは関係のない評価が入る。2026-10-04に口コミを取り直したとき、
+    // ネットオフ(店舗数0)に物流センターの★1.0が入り、それ1件で相関が
+    // 0.126 から 0.748 に跳ねた。見出しは測った値から作っているので、
+    // 気づかなければ「相関がありました」と自動で言い切るところだった。
+    // 取得側でも弾いているが、記事側でも落とす。1件の異常値で結論が変わる作りにしない。
+    .filter((c) => c.storeCount !== 0)
     .filter((c) => typeof c.priceData.prices[purity] === "number" && c.googleReview)
     .map((c) => ({
       id: c.id,

@@ -34,16 +34,19 @@
     "notes": "価格は計算ツールの<select id=\"rateSimulation--select\">内option要素のvalue属性(円)から取得。",
     "priceCaveat": "掲載のK24はメダル・小判が基準で、指輪などのスクラップは別。手数料は無料ですが精錬費は価格に織り込み済みです",
     "googleReview": {
-      "avgRating": 4.81,
-      "totalReviewCount": 2256,
-      "sampleSize": 5,
-      "sampledAt": "2026-09-03",
+      "avgRating": 4.8,
+      "totalReviewCount": 14759,
+      "sampleSize": 8,
+      "sampledAt": "2026-10-04",
       "sampledStores": [
-        "買取専門店 おたからや アクタ西宮店",
-        "買取専門店 おたからや グルメシティ今津店",
+        "おたからや 渋谷本店",
+        "買取専門店 おたからや 新宿本店",
+        "高価買取 おたからや 大阪梅田店",
         "高価買取 おたからや 名古屋本店",
+        "高価買取 おたからや 大須万松寺通り本店",
         "高価買取 おたからや 福岡天神本店",
-        "買取専門店おたからや澄川駅前店"
+        "買取専門店 おたからや 博多バスターミナル店",
+        "高価買取 おたからや ラソラ札幌店"
       ]
     },
     "priceCaveatDetail": "同社はK24の掲載価格について「ホールマーク(造幣局刻印)付きのメダルや小判など、特定の製品を基準とした参考買取価格」であり「アクセサリーや金工芸品など、その他の24金製品(スクラップ品)につきましては査定額が異なる場合がございます」と明記しています。また手数料・査定料は無料としつつ、「買取価格は、精錬・加工に要する費用等を差し引いた金額となります」とも記載しています。なおフランチャイズ加盟店が中心のため、実際の価格は店舗ごとに異なる場合があります。"
@@ -83,15 +86,22 @@
     "notes": "価格は同社の価格ページが呼んでいる /ajax/metal-price/metal-list.json から取得。同社はインゴットとスクラップを別建てで公表しているため、他社の宝飾品向け単価と揃えてスクラップ側(k24_scrap等)を採用している。旧エンドポイント /ajax/metals-market-prices.json は2025-11-02で更新停止しており使用しない。",
     "googleReview": {
       "avgRating": 4.84,
-      "totalReviewCount": 4696,
-      "sampleSize": 5,
-      "sampledAt": "2026-09-03",
+      "totalReviewCount": 10326,
+      "sampleSize": 12,
+      "sampledAt": "2026-10-04",
       "sampledStores": [
         "なんぼや 東京駅前店",
+        "なんぼや 銀座本店",
         "なんぼや 梅田本店",
+        "なんぼや難波本店",
+        "なんぼや 阪神梅田駅前店",
         "なんぼや 名古屋サンロード店",
+        "なんぼや メルサ栄店",
+        "なんぼや 名古屋サカエチカ店",
         "なんぼや 福岡天神店",
-        "なんぼや 札幌大通店"
+        "なんぼや博多マルイ店",
+        "なんぼや 札幌大通店",
+        "なんぼや 札幌アピア店"
       ]
     }
   },
@@ -129,15 +139,23 @@
     "scrapeMethod": "html",
     "notes": "価格は<select id=\"js-simulation-metal\">内option要素のdata-price属性(円)から取得。他社と比べやや低めの水準だったため、次回スクレイパー実行時に再確認すること。",
     "googleReview": {
-      "avgRating": 4.55,
-      "totalReviewCount": 3865,
-      "sampleSize": 5,
-      "sampledAt": "2026-09-03",
+      "avgRating": 4.74,
+      "totalReviewCount": 9985,
+      "sampleSize": 13,
+      "sampledAt": "2026-10-04",
       "sampledStores": [
         "KOMEHYO GINZA",
+        "KOMEHYO（コメ兵）買取センター 神戸岡本",
+        "KOMEHYO SHINJUKU",
         "KOMEHYO梅田店",
+        "KOMEHYO OSAKA SHINSAIBASHI",
+        "KOMEHYO心斎橋店",
         "KOMEHYO名古屋本店 本館",
+        "KOMEHYO (コメ兵)名駅店",
+        "KOMEHYO（コメ兵）名古屋本店 BAG+",
+        "KOMEHYO天神店",
         "KOMEHYO FUKUOKA TENJIN (コメ兵 福岡天神店)",
+        "KOMEHYO（コメ兵）買取センターMARK IS 福岡ももち",
         "KOMEHYO さっぽろ東急百貨店"
       ]
     },
@@ -190,15 +208,20 @@
     "notes": "価格表示ページ(/list/gold/k18/souba/)はJSで書き換える方式で静的HTML取得は信頼できなかったが、ページが裏で叩いている実際のJSON API(list_gold/today_gold.json)をブラウザのNetworkタブで特定し、直接取得する方式に切り替えた。scrap(地金化した貴金属)区分の価格を採用し、他社と条件を揃えている。",
     "priceCaveat": "フランチャイズ加盟店が中心のため、実際の買取価格は掲載の参考相場と店舗ごとに異なる場合があります。",
     "googleReview": {
-      "avgRating": 4.66,
-      "totalReviewCount": 1264,
-      "sampleSize": 4,
-      "sampledAt": "2026-09-03",
+      "avgRating": 4.72,
+      "totalReviewCount": 2097,
+      "sampleSize": 9,
+      "sampledAt": "2026-10-04",
       "sampledStores": [
         "買取大吉 今津駅前店",
+        "買取大吉 西宮甲子園口店",
         "買取大吉 ホワイティうめだ店",
         "買取大吉 名西店",
-        "買取大吉サッポロファクトリー前店"
+        "買取大吉 MEGAドン・キホーテ名古屋本店",
+        "買取大吉 名古屋大須店",
+        "買取大吉 札幌北五条店",
+        "買取大吉サッポロファクトリー前店",
+        "買取大吉 南一条西5丁目店"
       ]
     }
   },
@@ -221,12 +244,17 @@
     "scrapeMethod": "pending",
     "notes": "ブラウザで実機確認した結果、価格表ページの全ての純度は数値ではなく文字通り「ASK」(お問い合わせください)と表示されており、ネットワーク通信にもJSON等のAPIエンドポイントは存在しなかった。HTML内に残る古いJSコメント文字列(K24=7,170円など)はDOM上のid(k24/k18等)が実際のページに存在しない、参照されていない死んだコードと確認済み。計算機能や査定シミュレーターもなく、LINE/メールで写真を送って個別に見積もりを受け取る方式のみ。つまり大黒屋は1g単価を自社サイトで公開していないため、自動取得できる数値データがそもそも存在しない。",
     "googleReview": {
-      "avgRating": 4.74,
-      "totalReviewCount": 874,
-      "sampleSize": 2,
-      "sampledAt": "2026-09-03",
+      "avgRating": 4.68,
+      "totalReviewCount": 2684,
+      "sampleSize": 7,
+      "sampledAt": "2026-10-04",
       "sampledStores": [
+        "大黒屋 東京駅前店",
+        "大黒屋 質東京駅前店",
         "大黒屋 質大阪駅前第四ビル店",
+        "大黒屋ブランド館 名古屋大須店",
+        "大黒屋 質天神店",
+        "大黒屋ブランド館 福岡店",
         "大黒屋 質札幌店"
       ]
     }
@@ -257,16 +285,24 @@
     "scrapeMethod": "html",
     "notes": "Cloudflare content-signalでClaudeBot/GPTBot等AI系クローラーを個別Disallow。scraper実装時はUser-Agentと利用規約に要注意。",
     "googleReview": {
-      "avgRating": 4.67,
-      "totalReviewCount": 1828,
-      "sampleSize": 5,
-      "sampledAt": "2026-09-03",
+      "avgRating": 4.73,
+      "totalReviewCount": 4454,
+      "sampleSize": 13,
+      "sampledAt": "2026-10-04",
       "sampledStores": [
-        "買取専門店 ジュエルカフェ 茗荷谷駅前店",
-        "jewel",
+        "買取専門店 ジュエルカフェ赤羽店",
+        "買取専門店 ジュエルカフェ浅草店",
+        "買取専門店 ジュエルカフェ中目黒店",
+        "ジュエルカフェ アリオ鳳店",
+        "買取専門店 ジュエルカフェ コノミヤ 富田林店",
         "買取専門店 ジュエルカフェ イオンモール新瑞橋店",
+        "買取専門店 ジュエルカフェ イオンモール大高店",
         "買取専門店 ジュエルカフェ ゆめタウン博多店",
-        "買取専門店 ジュエルカフェ 札幌藻岩店"
+        "買取専門店 ジュエルカフェ アミュプラザ博多店",
+        "買取専門店 ジュエルカフェ イオンモール福岡伊都店",
+        "買取専門店 ジュエルカフェ 札幌藻岩店",
+        "買取専門店 ジュエルカフェ イオンモール札幌苗穂店",
+        "買取専門店 ジュエルカフェ イオン札幌桑園店"
       ]
     }
   },
@@ -304,17 +340,18 @@
     "scrapeMethod": "html",
     "notes": "Cloudflare content-signalでClaudeBot等を個別Disallow。scraper実装時は要注意。",
     "googleReview": {
-      "avgRating": 4.77,
-      "totalReviewCount": 1840,
-      "sampleSize": 9,
-      "sampledAt": "2026-09-03",
+      "avgRating": 4.76,
+      "totalReviewCount": 2217,
+      "sampleSize": 10,
+      "sampledAt": "2026-10-04",
       "sampledStores": [
         "買取エリート銀座本店",
-        "買取エリート 上野店",
-        "買取エリート 梅田店",
+        "買取エリート 新宿店",
+        "買取エリート渋谷店",
         "買取エリート横浜店",
-        "買取エリートなんば店",
+        "買取エリート 梅田店",
         "買取エリート 心斎橋店",
+        "買取エリートなんば店",
         "買取エリート広島本店",
         "買取エリート 広島緑井店",
         "買取エリート広島五日市店"
@@ -360,16 +397,17 @@
     "scrapeMethod": "js-embed",
     "notes": "価格はページ内script変数(window.marketData)にJSONとして埋め込み。ベストライフと価格が完全一致しており、共通データベンダーの可能性あり。",
     "googleReview": {
-      "avgRating": 4.84,
-      "totalReviewCount": 484,
-      "sampleSize": 5,
-      "sampledAt": "2026-09-03",
+      "avgRating": 4.8,
+      "totalReviewCount": 889,
+      "sampleSize": 6,
+      "sampledAt": "2026-10-04",
       "sampledStores": [
-        "キングラム ラ・モール芦屋店",
         "キングラム 月島駅前店",
+        "買取専門店 キングラム 浅草橋店",
         "キングラム 相模大野店",
-        "キングラム 豊中店",
-        "キングラム天神橋店"
+        "キングラム 武蔵新城店",
+        "キングラム天神橋店",
+        "キングラム 十三店"
       ]
     }
   },
@@ -406,7 +444,16 @@
       "fetchedAt": "2026-10-04T00:30:26.194Z"
     },
     "scrapeMethod": "html",
-    "notes": "キングラムと価格が完全一致。価格は静的HTMLに直接出力されており取得しやすい。「ベストライフ」は同名の介護・保険会社が多数存在し、Google口コミの公式ドメイン照合では信頼できる一致が得られなかったため、googleReviewは未設定のままにしている。"
+    "notes": "キングラムと価格が完全一致。価格は静的HTMLに直接出力されており取得しやすい。「ベストライフ」は同名の介護・保険会社が多数存在し、Google口コミの公式ドメイン照合では信頼できる一致が得られなかったため、googleReviewは未設定のままにしている。",
+    "googleReview": {
+      "avgRating": 4.8,
+      "totalReviewCount": 362,
+      "sampleSize": 1,
+      "sampledAt": "2026-10-04",
+      "sampledStores": [
+        "ベストライフ グランフロント大阪 梅田店"
+      ]
+    }
   },
   {
     "id": "brand-revalue",
@@ -436,13 +483,17 @@
     },
     "scrapeMethod": "html",
     "googleReview": {
-      "avgRating": 4.73,
-      "totalReviewCount": 4301,
-      "sampleSize": 5,
-      "sampledAt": "2026-09-03",
+      "avgRating": 4.76,
+      "totalReviewCount": 7845,
+      "sampleSize": 9,
+      "sampledAt": "2026-10-04",
       "sampledStores": [
+        "ブラリバ 渋谷店",
         "ブラリバ 銀座店",
+        "ブラリバ 池袋店",
         "ブラリバ 梅田店",
+        "ブラリバ 心斎橋店",
+        "ブラリバ なんばウォーク店",
         "ブラリバ 名古屋栄店",
         "ブラリバ 福岡天神店",
         "ブラリバ 札幌店"
@@ -487,9 +538,9 @@
     "notes": "K24〜K9・プラチナまで純度別に日次価格を公開していることは確認済み。具体的数値は未取得。",
     "googleReview": {
       "avgRating": 4.9,
-      "totalReviewCount": 454,
+      "totalReviewCount": 453,
       "sampleSize": 3,
-      "sampledAt": "2026-09-03",
+      "sampledAt": "2026-10-04",
       "sampledStores": [
         "シグマ北海道札幌店",
         "株式会社Sigma御徒町本社",
@@ -532,18 +583,18 @@
     "scrapeMethod": "pending",
     "notes": "K24〜K9・プラチナまで純度別に日次価格を公開していることは確認済み。具体的数値は未取得。",
     "googleReview": {
-      "avgRating": 4.84,
-      "totalReviewCount": 2794,
+      "avgRating": 4.85,
+      "totalReviewCount": 2765,
       "sampleSize": 8,
-      "sampledAt": "2026-09-03",
+      "sampledAt": "2026-10-04",
       "sampledStores": [
         "ギャラリーレア 銀座本店",
-        "ギャラリーレア 小田急新宿店",
         "ギャラリーレア 青山表参道店",
-        "ギャラリーレア 神戸元町店",
-        "ギャラリーレア 梅田店",
-        "ギャラリーレア 東心斎橋店",
+        "ギャラリーレア 新宿東口店",
+        "ギャラリーレア 小田急新宿店",
         "ギャラリーレア 心斎橋本店",
+        "ギャラリーレア 東心斎橋店",
+        "ギャラリーレア 梅田店",
         "ギャラリーレア 名古屋大須店"
       ]
     },
@@ -589,15 +640,18 @@
     },
     "scrapeMethod": "pending",
     "googleReview": {
-      "avgRating": 4.77,
-      "totalReviewCount": 1106,
-      "sampleSize": 4,
-      "sampledAt": "2026-09-03",
+      "avgRating": 4.78,
+      "totalReviewCount": 2027,
+      "sampleSize": 7,
+      "sampledAt": "2026-10-04",
       "sampledStores": [
         "まねきや 梅田本店",
+        "高価買取専門店 まねきや 阪急梅田三番街店",
+        "買取専門店 まねきや 心斎橋店",
         "高価買取専門店 まねきや 京都四条本店",
         "高価買取専門店 まねきや 福岡六本松本店",
-        "買取専門店 まねきや 心斎橋店"
+        "高価買取専門店 まねきや 天神西通り本店",
+        "高価買取専門店 まねきや 香椎駅前店"
       ]
     },
     "priceCaveat": "表示単価から分析料が引かれます(商品1点ごと、買取金額に応じて1,000〜10,000円/税抜)",
@@ -661,9 +715,9 @@
     "notes": "「インゴット(500g以上)」24,293円/gは地金の買取価格でK24とは別区分。K24(純度100%)は23,811円/g。",
     "googleReview": {
       "avgRating": 4.93,
-      "totalReviewCount": 3904,
+      "totalReviewCount": 3895,
       "sampleSize": 3,
-      "sampledAt": "2026-09-03",
+      "sampledAt": "2026-10-04",
       "sampledStores": [
         "ゴールドミセス 東京本店",
         "ゴールドミセス 東京2号店 金・貴金属販売専門店",
@@ -705,9 +759,9 @@
     "scrapeMethod": "html",
     "googleReview": {
       "avgRating": 3.3,
-      "totalReviewCount": 24,
+      "totalReviewCount": 23,
       "sampleSize": 1,
-      "sampledAt": "2026-09-03",
+      "sampledAt": "2026-10-04",
       "sampledStores": [
         "ネクサス"
       ]
@@ -735,14 +789,14 @@
     "scrapeMethod": "html",
     "notes": "サイト上は単一レートのみの表示で、純度別の内訳は確認できていない(k24として暫定計上)。 2026-09-28: 取得したHTMLの掲載値が0円で、表示日も前日(9/27 00:00更新)のまま固まっていた。同じURLをブラウザで開くと当日の値(23,558円/g)が入ったHTMLが返るため、JSで描いているのではなく、こちらに返るキャッシュが壊れている。UAを偽ってキャッシュを回避することはしない。0を書き込まず失敗させ、前回値を残している。",
     "googleReview": {
-      "avgRating": 4.8,
-      "totalReviewCount": 1011,
+      "avgRating": 4.81,
+      "totalReviewCount": 1144,
       "sampleSize": 3,
-      "sampledAt": "2026-09-03",
+      "sampledAt": "2026-10-04",
       "sampledStores": [
         "買取専門店 銀座屋 尼崎立花店",
-        "買取専門店 銀座屋 平井店",
-        "銀座屋 豊橋店"
+        "銀座屋 豊橋店",
+        "買取専門店 銀座屋 川西能勢口駅前店1階(旧 銀座屋ラソラ川西店3階)"
       ]
     }
   },
@@ -792,10 +846,10 @@
     "scrapeMethod": "pending",
     "notes": "1gあたりの純度別価格表は無く、「金相場速報」として単一の参考値のみを掲示(しかも確認時点で2026年4月時点のまま更新されておらず、現在の日付とズレていた)。店頭問い合わせ制のため、信頼できる日次の数値を自動取得する手段がない。なお同じくコメ兵ホールディングス系列の「コメ兵」は当サイトに別会社として掲載しているため、資本関係がある点を念のため付記する。",
     "googleReview": {
-      "avgRating": 4.84,
-      "totalReviewCount": 3166,
+      "avgRating": 4.83,
+      "totalReviewCount": 3372,
       "sampleSize": 7,
-      "sampledAt": "2026-09-04",
+      "sampledAt": "2026-10-04",
       "sampledStores": [
         "BRAND OFF SHIBUYA",
         "ブランドオフ 銀座本店",
@@ -832,15 +886,14 @@
     "scrapeMethod": "pending",
     "notes": "1gあたりの純度別価格表を公開しておらず、「買取相場を超えるプラス査定」を訴求する個別見積り制。自動取得できる数値が存在しない。",
     "googleReview": {
-      "avgRating": 4.52,
-      "totalReviewCount": 1048,
-      "sampleSize": 5,
-      "sampledAt": "2026-09-04",
+      "avgRating": 4.6,
+      "totalReviewCount": 737,
+      "sampleSize": 4,
+      "sampledAt": "2026-10-04",
       "sampledStores": [
         "買取福ちゃん 大阪豊中店",
-        "買取福ちゃん 名古屋高針店",
         "買取福ちゃん 名古屋緑滝ノ水店",
-        "買取福ちゃん 福岡大橋店",
+        "買取福ちゃん 名古屋高針店",
         "買取福ちゃん 札幌北20条店"
       ]
     },
@@ -896,9 +949,9 @@
     "notes": "100品目超を扱う総合出張買取サービスで、金・貴金属専用の1gあたり価格表は公開していない(買取事例として個別金額を紹介するのみ)。自動取得できる数値が存在しない。",
     "googleReview": {
       "avgRating": 4.46,
-      "totalReviewCount": 932,
+      "totalReviewCount": 947,
       "sampleSize": 3,
-      "sampledAt": "2026-09-04",
+      "sampledAt": "2026-10-04",
       "sampledStores": [
         "うるココ総合出張受付センター",
         "うるココ 梅田本店",
@@ -945,15 +998,14 @@
     },
     "scrapeMethod": "html",
     "googleReview": {
-      "avgRating": 4.91,
-      "totalReviewCount": 1094,
-      "sampleSize": 4,
-      "sampledAt": "2026-09-04",
+      "avgRating": 4.9,
+      "totalReviewCount": 608,
+      "sampleSize": 3,
+      "sampledAt": "2026-10-04",
       "sampledStores": [
         "ロデオドライブ銀座",
         "ロデオドライブ買取サロン 銀座店",
-        "ロデオドライブ 新宿歌舞伎町店",
-        "ロデオドライブ THE YOKOHAMA FRONT ヨコハマフロント"
+        "Rodeo Drive SHIBUYA"
       ]
     }
   },
@@ -990,10 +1042,10 @@
     },
     "scrapeMethod": "html",
     "googleReview": {
-      "avgRating": 4.31,
-      "totalReviewCount": 393,
+      "avgRating": 4.3,
+      "totalReviewCount": 402,
       "sampleSize": 2,
-      "sampledAt": "2026-09-04",
+      "sampledAt": "2026-10-04",
       "sampledStores": [
         "リファスタ大阪心斎橋店",
         "リファスタ 東京池袋店"
