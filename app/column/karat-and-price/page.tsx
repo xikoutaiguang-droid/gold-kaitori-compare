@@ -67,7 +67,7 @@ export default function KaratAndPricePage() {
       <section className="mb-10">
         <h2 className="font-serif-jp mb-3 text-lg font-semibold">刻印が示す金の含有率</h2>
         <div className="mb-3 overflow-x-auto">
-          <table className="w-full min-w-[420px] border-collapse text-sm">
+          <table className="w-full table-fixed border-collapse text-xs sm:text-sm">
             <thead>
               <tr className="border-b border-border text-left text-xs text-muted">
                 <th className="py-2 pr-3 font-medium">刻印</th>
@@ -104,7 +104,7 @@ export default function KaratAndPricePage() {
           これを含有率と並べたのが次の表です。
         </p>
         <div className="mb-3 overflow-x-auto">
-          <table className="w-full min-w-[460px] border-collapse text-sm">
+          <table className="w-full table-fixed border-collapse text-xs sm:text-sm">
             <thead>
               <tr className="border-b border-border text-left text-xs text-muted">
                 <th className="py-2 pr-3 font-medium">刻印</th>

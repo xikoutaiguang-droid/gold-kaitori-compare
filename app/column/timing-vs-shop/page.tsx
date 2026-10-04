@@ -139,7 +139,7 @@ export default function TimingVsShopPage() {
       <section className="mb-10">
         <h2 className="font-serif-jp mb-3 text-lg font-semibold">並べるとこうなります</h2>
         <div className="mb-3 overflow-x-auto">
-          <table className="w-full min-w-[20rem] text-sm">
+          <table className="w-full table-fixed text-xs sm:text-sm">
             <thead>
               <tr className="border-b border-border text-left">
                 <th className="py-2 font-medium">何を変えるか</th>
@@ -175,7 +175,7 @@ export default function TimingVsShopPage() {
           )}
         </p>
         <div className="mt-4 overflow-x-auto">
-          <table className="w-full min-w-[20rem] text-sm">
+          <table className="w-full table-fixed text-xs sm:text-sm">
             <thead>
               <tr className="border-b border-border text-left">
                 <th className="py-2 font-medium">重さ</th>
@@ -230,7 +230,7 @@ export default function TimingVsShopPage() {
           毎日のように動かす店もあれば、数日おきにまとめて変える店もあります。
         </p>
         <div className="overflow-x-auto">
-          <table className="w-full min-w-[24rem] text-sm">
+          <table className="w-full table-fixed text-xs sm:text-sm">
             <thead>
               <tr className="border-b border-border text-left">
                 <th className="py-2 font-medium">買取店</th>

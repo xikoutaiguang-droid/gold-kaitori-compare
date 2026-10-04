@@ -81,7 +81,7 @@ export default function PriceGapColumnPage() {
       <section className="mb-10">
         <h2 className="font-serif-jp mb-3 text-lg font-semibold">1gあたりの差</h2>
         <div className="mb-4 overflow-x-auto">
-          <table className="w-full min-w-[440px] border-collapse text-sm">
+          <table className="w-full table-fixed border-collapse text-xs sm:text-sm">
             <thead>
               <tr className="border-b border-border text-left text-xs text-muted">
                 <th className="py-2 pr-3 font-medium">純度</th>
@@ -147,7 +147,7 @@ export default function PriceGapColumnPage() {
         </p>
 
         <div className="mb-4 overflow-x-auto">
-          <table className="w-full min-w-[420px] border-collapse text-sm">
+          <table className="w-full table-fixed border-collapse text-xs sm:text-sm">
             <thead>
               <tr className="border-b border-border text-left text-xs text-muted">
                 <th className="py-2 pr-3 font-medium">売るもの</th>

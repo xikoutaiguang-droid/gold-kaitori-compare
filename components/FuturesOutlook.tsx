@@ -61,7 +61,7 @@ export default function FuturesOutlook({
           </p>
         ) : (
           <div className="overflow-x-auto">
-            <table className="w-full min-w-[420px] text-sm">
+            <table className="w-full table-fixed text-xs sm:text-sm">
               <thead>
                 <tr className="border-b border-border text-left text-xs text-muted">
                   <th className="pb-2 pr-3 font-medium">限月日</th>

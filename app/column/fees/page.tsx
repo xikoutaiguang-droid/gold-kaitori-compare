@@ -136,15 +136,18 @@ export default function FeesPage() {
           {k18.length > 0 && (
             <>
               <h3 className="mb-2 text-sm font-semibold">{PURITY_LABELS.k18}を1点だけ売る場合</h3>
-              <div className="mb-4 overflow-x-auto">
-                <table className="w-full min-w-[26rem] text-sm">
+              {/* min-w-[26rem] を入れていたので、375pxの端末では416pxの表が343pxの枠に
+                  入らず、右端の「順位相当」が常に画面の外にあった。この表で言いたいのは
+                  まさにその列なので、幅を強制せず収める。 */}
+              <div className="mb-4">
+                <table className="w-full table-fixed text-xs sm:text-sm">
                   <thead>
                     <tr className="border-b border-border text-left">
-                      <th className="py-2 font-medium">重さ</th>
-                      <th className="py-2 text-right font-medium">単価どおりなら</th>
+                      <th className="w-12 py-2 font-medium">重さ</th>
+                      <th className="py-2 text-right font-medium">単価どおり</th>
                       <th className="py-2 text-right font-medium">分析料</th>
                       <th className="py-2 text-right font-medium">実質単価</th>
-                      <th className="py-2 text-right font-medium">順位相当</th>
+                      <th className="w-14 py-2 text-right font-medium">順位</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -166,15 +169,18 @@ export default function FeesPage() {
           {k24.length > 0 && (
             <>
               <h3 className="mb-2 text-sm font-semibold">{PURITY_LABELS.k24}を1点だけ売る場合</h3>
-              <div className="mb-4 overflow-x-auto">
-                <table className="w-full min-w-[26rem] text-sm">
+              {/* min-w-[26rem] を入れていたので、375pxの端末では416pxの表が343pxの枠に
+                  入らず、右端の「順位相当」が常に画面の外にあった。この表で言いたいのは
+                  まさにその列なので、幅を強制せず収める。 */}
+              <div className="mb-4">
+                <table className="w-full table-fixed text-xs sm:text-sm">
                   <thead>
                     <tr className="border-b border-border text-left">
-                      <th className="py-2 font-medium">重さ</th>
-                      <th className="py-2 text-right font-medium">単価どおりなら</th>
+                      <th className="w-12 py-2 font-medium">重さ</th>
+                      <th className="py-2 text-right font-medium">単価どおり</th>
                       <th className="py-2 text-right font-medium">分析料</th>
                       <th className="py-2 text-right font-medium">実質単価</th>
-                      <th className="py-2 text-right font-medium">順位相当</th>
+                      <th className="w-14 py-2 text-right font-medium">順位</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -193,6 +199,21 @@ export default function FeesPage() {
             </>
           )}
 
+          {/* この表は固定の重さ3つぶんしか出せない。自分の品物で確かめたい人のために、
+              同じ計算をするシミュレーターへ送る。向こうは差し引きのある社を全部見て、
+              単価の1位と手取りの1位が入れ替わるときだけ上に注意を出す。 */}
+          <p className="mb-4 rounded-xl border border-accent/30 bg-accent-soft/40 p-4 text-sm leading-relaxed">
+            自分の品物の重さで確かめるなら
+            <Link
+              href="/simulator"
+              className="mx-1 font-medium text-accent-strong underline underline-offset-2 hover:no-underline"
+            >
+              シミュレーター
+            </Link>
+            を使ってください。ここと同じ計算を、差し引きを公表している社すべてに対して行い、
+            引いたあとに残る金額まで出します。表示単価の1位と手取りの1位が入れ替わる場合は、
+            その旨も出ます。店頭と宅配で引かれるものが違う社があるので、切り替えて比べられます。
+          </p>
           <p className="mb-3 text-xs leading-relaxed text-muted">
             分析料は公表されている税抜額に消費税を加えた金額です。
             {jaDate(MANEKIYA_FEE.transcribedAt)}時点で

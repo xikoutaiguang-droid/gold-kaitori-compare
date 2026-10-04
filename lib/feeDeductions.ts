@@ -9,8 +9,11 @@
  * 守っていること:
  * - 公表されていない額は推測しない。「引かれるが金額は未公表」として出す。
  * - 送料のように地域で変わるものは固定値にしない。下限だけを出す。
- * - 税抜で公表されている社は税抜のまま持ち、表示側で断る。
+ * - 実際に引かれる額(税込)で出す。公表が税抜の社は、同じ換算を使っている
+ *   lib/priceMeaning.ts の実装をそのまま借りる。ここで階段を書き写すと
+ *   /column/fees の表と食い違うので、数値は持たない。
  */
+import { MANEKIYA_FEE, manekiyaFee } from "@/lib/priceMeaning";
 
 export type DeductionScope = "all" | "shipping";
 
@@ -30,8 +33,6 @@ export interface FeeDeductionRule {
   scope: DeductionScope;
   /** 1点ごとか、1回の取引ごとか */
   per: "item" | "transaction";
-  /** 公表額が税抜なら true */
-  taxExcluded?: boolean;
   tiers: DeductionTier[];
   label: string;
   sourceUrl: string;
@@ -42,19 +43,21 @@ export const FEE_DEDUCTIONS: FeeDeductionRule[] = [
   {
     // 買取金額の階段で分析料が変わる。1点ごとなので、点数が増えるとそのぶん効く。
     // 20万円以上は「お問い合わせください」としか書かれていないので、額を置かない。
+    // 階段そのものは MANEKIYA_FEE が持っている。2026-10-04に同社の表を取り直して
+    // 4段とも一致することを確認済み。
     companyId: "manekiya",
     scope: "all",
     per: "item",
-    taxExcluded: true,
     label: "分析料",
     tiers: [
-      { under: 20_000, amount: 1_000 },
-      { under: 30_000, amount: 2_500 },
-      { under: 100_000, amount: 3_500 },
-      { under: 200_000, amount: 10_000 },
+      ...MANEKIYA_FEE.tiers.map(([under]) => ({
+        under,
+        // 公表は税抜。実際に引かれるのは税込なので、記事と同じ換算を通す
+        amount: manekiyaFee(under - 1),
+      })),
       { under: null, amount: null, note: "20万円以上は「お問い合わせください」と書かれています" },
     ],
-    sourceUrl: "https://manekiya.com/rate",
+    sourceUrl: MANEKIYA_FEE.sourceUrl,
     checkedAt: "2026-10-04",
   },
   {

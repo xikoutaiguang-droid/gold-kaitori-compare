@@ -77,7 +77,7 @@ export default function HallmarkPage() {
           どちらも同じ品位を指しています。
         </p>
         <div className="mb-4 overflow-x-auto">
-          <table className="w-full min-w-[380px] border-collapse text-sm">
+          <table className="w-full table-fixed border-collapse text-xs sm:text-sm">
             <thead>
               <tr className="border-b border-border text-left text-xs text-muted">
                 <th className="py-2 pr-3 font-medium">刻印（K表記）</th>

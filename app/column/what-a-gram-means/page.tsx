@@ -123,7 +123,7 @@ export default function WhatAGramMeansPage() {
           {QUOTES.komehyo.basis}
         </Quote>
         <div className="my-4 overflow-x-auto">
-          <table className="w-full min-w-[380px] border-collapse text-sm">
+          <table className="w-full table-fixed border-collapse text-xs sm:text-sm">
             <thead>
               <tr className="border-b border-border text-left text-xs text-muted">
                 <th className="py-2 pr-3 font-medium">順位</th>

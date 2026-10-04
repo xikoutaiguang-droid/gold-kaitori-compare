@@ -215,7 +215,6 @@ export default function SimulatorForm({ companies }: { companies: Company[] }) {
                           <strong className="mx-0.5 tabular-nums">
                             {deduction.amount.toLocaleString()}円
                           </strong>
-                          {deduction.rule.taxExcluded && "(税抜)"}
                           {deduction.rule.per === "item" && "が商品1点ごとに"}引かれ、
                           <strong className="mx-0.5 tabular-nums">
                             約{Math.round(net).toLocaleString()}円
