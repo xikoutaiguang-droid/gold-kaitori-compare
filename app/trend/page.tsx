@@ -93,10 +93,7 @@ export default function TrendPage() {
         <section className="mt-12 border-t border-border pt-8">
           <h2 className="font-serif-jp mb-3 text-lg font-semibold">待つのと、店を選び直すのと</h2>
           <p className="mb-4 text-sm leading-relaxed text-foreground/80">
-            当サイトが{timing.days}日ぶん記録した{timing.panelSize}社の価格で測ると、
-            相場が{timing.days}日かけて動いた幅は{timing.medianRange.toLocaleString("ja-JP")}円/g、
-            一方で同じ日の店による差はまん中で{timing.gapMedian.toLocaleString("ja-JP")}円/gありました。
-            待って得られるかもしれない額より、今日どこに持ち込むかのほうが
+            当サイトが{timing.days}日ぶん記録した{timing.panelSize}社の価格で測ると、相場が{timing.days}日かけて動いた幅は{timing.medianRange.toLocaleString("ja-JP")}円/g、一方で同じ日の店による差はまん中で{timing.gapMedian.toLocaleString("ja-JP")}円/gありました。待って得られるかもしれない額より、今日どこに持ち込むかのほうが
             {timing.gapMedian > timing.medianRange ? "大きく効いています" : "確実に効きます"}。
           </p>
           <Link
@@ -111,9 +108,7 @@ export default function TrendPage() {
       <section className="mt-12 border-t border-border pt-8">
         <h2 className="font-serif-jp mb-4 text-lg font-semibold">市場の先行き予想と、実際の答え合わせ</h2>
         <p className="mb-4 text-sm leading-relaxed text-muted">
-          金の先物市場(大阪取引所)には、将来のある時点で受け渡す価格があらかじめ取引されています。
-          この価格は市場参加者が織り込んでいる「予想」の目安になります。当サイトはその予想と、
-          実際にその日が来たときの価格を記録し、答え合わせできるようにしています。
+          金の先物市場(大阪取引所)には、将来のある時点で受け渡す価格があらかじめ取引されています。この価格は市場参加者が織り込んでいる「予想」の目安になります。当サイトはその予想と、実際にその日が来たときの価格を記録し、答え合わせできるようにしています。
         </p>
         <FuturesOutlook latest={latestOutlook} resolved={resolvedOutlook} />
       </section>
@@ -149,8 +144,7 @@ export default function TrendPage() {
           <a href="/data/prices.json" className="underline underline-offset-2">
             /data/prices.json
           </a>
-          から、そのまま読める形で取得できます。各社の出典URLと公表日も入っています。
-          引用の際は出典として当サイトと、各レコードの更新日を併せて示してください。
+          から、そのまま読める形で取得できます。各社の出典URLと公表日も入っています。引用の際は出典として当サイトと、各レコードの更新日を併せて示してください。
         </p>
       </section>
 

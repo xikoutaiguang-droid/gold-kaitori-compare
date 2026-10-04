@@ -61,8 +61,7 @@ export default function AggregatorNote({
         ))}
       </ul>
       <p className="mt-3 text-xs leading-relaxed text-muted">
-        当サイトは一括査定の結果を測っていないため、上の順位より高くなるとも安くなるとも言えません。
-        広告として掲載しており、申し込みがあると当サイトに報酬が入ります。
+        当サイトは一括査定の結果を測っていないため、上の順位より高くなるとも安くなるとも言えません。広告として掲載しており、申し込みがあると当サイトに報酬が入ります。
         {items.map((a) => a.operator).join("・")}が提供するサービスで、査定や契約は各社と直接行っていただきます。
       </p>
     </section>

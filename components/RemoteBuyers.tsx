@@ -151,11 +151,7 @@ export default function RemoteBuyers({
       )}
 
       <p className="mt-3 text-xs leading-relaxed text-muted">
-        出張の対応エリアは社ごとに違います。上に「全国」と書いていない社は、
-        当サイトでは全国対応かどうかを確認できていません(対応していないという意味ではありません)。
-        申し込む前に各社のサイトでお住まいの地域が対象か確認してください。
-        引用は各社の公式サイトの記載で、読んだ日は{checkedLabel(options)}です。
-        手数料の扱いは店によって違うので、
+        出張の対応エリアは社ごとに違います。上に「全国」と書いていない社は、当サイトでは全国対応かどうかを確認できていません(対応していないという意味ではありません)。申し込む前に各社のサイトでお住まいの地域が対象か確認してください。引用は各社の公式サイトの記載で、読んだ日は{checkedLabel(options)}です。手数料の扱いは店によって違うので、
         <Link href="/column/fees" className="underline hover:no-underline">
           手数料の記事
         </Link>

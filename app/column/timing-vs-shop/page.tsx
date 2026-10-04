@@ -53,8 +53,7 @@ export default function TimingVsShopPage() {
     return (
       <div className="mx-auto max-w-2xl px-4 py-10">
         <p className="text-sm text-muted">
-          比較に使える記録がまだ足りないため、この記事を一時的に出していません。
-          各社の価格を毎日記録しているので、日数がたまり次第また出します。
+          比較に使える記録がまだ足りないため、この記事を一時的に出していません。各社の価格を毎日記録しているので、日数がたまり次第また出します。
         </p>
       </div>
     );
@@ -85,9 +84,7 @@ export default function TimingVsShopPage() {
           : `金を売るなら、店を選ぶより日を選ぶほうが${ratio}倍効く`}
       </h1>
       <p className="mb-8 text-base leading-relaxed text-muted">
-        「もう少し上がってから売ろう」と待つ人は多いと思います。では、日をずらすと1gあたりいくら変わり、
-        店を変えると1gあたりいくら変わるのか。当サイトが{m.days}日ぶん記録した{m.panelSize}社の公表価格で、
-        両方を同じ単位で並べて測りました。
+        「もう少し上がってから売ろう」と待つ人は多いと思います。では、日をずらすと1gあたりいくら変わり、店を変えると1gあたりいくら変わるのか。当サイトが{m.days}日ぶん記録した{m.panelSize}社の公表価格で、両方を同じ単位で並べて測りました。
       </p>
 
       {/* ---- 測り方 ---- */}
@@ -98,10 +95,7 @@ export default function TimingVsShopPage() {
           {PURITY_LABELS[m.purity]}の価格がそろった{m.days}日ぶんを使いました。
         </p>
         <p className="mt-2 text-sm leading-relaxed text-foreground/80">
-          この{m.panelSize}社に絞ったのは、日によって記録できた社数が違うからです。
-          その日だけ記録された安い1社が混ざると、「差が広がった」のか
-          「安い社がその日だけ入っていた」のかが区別できなくなります。
-          全日そろっている社だけで見れば、動いたのは価格そのものだけになります。
+          この{m.panelSize}社に絞ったのは、日によって記録できた社数が違うからです。その日だけ記録された安い1社が混ざると、「差が広がった」のか「安い社がその日だけ入っていた」のかが区別できなくなります。全日そろっている社だけで見れば、動いたのは価格そのものだけになります。
         </p>
       </section>
 
@@ -109,9 +103,7 @@ export default function TimingVsShopPage() {
       <section className="mb-10">
         <h2 className="font-serif-jp mb-3 text-lg font-semibold">同じ日に、店でいくら違ったか</h2>
         <p className="mb-4 text-sm leading-relaxed text-foreground/80">
-          {m.days}日のあいだ、同じ日のいちばん高い店といちばん安い店の差は、最小で{yen(m.gapMin)}円/g、
-          最大で{yen(m.gapMax)}円/g、まん中で{yen(m.gapMedian)}円/gでした。
-          差が{yen(m.gapMin)}円/gを下回った日は、この{m.days}日のあいだ一度もありません。
+          {m.days}日のあいだ、同じ日のいちばん高い店といちばん安い店の差は、最小で{yen(m.gapMin)}円/g、最大で{yen(m.gapMax)}円/g、まん中で{yen(m.gapMedian)}円/gでした。差が{yen(m.gapMin)}円/gを下回った日は、この{m.days}日のあいだ一度もありません。
         </p>
         <div className="rounded-xl border border-accent/40 bg-accent-soft/60 p-4">
           <p className="text-sm text-foreground/80">同じ日に、店を変えるだけで動く額（まん中の日）</p>
@@ -125,9 +117,7 @@ export default function TimingVsShopPage() {
         <p className="mb-4 text-sm leading-relaxed text-foreground/80">
           同じ{m.panelSize}社の中央値を日ごとに追うと、いちばん高かったのが{jaDate(m.medianHighDate)}の
           {yen(m.medianHigh)}円/g、いちばん安かったのが{jaDate(m.medianLowDate)}の{yen(m.medianLow)}円/gでした。
-          {m.days}日かけて動いた幅は{yen(m.medianRange)}円/gです。
-          これは、いちばん安い日に売ってしまった場合と、いちばん高い日に売れた場合の差にあたります。
-          売る前にその日が底だったか天井だったかは分かりませんから、実際にこの幅いっぱいを取ることはできません。
+          {m.days}日かけて動いた幅は{yen(m.medianRange)}円/gです。これは、いちばん安い日に売ってしまった場合と、いちばん高い日に売れた場合の差にあたります。売る前にその日が底だったか天井だったかは分かりませんから、実際にこの幅いっぱいを取ることはできません。
         </p>
         <div className="rounded-xl border border-border bg-surface p-4">
           <p className="text-sm text-foreground/80">{m.days}日かけて相場が動いた幅（最大でも）</p>
@@ -164,13 +154,11 @@ export default function TimingVsShopPage() {
         <p className="text-sm leading-relaxed text-foreground/80">
           {shopWins ? (
             <>
-              店を変えたときの差のほうが、{m.days}日ぶんの相場の動きより{ratio}倍大きいという結果でした。
-              しかも相場の動きは待たないと手に入りませんが、店の差はその日のうちに取れます。
+              店を変えたときの差のほうが、{m.days}日ぶんの相場の動きより{ratio}倍大きいという結果でした。しかも相場の動きは待たないと手に入りませんが、店の差はその日のうちに取れます。
             </>
           ) : (
             <>
-              この{m.days}日では、相場の動いた幅のほうが店による差より{ratio}倍大きいという結果でした。
-              ただし相場の動きは、底と天井が事前に分かる場合の最大値です。店の差はその日のうちに確定します。
+              この{m.days}日では、相場の動いた幅のほうが店による差より{ratio}倍大きいという結果でした。ただし相場の動きは、底と天井が事前に分かる場合の最大値です。店の差はその日のうちに確定します。
             </>
           )}
         </p>
@@ -202,13 +190,11 @@ export default function TimingVsShopPage() {
         <p className="mb-4 text-sm leading-relaxed text-foreground/80">
           {m.leaders.length === 1 ? (
             <>
-              この{m.days}日は、{topLeader.name}が一度も譲らず1位でした。
-              ただし{m.panelSize}社のうち1社が勝ち続けただけで、この先も続くとは限りません。
+              この{m.days}日は、{topLeader.name}が一度も譲らず1位でした。ただし{m.panelSize}社のうち1社が勝ち続けただけで、この先も続くとは限りません。
             </>
           ) : (
             <>
-              この{m.days}日で1位に立ったのは{m.leaders.length}社、顔ぶれが入れ替わったのは{m.leaderChanges}回でした。
-              内訳は{m.leaders.map((l) => `${l.name}が${l.days}日`).join("、")}です。
+              この{m.days}日で1位に立ったのは{m.leaders.length}社、顔ぶれが入れ替わったのは{m.leaderChanges}回でした。内訳は{m.leaders.map((l) => `${l.name}が${l.days}日`).join("、")}です。
               {latestLeader === topLeader.name
                 ? `直近の${jaDate(m.to)}時点では、通算最多の${topLeader.name}が1位です。`
                 : `直近の${jaDate(m.to)}時点で1位なのは${latestLeader}で、通算最多の${topLeader.name}ではありません。`}
@@ -226,8 +212,7 @@ export default function TimingVsShopPage() {
       <section className="mb-10">
         <h2 className="font-serif-jp mb-3 text-lg font-semibold">店ごとに、値の動かし方が違う</h2>
         <p className="mb-3 text-sm leading-relaxed text-foreground/80">
-          同じ{m.days}日を、社ごとに見たものです。値を動かした日数には差があります。
-          毎日のように動かす店もあれば、数日おきにまとめて変える店もあります。
+          同じ{m.days}日を、社ごとに見たものです。値を動かした日数には差があります。毎日のように動かす店もあれば、数日おきにまとめて変える店もあります。
         </p>
         <div className="overflow-x-auto">
           <table className="w-full table-fixed text-xs sm:text-sm">
@@ -264,8 +249,7 @@ export default function TimingVsShopPage() {
       <section className="mb-10">
         <h2 className="font-serif-jp mb-3 text-lg font-semibold">この数字をどう使うか</h2>
         <p className="mb-3 text-sm leading-relaxed text-foreground/80">
-          相場を読むのは難しく、当たるかどうかも分かりません。一方で、同じ日に各社がいくら出しているかは、
-          調べれば分かります。{m.days}日ぶんの記録で見るかぎり、後者のほうが確実で、金額としても
+          相場を読むのは難しく、当たるかどうかも分かりません。一方で、同じ日に各社がいくら出しているかは、調べれば分かります。{m.days}日ぶんの記録で見るかぎり、後者のほうが確実で、金額としても
           {shopWins ? "大きい" : "取りこぼしにくい"}ものでした。
         </p>
         <p className="text-sm leading-relaxed text-foreground/80">
@@ -277,8 +261,7 @@ export default function TimingVsShopPage() {
           <Link href="/simulator" className="mx-1 underline underline-offset-2 hover:text-accent">
             シミュレーター
           </Link>
-          にあります。なお、ここで比べているのは各社が公表している1gあたりの参考価格です。
-          店頭では品物の状態や手数料で最終額が変わるため、
+          にあります。なお、ここで比べているのは各社が公表している1gあたりの参考価格です。店頭では品物の状態や手数料で最終額が変わるため、
           <Link href="/column/what-a-gram-means" className="mx-1 underline underline-offset-2 hover:text-accent">
             「1gいくら」が店ごとに同じ意味ではない
           </Link>
@@ -289,10 +272,7 @@ export default function TimingVsShopPage() {
       <section className="mb-10 rounded-xl border border-border bg-surface p-4">
         <h2 className="font-serif-jp mb-2 text-base font-semibold">この記録について</h2>
         <p className="text-xs leading-relaxed text-muted">
-          各社が公式サイトで公表している買取参考価格を、当サイトが毎日くりかえし取得して記録したものです。
-          日付はその社が価格を公表した日で、取得できなかった日は記録していません。
-          買取店の公式サイトは自社の当日の価格しか載せないため、過去にさかのぼった比較は
-          記録している側でしか作れません。数字はページを作るたびに最新の記録から計算し直しています。
+          各社が公式サイトで公表している買取参考価格を、当サイトが毎日くりかえし取得して記録したものです。日付はその社が価格を公表した日で、取得できなかった日は記録していません。買取店の公式サイトは自社の当日の価格しか載せないため、過去にさかのぼった比較は記録している側でしか作れません。数字はページを作るたびに最新の記録から計算し直しています。
         </p>
       </section>
 

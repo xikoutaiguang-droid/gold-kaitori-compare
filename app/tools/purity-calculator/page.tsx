@@ -47,8 +47,7 @@ export default function PurityCalculatorPage() {
       />
       <h1 className="font-serif-jp mb-2 text-xl font-semibold sm:text-2xl">純度別 純金属含有量計算ツール</h1>
       <p className="mb-6 text-base text-muted">
-        重さと純度(K18・Pt900など)を入力すると、実際に含まれている純金属の重さを計算します。
-        価格ではなく、物理的な含有量そのものを知りたいときにお使いください。
+        重さと純度(K18・Pt900など)を入力すると、実際に含まれている純金属の重さを計算します。価格ではなく、物理的な含有量そのものを知りたいときにお使いください。
       </p>
       <TrustBadges
         items={["入力した数値はサーバーに送信されず、この画面内だけで計算されます", "会員登録なしで使えます"]}

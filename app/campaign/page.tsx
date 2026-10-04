@@ -52,8 +52,7 @@ export default function CampaignPage() {
     <div className="mx-auto max-w-2xl px-4 py-6 sm:py-10">
       <h1 className="font-serif-jp mb-2 text-xl font-semibold sm:text-2xl">買取キャンペーンのまとめ</h1>
       <p className="mb-6 text-base leading-relaxed text-muted">
-        買取金額の増額やクーポンは、店ごとの単価の差より大きく手取りを動かすことがあります。
-        当サイトが各社のページで確認できたものを、ここにまとめています。
+        買取金額の増額やクーポンは、店ごとの単価の差より大きく手取りを動かすことがあります。当サイトが各社のページで確認できたものを、ここにまとめています。
       </p>
 
       {/* 何を見ているのかを先に書く。一覧は網羅ではない */}
@@ -62,20 +61,16 @@ export default function CampaignPage() {
           <span className="font-medium text-foreground/80">
             掲載{total}社のうち、{withCampaign}社で実施を確認しています。
           </span>
-          載っていない社が実施していないとは限りません。価格と違って自動では取得できず、
-          各社のページを人が見て転記しているためです。
+          載っていない社が実施していないとは限りません。価格と違って自動では取得できず、各社のページを人が見て転記しているためです。
         </p>
         <p>
-          各社の注意書きには「予告なく終了する場合がございます」と書かれていることが多く、
-          当サイトの確認から{CAMPAIGN_MAX_VERIFY_AGE_DAYS}日を過ぎたものは自動的に表示から外れます。
-          申し込む前に、必ずリンク先の各社ページでご確認ください。
+          各社の注意書きには「予告なく終了する場合がございます」と書かれていることが多く、当サイトの確認から{CAMPAIGN_MAX_VERIFY_AGE_DAYS}日を過ぎたものは自動的に表示から外れます。申し込む前に、必ずリンク先の各社ページでご確認ください。
         </p>
       </div>
 
       {campaigns.length === 0 ? (
         <p className="rounded-2xl border border-border bg-surface p-5 text-sm text-muted">
-          現在、確認できている実施中のキャンペーンはありません。
-          各社が随時入れ替えるため、しばらくしてからまたご覧ください。
+          現在、確認できている実施中のキャンペーンはありません。各社が随時入れ替えるため、しばらくしてからまたご覧ください。
         </p>
       ) : (
         <>
@@ -97,9 +92,7 @@ export default function CampaignPage() {
             <>
               <h2 className="font-serif-jp mb-2 text-lg font-semibold">ブランド品を売る場合</h2>
               <p className="mb-4 text-sm leading-relaxed text-muted">
-                こちらはブランド品が対象で、ノーブランドの金やスクラップには適用されないと
-                考えられるものです。ブランドのジュエリーや時計は重さではなく品物として
-                値が付くため、1gあたりの比較では測れません。該当する品物をお持ちの場合にご覧ください。
+                こちらはブランド品が対象で、ノーブランドの金やスクラップには適用されないと考えられるものです。ブランドのジュエリーや時計は重さではなく品物として値が付くため、1gあたりの比較では測れません。該当する品物をお持ちの場合にご覧ください。
               </p>
               <div className="mb-10 flex flex-col gap-6">
                 {brand.map((c) => (
@@ -114,15 +107,12 @@ export default function CampaignPage() {
       <section className="mt-10">
         <h2 className="font-serif-jp mb-3 text-lg font-semibold">「増額」と書いてあっても中身は違います</h2>
         <p className="mb-3 text-sm leading-relaxed text-foreground/80">
-          同じようにキャンペーンと呼ばれていても、条件を満たせば全員が受けられるものと、
-          抽選で一部の人だけが受けられるものがあります。期待できる金額はまったく違うので、
-          上の一覧では種別を分けて表示しています。
+          同じようにキャンペーンと呼ばれていても、条件を満たせば全員が受けられるものと、抽選で一部の人だけが受けられるものがあります。期待できる金額はまったく違うので、上の一覧では種別を分けて表示しています。
         </p>
         <ul className="flex list-disc flex-col gap-2 pl-5 text-sm leading-relaxed text-foreground/80">
           <li>
             <span className="font-medium">条件を満たせば全員</span>
-            ：買取金額に対して決まった率や額が上乗せされるもの。上限額が決まっていることが多いので、
-            高額の品物では率どおりにならない点に注意してください。
+            ：買取金額に対して決まった率や額が上乗せされるもの。上限額が決まっていることが多いので、高額の品物では率どおりにならない点に注意してください。
           </li>
           <li>
             <span className="font-medium">クーポンの提示が必要</span>

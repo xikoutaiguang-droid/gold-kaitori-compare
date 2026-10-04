@@ -67,9 +67,7 @@ export default function NationwidePage() {
       </h1>
 
       <p className="mb-8 text-base leading-relaxed">
-        買取店のサイトにはたいてい「全国対応」と書いてあります。
-        近くに店があるのだろうと読めますが、同じ言葉を使っている社の店舗数を並べると、
-        ずいぶん違うものが同じ4文字になっていました。
+        買取店のサイトにはたいてい「全国対応」と書いてあります。近くに店があるのだろうと読めますが、同じ言葉を使っている社の店舗数を並べると、ずいぶん違うものが同じ4文字になっていました。
       </p>
 
       {/* ---- 1. 幅 ---- */}
@@ -101,8 +99,7 @@ export default function NationwidePage() {
           ))}
         </ul>
         <p className="text-xs leading-relaxed text-muted">
-          対応地域と店舗数は各社が公表しているものです。買取方法は、各社の公式サイトで記載を確認できたものだけを
-          付けています。ここに無い方法は当サイトで確認できなかっただけで、対応していないという意味ではありません。
+          対応地域と店舗数は各社が公表しているものです。買取方法は、各社の公式サイトで記載を確認できたものだけを付けています。ここに無い方法は当サイトで確認できなかっただけで、対応していないという意味ではありません。
         </p>
       </section>
 
@@ -116,24 +113,20 @@ export default function NationwidePage() {
               {fmt(m.fewest.storeCount)}です。
             </>
           )}
-          さらに{m.undisclosed}社は店舗数そのものを公表していません。
-          それでも全社が同じ「全国」を名乗れるのは、この言葉が
+          さらに{m.undisclosed}社は店舗数そのものを公表していません。それでも全社が同じ「全国」を名乗れるのは、この言葉が
           <strong className="mx-1">どこに住んでいる人からでも買い取る</strong>
           という意味だからです。店がある範囲ではありません。
         </p>
         {m.noStore.length > 0 && (
           <p className="mb-3 text-base leading-relaxed">
-            実際、{m.noStore.map((s) => s.name).join("・")}は実店舗を持たず、送って売る方法だけで全国を対象にしています。
-            持ち込める場所は無いけれど、どこからでも売れる。これも「全国対応」です。
+            実際、{m.noStore.map((s) => s.name).join("・")}は実店舗を持たず、送って売る方法だけで全国を対象にしています。持ち込める場所は無いけれど、どこからでも売れる。これも「全国対応」です。
           </p>
         )}
         {m.small.length > 0 && (
           <p className="text-base leading-relaxed">
             紛らわしいのは、店はあるけれど数が少ない社です。
             {m.small.map((s) => `${s.name}(${fmt(s.storeCount)})`).join("、")}
-            は店頭買取もしていますが、その店が自分の生活圏にある可能性は高くありません。
-            「全国対応」と「店頭買取あり」が両方書いてあっても、
-            近所で売れるかどうかは別に確かめる必要があります。
+            は店頭買取もしていますが、その店が自分の生活圏にある可能性は高くありません。「全国対応」と「店頭買取あり」が両方書いてあっても、近所で売れるかどうかは別に確かめる必要があります。
           </p>
         )}
       </section>
@@ -142,13 +135,11 @@ export default function NationwidePage() {
       <section className="mb-10">
         <h2 className="font-serif-jp mb-3 text-lg font-semibold">確かめ方は、売り方を先に決めることです</h2>
         <p className="mb-4 text-base leading-relaxed">
-          店舗数を見比べるより、どう売るかを先に決めるほうが早く済みます。
-          売り方ごとに対応している社は違い、引かれるものも変わります。
+          店舗数を見比べるより、どう売るかを先に決めるほうが早く済みます。売り方ごとに対応している社は違い、引かれるものも変わります。
         </p>
         <MethodTabs current={PATH} />
         <p className="mb-3 text-base leading-relaxed">
-          持ち込みたいなら、自分の地域に店がある社だけを見れば足ります。
-          当サイトは各社の対応地域で絞り込めるようにしてあるので、
+          持ち込みたいなら、自分の地域に店がある社だけを見れば足ります。当サイトは各社の対応地域で絞り込めるようにしてあるので、
           <Link href="/nearby" className="mx-1 underline underline-offset-2 hover:text-accent">
             近くの買取店
           </Link>
@@ -159,9 +150,7 @@ export default function NationwidePage() {
           でも切り替えられます。
         </p>
         <p className="text-base leading-relaxed">
-          送って売るつもりなら、店舗数は関係がなくなります。そのかわり、返送料や少額のときに
-          引かれるものが社ごとに違うので、そちらを見てください。
-          宅配で引かれるものは
+          送って売るつもりなら、店舗数は関係がなくなります。そのかわり、返送料や少額のときに引かれるものが社ごとに違うので、そちらを見てください。宅配で引かれるものは
           <Link href="/column/mail-in-purchase" className="mx-1 underline underline-offset-2 hover:text-accent">
             宅配買取の記事
           </Link>
@@ -176,12 +165,7 @@ export default function NationwidePage() {
       <section className="mb-10 rounded-xl border border-border bg-surface p-4">
         <h2 className="font-serif-jp mb-2 text-base font-semibold">この数字について</h2>
         <p className="text-xs leading-relaxed text-muted">
-          対応地域と店舗数は、各社が公式サイトで公表しているものを当サイトが転記したものです。
-          店舗数は増減するため、ページを作るたびに最新の記録から数え直しています。
-          「未公表」は、当サイトが各社のサイトで店舗数の記載を見つけられなかったという意味で、
-          店が無いという意味ではありません。
-          買取方法は各社の記載を確認できたものだけを付けており、確認できなかった方法は空欄にしています。
-          どの社がどう書いているかは、各社のページから原文を確かめられます。
+          対応地域と店舗数は、各社が公式サイトで公表しているものを当サイトが転記したものです。店舗数は増減するため、ページを作るたびに最新の記録から数え直しています。「未公表」は、当サイトが各社のサイトで店舗数の記載を見つけられなかったという意味で、店が無いという意味ではありません。買取方法は各社の記載を確認できたものだけを付けており、確認できなかった方法は空欄にしています。どの社がどう書いているかは、各社のページから原文を確かめられます。
         </p>
       </section>
 

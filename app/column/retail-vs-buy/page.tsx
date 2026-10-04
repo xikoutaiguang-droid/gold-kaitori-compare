@@ -101,8 +101,7 @@ export default function RetailVsBuyPage() {
       </h1>
 
       <p className="mb-8 text-base leading-relaxed">
-        ニュースで「金が最高値」と言うとき、出てくるのは<strong>買うときの値段</strong>です。
-        売るときに受け取れるのは、同じ日でもそれより低い額になります。
+        ニュースで「金が最高値」と言うとき、出てくるのは<strong>買うときの値段</strong>です。売るときに受け取れるのは、同じ日でもそれより低い額になります。
         {m.source}が同じ表に両方を載せているので、そのまま読んでみます。
       </p>
 
@@ -159,8 +158,7 @@ export default function RetailVsBuyPage() {
           同じ「差」でも、{m.narrowest.label}と{m.widest.label}では{ratio}倍ちがいます
         </h2>
         <p className="mb-3 text-base leading-relaxed">
-          差額そのものは、{m.metals.map((x) => `${x.label}が${yen(x.gap)}円`).join("、")}です。
-          ところが、もとの値段に対する割合でみると
+          差額そのものは、{m.metals.map((x) => `${x.label}が${yen(x.gap)}円`).join("、")}です。ところが、もとの値段に対する割合でみると
           <strong className="mx-1">
             {m.narrowest.label}の{m.narrowest.gapPct}%に対して{m.widest.label}は{m.widest.gapPct}%
           </strong>
@@ -168,21 +166,15 @@ export default function RetailVsBuyPage() {
         </p>
         {nearlyEqualPair && (
           <p className="mb-3 text-base leading-relaxed">
-            分かりやすいのは{nearlyEqualPair[0].label}と{nearlyEqualPair[1].label}です。
-            差額は{yen(nearlyEqualPair[0].gap)}円と{yen(nearlyEqualPair[1].gap)}円でほとんど変わらないのに、
-            割合は{nearlyEqualPair[0].gapPct}%と{nearlyEqualPair[1].gapPct}%になります。
-            同じ金額を引かれても、もとの単価が低いほうが重く効く、ということです。
+            分かりやすいのは{nearlyEqualPair[0].label}と{nearlyEqualPair[1].label}です。差額は{yen(nearlyEqualPair[0].gap)}円と{yen(nearlyEqualPair[1].gap)}円でほとんど変わらないのに、割合は{nearlyEqualPair[0].gapPct}%と{nearlyEqualPair[1].gapPct}%になります。同じ金額を引かれても、もとの単価が低いほうが重く効く、ということです。
           </p>
         )}
         <p className="mb-3 text-base leading-relaxed">
           1gあたりの単価が低い金属ほど、この開きは手取りに効きます。
-          {m.widest.label}を売るときは、{m.narrowest.label}と同じ感覚でいると
-          受け取る額が思ったより少なく感じられます。
+          {m.widest.label}を売るときは、{m.narrowest.label}と同じ感覚でいると受け取る額が思ったより少なく感じられます。
         </p>
         <p className="text-base leading-relaxed">
-          この差は手数料ではありません。買う人に売る値段と、売る人から買う値段を別々に決めている、
-          というだけのことです。だから「手数料無料」の店であっても、相場の数字がそのまま受け取れる
-          わけではありません。手数料は、さらにこの先の話になります。
+          この差は手数料ではありません。買う人に売る値段と、売る人から買う値段を別々に決めている、というだけのことです。だから「手数料無料」の店であっても、相場の数字がそのまま受け取れるわけではありません。手数料は、さらにこの先の話になります。
         </p>
       </section>
 
@@ -191,9 +183,7 @@ export default function RetailVsBuyPage() {
         <section className="mb-10">
           <h2 className="font-serif-jp mb-3 text-lg font-semibold">買取店の価格は、ここからさらに下がります</h2>
           <p className="mb-3 text-base leading-relaxed">
-            上の{yen(refBuy)}円は、地金(インゴットなど)を買い取るときの基準です。
-            指輪やネックレスはそのままでは地金にならず、溶かして精錬する必要があるので、
-            買取店が出す1gあたりの単価はここからもう一段下がります。
+            上の{yen(refBuy)}円は、地金(インゴットなど)を買い取るときの基準です。指輪やネックレスはそのままでは地金にならず、溶かして精錬する必要があるので、買取店が出す1gあたりの単価はここからもう一段下がります。
           </p>
           <div className="mb-3 rounded-xl border border-border bg-surface p-4">
             <dl className="grid grid-cols-[1fr_auto] gap-y-2 text-sm">
@@ -211,8 +201,7 @@ export default function RetailVsBuyPage() {
             </dl>
           </div>
           <p className="text-base leading-relaxed">
-            つまり売る側から見ると、報じられる相場の数字から<strong>二段下がった額</strong>が
-            手元に来ます。どの店がその二段目を浅く済ませているかは日によって入れ替わるので、
+            つまり売る側から見ると、報じられる相場の数字から<strong>二段下がった額</strong>が手元に来ます。どの店がその二段目を浅く済ませているかは日によって入れ替わるので、
             <Link href="/compare" className="mx-1 underline underline-offset-2 hover:text-accent">
               相場比較
             </Link>
@@ -225,13 +214,10 @@ export default function RetailVsBuyPage() {
       <section className="mb-10">
         <h2 className="font-serif-jp mb-3 text-lg font-semibold">見るべきなのは「買取」と書かれた数字です</h2>
         <p className="mb-3 text-base leading-relaxed">
-          相場表には小売と買取が並んでいることが多く、大きく出ているのは小売のほうです。
-          売るつもりで見るときは「買取」「お売りになる場合」と書かれた側を見てください。
-          当サイトが各社から集めているのも、すべて買取側の数字です。
+          相場表には小売と買取が並んでいることが多く、大きく出ているのは小売のほうです。売るつもりで見るときは「買取」「お売りになる場合」と書かれた側を見てください。当サイトが各社から集めているのも、すべて買取側の数字です。
         </p>
         <p className="text-base leading-relaxed">
-          そのうえで、同じ「買取価格」でも店によって指しているものが違います。
-          メダル・小判が基準で指輪は別、と書いている社もあります。
+          そのうえで、同じ「買取価格」でも店によって指しているものが違います。メダル・小判が基準で指輪は別、と書いている社もあります。
           <Link href="/column/what-a-gram-means" className="mx-1 underline underline-offset-2 hover:text-accent">
             「1gいくら」は、店ごとに同じ意味ではない
           </Link>
@@ -246,11 +232,7 @@ export default function RetailVsBuyPage() {
       <section className="mb-10 rounded-xl border border-border bg-surface p-4">
         <h2 className="font-serif-jp mb-2 text-base font-semibold">この数字について</h2>
         <p className="text-xs leading-relaxed text-muted">
-          {m.source}が公表している店頭小売価格・店頭買取価格(いずれも税込)を、
-          当サイトが毎日取得して記録したものです。表示しているのは{jaDate(m.updatedAt)}公表ぶんで、
-          ページを作るたびに最新の記録から計算し直しています。
-          同社の価格は地金(インゴット等)の売買基準であり、各社の宝飾品スクラップ買取価格とは前提が
-          異なります。土日・祝日は更新されません(
+          {m.source}が公表している店頭小売価格・店頭買取価格(いずれも税込)を、当サイトが毎日取得して記録したものです。表示しているのは{jaDate(m.updatedAt)}公表ぶんで、ページを作るたびに最新の記録から計算し直しています。同社の価格は地金(インゴット等)の売買基準であり、各社の宝飾品スクラップ買取価格とは前提が異なります。土日・祝日は更新されません(
           <Link href="/column/weekend" className="underline underline-offset-2 hover:text-accent">
             土日に金を売ると損をするのか
           </Link>

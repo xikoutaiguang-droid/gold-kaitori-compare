@@ -47,8 +47,7 @@ export default function WeightConverterPage() {
       />
       <h1 className="font-serif-jp mb-2 text-xl font-semibold sm:text-2xl">g・匁・オンス換算ツール</h1>
       <p className="mb-6 text-base text-muted">
-        グラム・匁(もんめ)・トロイオンス・キログラムを相互に変換できます。金やプラチナの重さを、
-        買取店の刻印(g表記)や海外の地金相場(oz表記)などと見比べたいときにお使いください。
+        グラム・匁(もんめ)・トロイオンス・キログラムを相互に変換できます。金やプラチナの重さを、買取店の刻印(g表記)や海外の地金相場(oz表記)などと見比べたいときにお使いください。
       </p>
       <TrustBadges
         items={["入力した数値はサーバーに送信されず、この画面内だけで計算されます", "会員登録なしで使えます"]}

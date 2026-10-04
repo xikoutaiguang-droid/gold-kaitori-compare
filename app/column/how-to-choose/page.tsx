@@ -76,17 +76,14 @@ export default function HowToChoosePage() {
       </h1>
 
       <p className="mb-8 text-base leading-relaxed">
-        店の選び方としてよく聞くのは2つです。口コミの星が高い店にする、
-        または「いちばん高く買う店」を覚えておく。
-        どちらも当サイトの記録で確かめられるので、やってみました。
+        店の選び方としてよく聞くのは2つです。口コミの星が高い店にする、または「いちばん高く買う店」を覚えておく。どちらも当サイトの記録で確かめられるので、やってみました。
       </p>
 
       {/* ---- 1. 評価と価格 ---- */}
       <section className="mb-10">
         <h2 className="font-serif-jp mb-3 text-lg font-semibold">星の数と、払う金額</h2>
         <p className="mb-4 text-base leading-relaxed">
-          評価と{label}の単価を同時に持っている{m.rated.length}社を、評価の高い順に並べます。
-          棒は単価で、いちばん安い社といちばん高い社の幅で引いています。
+          評価と{label}の単価を同時に持っている{m.rated.length}社を、評価の高い順に並べます。棒は単価で、いちばん安い社といちばん高い社の幅で引いています。
         </p>
         <ul className="mb-4 border-y border-border divide-y divide-border/60">
           {m.rated.map((r) => (
@@ -136,8 +133,7 @@ export default function HowToChoosePage() {
         <p className="text-base leading-relaxed">
           そもそも評価がほとんど差を作っていません。
           {m.rated.length}社のうち{m.ratingLow.name}を除く全社が★{m.clusterLow.toFixed(2)}〜
-          {m.clusterHigh.toFixed(2)}に収まっています。
-          買取店を探している人が見比べる範囲では、星の数はほぼ横並びです。
+          {m.clusterHigh.toFixed(2)}に収まっています。買取店を探している人が見比べる範囲では、星の数はほぼ横並びです。
         </p>
       </section>
 
@@ -176,9 +172,7 @@ export default function HowToChoosePage() {
           ))}
         </ul>
         <p className="text-base leading-relaxed">
-          入れ替わるのは、各社が別々の基準で毎日値を付け直しているからです。
-          去年いちばん高かった店が今日もいちばんとは限らず、今日いちばんの店が明日もそうとは限りません。
-          だから当サイトは「おすすめの店」を置かず、
+          入れ替わるのは、各社が別々の基準で毎日値を付け直しているからです。去年いちばん高かった店が今日もいちばんとは限らず、今日いちばんの店が明日もそうとは限りません。だから当サイトは「おすすめの店」を置かず、
           <Link href="/compare" className="mx-1 underline underline-offset-2 hover:text-accent">
             その日の順位
           </Link>
@@ -190,40 +184,30 @@ export default function HowToChoosePage() {
       <section className="mb-10">
         <h2 className="font-serif-jp mb-3 text-lg font-semibold">では、何を見ればいいのか</h2>
         <p className="mb-3 text-base leading-relaxed">
-          売る日が決まっているなら、<strong>その日の単価</strong>を見るのがいちばん確実です。
-          そのうえで、単価から引かれるものがあるかを確かめてください。
-          表示単価の1位と、手元に残る額の1位は入れ替わることがあります。
+          売る日が決まっているなら、<strong>その日の単価</strong>を見るのがいちばん確実です。そのうえで、単価から引かれるものがあるかを確かめてください。表示単価の1位と、手元に残る額の1位は入れ替わることがあります。
         </p>
         <p className="mb-3 text-base leading-relaxed">
           <Link href="/simulator" className="underline underline-offset-2 hover:text-accent">
             シミュレーター
           </Link>
-          に重さを入れると、各社の差し引きを引いたあとの金額まで出ます。
-          引かれ方そのものは
+          に重さを入れると、各社の差し引きを引いたあとの金額まで出ます。引かれ方そのものは
           <Link href="/column/fees" className="mx-1 underline underline-offset-2 hover:text-accent">
             手数料の記事
           </Link>
           にまとめました。
         </p>
         <p className="text-base leading-relaxed">
-          星の数が役に立たないという意味ではありません。
-          応対や待ち時間のような、価格表に出ないことは口コミにしか出てきません。
-          ただ「高く買ってくれるかどうか」は、そこには書かれていないということです。
+          星の数が役に立たないという意味ではありません。応対や待ち時間のような、価格表に出ないことは口コミにしか出てきません。ただ「高く買ってくれるかどうか」は、そこには書かれていないということです。
         </p>
       </section>
 
       <section className="mb-10 rounded-xl border border-border bg-surface p-4">
         <h2 className="font-serif-jp mb-2 text-base font-semibold">この数字について</h2>
         <p className="text-xs leading-relaxed text-muted">
-          単価は各社が公式サイトで公表している{label}の買取参考価格、評価はGoogleの口コミです。
-          口コミは全店舗の集計ではなく、各社の代表的な数店舗を当サイトがサンプリングした参考値で、
-          見た店舗数は各社のページに書いています。店舗数が少ない社の評価はぶれやすく、
+          単価は各社が公式サイトで公表している{label}の買取参考価格、評価はGoogleの口コミです。口コミは全店舗の集計ではなく、各社の代表的な数店舗を当サイトがサンプリングした参考値で、見た店舗数は各社のページに書いています。店舗数が少ない社の評価はぶれやすく、
           {m.ratingLow.name}は{m.ratingLow.reviews.toLocaleString("ja-JP")}件
-          ({m.ratingLow.sampleSize}店舗ぶん)しかありません。
-          相関係数は{m.rated.length}社という少ない標本で出した値なので、関係が無いことの証明ではなく、
-          「この並びからは読み取れない」という意味に留めてください。
-          1位の集計は、その日に{m.purity === "k24" ? "K24" : label}の価格を5社以上取れた日だけを数えています。
-          どちらもページを作るたびに最新の記録から計算し直しています。
+          ({m.ratingLow.sampleSize}店舗ぶん)しかありません。相関係数は{m.rated.length}社という少ない標本で出した値なので、関係が無いことの証明ではなく、「この並びからは読み取れない」という意味に留めてください。
+          1位の集計は、その日に{m.purity === "k24" ? "K24" : label}の価格を5社以上取れた日だけを数えています。どちらもページを作るたびに最新の記録から計算し直しています。
         </p>
       </section>
 

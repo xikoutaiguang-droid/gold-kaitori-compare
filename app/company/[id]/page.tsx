@@ -331,17 +331,13 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
               )}
             </p>
             <FinePrint summary="この価格はいつのものか">
-              1日に複数回価格を変える店もあるため、当サイトが取得したあとに動いていることがあります。
-              申し込む前に、上の公表価格ページで最新の金額をご確認ください。
+              1日に複数回価格を変える店もあるため、当サイトが取得したあとに動いていることがあります。申し込む前に、上の公表価格ページで最新の金額をご確認ください。
             </FinePrint>
           </>
         ) : company.priceData.staleDays !== undefined ? (
           <p className="text-sm text-muted">
             {company.name}の価格は公表されていますが、当サイトが取得できている数値が
-            {company.priceData.updatedAt}時点のもので、{company.priceData.staleDays}日が経過しています。
-            金相場は日々動くため、今日の価格として他社と並べると{company.name}を実態より高くも低くも
-            見せてしまいます。そのため順位を出していません。取得先の見直しができ次第、掲載を再開します。
-            最新の価格は
+            {company.priceData.updatedAt}時点のもので、{company.priceData.staleDays}日が経過しています。金相場は日々動くため、今日の価格として他社と並べると{company.name}を実態より高くも低くも見せてしまいます。そのため順位を出していません。取得先の見直しができ次第、掲載を再開します。最新の価格は
             <a
               href={company.priceSourceUrl}
               target="_blank"
@@ -355,8 +351,7 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
         ) : (
           <>
             <p className="mb-4 text-sm text-muted">
-              {company.name}は1gあたりの買取価格をウェブ上で数値公開していないため、当サイトでは価格を掲載していません。
-              実際の金額は問い合わせや査定で確認してください。存在しない数値を推定して載せることはしていません。
+              {company.name}は1gあたりの買取価格をウェブ上で数値公開していないため、当サイトでは価格を掲載していません。実際の金額は問い合わせや査定で確認してください。存在しない数値を推定して載せることはしていません。
             </p>
             {/* 価格が無いページを「分かりません」で終わらせない。問い合わせる前に
                 今日の水準を知っておけるほうが、読む人にとって意味がある。
@@ -378,9 +373,7 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
                   <dd className="tabular-nums">{marketToday.low.toLocaleString("ja-JP")}円/g</dd>
                 </dl>
                 <p className="mt-2 text-xs leading-relaxed text-muted">
-                  {PURITY_LABELS.k24}の公表買取価格です。{company.name}の価格ではありません。
-                  問い合わせる前にこの幅を知っておくと、提示された金額が
-                  どのあたりに位置するかを自分で判断できます。
+                  {PURITY_LABELS.k24}の公表買取価格です。{company.name}の価格ではありません。問い合わせる前にこの幅を知っておくと、提示された金額がどのあたりに位置するかを自分で判断できます。
                   <Link href="/compare" className="ml-1 underline underline-offset-2 hover:text-accent">
                     {marketToday.count}社の一覧を見る
                   </Link>
@@ -449,9 +442,7 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
           <dd>
             <span className="font-semibold tabular-nums">{company.trustScore} / 5</span>
             <FinePrint summary="この数字の付け方">
-              店舗数・上場や資本提携の有無・運営年数などの公開情報を参考に、当サイトが付けた目安です。
-              計算式はなく運営者の判断が入っているため、価格の順位とは性質が異なります。
-              安全性を保証するものではありません。
+              店舗数・上場や資本提携の有無・運営年数などの公開情報を参考に、当サイトが付けた目安です。計算式はなく運営者の判断が入っているため、価格の順位とは性質が異なります。安全性を保証するものではありません。
             </FinePrint>
           </dd>
         </dl>
@@ -494,9 +485,7 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
                   >
                     価格ページ
                   </a>
-                  には「{fee.contrast.quote}」とあります。どちらも同社の記載です。
-                  当サイトはどちらが正しいかを判断できないので、両方そのまま載せています。
-                  申し込む前に、ご自身の品物と金額で当てはまるかを確認してください。
+                  には「{fee.contrast.quote}」とあります。どちらも同社の記載です。当サイトはどちらが正しいかを判断できないので、両方そのまま載せています。申し込む前に、ご自身の品物と金額で当てはまるかを確認してください。
                 </p>
               )}
               <p className="mt-2 text-xs text-muted">
@@ -517,10 +506,7 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
                 {fee.checkedScope === "terms"
                   ? "価格ページに加えて、利用規約・よくある質問・宅配買取の案内まで読んでいます。"
                   : "価格ページのみ確認しています。"}
-                当サイトの順位は各社が公表している単価で付けており、そこから引かれるものは含めていません。
-                読んでいるのは各社が公表しているページで、実際の取引を確かめたものではありません。
-                品物の種類・金額・買取方法によって別の費用がかかる場合があり、記載が後から変わることもあります。
-                申し込む前に、ご自身の品物と金額で当てはまるかを必ずご確認ください。
+                当サイトの順位は各社が公表している単価で付けており、そこから引かれるものは含めていません。読んでいるのは各社が公表しているページで、実際の取引を確かめたものではありません。品物の種類・金額・買取方法によって別の費用がかかる場合があり、記載が後から変わることもあります。申し込む前に、ご自身の品物と金額で当てはまるかを必ずご確認ください。
               </FinePrint>
             </div>
             <p className="mt-2 text-sm">
@@ -576,8 +562,7 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
               の記載（{formatPriceDay(svc.checkedAt)}に確認）。
             </p>
             <FinePrint summary="ここに無い方法について">
-              ここに無い方法は当サイトで確認できなかっただけで、対応していないという意味ではありません。
-              出張の対応エリアは、公式に全国と書かれている場合のみ記載しています。
+              ここに無い方法は当サイトで確認できなかっただけで、対応していないという意味ではありません。出張の対応エリアは、公式に全国と書かれている場合のみ記載しています。
             </FinePrint>
           </section>
         );

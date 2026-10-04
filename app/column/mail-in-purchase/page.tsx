@@ -66,9 +66,7 @@ export default function MailInPurchasePage() {
       <MethodTabs current="/column/mail-in-purchase" />
       <p className="mb-8 text-base leading-relaxed text-muted">
         当サイトが価格を追っている{SERVICE_RECORDS.length}社のうち、{n.shipping}
-        社が宅配買取に対応していました。箱に詰めて送るだけで、店に行かずに売れます。
-        ただし、家まで来てもらう出張買取には付く「8日間の取り消し」が、宅配買取には付きません。
-        品物が手元を離れたあとで頼れるのは、法律ではなく各社が自分で決めた条件です。
+        社が宅配買取に対応していました。箱に詰めて送るだけで、店に行かずに売れます。ただし、家まで来てもらう出張買取には付く「8日間の取り消し」が、宅配買取には付きません。品物が手元を離れたあとで頼れるのは、法律ではなく各社が自分で決めた条件です。
       </p>
 
       {/* ---- 法律 ---- */}
@@ -90,14 +88,10 @@ export default function MailInPurchasePage() {
           「訪問購入」とは、購入業者が、店舗等以外の場所（例えば、消費者の自宅等）で契約を締結等して行う物品の購入のことをいいます。
         </blockquote>
         <p className="mb-4 text-sm leading-relaxed text-foreground/80">
-          自分で箱に詰めて送る宅配買取は、業者が訪ねてくる取引ではないので、ここに当たりません。
-          同じ一覧に<strong>「通信販売には、クーリング・オフ制度はありません。」</strong>とも書かれています。
-          つまり宅配買取では、<strong>送ったあとに「やっぱり返して」と言える権利が、法律では用意されていません</strong>。
+          自分で箱に詰めて送る宅配買取は、業者が訪ねてくる取引ではないので、ここに当たりません。同じ一覧に<strong>「通信販売には、クーリング・オフ制度はありません。」</strong>とも書かれています。つまり宅配買取では、<strong>送ったあとに「やっぱり返して」と言える権利が、法律では用意されていません</strong>。
         </p>
         <p className="mb-4 text-xs leading-relaxed text-muted">
-          これは引用した2つの記載から当サイトが整理したものです。個別のケースがどう扱われるかは当サイトでは判断できません。
-          困ったときは消費者ホットライン（188）やお住まいの消費生活センターにご相談ください。
-          家まで来てもらう場合の扱いは
+          これは引用した2つの記載から当サイトが整理したものです。個別のケースがどう扱われるかは当サイトでは判断できません。困ったときは消費者ホットライン（188）やお住まいの消費生活センターにご相談ください。家まで来てもらう場合の扱いは
           <Link href="/column/visit-purchase" className="underline underline-offset-2 hover:text-accent">
             出張買取の記事
           </Link>
@@ -152,9 +146,7 @@ export default function MailInPurchasePage() {
             ))}
           </div>
           <p className="mt-4 text-sm leading-relaxed text-foreground/80">
-            どちらも、ブランド品ではない貴金属を、少額で、宅配で送る場合の話です。
-            金のネックレスを1本売る、という最も多いであろう売り方がそのまま当てはまります。
-            店頭に持ち込む場合は対象外と書かれています。
+            どちらも、ブランド品ではない貴金属を、少額で、宅配で送る場合の話です。金のネックレスを1本売る、という最も多いであろう売り方がそのまま当てはまります。店頭に持ち込む場合は対象外と書かれています。
           </p>
         </section>
       )}
@@ -183,15 +175,13 @@ export default function MailInPurchasePage() {
       <section className="mb-10">
         <h2 className="font-serif-jp mb-3 text-lg font-semibold">返してもらうときの条件は社ごとに違う</h2>
         <p className="mb-4 text-sm leading-relaxed text-foreground/80">
-          返送料を会社が持つのか、こちらが着払いで払うのか。ここは各社がそれぞれ決めています。
-          たとえばリファスタは、よくある質問でこう書いています。
+          返送料を会社が持つのか、こちらが着払いで払うのか。ここは各社がそれぞれ決めています。たとえばリファスタは、よくある質問でこう書いています。
         </p>
         <blockquote className="mb-4 rounded-xl border-l-4 border-accent/40 bg-surface px-4 py-3 text-sm leading-relaxed">
           査定後のキャンセル料、返送料は無料。返却は一部、全品どちらも対応しております。なお、お送りいただいたお品物すべてにお値段が付かなかった場合のみ着払いにて返送いたしております。
         </blockquote>
         <p className="text-sm leading-relaxed text-foreground/80">
-          「値段が付かなかった場合だけ着払い」という線引きです。
-          条件のある社とない社があるので、送る前にその社のページで確かめてください。
+          「値段が付かなかった場合だけ着払い」という線引きです。条件のある社とない社があるので、送る前にその社のページで確かめてください。
         </p>
       </section>
 
@@ -199,16 +189,13 @@ export default function MailInPurchasePage() {
       <section className="mb-10">
         <h2 className="font-serif-jp mb-3 text-lg font-semibold">送ってすぐお金が入るわけではない</h2>
         <p className="mb-4 text-sm leading-relaxed text-foreground/80">
-          古物の買取では本人確認が要ります。対面でないぶん、宅配ではその手続きが先に来ます。
-          リファスタの利用規約にはこうあります。
+          古物の買取では本人確認が要ります。対面でないぶん、宅配ではその手続きが先に来ます。リファスタの利用規約にはこうあります。
         </p>
         <blockquote className="mb-4 rounded-xl border-l-4 border-accent/40 bg-surface px-4 py-3 text-sm leading-relaxed">
           eKYC手続きが完了するまでの間、お品物の査定及び買取代金のお振込みを行うことができません。
         </blockquote>
         <p className="text-sm leading-relaxed text-foreground/80">
-          身分証の撮影と顔写真の送信を済ませるまで、査定も振込も始まらないということです。
-          急いで現金化したい場合は、この時間も含めて考えておくほうが確実です。
-          その日に現金が要るなら、店頭に持ち込むほうが早いことになります。
+          身分証の撮影と顔写真の送信を済ませるまで、査定も振込も始まらないということです。急いで現金化したい場合は、この時間も含めて考えておくほうが確実です。その日に現金が要るなら、店頭に持ち込むほうが早いことになります。
         </p>
       </section>
 
@@ -223,8 +210,7 @@ export default function MailInPurchasePage() {
         </p>
         <p className="mb-4 text-sm leading-relaxed text-foreground/80">
           {noShipping.join("・")}の{noShipping.length}
-          社は、宅配の案内を確認できませんでした（対応していないという意味ではなく、
-          当サイトが見たページに書かれていなかった、ということです）。
+          社は、宅配の案内を確認できませんでした（対応していないという意味ではなく、当サイトが見たページに書かれていなかった、ということです）。
         </p>
         <RemoteBuyers
           options={buyers}
@@ -239,9 +225,7 @@ export default function MailInPurchasePage() {
       <section className="mb-10">
         <h2 className="font-serif-jp mb-3 text-lg font-semibold">他の売り方と比べる</h2>
         <p className="mb-4 text-sm leading-relaxed text-foreground/80">
-          掲載社でいえば、店頭{n.storefront}社、出張{n.visit}社、宅配{n.shipping}社が対応していました。
-          宅配は店に行かずに済む代わりに、品物が手元を離れている時間が長く、取り消しの権利もありません。
-          急ぐなら店頭、量が多いなら出張、近くに店が無いなら宅配、という選び方になります。
+          掲載社でいえば、店頭{n.storefront}社、出張{n.visit}社、宅配{n.shipping}社が対応していました。宅配は店に行かずに済む代わりに、品物が手元を離れている時間が長く、取り消しの権利もありません。急ぐなら店頭、量が多いなら出張、近くに店が無いなら宅配、という選び方になります。
         </p>
         <ul className="flex flex-col gap-2 text-sm">
           <li>
@@ -279,9 +263,7 @@ export default function MailInPurchasePage() {
           <li>各社の利用規約・よくある質問・宅配買取の案内（引用ごとにリンクと閲覧日を併記）</li>
         </ul>
         <p className="mt-3 text-xs leading-relaxed text-muted">
-          引用はいずれも、取得したHTMLに同じ文字列があることを1件ずつ確認しています。
-          記載は予告なく変わるため、送る前にご自身でもお確かめください。
-          このページは一般的な説明であり、個別の法律相談ではありません。
+          引用はいずれも、取得したHTMLに同じ文字列があることを1件ずつ確認しています。記載は予告なく変わるため、送る前にご自身でもお確かめください。このページは一般的な説明であり、個別の法律相談ではありません。
         </p>
       </section>
 

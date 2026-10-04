@@ -39,9 +39,7 @@ export default function CompanyIndexPage() {
         掲載している金・貴金属買取店
       </h1>
       <p className="mb-6 text-base text-muted">
-        当サイトが価格を追っている{companies.length}社です。うち{priced.length}社は1gあたりの買取価格を
-        公開しているため、日次で取得して比較しています。会社名を押すと、その社の価格が他社の中で
-        何番目か、対応地域、口コミの評価をまとめたページに移ります。
+        当サイトが価格を追っている{companies.length}社です。うち{priced.length}社は1gあたりの買取価格を公開しているため、日次で取得して比較しています。会社名を押すと、その社の価格が他社の中で何番目か、対応地域、口コミの評価をまとめたページに移ります。
       </p>
 
       <ul className="divide-y divide-border border-y border-border">
@@ -97,10 +95,8 @@ export default function CompanyIndexPage() {
       </ul>
 
       <p className="mt-6 text-xs text-muted">
-        価格は各社が公表している数値をそのまま掲載しています。公表していない社は「価格非公開」と表示し、
-        推定値を作ることはしていません。
-        {companies.filter(hasAffiliateLink).length}社については、申し込み導線にアフィリエイトリンクを
-        使用しています（該当箇所にPRと表示）。
+        価格は各社が公表している数値をそのまま掲載しています。公表していない社は「価格非公開」と表示し、推定値を作ることはしていません。
+        {companies.filter(hasAffiliateLink).length}社については、申し込み導線にアフィリエイトリンクを使用しています（該当箇所にPRと表示）。
       </p>
 
       <p className="mt-4 text-sm">

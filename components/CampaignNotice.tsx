@@ -71,9 +71,7 @@ export default function CampaignNotice({
                     同社のページ
                   </a>{" "}
                   で確認した内容です
-                  {c.verifiedDaysAgo > 0 ? `（${c.verifiedDaysAgo}日前）` : ""}。
-                  自動取得ではないため、その後に変更・終了している可能性があります。
-                  申し込む前に必ずリンク先でご確認ください。
+                  {c.verifiedDaysAgo > 0 ? `（${c.verifiedDaysAgo}日前）` : ""}。自動取得ではないため、その後に変更・終了している可能性があります。申し込む前に必ずリンク先でご確認ください。
                 </p>
               </>
             );

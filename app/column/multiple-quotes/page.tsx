@@ -45,8 +45,7 @@ export default function MultipleQuotesColumnPage() {
       </p>
       <h1 className="font-serif-jp mb-2 text-xl font-semibold sm:text-2xl">査定額を上げるコツ</h1>
       <p className="mb-8 text-base leading-relaxed text-muted">
-        金・貴金属の査定額は、売る側のちょっとした準備で変わることがあります。特別なテクニックではなく、
-        誰でもできる基本的なポイントをまとめました。
+        金・貴金属の査定額は、売る側のちょっとした準備で変わることがあります。特別なテクニックではなく、誰でもできる基本的なポイントをまとめました。
       </p>
 
       <div className="flex flex-col gap-5 sm:gap-6">

@@ -92,14 +92,11 @@ export default function TaxPage() {
       </h1>
 
       <p className="mb-4 text-base leading-relaxed">
-        金を売ろうとして税金を調べると、30万円・50万円・200万円という数字が出てきます。
-        この3つは別々のことを指していて、どれも「これを超えたら税金がかかる」という線ではありません。
-        何がどの数字なのかを、所得税法とその施行令、国税庁のタックスアンサーの原文で確かめました。
+        金を売ろうとして税金を調べると、30万円・50万円・200万円という数字が出てきます。この3つは別々のことを指していて、どれも「これを超えたら税金がかかる」という線ではありません。何がどの数字なのかを、所得税法とその施行令、国税庁のタックスアンサーの原文で確かめました。
       </p>
       <p className="mb-8 text-base leading-relaxed">
         先に結論だけ書くと、課税の対象になるのは売って受け取った金額ではなく、
-        <strong>買ったときより高く売れたぶん</strong>です。
-        買った値段を覚えていない昔の品でも、考え方は変わりません。
+        <strong>買ったときより高く売れたぶん</strong>です。買った値段を覚えていない昔の品でも、考え方は変わりません。
       </p>
 
       <p className="mb-8 text-sm leading-relaxed text-muted">
@@ -120,8 +117,7 @@ export default function TaxPage() {
         </p>
         <Quote entry={TAX_QUOTES.nonTaxableAct} />
         <p className="mb-3 text-base leading-relaxed">
-          「政令で定めるもの」の中身は、施行令のほうに書かれています。
-          読み方が少しひねられていて、<strong>30万円を超えるものを「以外のもの」から外す</strong>
+          「政令で定めるもの」の中身は、施行令のほうに書かれています。読み方が少しひねられていて、<strong>30万円を超えるものを「以外のもの」から外す</strong>
           という形になっています。
         </p>
         <Quote entry={TAX_QUOTES.nonTaxableOrder} highlight />
@@ -135,9 +131,7 @@ export default function TaxPage() {
         <Quote entry={TAX_QUOTES.dailyGoods} />
         <Quote entry={TAX_QUOTES.dailyGoodsException} />
         <p className="mb-3 text-base leading-relaxed">
-          つまり1個または1組で{man(NON_TAXABLE_ITEM_LIMIT)}円を超えなければ、
-          生活に使っていた品を売った所得は課税されません。
-          指輪やネックレスを1点売る、という多くの場合はここに収まります。
+          つまり1個または1組で{man(NON_TAXABLE_ITEM_LIMIT)}円を超えなければ、生活に使っていた品を売った所得は課税されません。指輪やネックレスを1点売る、という多くの場合はここに収まります。
           {g30 && (
             <>
               {" "}
@@ -148,9 +142,7 @@ export default function TaxPage() {
           )}
         </p>
         <p className="text-base leading-relaxed">
-          ただし前提として、条文は「生活の用に供する」資産と書いています。
-          値上がりを見込んで買ったインゴットは、身につけていた指輪とは扱いが違います。
-          手元の品がどちらなのかは書類や経緯で決まるので、迷う場合は税務署か税理士に確認してください。
+          ただし前提として、条文は「生活の用に供する」資産と書いています。値上がりを見込んで買ったインゴットは、身につけていた指輪とは扱いが違います。手元の品がどちらなのかは書類や経緯で決まるので、迷う場合は税務署か税理士に確認してください。
         </p>
       </section>
 
@@ -159,9 +151,7 @@ export default function TaxPage() {
         <h2 className="font-serif-jp mb-3 text-lg font-semibold">地金は、金額に関係なく譲渡所得になる</h2>
         <Quote entry={TAX_QUOTES.bullionIsCapitalGain} />
         <p className="text-base leading-relaxed">
-          「総合課税」とは、給与などほかの所得と合算してから税率をかけるという意味です。
-          株式の売却益のように、そこだけ切り離して一定の税率で終わる形ではありません。
-          そのため、同じ利益でも人によって税額が変わります。
+          「総合課税」とは、給与などほかの所得と合算してから税率をかけるという意味です。株式の売却益のように、そこだけ切り離して一定の税率で終わる形ではありません。そのため、同じ利益でも人によって税額が変わります。
         </p>
       </section>
 
@@ -181,16 +171,11 @@ export default function TaxPage() {
         <Quote entry={TAX_QUOTES.specialDeductionAct} />
         <p className="mb-3 text-base leading-relaxed">
           {man(SPECIAL_DEDUCTION)}円は<strong>売った額ではなく、もうけから引く額</strong>です。
-          100万円で売れたとしても、買ったのが80万円なら、もうけは20万円。
-          特別控除の{man(SPECIAL_DEDUCTION)}円に届かないので、
-          その年にほかの総合課税の譲渡益が無ければ課税される譲渡所得は出ません
-          （売るためにかかった費用も引けます）。
+          100万円で売れたとしても、買ったのが80万円なら、もうけは20万円。特別控除の{man(SPECIAL_DEDUCTION)}円に届かないので、その年にほかの総合課税の譲渡益が無ければ課税される譲渡所得は出ません（売るためにかかった費用も引けます）。
         </p>
         <p className="text-base leading-relaxed">
-          注意したいのは、控除が<strong>その年の合計に対して1回だけ</strong>という点です。
-          引用した注のとおり、金地金の譲渡益とそれ以外の総合課税の譲渡益を合わせて
-          {man(SPECIAL_DEDUCTION)}円が限度になります。
-          何回かに分けて売っても、売るたびに{man(SPECIAL_DEDUCTION)}円引けるわけではありません。
+          注意したいのは、控除が<strong>その年の合計に対して1回だけ</strong>という点です。引用した注のとおり、金地金の譲渡益とそれ以外の総合課税の譲渡益を合わせて
+          {man(SPECIAL_DEDUCTION)}円が限度になります。何回かに分けて売っても、売るたびに{man(SPECIAL_DEDUCTION)}円引けるわけではありません。
         </p>
       </section>
 
@@ -202,8 +187,7 @@ export default function TaxPage() {
         </p>
         <Quote entry={TAX_QUOTES.longTermHalf} highlight />
         <p className="text-base leading-relaxed">
-          長期と短期の分かれ目は、買った日から売った日までの期間です。
-          詳しい区分は国税庁の{" "}
+          長期と短期の分かれ目は、買った日から売った日までの期間です。詳しい区分は国税庁の{" "}
           <a
             href={NTA_3152}
             target="_blank"
@@ -215,14 +199,11 @@ export default function TaxPage() {
           にまとまっています。
         </p>
         <p className="mb-3 text-base leading-relaxed">
-          相続や贈与で受け取った品は、自分が受け取った日から数えるのではありません。
-          条文は、前の持ち主が持っていた期間を引き継ぐと定めています。
+          相続や贈与で受け取った品は、自分が受け取った日から数えるのではありません。条文は、前の持ち主が持っていた期間を引き継ぐと定めています。
         </p>
         <Quote entry={TAX_QUOTES.inheritedHolding} />
         <p className="text-base leading-relaxed">
-          親から受け継いだ指輪を翌年に売った場合でも、親が5年を超えて持っていたなら長期として計算します。
-          受け取った日だけを見て短期と決めつけないでください
-          （限定承認による相続など、この扱いから外れる場合が条文に挙げられています）。
+          親から受け継いだ指輪を翌年に売った場合でも、親が5年を超えて持っていたなら長期として計算します。受け取った日だけを見て短期と決めつけないでください（限定承認による相続など、この扱いから外れる場合が条文に挙げられています）。
         </p>
       </section>
 
@@ -246,28 +227,22 @@ export default function TaxPage() {
         </p>
         <Quote entry={TAX_QUOTES.paymentRecord} />
         <p className="mb-3 text-base leading-relaxed">
-          {man(PAYMENT_RECORD_LIMIT)}円を超えると税金がかかる、という意味ではありません。
-          かかるかどうかは前の章までの計算で決まり、ここで変わるのは
-          <strong>税務署がその取引を把握するかどうか</strong>だけです。
-          逆に{man(PAYMENT_RECORD_LIMIT)}円以下なら申告しなくてよい、ということでもありません。
+          {man(PAYMENT_RECORD_LIMIT)}円を超えると税金がかかる、という意味ではありません。かかるかどうかは前の章までの計算で決まり、ここで変わるのは
+          <strong>税務署がその取引を把握するかどうか</strong>だけです。逆に{man(PAYMENT_RECORD_LIMIT)}円以下なら申告しなくてよい、ということでもありません。
           {g200 && (
             <>
               {" "}
-              {man(PAYMENT_RECORD_LIMIT)}円は、{g200.source}の{jpDate(g200.updatedAt)}時点の価格で
-              純金約{formatGrams(g200.grams)}gぶんです。
+              {man(PAYMENT_RECORD_LIMIT)}円は、{g200.source}の{jpDate(g200.updatedAt)}時点の価格で純金約{formatGrams(g200.grams)}gぶんです。
             </>
           )}
         </p>
         <p className="mb-3 text-base leading-relaxed">
           もう一つ、条文が対象にしているのは
           <strong>「金若しくは白金の地金又は金貨若しくは白金貨」</strong>です。
-          K18のネックレスや指輪は、この条文でいう金地金等には当たりません。
-          店頭で200万円を超える取引に別の案内が出ることはありますが、それは犯罪収益移転防止法など
-          別の法律によるもので、ここで引いた条文とは別の話です。
+          K18のネックレスや指輪は、この条文でいう金地金等には当たりません。店頭で200万円を超える取引に別の案内が出ることはありますが、それは犯罪収益移転防止法など別の法律によるもので、ここで引いた条文とは別の話です。
         </p>
         <p className="text-base leading-relaxed">
-          身分証を求められる1万円の線は、さらに別の法律（古物営業法）です。
-          こちらは{" "}
+          身分証を求められる1万円の線は、さらに別の法律（古物営業法）です。こちらは{" "}
           <Link href="/column/identity-check" className="underline underline-offset-2">
             1万円未満なら、法律は本人確認を求めていない
           </Link>
@@ -281,8 +256,7 @@ export default function TaxPage() {
         <Quote entry={TAX_QUOTES.continuousIsBusiness} />
         <p className="text-base leading-relaxed">
           事業所得や雑所得になると、{man(SPECIAL_DEDUCTION)}円の特別控除も、
-          5年超で半分になる扱いも使えません。
-          家にあった品をまとめて手放すのと、売買を繰り返すのとでは、同じ「金を売る」でも別の扱いになります。
+          5年超で半分になる扱いも使えません。家にあった品をまとめて手放すのと、売買を繰り返すのとでは、同じ「金を売る」でも別の扱いになります。
         </p>
       </section>
 
@@ -324,28 +298,18 @@ export default function TaxPage() {
           </table>
         </div>
         <p className="mt-3 text-base leading-relaxed">
-          売る前に見ておくと分かりやすいのは、この順番です。
-          手元の品が生活に使っていたものか、1個または1組で{man(NON_TAXABLE_ITEM_LIMIT)}円を超えるか。
-          超えるなら、買った値段より高く売れたか。高く売れたなら、その差が
-          {man(SPECIAL_DEDUCTION)}円を超えるか。{man(PAYMENT_RECORD_LIMIT)}円は、
-          この判断のどこにも出てきません。
+          売る前に見ておくと分かりやすいのは、この順番です。手元の品が生活に使っていたものか、1個または1組で{man(NON_TAXABLE_ITEM_LIMIT)}円を超えるか。超えるなら、買った値段より高く売れたか。高く売れたなら、その差が
+          {man(SPECIAL_DEDUCTION)}円を超えるか。{man(PAYMENT_RECORD_LIMIT)}円は、この判断のどこにも出てきません。
         </p>
       </section>
 
       <section className="mb-10 rounded-xl border border-border bg-surface p-4">
         <h2 className="font-serif-jp mb-2 text-base font-semibold">この記事について</h2>
         <p className="text-xs leading-relaxed text-muted">
-          法令の引用は e-Gov 法令検索の原文から、国税庁の引用はタックスアンサー（{NTA_AS_OF}）から、
-          いずれも{TAX_CHECKED_AT}に読んで転記しました。要約ではなく、書かれている文をそのまま引いています。
-          引用した文が出典から消えていないかは、当サイトの日次の点検で毎日取り直して照合しています。
-          金額をグラムに換算した箇所は、公表されている当日の参考価格から計算して表示しています。
+          法令の引用は e-Gov 法令検索の原文から、国税庁の引用はタックスアンサー（{NTA_AS_OF}）から、いずれも{TAX_CHECKED_AT}に読んで転記しました。要約ではなく、書かれている文をそのまま引いています。引用した文が出典から消えていないかは、当サイトの日次の点検で毎日取り直して照合しています。金額をグラムに換算した箇所は、公表されている当日の参考価格から計算して表示しています。
         </p>
         <p className="mt-2 text-xs leading-relaxed text-muted">
-          当サイトは税の専門家ではありません。ここに書いたのは「条文と国税庁の説明に何と書いてあるか」であって、
-          個別の取引にどう当てはまるかの判断ではありません。
-          取得費を示す書類が無い場合の扱いや、相続した品の所有期間、確定申告が要るかどうかは、
-          事情によって変わります。実際の申告は、所轄の税務署か税理士にご確認ください。
-          法令も国税庁の記載も改正・更新されることがあります。
+          当サイトは税の専門家ではありません。ここに書いたのは「条文と国税庁の説明に何と書いてあるか」であって、個別の取引にどう当てはまるかの判断ではありません。取得費を示す書類が無い場合の扱いや、相続した品の所有期間、確定申告が要るかどうかは、事情によって変わります。実際の申告は、所轄の税務署か税理士にご確認ください。法令も国税庁の記載も改正・更新されることがあります。
         </p>
         <p className="mt-2 text-xs leading-relaxed text-muted">
           参考: 国税庁{" "}

@@ -55,8 +55,7 @@ export default function WeekendPage() {
     return (
       <div className="mx-auto max-w-2xl px-4 py-10">
         <p className="text-sm text-muted">
-          曜日ごとに比べられるだけの記録がまだ足りないため、この記事を一時的に出していません。
-          各社の価格を毎日記録しているので、日数がたまり次第また出します。
+          曜日ごとに比べられるだけの記録がまだ足りないため、この記事を一時的に出していません。各社の価格を毎日記録しているので、日数がたまり次第また出します。
         </p>
       </div>
     );
@@ -81,9 +80,7 @@ export default function WeekendPage() {
       </h1>
 
       <p className="mb-8 text-base leading-relaxed">
-        土日に売ると損をするのか、という疑問があります。
-        各社の公式サイトを見ても、そこに出ているのは今日の数字だけなので答えは出ません。
-        掲載社の価格を{m.days}日ぶん記録してあるので、曜日ごとに測りました。
+        土日に売ると損をするのか、という疑問があります。各社の公式サイトを見ても、そこに出ているのは今日の数字だけなので答えは出ません。掲載社の価格を{m.days}日ぶん記録してあるので、曜日ごとに測りました。
       </p>
 
       {/* ---- 1. 日曜 ---- */}
@@ -107,9 +104,7 @@ export default function WeekendPage() {
         <p className="mb-3 text-base leading-relaxed">
           {m.sundayChangedPct === 0 ? (
             <>
-              日曜は<strong>0%</strong>でした。記録している{m.byDay.find((d) => d.day === "日")?.changedSamples}回の日曜のすべてで、
-              価格を公表している社のどこも、土曜から1円も動かしていません。
-              「日曜に様子を見る」ことに意味はない、ということです。
+              日曜は<strong>0%</strong>でした。記録している{m.byDay.find((d) => d.day === "日")?.changedSamples}回の日曜のすべてで、価格を公表している社のどこも、土曜から1円も動かしていません。「日曜に様子を見る」ことに意味はない、ということです。
             </>
           ) : (
             <>
@@ -119,8 +114,7 @@ export default function WeekendPage() {
           )}
         </p>
         <p className="text-base leading-relaxed">
-          一方で<strong>土曜は{pct(m.saturdayChangedPct)}</strong>の社が金曜と違う値を出しています。
-          土日をひとまとめに「動かない」と考えると、土曜のぶんを取りこぼします。
+          一方で<strong>土曜は{pct(m.saturdayChangedPct)}</strong>の社が金曜と違う値を出しています。土日をひとまとめに「動かない」と考えると、土曜のぶんを取りこぼします。
         </p>
       </section>
 
@@ -128,8 +122,7 @@ export default function WeekendPage() {
       <section className="mb-10">
         <h2 className="font-serif-jp mb-3 text-lg font-semibold">止まっている理由は、基準が出ないからです</h2>
         <p className="mb-3 text-base leading-relaxed">
-          各社が単価を決めるときの目安になっている田中貴金属の地金価格が、土日・祝日には更新されません。
-          同社のページにこう書かれています。
+          各社が単価を決めるときの目安になっている田中貴金属の地金価格が、土日・祝日には更新されません。同社のページにこう書かれています。
         </p>
         <blockquote className="mb-3 rounded-xl border border-border bg-surface p-4 text-sm leading-relaxed">
           <p>「※前日比は、土日・祝日を除く前営業日の9:30の価格と比較して算出しています。」</p>
@@ -148,8 +141,7 @@ export default function WeekendPage() {
           </footer>
         </blockquote>
         <p className="text-base leading-relaxed">
-          つまり土日に見えている数字は、金曜に出た基準のまま置かれているものです。
-          各社が公表している社数そのものも、土日は減ります。
+          つまり土日に見えている数字は、金曜に出た基準のまま置かれているものです。各社が公表している社数そのものも、土日は減ります。
         </p>
       </section>
 
@@ -184,10 +176,7 @@ export default function WeekendPage() {
         <p className="mt-2 text-xs leading-relaxed text-muted">
           「公表」は、その日の日付で価格を出していた社の平均です。平日は
           {Math.min(...weekdayDays.map((d) => d.publishing)).toFixed(1)}〜
-          {Math.max(...weekdayDays.map((d) => d.publishing)).toFixed(1)}社、
-          土曜は{m.byDay.find((d) => d.day === "土")?.publishing.toFixed(1)}社、
-          日曜は{m.byDay.find((d) => d.day === "日")?.publishing.toFixed(1)}社でした。
-          出していない社は、前の営業日の値がそのまま置かれています。
+          {Math.max(...weekdayDays.map((d) => d.publishing)).toFixed(1)}社、土曜は{m.byDay.find((d) => d.day === "土")?.publishing.toFixed(1)}社、日曜は{m.byDay.find((d) => d.day === "日")?.publishing.toFixed(1)}社でした。出していない社は、前の営業日の値がそのまま置かれています。
         </p>
       </section>
 
@@ -196,8 +185,7 @@ export default function WeekendPage() {
         <section className="mb-10">
           <h2 className="font-serif-jp mb-3 text-lg font-semibold">動かなかったぶんは、月曜にまとめて出ます</h2>
           <p className="mb-3 text-base leading-relaxed">
-            値が止まっていても、世界の金相場は動いています。
-            金曜から翌月曜までに、掲載社の単価がどれだけ変わったかを記録から拾いました。
+            値が止まっていても、世界の金相場は動いています。金曜から翌月曜までに、掲載社の単価がどれだけ変わったかを記録から拾いました。
           </p>
           <ul className="mb-3 border-y border-border divide-y divide-border/60">
             {m.weekendGaps.map((g) => (
@@ -219,8 +207,7 @@ export default function WeekendPage() {
           {m.largestGap && Math.abs(m.largestGap.pct) > 0 && (
             <p className="text-base leading-relaxed">
               いちばん大きかったのは{jaDate(m.largestGap.from)}から{jaDate(m.largestGap.to)}の
-              <strong className="mx-1 tabular-nums">{signed(m.largestGap.pct)}</strong>です。
-              土日の2日ぶんが週明けに一度に乗るので、平日1日ぶんより大きく動くことがあります。
+              <strong className="mx-1 tabular-nums">{signed(m.largestGap.pct)}</strong>です。土日の2日ぶんが週明けに一度に乗るので、平日1日ぶんより大きく動くことがあります。
             </p>
           )}
         </section>
@@ -230,8 +217,7 @@ export default function WeekendPage() {
       <section className="mb-10">
         <h2 className="font-serif-jp mb-3 text-lg font-semibold">送って売る場合は、着いた日の値段になることがあります</h2>
         <p className="mb-3 text-base leading-relaxed">
-          店頭に持ち込むなら、その場の金額を見てから決められます。
-          宅配買取は、申し込んだ日ではなく品物が届いた日の価格で査定すると書いている社があります。
+          店頭に持ち込むなら、その場の金額を見てから決められます。宅配買取は、申し込んだ日ではなく品物が届いた日の価格で査定すると書いている社があります。
         </p>
         <blockquote className="mb-3 rounded-xl border border-border bg-surface p-4 text-sm leading-relaxed">
           <p>「宅配買取をご利用の場合、到着日の買取価格で査定致します。」</p>
@@ -249,18 +235,14 @@ export default function WeekendPage() {
           </footer>
         </blockquote>
         <p className="mb-3 text-base leading-relaxed">
-          金曜の夕方に出すと、着くのは週明けになります。
-          そのあいだに上の表のぶんだけ動いていることがある、ということです。
-          どの日の価格を使うかは店によって違うので、送る前にその社の記載を確かめてください。
-          返送料や少額のときの差し引きは
+          金曜の夕方に出すと、着くのは週明けになります。そのあいだに上の表のぶんだけ動いていることがある、ということです。どの日の価格を使うかは店によって違うので、送る前にその社の記載を確かめてください。返送料や少額のときの差し引きは
           <Link href="/column/mail-in-purchase" className="mx-1 underline underline-offset-2 hover:text-accent">
             宅配買取の記事
           </Link>
           にまとめています。
         </p>
         <p className="text-base leading-relaxed">
-          なお、どの曜日に売るかより、どの店に売るかのほうが金額を動かすことが多いです。
-          これも記録から測っていて、
+          なお、どの曜日に売るかより、どの店に売るかのほうが金額を動かすことが多いです。これも記録から測っていて、
           <Link href="/column/timing-vs-shop" className="mx-1 underline underline-offset-2 hover:text-accent">
             売る日と売る店、どちらが金額を動かすのか
           </Link>
@@ -275,13 +257,7 @@ export default function WeekendPage() {
       <section className="mb-10 rounded-xl border border-border bg-surface p-4">
         <h2 className="font-serif-jp mb-2 text-base font-semibold">この記録について</h2>
         <p className="text-xs leading-relaxed text-muted">
-          各社が公式サイトで公表している買取参考価格を、当サイトが毎日くりかえし取得して記録したものです。
-          期間は{jaDate(m.firstDate)}から{jaDate(m.lastDate)}までの{m.days}日ぶんで、
-          日付はその社が価格を公表した日です。
-          「値を変えた社の割合」は、前日と当日の両方で価格を取れた社だけで数えています。
-          記録が飛んだ区間は前日比にならないため除いています。
-          買取店の公式サイトは自社の当日の価格しか載せないので、曜日ごとの比較は記録している側でしか作れません。
-          数字はページを作るたびに最新の記録から計算し直しています。
+          各社が公式サイトで公表している買取参考価格を、当サイトが毎日くりかえし取得して記録したものです。期間は{jaDate(m.firstDate)}から{jaDate(m.lastDate)}までの{m.days}日ぶんで、日付はその社が価格を公表した日です。「値を変えた社の割合」は、前日と当日の両方で価格を取れた社だけで数えています。記録が飛んだ区間は前日比にならないため除いています。買取店の公式サイトは自社の当日の価格しか載せないので、曜日ごとの比較は記録している側でしか作れません。数字はページを作るたびに最新の記録から計算し直しています。
         </p>
       </section>
 

@@ -235,8 +235,7 @@ export default function SimulatorForm({ companies }: { companies: Company[] }) {
                   )}
                   {!deduction && uncertain && (
                     <p className="mt-2 text-xs leading-relaxed text-amber-700 dark:text-amber-400">
-                      この社は「買取相場価格に手数料は含まれておりません」と書いていますが、
-                      金額は公表されていません。
+                      この社は「買取相場価格に手数料は含まれておりません」と書いていますが、金額は公表されていません。
                     </p>
                   )}
                 </div>

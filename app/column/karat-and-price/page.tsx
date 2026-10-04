@@ -57,10 +57,7 @@ export default function KaratAndPricePage() {
         K18は「金75%」。では値段も75%になるのか
       </h1>
       <p className="mb-8 text-base leading-relaxed text-muted">
-        指輪の内側にある「K18」「750」といった刻印は、その品物に金が何%入っているかを表しています。
-        ここまでは決まった数字なので、どこで調べても同じです。
-        では、その含有率どおりの金額で買い取られるのか。掲載中の買取店が純度ごとに公表している
-        価格を使って、実際に確かめました。
+        指輪の内側にある「K18」「750」といった刻印は、その品物に金が何%入っているかを表しています。ここまでは決まった数字なので、どこで調べても同じです。では、その含有率どおりの金額で買い取られるのか。掲載中の買取店が純度ごとに公表している価格を使って、実際に確かめました。
       </p>
 
       {/* 1. 刻印の意味 */}
@@ -87,10 +84,7 @@ export default function KaratAndPricePage() {
           </table>
         </div>
         <p className="text-xs text-muted">
-          Kのあとの数字は24分率です。K18なら18/24で75%。刻印が「750」「585」のように
-          千分率で書かれていることもあり、意味は同じです。
-          なおK24をここでは100%としていますが、これは24/24という刻印上の定義で、
-          純度100%の金を作ることは実際にはできません。地金は99.99%などと表示されます。
+          Kのあとの数字は24分率です。K18なら18/24で75%。刻印が「750」「585」のように千分率で書かれていることもあり、意味は同じです。なおK24をここでは100%としていますが、これは24/24という刻印上の定義で、純度100%の金を作ることは実際にはできません。地金は99.99%などと表示されます。
           {k24 ? `本日のK24の買取価格は、掲載社の中央値で1gあたり${k24.toLocaleString("ja-JP")}円です。` : ""}
         </p>
       </section>
@@ -99,9 +93,7 @@ export default function KaratAndPricePage() {
       <section className="mb-10">
         <h2 className="font-serif-jp mb-3 text-lg font-semibold">含有率どおりには買われていない</h2>
         <p className="mb-4 text-sm leading-relaxed text-foreground/80">
-          各社がK24とそれ以外の純度で公表している価格を割り算すると、
-          「K24を100としたとき、その純度はいくらで買われているか」が出ます。
-          これを含有率と並べたのが次の表です。
+          各社がK24とそれ以外の純度で公表している価格を割り算すると、「K24を100としたとき、その純度はいくらで買われているか」が出ます。これを含有率と並べたのが次の表です。
         </p>
         <div className="mb-3 overflow-x-auto">
           <table className="w-full table-fixed border-collapse text-xs sm:text-sm">
@@ -140,10 +132,7 @@ export default function KaratAndPricePage() {
           純度が下がるほど、含有率より安く買われていることが分かります。
           {lowest && (
             <>
-              いちばん低い{PURITY_LABELS[lowest.purity]}では、含有率{pct(lowest.fineness)}に対して
-              実際は<span className="font-semibold">{pct(lowest.priceRatio)}</span>、
-              差は{Math.abs(lowest.gap).toFixed(1)}ポイントです。
-              比較できた{lowest.count}社のうち、含有率を上回る価格を出していたのは
+              いちばん低い{PURITY_LABELS[lowest.purity]}では、含有率{pct(lowest.fineness)}に対して実際は<span className="font-semibold">{pct(lowest.priceRatio)}</span>、差は{Math.abs(lowest.gap).toFixed(1)}ポイントです。比較できた{lowest.count}社のうち、含有率を上回る価格を出していたのは
               {lowest.above}社でした。
             </>
           )}
@@ -156,14 +145,10 @@ export default function KaratAndPricePage() {
           <h2 className="font-serif-jp mb-3 text-lg font-semibold">K18だけは逆になる</h2>
           <p className="mb-3 text-sm leading-relaxed text-foreground/80">
             例外がひとつあります。K18は含有率75%に対して、実際の価格比は
-            <span className="font-semibold">{pct(k18.priceRatio)}</span>。
-            含有率を<span className="font-semibold">{k18.gap.toFixed(1)}ポイント上回って</span>います。
-            比較できた{k18.count}社のうち{k18.above}社が、含有率より高い価格を付けていました。
-            一部の店の傾向ではなく、ほとんどの店がそうしているということです。
+            <span className="font-semibold">{pct(k18.priceRatio)}</span>。含有率を<span className="font-semibold">{k18.gap.toFixed(1)}ポイント上回って</span>います。比較できた{k18.count}社のうち{k18.above}社が、含有率より高い価格を付けていました。一部の店の傾向ではなく、ほとんどの店がそうしているということです。
           </p>
           <p className="text-sm leading-relaxed text-foreground/80">
-            K18は日本のジュエリーでもっとも多い純度です。ただ、なぜこの純度だけ扱いが違うのかは、
-            各社が理由を公表していないため当サイトでは分かりません。分かるのは、そうなっているという事実だけです。
+            K18は日本のジュエリーでもっとも多い純度です。ただ、なぜこの純度だけ扱いが違うのかは、各社が理由を公表していないため当サイトでは分かりません。分かるのは、そうなっているという事実だけです。
           </p>
         </section>
       )}
@@ -172,8 +157,7 @@ export default function KaratAndPricePage() {
       <section className="mb-10">
         <h2 className="font-serif-jp mb-3 text-lg font-semibold">低い純度ほど不利になる理由</h2>
         <p className="mb-3 text-sm leading-relaxed text-foreground/80">
-          買取店は買い取った金を精錬して金属に戻します。その費用について、おたからやは自社サイトで
-          こう書いています。
+          買取店は買い取った金を精錬して金属に戻します。その費用について、おたからやは自社サイトでこう書いています。
         </p>
         <figure className="my-4 border-l-2 border-accent/50 pl-4">
           <blockquote className="text-sm leading-relaxed text-foreground/80">
@@ -184,9 +168,7 @@ export default function KaratAndPricePage() {
           </figcaption>
         </figure>
         <p className="text-sm leading-relaxed text-foreground/80">
-          この費用が、品物の重さに対してかかるのだとすれば、純度が低いほど取り出せる金は少なく、
-          同じ手間に対して回収できる金属が減ります。そのぶん差し引く幅が広くなる、という説明は成り立ちます。
-          ただしこれは表の形からの推測で、各社が費用の内訳を公表しているわけではありません。
+          この費用が、品物の重さに対してかかるのだとすれば、純度が低いほど取り出せる金は少なく、同じ手間に対して回収できる金属が減ります。そのぶん差し引く幅が広くなる、という説明は成り立ちます。ただしこれは表の形からの推測で、各社が費用の内訳を公表しているわけではありません。
         </p>
       </section>
 
@@ -208,8 +190,7 @@ export default function KaratAndPricePage() {
             K24で上位の店が、K10でも上位とは限りません。
           </li>
           <li>
-            刻印が読めない、または刻印がない場合は、純度が確定しないため金額も出せません。
-            その場合は査定で確認することになります。
+            刻印が読めない、または刻印がない場合は、純度が確定しないため金額も出せません。その場合は査定で確認することになります。
           </li>
         </ul>
         <p className="text-sm leading-relaxed text-foreground/80">

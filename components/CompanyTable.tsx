@@ -202,9 +202,7 @@ export default function CompanyTable({
 
       {hasWeight && (
         <p className="mb-4 text-xs leading-relaxed text-muted">
-          {PURITY_LABELS[purity]}を{grams}g売った場合の金額を、各行に出しています。
-          差し引きを公表している社はその額を引いた「手取り」まで、
-          公表していない社は引かれることだけを書いています。順位は公表単価のままです。
+          {PURITY_LABELS[purity]}を{grams}g売った場合の金額を、各行に出しています。差し引きを公表している社はその額を引いた「手取り」まで、公表していない社は引かれることだけを書いています。順位は公表単価のままです。
         </p>
       )}
 

@@ -96,12 +96,7 @@ export default function WhatAGramMeansPage() {
         「1gいくら」は、店ごとに同じ意味ではない
       </h1>
       <p className="mb-8 text-base leading-relaxed text-muted">
-        金の買取店はどこも「K24 1gあたり○○円」という数字を出しています。同じ形をしているので、
-        高い順に並べれば比べたことになりそうに見えます。当サイトも、まさにそれをやっています。
-        ところが各社の注意書きまで読むと、同じ「1gいくら」が指しているものが揃っていませんでした。
-        以下で引用しているのは各社が自社サイトに書いていることで、順位・比率・相関は
-        そこから当サイトが計算したものです。口コミの評価だけは各社の公表資料ではなく、
-        当サイトがGoogleマップから集めた数字です。
+        金の買取店はどこも「K24 1gあたり○○円」という数字を出しています。同じ形をしているので、高い順に並べれば比べたことになりそうに見えます。当サイトも、まさにそれをやっています。ところが各社の注意書きまで読むと、同じ「1gいくら」が指しているものが揃っていませんでした。以下で引用しているのは各社が自社サイトに書いていることで、順位・比率・相関はそこから当サイトが計算したものです。口コミの評価だけは各社の公表資料ではなく、当サイトがGoogleマップから集めた数字です。
       </p>
 
       {/* 1. 天井 */}
@@ -111,8 +106,7 @@ export default function WhatAGramMeansPage() {
         </h2>
         <p className="mb-3 text-sm leading-relaxed text-foreground/80">
           田中貴金属工業が毎日公表している店頭買取価格は、国内の貴金属取引の事実上の基準です。
-          {jaDate(bench.referenceDate)}時点でK24が1gあたり{yen(bench.reference)}円。
-          当サイトが価格を追っている{bench.rows.length}社をこれと並べると、
+          {jaDate(bench.referenceDate)}時点でK24が1gあたり{yen(bench.reference)}円。当サイトが価格を追っている{bench.rows.length}社をこれと並べると、
           <span className="font-semibold">{bench.aboveReference}社</span>
           がこれを上回りました。中央値は建値の{bench.medianRatio.toFixed(1)}%です。
         </p>
@@ -159,9 +153,7 @@ export default function WhatAGramMeansPage() {
           <a href={bench.referenceUrl} target="_blank" rel="noopener noreferrer nofollow" className="underline underline-offset-2">
             同社の公表ページ
           </a>
-          （{jaDate(bench.referenceDate)}時点）より。なお同社の建値は地金の買取基準値で、
-          各社が買うのは宝飾品のスクラップが中心です。前提が違うので、この比率には
-          「店の取り分」と「地金とスクラップの差」の両方が混ざっています。
+          （{jaDate(bench.referenceDate)}時点）より。なお同社の建値は地金の買取基準値で、各社が買うのは宝飾品のスクラップが中心です。前提が違うので、この比率には「店の取り分」と「地金とスクラップの差」の両方が混ざっています。
         </p>
       </section>
 
@@ -176,9 +168,7 @@ export default function WhatAGramMeansPage() {
           です。中身の金は同じでも、溶かす手間がかかるぶんだけ引かれます。
         </p>
         <p className="text-sm leading-relaxed text-foreground/80">
-          つまり「K24の相場」を調べて地金の数字を見ていると、実際に指輪を持ち込んだときの金額とは
-          ずれます。当サイトが各社から取っているのは宝飾品側の単価ですが、この区別は
-          比較表の見出しには出てきません。
+          つまり「K24の相場」を調べて地金の数字を見ていると、実際に指輪を持ち込んだときの金額とはずれます。当サイトが各社から取っているのは宝飾品側の単価ですが、この区別は比較表の見出しには出てきません。
         </p>
       </section>
 
@@ -192,10 +182,7 @@ export default function WhatAGramMeansPage() {
           {QUOTES.otakaraya.scope}
         </Quote>
         <p className="text-sm leading-relaxed text-foreground/80">
-          掲載されているのは、造幣局の刻印が入ったメダルや小判を基準にした金額です。
-          指輪やネックレスを持ち込んだ場合、この数字がそのまま適用されるとは限らないと、
-          同社自身が断っています。それでも比較表では、他社がスクラップ向けに出している単価と
-          同じ列に並びます。当サイトの会社ページには、この注意書きを載せるようにしました。
+          掲載されているのは、造幣局の刻印が入ったメダルや小判を基準にした金額です。指輪やネックレスを持ち込んだ場合、この数字がそのまま適用されるとは限らないと、同社自身が断っています。それでも比較表では、他社がスクラップ向けに出している単価と同じ列に並びます。当サイトの会社ページには、この注意書きを載せるようにしました。
         </p>
       </section>
 
@@ -203,15 +190,10 @@ export default function WhatAGramMeansPage() {
       <section className="mb-10">
         <h2 className="font-serif-jp mb-3 text-lg font-semibold">表示額から引く店と、あらかじめ織り込む店</h2>
         <p className="mb-3 text-sm leading-relaxed text-foreground/80">
-          ここがいちばん金額に効きます。表示単価から分析料を後で引く店があり、
-          費用を単価に織り込んだうえで「手数料は無料」と書く店があり、
-          引かれるものはないと明記する店があります。
-          同じ「無料」の2文字が、指しているものが違います。
+          ここがいちばん金額に効きます。表示単価から分析料を後で引く店があり、費用を単価に織り込んだうえで「手数料は無料」と書く店があり、引かれるものはないと明記する店があります。同じ「無料」の2文字が、指しているものが違います。
         </p>
         <p className="mb-4 text-sm leading-relaxed text-foreground/80">
-          高く見える単価から後で引かれるのと、引かれる前提で少し低い単価が出ているのとでは、
-          並べて比べたときの意味が変わります。表示単価だけを見て順位を付けると、
-          前者が有利に、後者が不利に出ます。
+          高く見える単価から後で引かれるのと、引かれる前提で少し低い単価が出ているのとでは、並べて比べたときの意味が変わります。表示単価だけを見て順位を付けると、前者が有利に、後者が不利に出ます。
         </p>
         <Link
           href="/column/fees"
@@ -226,18 +208,13 @@ export default function WhatAGramMeansPage() {
         <section className="mb-10">
           <h2 className="font-serif-jp mb-3 text-lg font-semibold">口コミは、この判断の代わりにならない</h2>
           <p className="mb-3 text-sm leading-relaxed text-foreground/80">
-            価格の前提が揃っていないなら、評判のいい店を選べばいいのでは、と考えたくなります。
-            当サイトは{review.count}社についてGoogleの評価を集めているので、
-            評価と買取価格に関係があるかを計算しました。相関係数は
+            価格の前提が揃っていないなら、評判のいい店を選べばいいのでは、と考えたくなります。当サイトは{review.count}社についてGoogleの評価を集めているので、評価と買取価格に関係があるかを計算しました。相関係数は
             <span className="font-semibold">{review.correlation.toFixed(3)}</span>
             。ほとんど関係がありません。
           </p>
           <p className="mb-3 text-sm leading-relaxed text-foreground/80">
             理由のひとつは、評価がほとんどばらけないことです。
-            {review.count}社の評価は{review.ratingRange[0].toFixed(2)}〜{review.ratingRange[1].toFixed(2)}の幅がありますが、
-            そのうち{review.clustered.count}社は{review.clustered.low.toFixed(2)}〜{review.clustered.high.toFixed(2)}の
-            わずか{(review.clustered.high - review.clustered.low).toFixed(2)}ポイントの間に固まっています。
-            差が付かないものを基準にしても、店は選べません。
+            {review.count}社の評価は{review.ratingRange[0].toFixed(2)}〜{review.ratingRange[1].toFixed(2)}の幅がありますが、そのうち{review.clustered.count}社は{review.clustered.low.toFixed(2)}〜{review.clustered.high.toFixed(2)}のわずか{(review.clustered.high - review.clustered.low).toFixed(2)}ポイントの間に固まっています。差が付かないものを基準にしても、店は選べません。
           </p>
           {review.counterExample && (
             <p className="text-sm leading-relaxed text-foreground/80">
@@ -256,21 +233,17 @@ export default function WhatAGramMeansPage() {
         <ul className="flex list-disc flex-col gap-2 pl-5 text-sm leading-relaxed text-foreground/80">
           <li>
             <span className="font-semibold">増額キャンペーンは、確認できたものだけを載せています。</span>
-            買取金額を数十%上乗せする期間限定の企画があり、その規模はここで扱った数%の差を
-            簡単に上回ります。価格と違って自動取得ができないため、各社のページを見て
-            転記しており、載っていない＝実施していない、ではありません。
+            買取金額を数十%上乗せする期間限定の企画があり、その規模はここで扱った数%の差を簡単に上回ります。価格と違って自動取得ができないため、各社のページを見て転記しており、載っていない＝実施していない、ではありません。
             {campaigns.length > 0
               ? `${new Date().toLocaleDateString("ja-JP")}時点で${campaigns.length}社の実施を確認しており、該当する会社のページに条件を載せています。`
               : "現時点で確認できているものはありません。"}
             実際に売る前に、各社の告知を必ずご確認ください。
           </li>
           <li>
-            フランチャイズが中心の会社では、掲載の参考相場と実際の店舗の金額が異なることがあります。
-            該当する会社の個別ページには、その旨を記載しています。
+            フランチャイズが中心の会社では、掲載の参考相場と実際の店舗の金額が異なることがあります。該当する会社の個別ページには、その旨を記載しています。
           </li>
           <li>
-            ここで比べているのはノーブランドの貴金属です。ブランドのジュエリーや時計は、
-            金としての重さではなく品物として値が付くため、1gあたりの単価では比較できません。
+            ここで比べているのはノーブランドの貴金属です。ブランドのジュエリーや時計は、金としての重さではなく品物として値が付くため、1gあたりの単価では比較できません。
           </li>
         </ul>
       </section>
@@ -279,9 +252,7 @@ export default function WhatAGramMeansPage() {
       <section className="mb-10">
         <h2 className="font-serif-jp mb-3 text-lg font-semibold">では何を見ればいいか</h2>
         <p className="mb-3 text-sm leading-relaxed text-foreground/80">
-          単価を比べること自体は有効です。全社が同じ建値を上限にしている以上、
-          そこからどれだけ引くかが店の取り分であり、それは実際に手取りを左右します。
-          ただし単価だけで決めると、ここまでに挙げた差を見落とします。
+          単価を比べること自体は有効です。全社が同じ建値を上限にしている以上、そこからどれだけ引くかが店の取り分であり、それは実際に手取りを左右します。ただし単価だけで決めると、ここまでに挙げた差を見落とします。
         </p>
         <ul className="mb-4 flex list-disc flex-col gap-2 pl-5 text-sm leading-relaxed text-foreground/80">
           <li>その単価が、自分の持っているもの（指輪か、地金か、刻印入りのメダルか）に対する金額か</li>
@@ -290,10 +261,7 @@ export default function WhatAGramMeansPage() {
           <li>その時期にキャンペーンが出ていないか(当サイトで確認できたものは会社ページに記載しています)</li>
         </ul>
         <p className="text-sm leading-relaxed text-foreground/80">
-          どれも各社が自社サイトに書いていることで、探せば読めます。ただ、
-          書いてある場所が価格表の下の小さな注意書きなので、まず読まれません。
-          当サイトでは、会社ごとのページにこうした注意書きを転記して、
-          単価の隣に置くようにしています。
+          どれも各社が自社サイトに書いていることで、探せば読めます。ただ、書いてある場所が価格表の下の小さな注意書きなので、まず読まれません。当サイトでは、会社ごとのページにこうした注意書きを転記して、単価の隣に置くようにしています。
         </p>
       </section>
 

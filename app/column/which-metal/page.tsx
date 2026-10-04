@@ -76,10 +76,7 @@ export default function WhichMetalPage() {
       </h1>
 
       <p className="mb-4 text-base leading-relaxed">
-        「貴金属買取」と書いてある店でも、全部の金属に値を付けているわけではありません。
-        どの店も自社の価格しか載せないので、「銀を買い取ってくれる店がどれだけあるか」は
-        どこにも書かれていません。
-        当サイトは{total}社の公表価格を毎日取っているので、そこから数えました。
+        「貴金属買取」と書いてある店でも、全部の金属に値を付けているわけではありません。どの店も自社の価格しか載せないので、「銀を買い取ってくれる店がどれだけあるか」はどこにも書かれていません。当サイトは{total}社の公表価格を毎日取っているので、そこから数えました。
       </p>
 
       {/* ---- 1. 社数 ---- */}
@@ -108,15 +105,11 @@ export default function WhichMetalPage() {
           </table>
         </div>
         <p className="mb-3 text-base leading-relaxed">
-          いちばん少ないのは<strong>{fewest.label}</strong>で{fewest.publishing}社、
-          いちばん多い{most.label}の{most.publishing}社と比べると
-          {most.publishing - fewest.publishing}社の差があります。
-          持ち込む前に扱っているかを確かめる必要があるのは、{fewest.label}のほうです。
+          いちばん少ないのは<strong>{fewest.label}</strong>で{fewest.publishing}社、いちばん多い{most.label}の{most.publishing}社と比べると
+          {most.publishing - fewest.publishing}社の差があります。持ち込む前に扱っているかを確かめる必要があるのは、{fewest.label}のほうです。
         </p>
         <p className="text-base leading-relaxed">
-          ここで数えているのは「公表しているかどうか」です。
-          載せていない店が買い取らないとはかぎらず、店頭で聞けば値を付ける場合もあります。
-          ただ、先に金額を見て選べるかどうかは、持っていく前の判断材料として別のことです。
+          ここで数えているのは「公表しているかどうか」です。載せていない店が買い取らないとはかぎらず、店頭で聞けば値を付ける場合もあります。ただ、先に金額を見て選べるかどうかは、持っていく前の判断材料として別のことです。
         </p>
       </section>
 
@@ -124,8 +117,7 @@ export default function WhichMetalPage() {
       <section className="mb-10">
         <h2 className="font-serif-jp mb-3 text-lg font-semibold">店が少ない金属ほど、金額の幅が広い</h2>
         <p className="mb-3 text-base leading-relaxed">
-          同じ日に、同じ純度で、各社がいくら出しているかを並べました。
-          上下1社ずつを外した開きも載せています。極端な1社だけで結論が決まっていないかを見るためです。
+          同じ日に、同じ純度で、各社がいくら出しているかを並べました。上下1社ずつを外した開きも載せています。極端な1社だけで結論が決まっていないかを見るためです。
         </p>
         <div className="mb-3 overflow-hidden rounded-xl border border-border">
           <table className="w-full table-fixed text-xs sm:text-sm">
@@ -167,8 +159,7 @@ export default function WhichMetalPage() {
           </p>
         )}
         <p className="text-base leading-relaxed">
-          選べる店が少ないほど、相場から離れた値のままでも成り立ってしまう、という見方ができます。
-          金のように20社近くが毎日値を出していると、そこから大きく外れた店は選ばれません。
+          選べる店が少ないほど、相場から離れた値のままでも成り立ってしまう、という見方ができます。金のように20社近くが毎日値を出していると、そこから大きく外れた店は選ばれません。
         </p>
       </section>
 
@@ -176,9 +167,7 @@ export default function WhichMetalPage() {
       <section className="mb-10">
         <h2 className="font-serif-jp mb-3 text-lg font-semibold">単価が低いほど、同じ手数料が重い</h2>
         <p className="mb-3 text-base leading-relaxed">
-          手数料は「1点につき何円」のように、品物の種類ではなく金額や件数で決まります。
-          そのため単価の低い金属ほど、同じ額を引かれても割合が大きくなります。
-          実際に各社が公表している額を、グラムに直してみます。
+          手数料は「1点につき何円」のように、品物の種類ではなく金額や件数で決まります。そのため単価の低い金属ほど、同じ額を引かれても割合が大きくなります。実際に各社が公表している額を、グラムに直してみます。
         </p>
         <div className="mb-3 overflow-hidden rounded-xl border border-border">
           <table className="w-full table-fixed text-xs sm:text-sm">
@@ -217,19 +206,15 @@ export default function WhichMetalPage() {
           </table>
         </div>
         <p className="mb-2 text-xs leading-relaxed text-muted">
-          分析料は、まねきやが公表している階段のいちばん下の額(税込)。
-          宅配の負担金は、リファスタが20万円未満の宅配買取について公表している額です。
-          どちらも当サイトが各社の記載から持っている値で、記事側には書いていません。
+          分析料は、まねきやが公表している階段のいちばん下の額(税込)。宅配の負担金は、リファスタが20万円未満の宅配買取について公表している額です。どちらも当サイトが各社の記載から持っている値で、記事側には書いていません。
         </p>
         <p className="mb-3 text-base leading-relaxed">
-          同じ金額でも、金ならごくわずかな重さで済み、銀では何グラム分にもなります。
-          銀のアクセサリーを1点だけ送ると、手数料のほうが高くつくことがあるのはこのためです。
+          同じ金額でも、金ならごくわずかな重さで済み、銀では何グラム分にもなります。銀のアクセサリーを1点だけ送ると、手数料のほうが高くつくことがあるのはこのためです。
           {" "}
           <Link href="/compare" className="underline underline-offset-2">
             比較ページ
           </Link>
-          で重さを入れると、各社の差し引き後にいくら残るかが行ごとに出ます。
-          引かれる額が品物の値段を上回る重さでは、金額ではなくその旨が出るようにしてあります。
+          で重さを入れると、各社の差し引き後にいくら残るかが行ごとに出ます。引かれる額が品物の値段を上回る重さでは、金額ではなくその旨が出るようにしてあります。
         </p>
         <p className="text-base leading-relaxed">
           手数料そのものの中身は{" "}
@@ -245,8 +230,7 @@ export default function WhichMetalPage() {
         <h2 className="font-serif-jp mb-3 text-lg font-semibold">売り先が少ない金属を売るとき</h2>
         <ul className="list-disc space-y-2 rounded-xl border border-border bg-surface p-4 pl-9 text-sm leading-relaxed">
           <li>
-            値を公表している店から選ぶ。{fewest.label}は{fewest.publishing}社しかないので、
-            近所の1軒だけで決めると、比べる相手がいないまま終わります。
+            値を公表している店から選ぶ。{fewest.label}は{fewest.publishing}社しかないので、近所の1軒だけで決めると、比べる相手がいないまま終わります。
           </li>
           <li>
             まとめて持ち込む。1点ごとや1回ごとに引かれる手数料は、点数が少ないほど割合が大きくなります。
@@ -263,17 +247,11 @@ export default function WhichMetalPage() {
       <section className="mb-10 rounded-xl border border-border bg-surface p-4">
         <h2 className="font-serif-jp mb-2 text-base font-semibold">この記事について</h2>
         <p className="text-xs leading-relaxed text-muted">
-          数字はすべて、当サイトが各社の公式サイトから毎日取得している公表価格を、
-          ビルドのたびに測り直して出しています。本文に数値を書いていないので、
-          社数や価格が変われば、ここに出る結論も一緒に変わります。
+          数字はすべて、当サイトが各社の公式サイトから毎日取得している公表価格を、ビルドのたびに測り直して出しています。本文に数値を書いていないので、社数や価格が変われば、ここに出る結論も一緒に変わります。
           {measuredOn && <>各社の公表日のうち最も新しいものは{jpDate(measuredOn)}です。</>}
         </p>
         <p className="mt-2 text-xs leading-relaxed text-muted">
-          公表から{PRICE_MAX_AGE_DAYS}日を超えた価格は、同じ日の横並びに使えないものとして
-          比較から外しています。そのため「価格を出している社」は、
-          当サイトが今日の比較に使えている社の数です。
-          各社の公表価格は宝飾品のスクラップを前提とした参考価格で、
-          実際の買取金額は品物の状態や点数で変わります。
+          公表から{PRICE_MAX_AGE_DAYS}日を超えた価格は、同じ日の横並びに使えないものとして比較から外しています。そのため「価格を出している社」は、当サイトが今日の比較に使えている社の数です。各社の公表価格は宝飾品のスクラップを前提とした参考価格で、実際の買取金額は品物の状態や点数で変わります。
         </p>
       </section>
 

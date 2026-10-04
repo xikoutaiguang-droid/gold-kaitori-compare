@@ -48,8 +48,7 @@ export default function FuturesOutlook({
         </div>
 
         <p className="mt-3 text-xs leading-relaxed text-muted">
-          先物価格は市場参加者が織り込んでいる将来の受渡価格の目安であり、当サイト独自の予想ではありません。
-          必ずその通りになるわけではなく、投資助言でもありません。
+          先物価格は市場参加者が織り込んでいる将来の受渡価格の目安であり、当サイト独自の予想ではありません。必ずその通りになるわけではなく、投資助言でもありません。
         </p>
       </div>
 

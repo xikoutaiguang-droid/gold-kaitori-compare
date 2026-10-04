@@ -71,9 +71,7 @@ export default function PriceGapColumnPage() {
         同じ日に、同じ金を、{k24.count}社はいくらで買うのか
       </h1>
       <p className="mb-8 text-base leading-relaxed text-muted">
-        「買取店によって金額が違う」とはよく言われますが、実際どれくらい違うのかを数字で見た人は
-        多くありません。当サイトは{k24.count}社の公表買取価格を毎日集めているので、
-        同じ日・同じ純度で並べて測ってみました。
+        「買取店によって金額が違う」とはよく言われますが、実際どれくらい違うのかを数字で見た人は多くありません。当サイトは{k24.count}社の公表買取価格を毎日集めているので、同じ日・同じ純度で並べて測ってみました。
         {measuredOn ? `以下は${jaDate(measuredOn)}時点の公表値です。` : ""}
       </p>
 
@@ -106,8 +104,7 @@ export default function PriceGapColumnPage() {
         </div>
         <p className="text-sm leading-relaxed text-foreground/80">
           {PURITY_LABELS[k24.purity]}で{yen(k24.range)}円、{PURITY_LABELS[k18.purity]}で
-          {yen(k18.range)}円の開きがあります。ただしこの数字をそのまま受け取るのは正確ではありません。
-          最高値と最低値という両端だけを見た数字だからです。
+          {yen(k18.range)}円の開きがあります。ただしこの数字をそのまま受け取るのは正確ではありません。最高値と最低値という両端だけを見た数字だからです。
         </p>
       </section>
 
@@ -121,9 +118,7 @@ export default function PriceGapColumnPage() {
           {PURITY_LABELS[k18.purity]}も{yen(k18.range)}円から{yen(k18.trimmedRange)}円になります。
         </p>
         <p className="text-sm leading-relaxed text-foreground/80">
-          つまり「{yen(k24.range)}円も違う」という見出しは、極端な1社が作っています。
-          大半の店は、そこまで離れていません。ここを曖昧にしたまま
-          「店によって何万円も変わる」とだけ言うのは、正確ではないと考えています。
+          つまり「{yen(k24.range)}円も違う」という見出しは、極端な1社が作っています。大半の店は、そこまで離れていません。ここを曖昧にしたまま「店によって何万円も変わる」とだけ言うのは、正確ではないと考えています。
         </p>
       </section>
 
@@ -133,11 +128,9 @@ export default function PriceGapColumnPage() {
           {downsideIsBigger ? "それでも、得より損のほうが大きい" : "上振れと下振れの大きさ"}
         </h2>
         <p className="mb-4 text-sm leading-relaxed text-foreground/80">
-          ここからが、この数字を並べて初めて見えたことです。
-          ちょうど真ん中の店（中央値）を基準にすると、上と下は同じ幅ではありません。
+          ここからが、この数字を並べて初めて見えたことです。ちょうど真ん中の店（中央値）を基準にすると、上と下は同じ幅ではありません。
           {PURITY_LABELS[k24.purity]}の場合、いちばん高い店を選んでも中央値より
-          <span className="font-semibold">+{yen(k24.upside)}円</span>しか増えませんが、
-          いちばん安い店に当たると中央値より
+          <span className="font-semibold">+{yen(k24.upside)}円</span>しか増えませんが、いちばん安い店に当たると中央値より
           <span className="font-semibold">−{yen(k24.downside)}円</span>になります。
           {downsideIsBigger && ratio >= 1.5 ? (
             <>
@@ -183,22 +176,14 @@ export default function PriceGapColumnPage() {
       <section className="mb-10">
         <h2 className="font-serif-jp mb-3 text-lg font-semibold">なぜ上下が対称にならないのか</h2>
         <p className="mb-3 text-sm leading-relaxed text-foreground/80">
-          上には天井があります。金の地金価格という共通の基準があり、買取店はそこから
-          自社の取り分を引いた額を提示します。おたからやは自社サイトで
-          「買取価格は、精錬・加工に要する費用等を差し引いた金額となります」と、
-          コメ兵は掲載価格を「田中貴金属工業株式会社の公表価格等を基準に当社が算出した」ものと
-          明記しています。基準より高く買う理由がないので、上には限りがあります。
+          上には天井があります。金の地金価格という共通の基準があり、買取店はそこから自社の取り分を引いた額を提示します。おたからやは自社サイトで「買取価格は、精錬・加工に要する費用等を差し引いた金額となります」と、コメ兵は掲載価格を「田中貴金属工業株式会社の公表価格等を基準に当社が算出した」ものと明記しています。基準より高く買う理由がないので、上には限りがあります。
         </p>
         <p className="mb-3 text-sm leading-relaxed text-foreground/80">
           実際、数字もそうなっています。{PURITY_LABELS[k24.purity]}で中央値以上の社の価格は
-          <span className="font-semibold">{yen(k24.upperSpread)}円</span>の幅に収まっているのに対し、
-          中央値以下は<span className="font-semibold">{yen(k24.lowerSpread)}円</span>に広がっています。
-          上は密集し、下は散らばります。
+          <span className="font-semibold">{yen(k24.upperSpread)}円</span>の幅に収まっているのに対し、中央値以下は<span className="font-semibold">{yen(k24.lowerSpread)}円</span>に広がっています。上は密集し、下は散らばります。
         </p>
         <p className="text-sm leading-relaxed text-foreground/80">
-          下に、これに当たる共通の基準はありません。どこまで引くかは各社の方針次第で、
-          外から見える一律の下限はない、というのがここから言えることです。
-          なぜその方針になるのかは各社が公表していないため、当サイトでは分かりません。
+          下に、これに当たる共通の基準はありません。どこまで引くかは各社の方針次第で、外から見える一律の下限はない、というのがここから言えることです。なぜその方針になるのかは各社が公表していないため、当サイトでは分かりません。
         </p>
       </section>
 
@@ -212,9 +197,7 @@ export default function PriceGapColumnPage() {
           +{yen(k24.upside)}円/gですが、下位を避けるだけで{yen(k24.downside)}円/gの目減りを防げます。
         </p>
         <p className="text-sm leading-relaxed text-foreground/80">
-          そのために必要なのは、相場そのものではなく
-          「今日この店は、他社の中で何番目か」です。当サイトが順位と中央値との差を必ず併記しているのは、
-          その1点が分かれば足りるからです。
+          そのために必要なのは、相場そのものではなく「今日この店は、他社の中で何番目か」です。当サイトが順位と中央値との差を必ず併記しているのは、その1点が分かれば足りるからです。
         </p>
       </section>
 
@@ -223,12 +206,10 @@ export default function PriceGapColumnPage() {
         <h2 className="font-serif-jp mb-3 text-base font-semibold">この記事が示していないこと</h2>
         <ul className="flex list-disc flex-col gap-2 pl-5 text-sm leading-relaxed text-foreground/80">
           <li>
-            ここで比べているのは各社が<span className="font-semibold">公表している参考価格</span>です。
-            実際の査定額は、品物の状態・手数料の有無・キャンペーンなどで変わります。
+            ここで比べているのは各社が<span className="font-semibold">公表している参考価格</span>です。実際の査定額は、品物の状態・手数料の有無・キャンペーンなどで変わります。
           </li>
           <li>
-            価格を公表していない社は、この比較に入っていません。公表していないことと、
-            金額が高いか安いかは別の話です。
+            価格を公表していない社は、この比較に入っていません。公表していないことと、金額が高いか安いかは別の話です。
           </li>
           <li>
             測ったのは{measuredOn ? jaDate(measuredOn) : "直近"}の1日分です。順位は日によって入れ替わります。

@@ -43,9 +43,7 @@ export default function HallmarkPage() {
         金の刻印はどこにある？「750」「K18」「GP」の見分け方
       </h1>
       <p className="mb-8 text-base leading-relaxed text-muted">
-        買取価格は純度ごとに決まっているので、自分の品物が何なのか分からないと、
-        いくらになるかも調べられません。純度が書いてあるのは、たいてい品物のどこかに
-        小さく刻まれた文字です。まずはそれを見つけるところからです。
+        買取価格は純度ごとに決まっているので、自分の品物が何なのか分からないと、いくらになるかも調べられません。純度が書いてあるのは、たいてい品物のどこかに小さく刻まれた文字です。まずはそれを見つけるところからです。
       </p>
 
       {/* 1. どこにあるか */}
@@ -60,8 +58,7 @@ export default function HallmarkPage() {
           <EarringDiagram />
         </div>
         <p className="mt-4 text-sm leading-relaxed text-foreground/80">
-          文字は1mmに満たないことも多く、明るいところで拡大鏡やスマートフォンのカメラを
-          使うと読みやすくなります。長く使った品物では擦れて薄くなっていることもあります。
+          文字は1mmに満たないことも多く、明るいところで拡大鏡やスマートフォンのカメラを使うと読みやすくなります。長く使った品物では擦れて薄くなっていることもあります。
         </p>
       </section>
 
@@ -73,8 +70,7 @@ export default function HallmarkPage() {
         </div>
         <p className="mb-4 text-sm leading-relaxed text-foreground/80">
           金の純度の書き方は2通りあります。Kのあとに数字を置く24分率と、
-          1000分の何かで表す千分率です。K18は18/24で75%、千分率なら750。
-          どちらも同じ品位を指しています。
+          1000分の何かで表す千分率です。K18は18/24で75%、千分率なら750。どちらも同じ品位を指しています。
         </p>
         <div className="mb-4 overflow-x-auto">
           <table className="w-full table-fixed border-collapse text-xs sm:text-sm">
@@ -112,8 +108,7 @@ export default function HallmarkPage() {
           「K18」はメーカーの表示で、公的な証明ではありません
         </h2>
         <p className="mb-3 text-sm leading-relaxed text-foreground/80">
-          意外に知られていないのですが、K18やPt900という刻印は、その製品を作った側が
-          打っているものです。造幣局はこの点をはっきり書いています。
+          意外に知られていないのですが、K18やPt900という刻印は、その製品を作った側が打っているものです。造幣局はこの点をはっきり書いています。
         </p>
         <figure className="my-4 border-l-2 border-accent/50 pl-4">
           <blockquote className="text-sm leading-relaxed text-foreground/80">
@@ -124,14 +119,10 @@ export default function HallmarkPage() {
           </figcaption>
         </figure>
         <p className="mb-3 text-sm leading-relaxed text-foreground/80">
-          公的な証明は造幣局のホールマークで、日の丸と、ひし形の中に千分率の数字、
-          そして金属を示す記号の組み合わせです。金では999・916・750・585・416・375、
-          プラチナでは900・850・700、銀では1000・925・900・800・750が使われます。
+          公的な証明は造幣局のホールマークで、日の丸と、ひし形の中に千分率の数字、そして金属を示す記号の組み合わせです。金では999・916・750・585・416・375、プラチナでは900・850・700、銀では1000・925・900・800・750が使われます。
         </p>
         <p className="text-sm leading-relaxed text-foreground/80">
-          この違いは金額にも表れます。当サイトが掲載しているおたからやは、公表しているK24の価格を
-          「ホールマーク（造幣局刻印）付きのメダルや小判など、特定の製品を基準とした参考買取価格」とし、
-          アクセサリーなどのスクラップは査定額が異なる場合があると明記しています。
+          この違いは金額にも表れます。当サイトが掲載しているおたからやは、公表しているK24の価格を「ホールマーク（造幣局刻印）付きのメダルや小判など、特定の製品を基準とした参考買取価格」とし、アクセサリーなどのスクラップは査定額が異なる場合があると明記しています。
         </p>
       </section>
 
@@ -141,9 +132,7 @@ export default function HallmarkPage() {
           K18のうしろに2文字あったら、金そのものではありません
         </h2>
         <p className="mb-4 text-sm leading-relaxed text-foreground/80">
-          ここがいちばん間違えやすいところです。「K18GP」は一見K18に見えますが、
-          意味はまったく違います。土台は別の金属で、表面だけが金です。
-          買取価格は金の重さで決まるので、金額も大きく変わります。
+          ここがいちばん間違えやすいところです。「K18GP」は一見K18に見えますが、意味はまったく違います。土台は別の金属で、表面だけが金です。買取価格は金の重さで決まるので、金額も大きく変わります。
         </p>
         <div className="mb-4 flex flex-col gap-3">
           {PLATED.map((x) => (
@@ -157,8 +146,7 @@ export default function HallmarkPage() {
           ))}
         </div>
         <p className="text-sm leading-relaxed text-foreground/80">
-          刻印を読むときは、数字のあとに英字が続いていないかまで確かめてください。
-          擦れていると見落としやすい部分です。
+          刻印を読むときは、数字のあとに英字が続いていないかまで確かめてください。擦れていると見落としやすい部分です。
         </p>
       </section>
 
@@ -168,21 +156,18 @@ export default function HallmarkPage() {
         <ul className="mb-4 flex list-disc flex-col gap-2 pl-5 text-sm leading-relaxed text-foreground/80">
           <li>小さい品物や、細いチェーンには、そもそも刻印がないことがあります。</li>
           <li>
-            磁石にはっきりくっつくなら、土台が鉄やニッケルの可能性があります。
-            ただし逆は言えません。詳しくは
+            磁石にはっきりくっつくなら、土台が鉄やニッケルの可能性があります。ただし逆は言えません。詳しくは
             <Link href="/column/plating-check" className="mx-1 underline underline-offset-2">
               メッキと金の簡単な見分け方
             </Link>
             にまとめています。
           </li>
           <li>
-            確実に知るには査定を受けることになります。多くの買取店では、
-            査定だけなら費用はかかりません。
+            確実に知るには査定を受けることになります。多くの買取店では、査定だけなら費用はかかりません。
           </li>
         </ul>
         <p className="text-sm leading-relaxed text-foreground/80">
-          当サイトでも、純度が分からない品物の金額を出すことはできません。
-          刻印が読めたら、その純度で各社の価格を比べてください。
+          当サイトでも、純度が分からない品物の金額を出すことはできません。刻印が読めたら、その純度で各社の価格を比べてください。
         </p>
       </section>
 

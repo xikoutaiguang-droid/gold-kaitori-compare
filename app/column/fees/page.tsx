@@ -63,14 +63,11 @@ export default function FeesPage() {
         金買取の手数料は、どこでいくら引かれるのか
       </h1>
       <p className="mb-8 text-base leading-relaxed text-muted">
-        「手数料無料」と書いてある店でも、受け取る金額が表示単価どおりとは限りません。
-        当サイトが価格を追っている{f.priced}社について、価格ページに加えて利用規約や
-        宅配買取の案内まで読んだところ、手数料の扱いは{f.disclosed}社で
+        「手数料無料」と書いてある店でも、受け取る金額が表示単価どおりとは限りません。当サイトが価格を追っている{f.priced}社について、価格ページに加えて利用規約や宅配買取の案内まで読んだところ、手数料の扱いは{f.disclosed}社で
         {f.distinctModels}通りに分かれていました。同じ「無料」の2文字が、別のことを指しています。
         {hidden.length > 0 && (
           <>
-            そのうち{hidden.length}社は、価格ページに「手数料は一切かかりません」と書きながら、
-            規約のほうで金額を決めて差し引いていました。
+            そのうち{hidden.length}社は、価格ページに「手数料は一切かかりません」と書きながら、規約のほうで金額を決めて差し引いていました。
           </>
         )}
       </p>
@@ -114,9 +111,7 @@ export default function FeesPage() {
           ))}
         </div>
         <p className="mt-4 text-sm leading-relaxed text-foreground/80">
-          真ん中の形がいちばん分かりにくいところです。費用を取らないのではなく、
-          費用を引いたあとの金額を最初から単価として出している、という意味になります。
-          後から引かれないのは確かですが、その分だけ表示単価は低く出ます。
+          真ん中の形がいちばん分かりにくいところです。費用を取らないのではなく、費用を引いたあとの金額を最初から単価として出している、という意味になります。後から引かれないのは確かですが、その分だけ表示単価は低く出ます。
         </p>
       </section>
 
@@ -129,8 +124,7 @@ export default function FeesPage() {
           <p className="mb-4 text-sm leading-relaxed text-foreground/80">
             {deducted.name}は分析料の金額を表で公表しています。買取金額に応じて
             {MANEKIYA_FEE.tiers[0][1].toLocaleString("ja-JP")}〜
-            {MANEKIYA_FEE.tiers[MANEKIYA_FEE.tiers.length - 1][1].toLocaleString("ja-JP")}円（税抜）で、
-            商品1点ごとにかかります。この単価のまま品物を1点だけ売った場合を計算しました。
+            {MANEKIYA_FEE.tiers[MANEKIYA_FEE.tiers.length - 1][1].toLocaleString("ja-JP")}円（税抜）で、商品1点ごとにかかります。この単価のまま品物を1点だけ売った場合を計算しました。
           </p>
 
           {k18.length > 0 && (
@@ -210,9 +204,7 @@ export default function FeesPage() {
             >
               シミュレーター
             </Link>
-            を使ってください。ここと同じ計算を、差し引きを公表している社すべてに対して行い、
-            引いたあとに残る金額まで出します。表示単価の1位と手取りの1位が入れ替わる場合は、
-            その旨も出ます。店頭と宅配で引かれるものが違う社があるので、切り替えて比べられます。
+            を使ってください。ここと同じ計算を、差し引きを公表している社すべてに対して行い、引いたあとに残る金額まで出します。表示単価の1位と手取りの1位が入れ替わる場合は、その旨も出ます。店頭と宅配で引かれるものが違う社があるので、切り替えて比べられます。
           </p>
           <p className="mb-3 text-xs leading-relaxed text-muted">
             分析料は公表されている税抜額に消費税を加えた金額です。
@@ -225,15 +217,12 @@ export default function FeesPage() {
             >
               同社の公表表
             </a>
-            から転記しています。買取金額20万円以上は「お問い合わせください」とあり公表されていないため、
-            その範囲に入る重さは表から外しました。順位は当サイト掲載社の同じ純度の単価との比較です。
+            から転記しています。買取金額20万円以上は「お問い合わせください」とあり公表されていないため、その範囲に入る重さは表から外しました。順位は当サイト掲載社の同じ純度の単価との比較です。
           </p>
           {worst && worst.effectiveRank !== null && (
             <p className="text-sm leading-relaxed text-foreground/80">
               {PURITY_LABELS[worst.purity]}の表示単価では{worst.displayRank}位の店が、
-              {worst.grams}gを1点で売るだけなら{worst.effectiveRank}位相当になります。
-              分析料は1点ごとにかかるので、まとめて売れば1点あたりの負担は薄まりますが、
-              小さなものを何点も持ち込むと逆に効いてきます。
+              {worst.grams}gを1点で売るだけなら{worst.effectiveRank}位相当になります。分析料は1点ごとにかかるので、まとめて売れば1点あたりの負担は薄まりますが、小さなものを何点も持ち込むと逆に効いてきます。
             </p>
           )}
         </section>
@@ -243,15 +232,11 @@ export default function FeesPage() {
       <section className="mb-10">
         <h2 className="font-serif-jp mb-3 text-lg font-semibold">「手数料無料」は、高く買う意味ではない</h2>
         <p className="mb-3 text-sm leading-relaxed text-foreground/80">
-          費用を単価に織り込んでいる店は、手数料を取りません。取る必要がないからです。
-          一方、後から引く店は、引く前の金額を単価として出せます。比較表に並べたとき、
-          後者のほうが高く見えます。
+          費用を単価に織り込んでいる店は、手数料を取りません。取る必要がないからです。一方、後から引く店は、引く前の金額を単価として出せます。比較表に並べたとき、後者のほうが高く見えます。
         </p>
         <p className="text-sm leading-relaxed text-foreground/80">
-          つまり「手数料無料」は、支払われる金額が多いことを意味しません。
-          比べるべきなのは単価でも手数料の有無でもなく、
-          <strong className="font-semibold">最後に受け取る金額</strong>です。
-          当サイトの
+          つまり「手数料無料」は、支払われる金額が多いことを意味しません。比べるべきなのは単価でも手数料の有無でもなく、
+          <strong className="font-semibold">最後に受け取る金額</strong>です。当サイトの
           <Link href="/simulator" className="mx-1 underline underline-offset-2 hover:text-accent">
             シミュレーター
           </Link>
@@ -263,14 +248,10 @@ export default function FeesPage() {
       <section className="mb-10">
         <h2 className="font-serif-jp mb-3 text-lg font-semibold">分析料・査定料・鑑定料という言葉</h2>
         <p className="mb-3 text-sm leading-relaxed text-foreground/80">
-          これらの言葉は店によって使い分けが違い、業界で統一された定義があるかどうかを
-          当サイトは確認できていません。ある店が「分析料」と呼ぶものを、別の店は
-          「手数料」に含めているかもしれませんし、そもそも取らないかもしれません。
+          これらの言葉は店によって使い分けが違い、業界で統一された定義があるかどうかを当サイトは確認できていません。ある店が「分析料」と呼ぶものを、別の店は「手数料」に含めているかもしれませんし、そもそも取らないかもしれません。
         </p>
         <p className="text-sm leading-relaxed text-foreground/80">
-          名前を覚えるより、聞き方を決めておくほうが確実です。
-          「この単価で計算した金額から、引かれるものはありますか」と一度聞けば、
-          呼び名が何であっても答えは同じ形で返ってきます。
+          名前を覚えるより、聞き方を決めておくほうが確実です。「この単価で計算した金額から、引かれるものはありますか」と一度聞けば、呼び名が何であっても答えは同じ形で返ってきます。
         </p>
       </section>
 
@@ -281,10 +262,7 @@ export default function FeesPage() {
             価格ページの「無料」と、規約に書いてある金額が違う社がある
           </h2>
           <p className="mb-4 text-sm leading-relaxed text-foreground/80">
-            当サイトは最初、各社の価格ページだけを読んでいました。それだと見落とすものがあります。
-            下の{hidden.length}社は、価格ページには手数料がかからないと書いてあるのに、
-            利用規約や宅配買取の案内のほうに、いくら引くかが決められていました。
-            どちらもその会社自身の記載です。
+            当サイトは最初、各社の価格ページだけを読んでいました。それだと見落とすものがあります。下の{hidden.length}社は、価格ページには手数料がかからないと書いてあるのに、利用規約や宅配買取の案内のほうに、いくら引くかが決められていました。どちらもその会社自身の記載です。
           </p>
           <div className="flex flex-col gap-4">
             {hidden.map((r) => (
@@ -324,9 +302,7 @@ export default function FeesPage() {
             ))}
           </div>
           <p className="mt-4 text-sm leading-relaxed text-foreground/80">
-            どちらの条件も、少額で、ブランド品ではない貴金属を、宅配で送る場合に当たります。
-            金のネックレスを1本売るような、このサイトを見ている人にいちばん多いであろう売り方です。
-            店頭に持ち込む場合や、金額が大きい場合は対象外と書かれています。
+            どちらの条件も、少額で、ブランド品ではない貴金属を、宅配で送る場合に当たります。金のネックレスを1本売るような、このサイトを見ている人にいちばん多いであろう売り方です。店頭に持ち込む場合や、金額が大きい場合は対象外と書かれています。
           </p>
         </section>
       )}
@@ -335,18 +311,13 @@ export default function FeesPage() {
       <section className="mb-10">
         <h2 className="font-serif-jp mb-3 text-lg font-semibold">どこまで読めば分かるのか</h2>
         <p className="mb-3 text-sm leading-relaxed text-foreground/80">
-          1gあたりの価格を公表している{f.priced}社のうち、手数料の扱いを確認できたのは{f.disclosed}社です。
-          残りが取っているという意味ではありません。どこにも書かれていないのか、
-          当サイトが見つけられていないだけなのかは区別できません。
+          1gあたりの価格を公表している{f.priced}社のうち、手数料の扱いを確認できたのは{f.disclosed}社です。残りが取っているという意味ではありません。どこにも書かれていないのか、当サイトが見つけられていないだけなのかは区別できません。
         </p>
         <p className="mb-3 text-sm leading-relaxed text-foreground/80">
-          確認できた社については、各社ページに「価格ページのみ確認」か
-          「利用規約・よくある質問・宅配買取の案内まで確認」かを書いています。
-          上の{hidden.length}社の例のとおり、どこまで読んだかで答えが変わるためです。
+          確認できた社については、各社ページに「価格ページのみ確認」か「利用規約・よくある質問・宅配買取の案内まで確認」かを書いています。上の{hidden.length}社の例のとおり、どこまで読んだかで答えが変わるためです。
         </p>
         <p className="text-sm leading-relaxed text-foreground/80">
-          価格を見に来た人がその場で気づけるか、という点で言えば、
-          規約まで開く人はほとんどいないはずです。単価だけを見て比べると、この部分が抜け落ちます。
+          価格を見に来た人がその場で気づけるか、という点で言えば、規約まで開く人はほとんどいないはずです。単価だけを見て比べると、この部分が抜け落ちます。
         </p>
       </section>
 
@@ -355,8 +326,7 @@ export default function FeesPage() {
         <section className="mb-10">
           <h2 className="font-serif-jp mb-3 text-lg font-semibold">同じ看板でも、店舗によって変わる場合</h2>
           <p className="mb-3 text-sm leading-relaxed text-foreground/80">
-            フランチャイズ加盟店が中心のチェーンでは、掲載されている相場と実際の提示額が
-            店舗ごとに異なることがあります。当サイトが把握している範囲では
+            フランチャイズ加盟店が中心のチェーンでは、掲載されている相場と実際の提示額が店舗ごとに異なることがあります。当サイトが把握している範囲では
             {franchises.map((c) => c.name).join("・")}がこれにあたります。
           </p>
           <p className="text-sm leading-relaxed text-foreground/80">
@@ -388,13 +358,8 @@ export default function FeesPage() {
       <section className="mb-10 rounded-xl border border-border bg-surface p-4">
         <h2 className="font-serif-jp mb-2 text-base font-semibold">この記事の数字について</h2>
         <p className="text-xs leading-relaxed text-muted">
-          引用は各社の価格ページ・利用規約・よくある質問・宅配買取の案内から転記したもので、
-          閲覧日を併記しています。転記にあたっては、取得したHTMLに同じ文字列があることを1件ずつ確認しています。
-          記載は予告なく変わるため、実際に売る前にはご自身でも確認してください。
-          単価と順位は当サイトが毎日取得している各社の公表価格から、ページを作るたびに
-          計算し直しています。分析料の金額は
-          {jaDate(MANEKIYA_FEE.transcribedAt)}時点の公表表からの転記です。
-          当サイトは買取店ではなく、査定や契約には関与していません。
+          引用は各社の価格ページ・利用規約・よくある質問・宅配買取の案内から転記したもので、閲覧日を併記しています。転記にあたっては、取得したHTMLに同じ文字列があることを1件ずつ確認しています。記載は予告なく変わるため、実際に売る前にはご自身でも確認してください。単価と順位は当サイトが毎日取得している各社の公表価格から、ページを作るたびに計算し直しています。分析料の金額は
+          {jaDate(MANEKIYA_FEE.transcribedAt)}時点の公表表からの転記です。当サイトは買取店ではなく、査定や契約には関与していません。
         </p>
       </section>
 
