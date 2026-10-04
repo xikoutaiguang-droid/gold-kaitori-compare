@@ -14,11 +14,19 @@
  * 毎日の価格を売りにしているサイトが丸一日古い価格を出していて、
  * 誰も気づかない状態をこれ以上残さない。
  *
+ * 2026年10月4日、同じことがもう一度起きた。今度は1コミットだけ取りこぼし、
+ * 前後のコミットは40秒以内にデプロイされていた。このスクリプトは素通りさせた。
+ * 原因は、本番自身のサイトマップを見ていたこと。本番が古いままだと古い
+ * サイトマップが返ってくるので、古いページだけを数えて「全部200」になる。
+ * 新しく足したページが無いことは、本番に聞いても分からない。
+ *
  * 見るもの:
+ * ・公開されているビルドのコミットが、手元のHEADと同じか  ← 一番直接的
  * ・トップページに出ている取得時刻が、リポジトリのデータと離れていないか
  * ・サイトマップに載せている全URLが200を返すか
  */
 import { readFile } from "node:fs/promises";
+import { execSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 
@@ -46,8 +54,71 @@ function parseShownFetchedAt(html, year) {
   return Date.UTC(year, Number(m[1]) - 1, Number(m[2]), Number(m[3]) - 9, Number(m[4]));
 }
 
+/** 手元のHEADのコミット。gitが使えない環境では null */
+function localHead() {
+  try {
+    return execSync("git rev-parse HEAD", { cwd: ROOT, encoding: "utf8" }).trim();
+  } catch {
+    return null;
+  }
+}
+
+/** HEADがコミットされてからの経過分。分からなければ null */
+function headAgeMinutes() {
+  try {
+    const t = execSync("git log -1 --format=%ct", { cwd: ROOT, encoding: "utf8" }).trim();
+    return (Date.now() / 1000 - Number(t)) / 60;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * ビルドが間に合っていないだけの時間。
+ * push直後にこの点検が走ると、まだデプロイが終わっていないのは当たり前なので、
+ * そこで落とすと「正常なのに赤い」が増えて、本当の停止が埋もれる。
+ * 実測ではデプロイは40秒〜2分で作られているので、その数倍を見ておく。
+ */
+const DEPLOY_GRACE_MINUTES = 10;
+
 async function main() {
   const problems = [];
+
+  // ---- 0. 公開されているビルドのコミット ----
+  // サイトマップやデータより先にこれを見る。ここが古ければ、以降の判定は全部
+  // 「古い本番を、古い本番の基準で測る」ことになって意味を失う。
+  const head = localHead();
+  const build = await get(`${SITE}/build.json`);
+  if (build.status !== 200) {
+    // このコミットが公開されるまでは存在しない。無いこと自体では落とさない。
+    console.log("build.json がまだありません(このコミットが公開されれば出ます)");
+  } else {
+    let deployed = null;
+    try {
+      deployed = JSON.parse(build.text).commit;
+    } catch {
+      problems.push("build.json を読めませんでした");
+    }
+    if (deployed && head) {
+      const same = deployed === head;
+      console.log(
+        `公開中のビルド: ${deployed.slice(0, 7)} / 手元のHEAD: ${head.slice(0, 7)}${same ? " (一致)" : ""}`,
+      );
+      if (!same) {
+        const age = headAgeMinutes();
+        const message =
+          `公開されているのは ${deployed.slice(0, 7)} で、手元の ${head.slice(0, 7)} ではありません。` +
+          `pushしたのにデプロイが作られていない可能性があります` +
+          `(2026年10月1日と10月4日に実際に起きています。空コミットのpushで復帰することがあります)。`;
+        if (age !== null && age < DEPLOY_GRACE_MINUTES) {
+          // まだビルド中かもしれない。落とさずに書くだけにする
+          console.log(`  (HEADは${age.toFixed(0)}分前のコミットなので、ビルド中の可能性があります)`);
+        } else {
+          problems.push(message);
+        }
+      }
+    }
+  }
 
   const companies = JSON.parse(await readFile(path.join(ROOT, "data", "companies.json"), "utf8"));
   const localFetchedAt = companies
