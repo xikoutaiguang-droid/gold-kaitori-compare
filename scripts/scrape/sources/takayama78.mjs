@@ -7,7 +7,19 @@ const URL = "https://takayama78.co.jp/%E8%B2%B7%E5%8F%96%E3%82%AB%E3%83%86%E3%82
 
 export const id = "takayama78";
 
-// 注意: このページはK18(製品1gの価格)のみを公開しており、K24等の内訳はない。
+// 注意: このページが公開しているのはK18とPt900(どちらも製品1gの価格)だけで、
+// K24等の内訳はない。
+//
+// 以前はK18しか読んでいなかった。表は左右2つに分かれていて(.gold_left が金、
+// .gold_right がプラチナ)、左しか見ていなかったためで、その間ずっと
+// companies.json に残っていた古いPt900(8,610円)が、K18を取り直すたびに
+// 新しい日付を与えられて公開され続けていた。実際のページは8,300円だった。
+// 取得していない値を保存に残さないこと自体は store.mjs 側で直してある。
+const SECTIONS = [
+  { selector: ".gold_left table.gold", label: "K18", key: "k18" },
+  { selector: ".gold_right table.gold", label: "Pt900", key: "pt900" },
+];
+
 export async function scrape() {
   const html = await fetchText(URL);
   const $ = cheerio.load(html);
@@ -15,18 +27,20 @@ export async function scrape() {
   const heading = $("#market-price")
     .filter((_, el) => /現在の金相場/.test($(el).text()))
     .first();
-  const table = heading.nextAll(".price_wrap").first().find(".gold_left table.gold");
+  const wrap = heading.nextAll(".price_wrap").first();
 
   const prices = {};
-  table.find("tr").each((_, row) => {
-    const label = $(row).find(".price_title").text().replace(/\s+/g, "");
-    if (label !== "K18") return;
-    const priceText = $(row).find(".price_content p").first().text();
-    const value = Number(priceText.replace(/[^\d]/g, ""));
-    if (Number.isFinite(value) && value > 0) {
-      prices.k18 = value;
-    }
-  });
+  for (const section of SECTIONS) {
+    wrap.find(section.selector).find("tr").each((_, row) => {
+      const label = $(row).find(".price_title").text().replace(/\s+/g, "");
+      if (label !== section.label) return;
+      const priceText = $(row).find(".price_content p").first().text();
+      const value = Number(priceText.replace(/[^\d]/g, ""));
+      if (Number.isFinite(value) && value > 0) {
+        prices[section.key] = value;
+      }
+    });
+  }
 
   const dateMatch = heading.text().match(/(\d{1,2})月(\d{1,2})日/);
   const year = new Date().getFullYear();

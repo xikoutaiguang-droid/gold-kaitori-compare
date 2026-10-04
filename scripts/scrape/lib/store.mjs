@@ -24,7 +24,17 @@ export function applyPriceUpdate(companies, id, prices, updatedAt) {
     throw new Error(`Unknown company id: ${id}`);
   }
   const before = JSON.stringify(company.priceData.prices);
-  company.priceData.prices = { ...company.priceData.prices, ...prices };
+  // 取得できたものだけを残す。前回の値に重ねない。
+  //
+  // 重ねていたせいで、取得元が返さなくなった純度が消えずに残り、しかも
+  // 他の純度を取り直すたびに updatedAt が新しくなるので、いつまでも
+  // 「今日の価格」として並んでいた。高山質店のPt900がそれで、同社のページには
+  // 8,300円と出ているのに、こちらは古い8,610円を出し続けていた。
+  //
+  // 取れなくなったぶんが消えるのは、出なくなるだけで誤りにはならない。
+  // 間違った値を今日の値として出し続けるほうが重い。
+  const dropped = Object.keys(JSON.parse(before)).filter((k) => !(k in prices));
+  company.priceData.prices = { ...prices };
   const changed =
     JSON.stringify(company.priceData.prices) !== before || company.priceData.updatedAt !== updatedAt;
   company.priceData.updatedAt = updatedAt;
@@ -47,5 +57,7 @@ export function applyPriceUpdate(companies, id, prices, updatedAt) {
   if (changed || !prev || prev.slice(0, 10) !== now.slice(0, 10)) {
     company.priceData.fetchedAt = now;
   }
-  return company;
+  // 取得元が返さなくなった純度は、ページから消える。いつも返ってこない
+  // 純度なら直すべきは取得側なので、黙って消さずに呼び出し元へ伝える。
+  return { company, dropped };
 }

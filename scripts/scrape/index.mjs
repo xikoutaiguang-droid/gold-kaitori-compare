@@ -174,7 +174,10 @@ async function main() {
     }
     try {
       const result = await source.scrape();
-      applyPriceUpdate(companies, source.id, result.prices, result.updatedAt);
+      const { dropped } = applyPriceUpdate(companies, source.id, result.prices, result.updatedAt);
+      if (dropped.length) {
+        console.warn(`  ⚠ ${source.id}: 前回あった ${dropped.join(",")} が今回は取得元から返っていません(表示から消えます)`);
+      }
       console.log(`[OK] ${source.id}: ${Object.keys(result.prices).length}件取得 (${result.updatedAt})`);
       if (result.warning) console.warn(`  ⚠ ${result.warning}`);
       status.push({
