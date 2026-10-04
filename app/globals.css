@@ -12,8 +12,8 @@
   --accent-foreground: #ffffff;
   --accent-soft: #fdf3e0;
   /* 表の地色。本文と同じ白だと、表がどこから始まるのか分からなかった */
-  --table-head: #f3efe6;
-  --table-stripe: #faf8f4;
+  --table-head: #e7dfcd;
+  --table-stripe: #f5f1e8;
 }
 
 @theme inline {
@@ -42,8 +42,8 @@
     --accent-strong: #e8b923;
     --accent-foreground: #16181d;
     --accent-soft: #2a2410;
-    --table-head: #262320;
-    --table-stripe: #191919;
+    --table-head: #3a332a;
+    --table-stripe: #232220;
   }
 }
 
@@ -118,6 +118,11 @@ body {
 
 .column-body thead tr {
   background: var(--table-head);
+}
+
+/* 見出し行と中身の境目。罫線を太くして、表の「頭」をはっきりさせる */
+.column-body thead tr {
+  border-bottom: 2px solid var(--accent);
 }
 
 .column-body thead th {

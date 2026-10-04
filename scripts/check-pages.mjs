@@ -28,15 +28,36 @@
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 
-const SITE = process.env.SITE_URL ?? "https://kin-hikaku.com";
+// 既定は本番。手元のビルドを調べるときは --site http://localhost:3000 を付ける。
+// 公開してから気づくより、公開する前に同じ検査を通すほうがいい。
+const siteArg = process.argv.indexOf("--site");
+const SITE = (siteArg !== -1 ? process.argv[siteArg + 1] : undefined) ?? process.env.SITE_URL ?? "https://kin-hikaku.com";
 const UA = "GoldCompareBot/0.1 (+https://kin-hikaku.com/privacy)";
 void fileURLToPath;
 void path;
 
 /** 壊れた値がそのまま文字として出ていないか */
-// 「円円」は、金額を返す関数が単位まで持っているのに、呼ぶ側でも円を書いたとき。
-// 実際 /column/tax が「30万円円」と出していた。見れば分かるのに、見るまで分からない。
-const BROKEN = ["undefined", "NaN", "[object Object]", "Infinity円", "null円", "円円"];
+const BROKEN = ["undefined", "NaN", "[object Object]", "Infinity円", "null円"];
+
+/**
+ * 単位が二重になっている類の崩れ。
+ *
+ * /column/tax が「30万円円」と17か所で出していた。金額を返す関数が単位まで持つように
+ * 変えたのに、呼ぶ側に書いてあった「円」を消し忘れたため。ビルドも型検査も通るし、
+ * 「30万円」で探すと「30万円円」の中が一致するので、探し方しだいでは正常に見える。
+ *
+ * この手の崩れは、出来上がったページを見れば分かるが、見るまで分からない。
+ * だから人の目ではなくここで見る。
+ */
+const DOUBLED_UNITS = ["円", "%", "社", "件", "店舗", "倍", "日", "年", "月", "個", "点"];
+const SUSPECT = [
+  ...DOUBLED_UNITS.map((u) => ({
+    re: new RegExp(`${u}${u}`),
+    why: `単位が二重になっています(「${u}${u}」)`,
+  })),
+  { re: /、、|。。/, why: "句読点が二重になっています" },
+  { re: /\d+(万|億)?円[  ]*円/, why: "金額のあとに円が重なっています" },
+];
 
 async function get(url) {
   try {
@@ -45,6 +66,11 @@ async function get(url) {
   } catch (err) {
     return { status: 0, html: "", error: err?.cause?.code ?? err.message };
   }
+}
+
+/** 見つかった場所の前後を少しだけ出す。どこが壊れているか人が探せるように */
+function excerpt(body, index) {
+  return body.slice(Math.max(0, index - 18), index + 18).replace(/\s+/g, "");
 }
 
 function textOf(html) {
@@ -80,6 +106,11 @@ async function main() {
       if (body.includes(bad)) fatal.push(`${where} に「${bad}」がそのまま出ています`);
     }
 
+    for (const s of SUSPECT) {
+      const hit = body.match(s.re);
+      if (hit) fatal.push(`${where}: ${s.why} 「…${excerpt(body, hit.index)}…」`);
+    }
+
     const h1 = html.match(/<h1[\s>]/g)?.length ?? 0;
     if (h1 === 0) fatal.push(`${where} に h1 がありません`);
     else if (h1 > 1) fatal.push(`${where} に h1 が${h1}個あります`);
@@ -98,7 +129,11 @@ async function main() {
     const desc = html.match(/name="description"\s+content="([^"]*)"/)?.[1] ?? "";
     if (desc.length < 40) notes.push(`${where} の description が短すぎます(${desc.length}字)`);
 
-    for (const href of html.matchAll(/href="(\/[^"#?]*)"/g)) internalLinks.add(href[1]);
+    // /_next/ はページではなく生成物。開発サーバーだとハッシュ付きの名前が
+    // 変わるので、ここで数えても意味がない。
+    for (const href of html.matchAll(/href="(\/[^"#?]*)"/g)) {
+      if (!href[1].startsWith("/_next/")) internalLinks.add(href[1]);
+    }
   }
 
   // 内部リンクの行き先。ページ本体と同じ数だけ取りに行くので最後にまとめて。
