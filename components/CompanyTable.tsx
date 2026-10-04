@@ -10,6 +10,7 @@ import CompanyLogo from "@/components/CompanyLogo";
 import PriceBar from "@/components/PriceBar";
 import CaveatNote from "@/components/CaveatNote";
 import { feeDisclosureFor } from "@/lib/fees";
+import { deductionFor, UNDISCLOSED_FEE_COMPANIES } from "@/lib/feeDeductions";
 import ReferenceDiff from "@/components/ReferenceDiff";
 import PrBadge from "@/components/PrBadge";
 
@@ -41,6 +42,10 @@ export default function CompanyTable({
 }) {
   const [purity, setPurity] = useState<Purity>(initialPurity);
   const [region, setRegion] = useState<Region | "全国">(initialRegion);
+  // 重さを入れたときだけ、差し引き後の金額を出す。
+  // 既定は空。単価を見に来ただけの人の画面を変えないため。
+  const [weight, setWeight] = useState<string>("");
+  const [method, setMethod] = useState<"storefront" | "shipping">("storefront");
 
   const availablePurities = useMemo(
     () => PURITY_OPTIONS.filter((p) => companies.some((c) => c.priceData.prices[p] !== undefined)),
@@ -58,6 +63,56 @@ export default function CompanyTable({
       return bv - av;
     });
   }, [companies, region, purity]);
+
+  const grams = Number(weight);
+  const hasWeight = Number.isFinite(grams) && grams > 0;
+
+  /**
+   * 重さが入っているときだけ、その重さでの差し引きを出す。
+   *
+   * /compare は1gあたりの単価を並べるページなので、本来いくら引かれるかは出せない。
+   * 引かれる額は取引額で決まるからで、まねきやの分析料は買取金額の階段制になっている。
+   * 重さを入れてもらえば初めて確定するので、入ったときだけ出す。
+   */
+  const netOf = (c: Company) => {
+    const unit = c.priceData.prices[purity];
+    if (!hasWeight || unit === undefined) return null;
+    const gross = unit * grams;
+    const d = deductionFor(c.id, gross, method);
+    const known = d && !d.none && d.amount !== null ? d.amount : 0;
+    const unknown = (d && !d.none && d.amount === null) || UNDISCLOSED_FEE_COMPANIES.includes(c.id);
+    // 差し引きのほうが高くつく重さがある(シルバー1gは328円に対し分析料1,100円)。
+    // 「約-772円」と出すのは数字としては合っていても、受け取る額としては嘘になる。
+    // そういう重さでは金額を出さず、引かれるぶんのほうが高いことだけ書く。
+    const underwater = known >= gross;
+    return {
+      gross,
+      deduction: d,
+      net: gross - known,
+      unitNet: (gross - known) / grams,
+      unknown,
+      underwater,
+    };
+  };
+
+  // 表示単価の1位と、手元に残る額の1位が入れ替わるか。
+  // 金額の分からない社は比較から外す。知らないことを根拠に順位を作らない。
+  const flipped = useMemo(() => {
+    if (!hasWeight) return null;
+    const priced = rows
+      .map((c) => ({ c, n: netOf(c) }))
+      .filter((x): x is { c: Company; n: NonNullable<ReturnType<typeof netOf>> } => x.n !== null);
+    // 単価1位の差し引きが公表されていない場合は、この比較そのものが成り立たない。
+    // 外して2位を「表示単価では1位」と書くと、並びと食い違う嘘になる。
+    const byGross = priced[0];
+    if (!byGross || byGross.n.unknown || byGross.n.underwater) return null;
+    const ok = priced.filter((x) => !x.n.unknown && !x.n.underwater);
+    if (ok.length < 2) return null;
+    const byNet = [...ok].sort((a, b) => b.n.net - a.n.net)[0];
+    if (byNet.c.id === byGross.c.id) return null;
+    return { byGross, byNet };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rows, hasWeight, grams, method, purity]);
 
   const maxPrice = Math.max(1, ...rows.map((c) => c.priceData.prices[purity] ?? 0));
   const referenceRate = getReferenceRate();
@@ -104,7 +159,68 @@ export default function CompanyTable({
             ))}
           </select>
         </div>
+        {/* 重さは任意。入れたときだけ、各社が公表している差し引きを引いた額を出す。
+            単価だけ見に来た人の画面は変えない。 */}
+        <div>
+          <label className="mb-1.5 block text-xs font-medium text-muted">
+            重さ(g・任意)
+          </label>
+          <div className="flex items-center gap-2">
+            <input
+              type="number"
+              inputMode="decimal"
+              min={0}
+              step="0.1"
+              value={weight}
+              placeholder="例 10"
+              onChange={(e) => setWeight(e.target.value)}
+              className="min-h-9 w-24 rounded-lg border border-border bg-surface px-3 py-1.5 text-sm"
+            />
+            {hasWeight && (
+              <div className="flex rounded-lg border border-border bg-surface p-0.5">
+                {([
+                  ["storefront", "店頭"],
+                  ["shipping", "宅配"],
+                ] as const).map(([v, l]) => (
+                  <button
+                    key={v}
+                    type="button"
+                    onClick={() => setMethod(v)}
+                    aria-pressed={method === v}
+                    className={`min-h-8 rounded-md px-2.5 text-xs font-medium transition ${
+                      method === v ? "bg-accent text-accent-foreground" : "text-foreground/70"
+                    }`}
+                  >
+                    {l}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
       </div>
+
+      {hasWeight && (
+        <p className="mb-4 text-xs leading-relaxed text-muted">
+          {PURITY_LABELS[purity]}を{grams}g売った場合の金額を、各行に出しています。
+          差し引きを公表している社はその額を引いた「手取り」まで、
+          公表していない社は引かれることだけを書いています。順位は公表単価のままです。
+        </p>
+      )}
+
+      {flipped && (
+        <div className="mb-4 rounded-xl border border-amber-500/40 bg-amber-50/60 p-4 dark:bg-amber-950/20">
+          <p className="text-sm font-semibold">単価の1位と、手取りの1位が違います</p>
+          <p className="mt-1.5 text-sm leading-relaxed">
+            表示単価では{flipped.byGross.c.name}が1位ですが、各社が公表している差し引きを引くと
+            <strong className="mx-1">{flipped.byNet.c.name}</strong>のほうが
+            <strong className="mx-1 tabular-nums">
+              {Math.round(flipped.byNet.n.net - flipped.byGross.n.net).toLocaleString("ja-JP")}円
+            </strong>
+            多く残ります。
+          </p>
+        </div>
+      )}
 
       <ul className="flex flex-col gap-2.5">
         {rows.map((c, i) => {
@@ -197,6 +313,54 @@ export default function CompanyTable({
                   <CaveatNote>{c.priceCaveat}</CaveatNote>
                 </div>
               )}
+              {/* 重さが入っているときは、その重さでの金額を出す。
+                  差し引きが分かる社は手取りと実質単価まで、分からない社は
+                  引かれることだけ。知らない額を埋めない。 */}
+              {(() => {
+                const n = netOf(c);
+                if (!n) return null;
+                const d = n.deduction;
+                const deducted = d && !d.none;
+                return (
+                  <div className="mt-2 pl-8 text-xs leading-relaxed">
+                    <span className="text-muted">{grams}gで </span>
+                    <span className="tabular-nums">{Math.round(n.gross).toLocaleString("ja-JP")}円</span>
+                    {deducted && d.amount !== null && n.underwater && (
+                      <span className="text-amber-700 dark:text-amber-400">
+                        。{d.rule.label}
+                        {d.amount.toLocaleString("ja-JP")}円のほうが高く、この重さでは手元に残りません
+                      </span>
+                    )}
+                    {deducted && d.amount !== null && !n.underwater && (
+                      <>
+                        <span className="text-muted"> − {d.rule.label}</span>
+                        <span className="tabular-nums">{d.amount.toLocaleString("ja-JP")}円</span>
+                        <span className="text-muted"> = </span>
+                        <strong className="tabular-nums text-accent-strong">
+                          約{Math.round(n.net).toLocaleString("ja-JP")}円
+                        </strong>
+                        <span className="text-muted">
+                          （実質{Math.round(n.unitNet).toLocaleString("ja-JP")}円/g）
+                        </span>
+                      </>
+                    )}
+                    {deducted && d.amount === null && (
+                      <span className="text-amber-700 dark:text-amber-400">
+                        {" "}
+                        ここから{d.rule.label}が引かれます
+                        {d.atLeast ? `（分かっているぶんで${d.atLeast.toLocaleString("ja-JP")}円以上）` : ""}
+                      </span>
+                    )}
+                    {!deducted && n.unknown && (
+                      <span className="text-amber-700 dark:text-amber-400">
+                        {" "}
+                        手数料が引かれますが、金額は公表されていません
+                      </span>
+                    )}
+                  </div>
+                );
+              })()}
+
               {/* 単価から別途引くと自社で書いている社は、その旨を並びの中に出す。
                   順位は公表単価で付けているので、同じ順位でも受け取る額は同じではない。
                   priceCaveat に金額まで書けている社(まねきや)はそちらのほうが詳しいので出さない。 */}
