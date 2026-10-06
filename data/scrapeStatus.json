@@ -1,7 +1,7 @@
 {
-  "ranAt": "2026-10-05T18:54:22.557Z",
-  "ok": 18,
-  "ng": 1,
+  "ranAt": "2026-10-06T00:31:30.475Z",
+  "ok": 20,
+  "ng": 0,
   "sources": [
     {
       "id": "otakaraya",
@@ -41,7 +41,7 @@
       "id": "jewel-cafe",
       "ok": true,
       "priceCount": 5,
-      "updatedAt": "2026-10-05",
+      "updatedAt": "2026-10-06",
       "warning": null
     },
     {
@@ -102,10 +102,10 @@
     },
     {
       "id": "goldmrs",
-      "ok": false,
-      "skipped": true,
-      "ciBlocked": true,
-      "error": "CIからは取得できないソースです(GitHub Actionsから31回中0回成功。手元のPCからは5回中5回成功)。手元のPCの定期実行で取得します。"
+      "ok": true,
+      "priceCount": 12,
+      "updatedAt": "2026-10-05",
+      "warning": null
     },
     {
       "id": "nexus13",
@@ -161,9 +161,12 @@
     },
     {
       "id": "refasta",
-      "ok": false,
-      "skipped": false,
-      "error": "https://kinkaimasu.jp/ を 5回試して取得できませんでした: fetch failed (UNABLE_TO_VERIFY_LEAF_SIGNATURE: unable to verify the first certificate) / fetch failed (UNABLE_TO_VERIFY_LEAF_SIGNATURE: unable to verify the first certificate) / fetch failed (UNABLE_TO_VERIFY_LEAF_SIGNATURE: unable to verify the first certificate) / fetch failed (UNABLE_TO_VERIFY_LEAF_SIGNATURE: unable to verify the first certificate) / fetch failed (UNABLE_TO_VERIFY_LEAF_SIGNATURE: unable to verify the first certificate)"
+      "ok": true,
+      "priceCount": 13,
+      "updatedAt": "2026-10-05",
+      "warning": null,
+      "rejected": true,
+      "rejectReason": "7.9%動きました。この回に動いた社が2社しか無く(5社必要)、市場がどう動いたかを決められないため、幅そのもので判定しています(6%まで)。前回(2026-10-04)の値を残しています。ページを見て正しければ、1社だけ実行すれば書き込めます。"
     },
     {
       "id": "netoff",
