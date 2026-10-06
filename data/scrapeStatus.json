@@ -1,5 +1,5 @@
 {
-  "ranAt": "2026-10-06T13:25:03.859Z",
+  "ranAt": "2026-10-06T16:19:57.626Z",
   "ok": 18,
   "ng": 1,
   "sources": [
@@ -14,7 +14,7 @@
       "id": "komehyo",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-06",
+      "updatedAt": "2026-10-07",
       "warning": null
     },
     {
@@ -48,7 +48,7 @@
       "id": "kaitori-elite",
       "ok": true,
       "priceCount": 8,
-      "updatedAt": "2026-10-06",
+      "updatedAt": "2026-10-07",
       "warning": null
     },
     {
@@ -62,21 +62,21 @@
       "id": "best-life",
       "ok": true,
       "priceCount": 12,
-      "updatedAt": "2026-10-06",
+      "updatedAt": "2026-10-07",
       "warning": null
     },
     {
       "id": "brand-revalue",
       "ok": true,
       "priceCount": 8,
-      "updatedAt": "2026-10-06",
+      "updatedAt": "2026-10-07",
       "warning": null
     },
     {
       "id": "gem-sigma",
       "ok": true,
       "priceCount": 12,
-      "updatedAt": "2026-10-06",
+      "updatedAt": "2026-10-07",
       "warning": null
     },
     {
