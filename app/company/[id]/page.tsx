@@ -11,6 +11,7 @@ import {
   PLATINUM_PURITIES,
   PURITY_LABELS,
   SILVER_PURITIES,
+  type Purity,
 } from "@/lib/types";
 import { getCampaignsForCompany } from "@/lib/campaigns";
 import CampaignNotice from "@/components/CampaignNotice";
@@ -45,16 +46,23 @@ export async function generateMetadata({
   const company = getCompanyById(id);
   if (!company) return {};
 
-  const k24 = company.priceData.prices.k24;
-  const standings = getStandings(company, ["k24"]);
-  const s = standings[0];
+  // K24だけを見ていたせいで、高山質店(K18とPt900を公表)のページが
+  // 「1gあたりの買取価格を公開していないため、当サイトでは価格を掲載していません」
+  // という説明文で検索結果に出ていた。実際には価格を載せている。
+  // 「高山質店 金相場 1g 今日」で3か月に41回表示されて1クリックだったのは、
+  // 探している物が無いと書いてあったのだから当然だった。
+  // K24が無い社は、その社が公表している純度のうち代表的なものを出す。
+  const HEADLINE_ORDER: Purity[] = ["k24", "k18", "pt900", "pt850", "k22", "k20", "k14", "ag"];
+  const headlinePurity = HEADLINE_ORDER.find((p) => company.priceData.prices[p] !== undefined);
+  const headlinePrice = headlinePurity ? company.priceData.prices[headlinePurity] : undefined;
+  const s = headlinePurity ? getStandings(company, [headlinePurity])[0] : undefined;
 
   // 価格を公開していない社のページには価格表が無い。それなのに説明文で
   // 「比較できます」と書くと、検索結果の文言と中身が食い違うので分ける。
   const day = company.priceData.updatedAt ? jaDate(company.priceData.updatedAt) : null;
-  const description = k24
+  const description = headlinePrice
     ? `${company.name}の金・プラチナ買取価格を、掲載中の買取店と横並びで比較できます。` +
-      `${day ? `${day}時点の` : ""}K24の買取参考価格は1gあたり${k24.toLocaleString("ja-JP")}円` +
+      `${day ? `${day}時点の` : ""}${PURITY_LABELS[headlinePurity as Purity]}の買取参考価格は1gあたり${headlinePrice.toLocaleString("ja-JP")}円` +
       `${s ? `(掲載${s.total}社中${s.rank}位)` : ""}。` +
       `対応地域・店舗数・買取方法・Google口コミの評価もまとめています。`
     : `${company.name}は1gあたりの買取価格を公開していないため、当サイトでは価格を掲載していません。` +
@@ -69,7 +77,7 @@ export async function generateMetadata({
   // (説明文はページの中身から作り直されることがあり、表題より入れ替わりが早い)。
   return {
     title: {
-      absolute: k24
+      absolute: headlinePrice
         ? `${company.name}の金相場・買取価格は今日いくら？他社と比較`
         : `${company.name}の金買取｜対応地域・店舗数・口コミ`,
     },
