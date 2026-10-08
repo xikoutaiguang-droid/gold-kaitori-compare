@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import TrustBadges from "@/components/TrustBadges";
 import WeightUnitConverter from "@/components/WeightUnitConverter";
+import UnitReference from "@/components/UnitReference";
 import JsonLd from "@/components/JsonLd";
 import { breadcrumbJsonLd } from "@/lib/structuredData";
 
@@ -53,6 +54,8 @@ export default function WeightConverterPage() {
         items={["入力した数値はサーバーに送信されず、この画面内だけで計算されます", "会員登録なしで使えます"]}
       />
       <WeightUnitConverter />
+
+      <UnitReference />
 
       <section className="mt-12 border-t border-border pt-8">
         <h2 className="font-serif-jp mb-4 text-lg font-semibold">よくある質問</h2>

@@ -4,6 +4,7 @@ import TrustBadges from "@/components/TrustBadges";
 import PurityCalculator from "@/components/PurityCalculator";
 import JsonLd from "@/components/JsonLd";
 import { breadcrumbJsonLd } from "@/lib/structuredData";
+import HallmarkReference from "@/components/HallmarkReference";
 
 export const metadata: Metadata = {
   title: "K18・Pt900など純度別 純金属含有量計算ツール",
@@ -53,6 +54,8 @@ export default function PurityCalculatorPage() {
         items={["入力した数値はサーバーに送信されず、この画面内だけで計算されます", "会員登録なしで使えます"]}
       />
       <PurityCalculator />
+
+      <HallmarkReference />
 
       <section className="mt-12 border-t border-border pt-8">
         <h2 className="font-serif-jp mb-4 text-lg font-semibold">よくある質問</h2>
