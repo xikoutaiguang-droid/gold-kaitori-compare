@@ -1,13 +1,13 @@
 {
-  "ranAt": "2026-10-07T17:05:01.213Z",
-  "ok": 18,
-  "ng": 1,
+  "ranAt": "2026-10-08T03:26:17.519Z",
+  "ok": 20,
+  "ng": 0,
   "sources": [
     {
       "id": "otakaraya",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-07",
+      "updatedAt": "2026-10-08",
       "warning": null
     },
     {
@@ -21,7 +21,7 @@
       "id": "kaitori-daikichi",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-07",
+      "updatedAt": "2026-10-08",
       "warning": null
     },
     {
@@ -34,14 +34,14 @@
       "id": "nanboya",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-07",
+      "updatedAt": "2026-10-08",
       "warning": null
     },
     {
       "id": "jewel-cafe",
       "ok": true,
       "priceCount": 5,
-      "updatedAt": "2026-10-07",
+      "updatedAt": "2026-10-08",
       "warning": null
     },
     {
@@ -83,49 +83,49 @@
       "id": "galleryrare",
       "ok": true,
       "priceCount": 12,
-      "updatedAt": "2026-10-06",
+      "updatedAt": "2026-10-08",
       "warning": null
     },
     {
       "id": "manekiya",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-07",
+      "updatedAt": "2026-10-08",
       "warning": null
     },
     {
       "id": "takayama78",
       "ok": true,
       "priceCount": 2,
-      "updatedAt": "2026-10-07",
+      "updatedAt": "2026-10-08",
       "warning": null
     },
     {
       "id": "goldmrs",
-      "ok": false,
-      "skipped": true,
-      "ciBlocked": true,
-      "error": "CIからは取得できないソースです(GitHub Actionsから31回中0回成功。手元のPCからは5回中5回成功)。手元のPCの定期実行で取得します。"
+      "ok": true,
+      "priceCount": 12,
+      "updatedAt": "2026-10-08",
+      "warning": null
     },
     {
       "id": "nexus13",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-07",
+      "updatedAt": "2026-10-08",
       "warning": null
     },
     {
       "id": "ginzaya",
       "ok": true,
       "priceCount": 1,
-      "updatedAt": "2026-10-07",
+      "updatedAt": "2026-10-08",
       "warning": null
     },
     {
       "id": "okuraya",
       "ok": true,
       "priceCount": 6,
-      "updatedAt": "2026-10-06",
+      "updatedAt": "2026-10-08",
       "warning": null
     },
     {
@@ -156,14 +156,15 @@
       "id": "rodeodrive",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-07",
+      "updatedAt": "2026-10-08",
       "warning": null
     },
     {
       "id": "refasta",
-      "ok": false,
-      "skipped": false,
-      "error": "https://kinkaimasu.jp/ を 5回試して取得できませんでした: fetch failed (UNABLE_TO_VERIFY_LEAF_SIGNATURE: unable to verify the first certificate) / fetch failed (UNABLE_TO_VERIFY_LEAF_SIGNATURE: unable to verify the first certificate) / fetch failed (UNABLE_TO_VERIFY_LEAF_SIGNATURE: unable to verify the first certificate) / fetch failed (UNABLE_TO_VERIFY_LEAF_SIGNATURE: unable to verify the first certificate) / fetch failed (UNABLE_TO_VERIFY_LEAF_SIGNATURE: unable to verify the first certificate)"
+      "ok": true,
+      "priceCount": 13,
+      "updatedAt": "2026-10-08",
+      "warning": null
     },
     {
       "id": "netoff",
