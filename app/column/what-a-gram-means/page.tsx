@@ -11,7 +11,7 @@ export function generateMetadata(): Metadata {
   const b = measureAgainstBenchmark("k24");
   const n = b ? `${b.rows.length}社` : "各社";
   return {
-    title: `「1gいくら」は店ごとに同じ意味ではない`,
+    title: `「1gいくら」は、店ごとに同じ意味ではない`,
     description:
       `${n}が公表している1gあたりの買取価格を、各社の注意書きまで読んで突き合わせました。` +
       `後から手数料を引く店、価格に精錬費を織り込む店、そもそも別の商品を指した価格を載せている店があり、` +

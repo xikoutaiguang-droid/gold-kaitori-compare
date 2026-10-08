@@ -15,7 +15,8 @@ export function generateMetadata(): Metadata {
   const m = measureRetailVsBuy();
   if (!m) {
     return {
-      title: "「金は23,584円」なのに、売ると23,034円なのはなぜか",
+      // 取得できていないときの控え。ここに数字を書くと、出せないはずの価格が表題に出てしまう
+      title: "買う値段と売る値段は、なぜ違うのか",
       description: "買うときの値段と売るときの値段の差を、同じ日の公表値から読み解きます。",
       alternates: { canonical: PATH },
     };

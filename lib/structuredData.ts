@@ -82,12 +82,17 @@ export function articleJsonLd(route: string, metadata: Metadata) {
 /** metadata.title は文字列のこともテンプレート指定のこともある */
 function headlineOf(metadata: Metadata): string {
   const t = metadata.title;
-  if (typeof t === "string") return t;
-  if (t && typeof t === "object") {
-    if ("absolute" in t && typeof t.absolute === "string") return t.absolute;
-    if ("default" in t && typeof t.default === "string") return t.default;
+  let title = SITE_NAME;
+  if (typeof t === "string") title = t;
+  else if (t && typeof t === "object") {
+    if ("absolute" in t && typeof t.absolute === "string") title = t.absolute;
+    else if ("default" in t && typeof t.default === "string") title = t.default;
   }
-  return SITE_NAME;
+  // 「見出し｜補足」の形の表題は、補足のほうが画面に出ていない。
+  // 構造化データに画面に無い文を書かない、という上の原則に合わせて落とす。
+  // 2026年10月8日に全記事を突き合わせたら、5本が画面のh1と食い違っていた
+  // (例: h1「メッキと金の簡単な見分け方」に対し headline「…｜磁石でできる自宅チェック」)。
+  return title.split("｜")[0].trim();
 }
 
 export interface Crumb {
