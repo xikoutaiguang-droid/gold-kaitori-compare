@@ -40,7 +40,7 @@
  * Node に移した。ここでやっているのは git と node の呼び出しだけ。
  */
 import { spawnSync } from "node:child_process";
-import { appendFileSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { appendFileSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 
@@ -57,6 +57,7 @@ const FULL_STEPS = [
   ["scripts/scrape/append-history.mjs"],
   ["scripts/scrape/append-company-history.mjs"],
   ["scripts/scrape/record-futures-outlook.mjs"],
+  ["scripts/scrape/record-fx.mjs"],
 ];
 
 /** 2回目以降。まだ今日の日付になっていない社だけ拾いに行く */
@@ -115,12 +116,55 @@ function git(args, opts) {
   return run("git", args, opts);
 }
 
+/**
+ * data/ のJSONが全部読めるか確かめる。
+ *
+ * 衝突マーカーが入ったJSONは、ファイルを開かないかぎり気づけないが、
+ * パースには必ず失敗する。コミットの前にここで止めれば、
+ * 壊れたデータが公開まで進むことはない。
+ */
+function dataFilesAreValid() {
+  const dir = path.join(ROOT, "data");
+  for (const name of readdirSync(dir)) {
+    if (!name.endsWith(".json")) continue;
+    try {
+      JSON.parse(readFileSync(path.join(dir, name), "utf8"));
+    } catch (err) {
+      log(`  data/${name} が読めません: ${err.message}`);
+      return false;
+    }
+  }
+  return true;
+}
+
+/**
+ * origin に合わせる。衝突したら、その場で元に戻す。
+ *
+ * なぜ要るか:
+ * 2026年10月8日、このスクリプトが data/companies.json に衝突マーカーを
+ * 書き込んだままコミットしていた。pull を allowFail で呼んでいたので、
+ * リベースが途中で止まっていても処理が進み、次の `git add data/` が
+ * 「<<<<<<< HEAD」ごと取り込んでしまう。JSONとして壊れているので、
+ * push が通っていればサイトはビルドできなくなっていた
+ * (このときは push が弾かれていて助かった)。
+ *
+ * 価格データは次の回で取り直せる。中途半端な状態で進むより、やめるほうがいい。
+ */
+function syncWithOrigin() {
+  if (git(["pull", "--rebase", "--autostash", "origin", "main"], { allowFail: true })) return true;
+  // 下の dataFilesAreValid と対になっている。衝突をここで戻し、
+  // それでも壊れたものが残っていたら、コミットの直前で止める。
+  log("  リベースが衝突しました。中断して元の状態に戻します");
+  git(["rebase", "--abort"], { allowFail: true });
+  return false;
+}
+
 function main() {
   const full = !fullSweepDoneToday();
   log(full ? "開始 (全社取得)" : "開始 (遅れている社だけ)");
 
   // CI が先にコミットしていることがあるので、取得の前に合わせる
-  git(["pull", "--rebase", "--autostash", "origin", "main"], { allowFail: true });
+  syncWithOrigin();
 
   for (const step of full ? FULL_STEPS : CATCH_UP_STEPS) {
     log(`実行: ${step.join(" ")}`);
@@ -130,6 +174,14 @@ function main() {
   // 取得できた社が1社でもあれば、その日の全社取得は済んだものとして扱う。
   // ここで失敗していても、次の回が --stale で拾いに行く。
   if (full) markFullSweep();
+
+  // 壊れたJSONをコミットしない。衝突マーカーが残っていれば、ここで止める。
+  // (リベースは上で中断しているはずだが、確かめるのは1秒で済む)
+  if (!dataFilesAreValid()) {
+    log("data/ の中身が壊れています。コミットも push もしません");
+    process.exitCode = 1;
+    return;
+  }
 
   git(["add", "data/"], { allowFail: true });
 
@@ -145,7 +197,10 @@ function main() {
       pushed = git(["push", "origin", "main"], { allowFail: true });
       if (!pushed) {
         log(`push に失敗しました。リベースして再試行します (${i}/3)`);
-        git(["pull", "--rebase", "--autostash", "origin", "main"], { allowFail: true });
+        if (!syncWithOrigin()) {
+          log("  衝突したため、この回の push はあきらめます。次の回で取り直します");
+          break;
+        }
       }
     }
     log(pushed ? "push しました" : "push できませんでした。次回の実行で再試行されます");

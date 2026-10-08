@@ -67,19 +67,39 @@ jobs:
         run: node scripts/scrape/record-futures-outlook.mjs
         continue-on-error: true
 
+      # 円建ての金価格は「ドル建ての金価格 × ドル円」で決まる。為替を並べて記録しておくと、
+      # その日の値動きのうち為替で説明できる分を後から出せる(/drivers)。
+      - name: ドル円を記録
+        run: node scripts/scrape/record-fx.mjs
+        continue-on-error: true
+
       - name: 変更をコミット・push
         if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          # 壊れたJSONをコミットしない。衝突マーカーが混ざっていればここで落とす。
+          for f in data/*.json; do
+            node -e "JSON.parse(require('fs').readFileSync('$f','utf8'))" || { echo "$f が読めません"; exit 1; }
+          done
           git add data/
           git diff --cached --quiet && echo "変更なし" || git commit -m "chore: 日次価格更新 $(date -u +%Y-%m-%d)"
           # 人間の作業中に走ると push が弾かれ、その日の取得ぶんが失われていた。
           # リベースしてから数回やり直す。
+          #
+          # 衝突したら、その場で中断して終わる。2026年10月8日に手元の定期実行が
+          # 同じ書き方(|| true)で衝突を握りつぶし、data/companies.json に
+          # 「<<<<<<< HEAD」が入ったままコミットしていた。JSONとして壊れるので、
+          # push が通っていればサイトはビルドできなくなっていた。
+          # 価格は次の回で取り直せる。半端な状態で進めるより、やめるほうがいい。
           for i in 1 2 3; do
             git push && exit 0
             echo "push に失敗しました。リベースして再試行します ($i/3)"
-            git pull --rebase --autostash origin main || true
+            if ! git pull --rebase --autostash origin main; then
+              echo "リベースが衝突しました。中断します"
+              git rebase --abort || true
+              exit 1
+            fi
             sleep 5
           done
           git push

@@ -138,6 +138,18 @@ export default function TrendPage() {
       </section>
 
       <section className="mt-12 border-t border-border pt-8">
+        <h2 className="font-serif-jp mb-3 text-lg font-semibold">その値動きは、何で起きたのか</h2>
+        <p className="mb-3 text-sm leading-relaxed text-muted">
+          円建ての金価格は「ドル建ての金価格 × ドル円」で決まります。上のグラフが動いた日に、為替が動いたのか金そのものが動いたのかを、毎日の記録から分けて出しています。
+        </p>
+        <p className="text-sm">
+          <Link href="/drivers" className="text-accent-strong hover:underline">
+            値動きの理由を見る →
+          </Link>
+        </p>
+      </section>
+
+      <section className="mt-12 border-t border-border pt-8">
         <h2 className="font-serif-jp mb-3 text-lg font-semibold">このデータを使う</h2>
         <p className="text-sm leading-relaxed text-muted">
           グラフに使っている日次の記録と、各社の当日の価格は{" "}

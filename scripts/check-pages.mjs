@@ -85,7 +85,13 @@ async function main() {
     console.error(`sitemap.xml が ${sm.status} を返しました`);
     process.exit(1);
   }
-  const urls = [...sm.html.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
+  // sitemap.xml が持っているのは本番の絶対URL。--site で手元のビルドを指したときは、
+  // 行き先を手元に付け替える。付け替えないと、手元で新しく作ったページを
+  // 本番に取りに行って404になり、公開前の点検として成立しない
+  // (実際、/drivers を足した日にそうなった)。
+  const urls = [...sm.html.matchAll(/<loc>([^<]+)<\/loc>/g)]
+    .map((m) => m[1])
+    .map((u) => u.replace(/^https?:\/\/[^/]+/, SITE));
   console.log(`${urls.length}ページを調べます`);
 
   const fatal = [];

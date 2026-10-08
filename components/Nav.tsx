@@ -14,6 +14,7 @@ const links = [
   // フォントの差で溢れる余地があったため。意味は変わらない。
   { href: "/nearby", label: "近くの店" },
   { href: "/trend", label: "今が売り時？" },
+  { href: "/drivers", label: "値動きの理由" },
   { href: "/column", label: "コラム" },
 ];
 
@@ -34,8 +35,10 @@ export default function Nav() {
         </Link>
         {/* 640pxでは入らない。6本にするとロゴ121 + ナビ561 + 余白32 = 714px 必要で、
             5本のときですら640pxちょうどで余白が無かった。切替点を768pxに上げ、
-            それ未満は下のタブバーに任せる(MobileTabBar も md:hidden に合わせてある)。 */}
-        <nav className="hidden gap-1.5 text-sm md:flex lg:gap-2">
+            7本目(値動きの理由)を足したら768pxでも入らなくなった。実測でロゴ129 + ナビ691 = 820pxに対し、
+            使える幅は753pxで、横スクロールが出ていた。切替点を1024pxに上げ、
+            それ未満は下のタブバーに任せる(MobileTabBar も lg:hidden に合わせてある)。 */}
+        <nav className="hidden gap-1.5 text-sm lg:flex lg:gap-2">
           {links.map((l) => {
             const active = pathname === l.href;
             return (

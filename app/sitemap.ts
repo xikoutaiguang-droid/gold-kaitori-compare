@@ -37,7 +37,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const priceDate = latestPriceDate();
 
   /** 価格が変われば中身が変わるページ */
-  const pricePages = ["", "/compare", "/trend", "/simulator"];
+  const pricePages = ["", "/compare", "/trend", "/drivers", "/simulator"];
   const staticPages = [
     "/finder",
     "/nearby",

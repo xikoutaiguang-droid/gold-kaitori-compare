@@ -31,6 +31,10 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-serif: var(--font-shippori-mincho);
+  /* 表の地色と、式などを置く枠の地色。クラス(bg-table-head 等)として使えるようにする */
+  --color-table-head: var(--table-head);
+  --color-table-stripe: var(--table-stripe);
+  --color-block: var(--block-tint);
 }
 
 @media (prefers-color-scheme: dark) {
