@@ -69,11 +69,11 @@ export default function MultipleQuotesColumnPage() {
 
       <div className="mt-8 rounded-2xl border border-accent/30 bg-accent-soft/60 p-4 text-sm leading-relaxed text-foreground/80 sm:p-5">
         相見積もりは、電話や来店をしなくても、このサイトの
-        <Link href="/compare" className="mx-1 font-semibold text-accent-strong hover:underline">
+        <Link href="/compare" className="font-semibold text-accent-strong hover:underline">
           買取相場比較
         </Link>
         や
-        <Link href="/simulator" className="mx-1 font-semibold text-accent-strong hover:underline">
+        <Link href="/simulator" className="font-semibold text-accent-strong hover:underline">
           買取額シミュレーター
         </Link>
         で各社の相場を一度に確認するところから始められます。

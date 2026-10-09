@@ -94,7 +94,7 @@ export default function TaxGuidePage() {
           href="https://www.nta.go.jp/"
           target="_blank"
           rel="noopener noreferrer"
-          className="mx-1 text-accent-strong hover:underline"
+          className="text-accent-strong hover:underline"
         >
           国税庁ホームページ
         </a>

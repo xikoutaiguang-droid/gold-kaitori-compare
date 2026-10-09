@@ -176,7 +176,7 @@ export default function HowToChoosePage() {
         </ul>
         <p className="text-base leading-relaxed">
           入れ替わるのは、各社が別々の基準で毎日値を付け直しているからです。去年いちばん高かった店が今日もいちばんとは限らず、今日いちばんの店が明日もそうとは限りません。だから当サイトは「おすすめの店」を置かず、
-          <Link href="/compare" className="mx-1 underline underline-offset-2 hover:text-accent">
+          <Link href="/compare" className="underline underline-offset-2 hover:text-accent">
             その日の順位
           </Link>
           を毎日作り直しています。
@@ -194,7 +194,7 @@ export default function HowToChoosePage() {
             シミュレーター
           </Link>
           に重さを入れると、各社の差し引きを引いたあとの金額まで出ます。引かれ方そのものは
-          <Link href="/column/fees" className="mx-1 underline underline-offset-2 hover:text-accent">
+          <Link href="/column/fees" className="underline underline-offset-2 hover:text-accent">
             手数料の記事
           </Link>
           にまとめました。

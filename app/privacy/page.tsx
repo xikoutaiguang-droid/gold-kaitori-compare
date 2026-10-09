@@ -20,7 +20,7 @@ export default function PrivacyPage() {
           <h2 className="mb-2 font-semibold text-foreground">運営者情報</h2>
           <p>
             本サイト「金買取相場比較」(以下「当サイト」)は、個人({OPERATOR_NAME})が運営しています。掲載しているどの買取店とも資本関係はなく、依頼を受けて運営しているものでもありません。ただし運営者は買取業界の実務経験者で、現在も業界に籍を置いており、掲載している会社の中に運営者が関わったことのある会社も含まれます。価格は各社の公表値を機械的に取得し、並び順は計算結果のみで決めていますが、この点は先に開示しておきます。詳しくは
-            <Link href="/about" className="mx-1 text-accent-strong hover:underline">
+            <Link href="/about" className="text-accent-strong hover:underline">
               このサイトについて
             </Link>
             をご覧ください。
@@ -48,7 +48,7 @@ export default function PrivacyPage() {
                 href="https://tools.google.com/dlpage/gaoptout"
                 target="_blank"
                 rel="noopener"
-                className="mx-1 text-accent-strong hover:underline"
+                className="text-accent-strong hover:underline"
               >
                 Googleアナリティクス オプトアウト アドオン
               </a>
@@ -71,7 +71,7 @@ export default function PrivacyPage() {
                   href="https://adssettings.google.com/"
                   target="_blank"
                   rel="noopener"
-                  className="mx-1 text-accent-strong hover:underline"
+                  className="text-accent-strong hover:underline"
                 >
                   Googleの広告設定ページ
                 </a>
@@ -124,7 +124,7 @@ export default function PrivacyPage() {
                 href={CONTACT_FORM_URL}
                 target="_blank"
                 rel="noopener"
-                className="mx-1 text-accent-strong hover:underline"
+                className="text-accent-strong hover:underline"
               >
                 こちらのお問い合わせフォーム
               </a>

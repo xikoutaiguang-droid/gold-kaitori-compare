@@ -60,7 +60,7 @@ export default function PriceFactorsColumnPage() {
 
       <div className="mt-8 rounded-2xl border border-accent/30 bg-accent-soft/60 p-4 text-sm leading-relaxed text-foreground/80 sm:p-5">
         当サイトは投資助言を行うものではなく、将来の価格を予測するものでもありません。過去の推移を確認したい場合は
-        <Link href="/trend" className="mx-1 font-semibold text-accent-strong hover:underline">
+        <Link href="/trend" className="font-semibold text-accent-strong hover:underline">
           今が売り時？
         </Link>
         のページで、このサイトを見始めてからの価格推移を確認できます。

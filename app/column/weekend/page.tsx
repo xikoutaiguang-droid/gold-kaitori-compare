@@ -239,18 +239,18 @@ export default function WeekendPage() {
         </blockquote>
         <p className="mb-3 text-base leading-relaxed">
           金曜の夕方に出すと、着くのは週明けになります。そのあいだに上の表のぶんだけ動いていることがある、ということです。どの日の価格を使うかは店によって違うので、送る前にその社の記載を確かめてください。返送料や少額のときの差し引きは
-          <Link href="/column/mail-in-purchase" className="mx-1 underline underline-offset-2 hover:text-accent">
+          <Link href="/column/mail-in-purchase" className="underline underline-offset-2 hover:text-accent">
             宅配買取の記事
           </Link>
           にまとめています。
         </p>
         <p className="text-base leading-relaxed">
           なお、どの曜日に売るかより、どの店に売るかのほうが金額を動かすことが多いです。これも記録から測っていて、
-          <Link href="/column/timing-vs-shop" className="mx-1 underline underline-offset-2 hover:text-accent">
+          <Link href="/column/timing-vs-shop" className="underline underline-offset-2 hover:text-accent">
             売る日と売る店、どちらが金額を動かすのか
           </Link>
           で比べています。今日の各社の順位は
-          <Link href="/compare" className="mx-1 underline underline-offset-2 hover:text-accent">
+          <Link href="/compare" className="underline underline-offset-2 hover:text-accent">
             相場比較
           </Link>
           で見られます。

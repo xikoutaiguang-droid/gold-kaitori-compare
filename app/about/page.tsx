@@ -66,7 +66,7 @@ export default function AboutPage() {
           <p>
             当サイトの運営には、Google
             AdSense等の広告や、買取店の一部とのアフィリエイトプログラムによる収益を充てている場合があります。アフィリエイトリンクを含むリンクには「PR」の表示を付けており、提携の有無によって掲載価格の並び順や信頼度目安を操作することはありません。詳しくは
-            <Link href="/privacy" className="mx-1 text-accent-strong hover:underline">
+            <Link href="/privacy" className="text-accent-strong hover:underline">
               プライバシーポリシー
             </Link>
             をご覧ください。
@@ -86,7 +86,7 @@ export default function AboutPage() {
           <h2 className="font-serif-jp mb-2 text-lg font-semibold">お問い合わせ</h2>
           <p>
             運営者情報は
-            <Link href="/privacy" className="mx-1 text-accent-strong hover:underline">
+            <Link href="/privacy" className="text-accent-strong hover:underline">
               プライバシーポリシー
             </Link>
             のページに記載しています。掲載内容に誤りを見つけられた場合も、同じページのお問い合わせフォームからお知らせください。当サイトは各社の公表情報を機械的に集めているため、取得の不具合や読み取りの誤りが起きることがあります。ご指摘は歓迎します。

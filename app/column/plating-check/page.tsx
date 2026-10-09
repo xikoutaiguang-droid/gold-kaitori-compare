@@ -89,7 +89,7 @@ export default function PlatingCheckColumnPage() {
 
       <div className="mt-8 rounded-2xl border border-accent/30 bg-accent-soft/60 p-4 text-sm leading-relaxed text-foreground/80 sm:p-5">
         純度(刻印)が分かっている場合は、
-        <Link href="/tools/purity-calculator" className="mx-1 font-semibold text-accent-strong hover:underline">
+        <Link href="/tools/purity-calculator" className="font-semibold text-accent-strong hover:underline">
           純度別 純金属含有量計算ツール
         </Link>
         で、実際にどれくらいの純金属が含まれているかを計算できます。

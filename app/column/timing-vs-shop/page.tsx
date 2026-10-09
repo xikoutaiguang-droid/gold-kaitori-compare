@@ -257,15 +257,15 @@ export default function TimingVsShopPage() {
         </p>
         <p className="text-sm leading-relaxed text-foreground/80">
           今日の各社の価格は
-          <Link href="/compare" className="mx-1 underline underline-offset-2 hover:text-accent">
+          <Link href="/compare" className="underline underline-offset-2 hover:text-accent">
             相場比較
           </Link>
           に、重さを入れた概算は
-          <Link href="/simulator" className="mx-1 underline underline-offset-2 hover:text-accent">
+          <Link href="/simulator" className="underline underline-offset-2 hover:text-accent">
             シミュレーター
           </Link>
           にあります。なお、ここで比べているのは各社が公表している1gあたりの参考価格です。店頭では品物の状態や手数料で最終額が変わるため、
-          <Link href="/column/what-a-gram-means" className="mx-1 underline underline-offset-2 hover:text-accent">
+          <Link href="/column/what-a-gram-means" className="underline underline-offset-2 hover:text-accent">
             「1gいくら」が店ごとに同じ意味ではない
           </Link>
           ことも合わせて見てください。

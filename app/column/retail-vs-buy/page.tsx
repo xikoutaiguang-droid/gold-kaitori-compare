@@ -206,7 +206,7 @@ export default function RetailVsBuyPage() {
           </div>
           <p className="text-base leading-relaxed">
             つまり売る側から見ると、報じられる相場の数字から<strong>二段下がった額</strong>が手元に来ます。どの店がその二段目を浅く済ませているかは日によって入れ替わるので、
-            <Link href="/compare" className="mx-1 underline underline-offset-2 hover:text-accent">
+            <Link href="/compare" className="underline underline-offset-2 hover:text-accent">
               相場比較
             </Link>
             に毎日の順位を出しています。
@@ -222,11 +222,11 @@ export default function RetailVsBuyPage() {
         </p>
         <p className="text-base leading-relaxed">
           そのうえで、同じ「買取価格」でも店によって指しているものが違います。メダル・小判が基準で指輪は別、と書いている社もあります。
-          <Link href="/column/what-a-gram-means" className="mx-1 underline underline-offset-2 hover:text-accent">
+          <Link href="/column/what-a-gram-means" className="underline underline-offset-2 hover:text-accent">
             「1gいくら」は、店ごとに同じ意味ではない
           </Link>
           と、単価から引かれるものをまとめた
-          <Link href="/column/fees" className="mx-1 underline underline-offset-2 hover:text-accent">
+          <Link href="/column/fees" className="underline underline-offset-2 hover:text-accent">
             手数料の記事
           </Link>
           も合わせて見てください。

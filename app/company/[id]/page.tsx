@@ -354,7 +354,7 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
               href={company.priceSourceUrl}
               target="_blank"
               rel="noopener noreferrer nofollow"
-              className="mx-1 underline underline-offset-2"
+              className="underline underline-offset-2"
             >
               {company.name}の公式サイト
             </a>

@@ -143,22 +143,22 @@ export default function NationwidePage() {
         <MethodTabs current={PATH} />
         <p className="mb-3 text-base leading-relaxed">
           持ち込みたいなら、自分の地域に店がある社だけを見れば足ります。当サイトは各社の対応地域で絞り込めるようにしてあるので、
-          <Link href="/nearby" className="mx-1 underline underline-offset-2 hover:text-accent">
+          <Link href="/nearby" className="underline underline-offset-2 hover:text-accent">
             近くの買取店
           </Link>
           から見てください。地域ごとの一覧は
-          <Link href="/compare" className="mx-1 underline underline-offset-2 hover:text-accent">
+          <Link href="/compare" className="underline underline-offset-2 hover:text-accent">
             相場比較
           </Link>
           でも切り替えられます。
         </p>
         <p className="text-base leading-relaxed">
           送って売るつもりなら、店舗数は関係がなくなります。そのかわり、返送料や少額のときに引かれるものが社ごとに違うので、そちらを見てください。宅配で引かれるものは
-          <Link href="/column/mail-in-purchase" className="mx-1 underline underline-offset-2 hover:text-accent">
+          <Link href="/column/mail-in-purchase" className="underline underline-offset-2 hover:text-accent">
             宅配買取の記事
           </Link>
           に、自分の品物でいくら残るかは
-          <Link href="/simulator" className="mx-1 underline underline-offset-2 hover:text-accent">
+          <Link href="/simulator" className="underline underline-offset-2 hover:text-accent">
             シミュレーター
           </Link>
           にまとめています。

@@ -49,7 +49,7 @@ export default function EstateCleanupColumnPage() {
           <h2 className="font-serif-jp mb-2 text-lg font-semibold">刻印を確認しておく</h2>
           <p>
             「K18」「Pt900」などの刻印があれば、査定の際の目安になります。刻印が見当たらない場合の簡易チェックについては、
-            <Link href="/column/plating-check" className="mx-1 font-semibold text-accent-strong hover:underline">
+            <Link href="/column/plating-check" className="font-semibold text-accent-strong hover:underline">
               メッキと金の簡単な見分け方
             </Link>
             もあわせてご覧ください。
@@ -68,7 +68,7 @@ export default function EstateCleanupColumnPage() {
           <h2 className="font-serif-jp mb-2 text-lg font-semibold">税金については、事前に確認を</h2>
           <p>
             貴金属を売却して利益が出た場合の税金の考え方(譲渡所得)については、
-            <Link href="/guide/tax" className="mx-1 font-semibold text-accent-strong hover:underline">
+            <Link href="/guide/tax" className="font-semibold text-accent-strong hover:underline">
               買取と税金のガイド
             </Link>
             でまとめています。なお、相続そのものにかかる相続税は、売却時の譲渡所得税とは別の制度です。相続税の申告が必要かどうかなど、相続に関する税務のご判断は、税理士や国税庁への確認をおすすめします。
@@ -78,7 +78,7 @@ export default function EstateCleanupColumnPage() {
 
       <div className="mt-8 rounded-2xl border border-accent/30 bg-accent-soft/60 p-4 text-sm leading-relaxed text-foreground/80 sm:p-5">
         急いで決める必要はありません。まずは
-        <Link href="/compare" className="mx-1 font-semibold text-accent-strong hover:underline">
+        <Link href="/compare" className="font-semibold text-accent-strong hover:underline">
           買取相場比較
         </Link>
         で、今の相場感だけでも確認してみてください。

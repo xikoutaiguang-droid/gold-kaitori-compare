@@ -170,7 +170,7 @@ export default function IdentityCheckPage() {
         </blockquote>
         <p className="text-base leading-relaxed">
           査定は進むが振込は止まる、という形です。送ってから気づくと品物だけ先方にある状態になるので、申し込む前に済ませておくほうが早く終わります。送って売るときの返送料や少額時の差し引きは
-          <Link href="/column/mail-in-purchase" className="mx-1 underline underline-offset-2 hover:text-accent">
+          <Link href="/column/mail-in-purchase" className="underline underline-offset-2 hover:text-accent">
             宅配買取の記事
           </Link>
           にまとめています。

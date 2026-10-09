@@ -203,7 +203,7 @@ export default function FeesPage() {
             自分の品物の重さで確かめるなら
             <Link
               href="/simulator"
-              className="mx-1 font-medium text-accent-strong underline underline-offset-2 hover:no-underline"
+              className="font-medium text-accent-strong underline underline-offset-2 hover:no-underline"
             >
               シミュレーター
             </Link>
@@ -216,7 +216,7 @@ export default function FeesPage() {
               href={MANEKIYA_FEE.sourceUrl}
               target="_blank"
               rel="noopener noreferrer nofollow"
-              className="mx-1 underline underline-offset-2"
+              className="underline underline-offset-2"
             >
               同社の公表表
             </a>
@@ -240,7 +240,7 @@ export default function FeesPage() {
         <p className="text-sm leading-relaxed text-foreground/80">
           つまり「手数料無料」は、支払われる金額が多いことを意味しません。比べるべきなのは単価でも手数料の有無でもなく、
           <strong className="font-semibold">最後に受け取る金額</strong>です。当サイトの
-          <Link href="/simulator" className="mx-1 underline underline-offset-2 hover:text-accent">
+          <Link href="/simulator" className="underline underline-offset-2 hover:text-accent">
             シミュレーター
           </Link>
           も各社の公表単価で計算しているため、後から引かれる分は入っていません。
