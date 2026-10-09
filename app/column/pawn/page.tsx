@@ -129,7 +129,7 @@ export default function PawnPage() {
           品物を失う代わりに、返せなかったお金の請求は残りません。ここが借入れと違うところで、貸した側は品物で回収を終えます。品物の値段が借りた額より高くても、差額が戻ってくるわけではありません。
         </p>
         <p className="text-base leading-relaxed">
-          なお、質入れ自体は売買ではありませんが、流質で所有権が移ったあとの税の扱いは事情によって変わります。売った場合の考え方は{" "}
+          なお、質入れ自体は売買ではありませんが、流質で所有権が移ったあとの税の扱いは事情によって変わります。売った場合の考え方は
           <Link href="/column/tax" className="underline underline-offset-2">
             金を売って税金がかかるのは、売った額ではなくもうけです
           </Link>
@@ -158,7 +158,7 @@ export default function PawnPage() {
         <h2 className="font-serif-jp mb-3 text-lg font-semibold">審査がないのは、品物で見ているから</h2>
         <Quote entry={PAWN_QUOTES.shopNoScreening} />
         <p className="text-base leading-relaxed">
-          貸す相手ではなく預かる品物を見るので、収入や勤め先を聞かれません。一方で、本人確認は買取と同じく必要です。身分証について法律が何を求めているかは{" "}
+          貸す相手ではなく預かる品物を見るので、収入や勤め先を聞かれません。一方で、本人確認は買取と同じく必要です。身分証について法律が何を求めているかは
           <Link href="/column/identity-check" className="underline underline-offset-2">
             1万円未満なら、法律は本人確認を求めていない
           </Link>

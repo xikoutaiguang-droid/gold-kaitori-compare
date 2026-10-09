@@ -103,7 +103,7 @@ export default function TaxPage() {
       </p>
 
       <p className="mb-8 text-sm leading-relaxed text-muted">
-        条文まではいらない、要点だけ知りたいという場合は{" "}
+        条文まではいらない、要点だけ知りたいという場合は
         <Link href="/guide/tax" className="underline underline-offset-2">
           金・貴金属を売ったときの税金
         </Link>
@@ -190,7 +190,7 @@ export default function TaxPage() {
         </p>
         <Quote entry={TAX_QUOTES.longTermHalf} highlight />
         <p className="text-base leading-relaxed">
-          長期と短期の分かれ目は、買った日から売った日までの期間です。詳しい区分は国税庁の{" "}
+          長期と短期の分かれ目は、買った日から売った日までの期間です。詳しい区分は国税庁の
           <a
             href={NTA_3152}
             target="_blank"
@@ -245,7 +245,7 @@ export default function TaxPage() {
           K18のネックレスや指輪は、この条文でいう金地金等には当たりません。店頭で200万円を超える取引に別の案内が出ることはありますが、それは犯罪収益移転防止法など別の法律によるもので、ここで引いた条文とは別の話です。
         </p>
         <p className="text-base leading-relaxed">
-          身分証を求められる1万円の線は、さらに別の法律（古物営業法）です。こちらは{" "}
+          身分証を求められる1万円の線は、さらに別の法律（古物営業法）です。こちらは
           <Link href="/column/identity-check" className="underline underline-offset-2">
             1万円未満なら、法律は本人確認を求めていない
           </Link>
@@ -315,7 +315,7 @@ export default function TaxPage() {
           当サイトは税の専門家ではありません。ここに書いたのは「条文と国税庁の説明に何と書いてあるか」であって、個別の取引にどう当てはまるかの判断ではありません。取得費を示す書類が無い場合の扱いや、相続した品の所有期間、確定申告が要るかどうかは、事情によって変わります。実際の申告は、所轄の税務署か税理士にご確認ください。法令も国税庁の記載も改正・更新されることがあります。
         </p>
         <p className="mt-2 text-xs leading-relaxed text-muted">
-          参考: 国税庁{" "}
+          参考: 国税庁
           <a href={NTA_3161} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">
             No.3161 金地金の譲渡による所得
           </a>

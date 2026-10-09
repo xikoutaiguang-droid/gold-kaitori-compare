@@ -152,7 +152,7 @@ export default function WhatAGramMeansPage() {
           </table>
         </div>
         <p className="text-xs text-muted">
-          田中貴金属の価格は{" "}
+          田中貴金属の価格は
           <a href={bench.referenceUrl} target="_blank" rel="noopener noreferrer nofollow" className="underline underline-offset-2">
             同社の公表ページ
           </a>

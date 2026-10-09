@@ -163,14 +163,14 @@ export default function DriversPage() {
         </p>
         <ul className="mb-3 list-disc space-y-1.5 pl-5 text-xs leading-relaxed text-muted">
           <li>
-            金価格は{" "}
+            金価格は
             <a href={jpxUrl} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">
               大阪取引所の清算値段
             </a>
             （金先物・スポット相当）。業者の手数料が入らない、取引所の値です。
           </li>
           <li>
-            為替は{" "}
+            為替は
             <a
               href={fx.sourceUrl}
               target="_blank"
@@ -195,7 +195,7 @@ export default function DriversPage() {
           </li>
         </ul>
         <p className="text-xs leading-relaxed text-muted">
-          ここに出しているのは、起きたことの内訳です。これから上がるか下がるかを示すものではなく、当サイトは投資助言を行いません。売却の判断はご自身の事情に基づいて行ってください。金価格が何で動くのかという仕組みは{" "}
+          ここに出しているのは、起きたことの内訳です。これから上がるか下がるかを示すものではなく、当サイトは投資助言を行いません。売却の判断はご自身の事情に基づいて行ってください。金価格が何で動くのかという仕組みは
           <Link href="/column/price-factors" className="underline underline-offset-2">
             金相場はなぜ変動するのか
           </Link>

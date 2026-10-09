@@ -32,7 +32,7 @@ export default function WeeklyChange() {
 
   return (
     <p className="mb-8 text-sm leading-relaxed text-muted sm:mb-10">
-      掲載社のK24平均は、1週間前（{jaDate(past.date)}）より{" "}
+      掲載社のK24平均は、1週間前（{jaDate(past.date)}）より
       <span
         className={`font-semibold tabular-nums ${
           diff > 0 ? "text-emerald-700 dark:text-emerald-400" : "text-foreground/80"

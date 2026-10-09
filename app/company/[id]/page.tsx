@@ -257,7 +257,7 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
                   <span className="ml-1 text-sm font-normal text-foreground/70">円/g</span>
                 </dd>
                 <dd className="text-xs text-muted">
-                  掲載{s.total}社中{s.rank}位 ・{" "}
+                  掲載{s.total}社中{s.rank}位 ・
                   {s.diff === 0
                     ? "中央値と同じ"
                     : `中央値より${s.diff > 0 ? "+" : ""}${s.diff.toLocaleString("ja-JP")}円`}
@@ -308,7 +308,7 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
                 {company.name}のK24は、
                 {weekChange.daysCompared === 7 ? "1週間前" : `${weekChange.daysCompared}日前`}（
                 {jaDate(weekChange.since)}）の
-                {weekChange.past.toLocaleString("ja-JP")}円/gから{" "}
+                {weekChange.past.toLocaleString("ja-JP")}円/gから
                 <span
                   className={`font-semibold tabular-nums ${
                     weekChange.diff > 0

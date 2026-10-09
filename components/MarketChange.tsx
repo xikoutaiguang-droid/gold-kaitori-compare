@@ -61,11 +61,11 @@ export default function MarketChange({ history }: { history: PriceHistory }) {
   if (personal.length > 0) {
     return (
       <p className="mb-8 text-sm leading-relaxed text-muted sm:mb-10">
-        前回ご覧になった{jaDate(prevVisit as string)}から、掲載社の平均は{" "}
+        前回ご覧になった{jaDate(prevVisit as string)}から、掲載社の平均は
         {personal.map((c, i) => (
           <span key={c!.purity}>
             {i > 0 && "、"}
-            {c!.purity === "k24" ? "K24" : "K18"}が{" "}
+            {c!.purity === "k24" ? "K24" : "K18"}が
             <span
               className={`font-semibold tabular-nums ${
                 c!.diff > 0 ? "text-emerald-700 dark:text-emerald-400" : "text-foreground/80"
@@ -88,7 +88,7 @@ export default function MarketChange({ history }: { history: PriceHistory }) {
   if (!weekly) return null;
   return (
     <p className="mb-8 text-sm leading-relaxed text-muted sm:mb-10">
-      掲載社のK24平均は、1週間前（{jaDate(weekly.since)}）より{" "}
+      掲載社のK24平均は、1週間前（{jaDate(weekly.since)}）より
       <span
         className={`font-semibold tabular-nums ${
           weekly.diff > 0 ? "text-emerald-700 dark:text-emerald-400" : "text-foreground/80"

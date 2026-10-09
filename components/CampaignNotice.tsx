@@ -61,7 +61,7 @@ export default function CampaignNotice({
                   ))}
                 </ul>
                 <p className="mt-2 text-xs leading-relaxed text-muted">
-                  当サイトが{jaDate(c.verifiedAt)}に{" "}
+                  当サイトが{jaDate(c.verifiedAt)}に
                   <a
                     href={c.sourceUrl}
                     target="_blank"

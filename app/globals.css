@@ -80,6 +80,29 @@ body {
 .column-body li,
 .column-body dd {
   line-height: 1.9;
+  /*
+   * 両端そろえ。
+   *
+   * 左詰めのままだと、行末がそろわず右側がぎざぎざに空く。日本語は文字の幅が
+   * ほぼ一定なので、英文のように単語の切れ目で自然に揃うことがなく、
+   * 1行24文字の画面では行ごとに2〜3文字ぶんの空きが残って読みにくかった。
+   * 文字の間でわずかに詰め伸ばしして、右端を本文の幅に合わせる。
+   *
+   * inter-character は CJK 向けの指定。対応していないブラウザ(Safari等)でも、
+   * 日本語の両端そろえは既定で文字間の調整になるので、見え方は変わらない。
+   */
+  text-align: justify;
+  text-justify: inter-character;
+  /* 「。」「、」が行頭に来ないようにする(禁則処理)。既定でも効くが明示しておく */
+  line-break: strict;
+  word-break: normal;
+  /* URLなど切れ目の無い長い文字列だけは、はみ出すより折る */
+  overflow-wrap: anywhere;
+}
+
+/* 行末の句読点を少しはみ出させて、右端をそろえて見せる(対応ブラウザのみ) */
+.column-body p {
+  hanging-punctuation: allow-end;
 }
 
 /* 段落の間。隣り合う margin は相殺されるので、既存の mb-3 より大きいほうが採用される */

@@ -66,11 +66,11 @@ export default function HallmarkReference() {
         </table>
       </div>
       <p className="text-xs leading-relaxed text-muted">
-        刻印の数字は四捨五入の仕方で1刻み違うことがあります。たとえばK10は24分の10＝41.67%で、刻印は「417」ですが、当サイトは価格の比較に41.6%を使っています。K20には24分率の833と、国内のホールマークに由来する835の2通りがあり、当サイトは835を採っています。刻印が読めない・見当たらない場合は{" "}
+        刻印の数字は四捨五入の仕方で1刻み違うことがあります。たとえばK10は24分の10＝41.67%で、刻印は「417」ですが、当サイトは価格の比較に41.6%を使っています。K20には24分率の833と、国内のホールマークに由来する835の2通りがあり、当サイトは835を採っています。刻印が読めない・見当たらない場合は
         <Link href="/column/hallmark" className="underline underline-offset-2">
           刻印の探し方
         </Link>
-        と{" "}
+        と
         <Link href="/column/plating-check" className="underline underline-offset-2">
           メッキの見分け方
         </Link>

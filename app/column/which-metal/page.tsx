@@ -220,7 +220,7 @@ export default function WhichMetalPage() {
           で重さを入れると、各社の差し引き後にいくら残るかが行ごとに出ます。引かれる額が品物の値段を上回る重さでは、金額ではなくその旨が出るようにしてあります。
         </p>
         <p className="text-base leading-relaxed">
-          手数料そのものの中身は{" "}
+          手数料そのものの中身は
           <Link href="/column/fees" className="underline underline-offset-2">
             金買取の手数料は、どこでいくら引かれるのか
           </Link>

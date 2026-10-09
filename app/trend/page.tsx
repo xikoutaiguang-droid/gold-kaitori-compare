@@ -152,7 +152,7 @@ export default function TrendPage() {
       <section className="mt-12 border-t border-border pt-8">
         <h2 className="font-serif-jp mb-3 text-lg font-semibold">このデータを使う</h2>
         <p className="text-sm leading-relaxed text-muted">
-          グラフに使っている日次の記録と、各社の当日の価格は{" "}
+          グラフに使っている日次の記録と、各社の当日の価格は
           <a href="/data/prices.json" className="underline underline-offset-2">
             /data/prices.json
           </a>
