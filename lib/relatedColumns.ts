@@ -30,7 +30,9 @@ const RELATED: Record<ColumnContext, string[]> = {
     "/column/karat-and-price",
     "/column/what-a-gram-means",
     "/column/fees",
-    "/column/price-gap",
+    // 価格ページに来た人の「手元のこれは単価どおりになるのか」という疑問。
+    // 各社の開きは /compare 側で出しているので、ここは品物のほうを置く。
+    "/column/broken-jewelry",
   ],
   platinum: [
     "/column/which-metal",

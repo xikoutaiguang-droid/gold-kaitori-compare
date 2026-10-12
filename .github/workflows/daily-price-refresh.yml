@@ -73,6 +73,12 @@ jobs:
         run: node scripts/scrape/record-fx.mjs
         continue-on-error: true
 
+      # 歯科用の金合金(金パラ)の買取単価。/column/dental-gold が「保険の材料価格」と
+      # 「実際の買取価格」を並べるのに使う。記事に数字を書かないための記録。
+      - name: 歯科用金合金の買取価格を記録
+        run: node scripts/scrape/record-dental.mjs
+        continue-on-error: true
+
       - name: 変更をコミット・push
         if: always()
         run: |

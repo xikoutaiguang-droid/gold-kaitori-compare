@@ -121,7 +121,15 @@ function unscannableLines(src, file) {
 }
 
 async function main() {
-  const files = ["lib/fees.ts", "lib/services.ts", "lib/taxLaw.ts", "lib/pawnLaw.ts", "lib/scaleLaw.ts"];
+  const files = [
+    "lib/fees.ts",
+    "lib/services.ts",
+    "lib/taxLaw.ts",
+    "lib/pawnLaw.ts",
+    "lib/scaleLaw.ts",
+    "lib/dentalGold.ts",
+    "lib/brokenItems.ts",
+  ];
   const pairs = [];
   const unscannable = [];
   for (const f of files) {

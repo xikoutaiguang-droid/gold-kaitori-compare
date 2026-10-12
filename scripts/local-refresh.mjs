@@ -58,6 +58,7 @@ const FULL_STEPS = [
   ["scripts/scrape/append-company-history.mjs"],
   ["scripts/scrape/record-futures-outlook.mjs"],
   ["scripts/scrape/record-fx.mjs"],
+  ["scripts/scrape/record-dental.mjs"],
 ];
 
 /** 2回目以降。まだ今日の日付になっていない社だけ拾いに行く */

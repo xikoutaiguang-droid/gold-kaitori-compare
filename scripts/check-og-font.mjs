@@ -8,10 +8,13 @@
  * 共有されて初めて気づく類の崩れ方なので、文字のほうを先に確かめる。
  *
  * 足りない文字が出たら、assets/fonts/ のフォントを作り直す:
- *   python -m fontTools.subset NotoSansJP-Bold.otf --text-file=タイトル一覧 \
- *     --unicodes="U+0020-007E,U+00A0-00FF,U+2010-2027,U+3000-303F,U+3040-309F,U+30A0-30FF,U+FF01-FF60,U+FFE0-FFE6" \
- *     --output-file=NotoSansJP-og.otf --layout-features="*" --no-hinting --desubroutinize
- * 収録範囲(coverage.json)も一緒に書き出すこと。
+ *   curl -L -o NotoSansJP-Bold.otf \
+ *     https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/SubsetOTF/JP/NotoSansJP-Bold.otf
+ *   node scripts/build-og-font.mjs NotoSansJP-Bold.otf
+ * 収録範囲(coverage.json)もあちらが一緒に書き出す。
+ *
+ * 前はこの手順が文章で書いてあるだけで、元のフォントの入手先が残っていなかった。
+ * 2026年10月13日に記事を2本足したとき、5文字足りず、置き場所を探すところからやり直した。
  */
 import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
