@@ -1,6 +1,14 @@
 {
   "notes": "各記事ページの公開日(そのファイルの最初のコミット)と更新日(最後のコミット)。scripts/update-article-dates.mjs が git の履歴から書き出す。手で編集しない。",
   "articles": {
+    "/column/broken-jewelry": {
+      "published": "2026-10-13T02:55:42+09:00",
+      "modified": "2026-10-13T02:55:42+09:00"
+    },
+    "/column/dental-gold": {
+      "published": "2026-10-13T02:55:42+09:00",
+      "modified": "2026-10-13T02:55:42+09:00"
+    },
     "/column/estate-cleanup": {
       "published": "2026-09-15T11:22:04+09:00",
       "modified": "2026-10-09T21:50:45+09:00"
