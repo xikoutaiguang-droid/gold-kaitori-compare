@@ -105,8 +105,8 @@ export const COLUMNS: ColumnEntry[] = [
   },
   {
     href: "/column/plating-check",
-    title: "メッキと金の簡単な見分け方",
-    desc: "磁石を使った自宅でできる簡易チェックと、その限界について",
+    title: "メッキと金の見分け方 ― 磁石と、水に入れて重さで調べる方法",
+    desc: "磁石で分かることと分からないこと、水に入れて密度を出す式、税関の分析所が使っている金属の密度の値まで",
   },
   {
     href: "/column/dental-gold",

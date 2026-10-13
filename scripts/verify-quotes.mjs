@@ -130,11 +130,14 @@ async function main() {
     "lib/dentalGold.ts",
     "lib/brokenItems.ts",
     "lib/hallmarkMint.ts",
+    "lib/densityTest.ts",
   ];
   const pairs = [];
   const unscannable = [];
+  const sources = [];
   for (const f of files) {
     const src = await readFile(path.join(ROOT, f), "utf8");
+    sources.push(src);
     unscannable.push(...unscannableLines(src, f));
     pairs.push(...extractPairs(src).map((p) => ({ ...p, from: f })));
   }
@@ -144,6 +147,19 @@ async function main() {
   for (const p of pairs) {
     if (!byUrl.has(p.sourceUrl)) byUrl.set(p.sourceUrl, []);
     byUrl.get(p.sourceUrl).push(p);
+  }
+
+  // PDFの出典は中身を突き合わせられない(このスクリプトはHTMLから文字を起こす作り)。
+  // 取りに行って文字が無いと言い続けると、本当の食い違いが埋もれる。
+  // PDFは「まだそこに在るか」だけ見て、中身は人が確かめた日を記事側に書く。
+  const pdfUrls = [...byUrl.keys()].filter((u) => /\.pdf($|\?)/i.test(u));
+  for (const u of pdfUrls) byUrl.delete(u);
+  // 引用を持たない出典(数値だけを転記したPDFなど)は、上のレコード読みでは拾われない。
+  // URLが死んでいれば記事の出典が消えたことになるので、そこだけは見ておく。
+  for (const src of sources) {
+    for (const m of src.matchAll(/sourceUrl:\s*"([^"]+\.pdf[^"]*)"/g)) {
+      if (!pdfUrls.includes(m[1])) pdfUrls.push(m[1]);
+    }
   }
 
   console.log(`引用 ${pairs.length}件 / 出典 ${byUrl.size}件を照合します`);
@@ -170,6 +186,21 @@ URLが文字列で書かれていないため照合できない行 (${unscannabl
       if (!text.includes(fold(p.quote))) missing.push(p);
     }
     await new Promise((r) => setTimeout(r, 1200)); // 相手に連続で当てない
+  }
+
+  if (pdfUrls.length) {
+    console.log(`
+中身を自動照合できないPDFの出典 (${pdfUrls.length}件。URLが生きているかだけ見ます):`);
+    for (const u of pdfUrls) {
+      let status = "取りに行けませんでした";
+      try {
+        const res = await fetch(u, { headers: { "User-Agent": UA }, redirect: "follow" });
+        status = res.ok ? "あり" : `${res.status}`;
+      } catch (err) {
+        status = err?.cause?.code ?? err.message;
+      }
+      console.log(`  - ${u} -> ${status}`);
+    }
   }
 
   if (unreachable.length) {

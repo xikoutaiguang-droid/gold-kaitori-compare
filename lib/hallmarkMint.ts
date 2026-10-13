@@ -118,6 +118,14 @@ export const MINT_QUOTES: Record<string, MintQuote> = {
       "金の品位（純度）が同じであれば、ホワイトゴールドもピンクゴールドも同じホールマーク表示となります。",
     sourceUrl: "https://www.mint.go.jp/operations/exam/operations_certification-02.html",
   },
+  // 白いものには何が混ざっているか。比重で純度を当てられない理由にもなる
+  whiteGoldMetals: {
+    sourceId: "mint-marks-white-gold-metals",
+    label: "造幣局「貴金属製品の品位区分と証明記号」",
+    quote:
+      "その他の金属（白色系のニッケルや銀、パラジウムなど）が１０００分の２５０含まれているということです。",
+    sourceUrl: "https://www.mint.go.jp/operations/exam/operations_certification-02.html",
+  },
   whiteGold: {
     sourceId: "mint-marks-white-gold",
     label: "造幣局「貴金属製品の品位区分と証明記号」",
