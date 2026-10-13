@@ -85,8 +85,8 @@ export const COLUMNS: ColumnEntry[] = [
   },
   {
     href: "/column/hallmark",
-    title: "金の刻印はどこにある？「750」「K18」「GP」の見分け方",
-    desc: "刻印の位置を図で示し、造幣局のホールマークやメッキ表記との違いまで",
+    title: "金の刻印はどこにある？「750」「K18」「GP」の意味と見分け方",
+    desc: "刻印の位置を図で示し、「K18」が造幣局の証明ではないこと、古い品物の1000や835の正体、メッキ表記との違いを原文で",
   },
   {
     href: "/column/karat-and-price",

@@ -129,6 +129,7 @@ async function main() {
     "lib/scaleLaw.ts",
     "lib/dentalGold.ts",
     "lib/brokenItems.ts",
+    "lib/hallmarkMint.ts",
   ];
   const pairs = [];
   const unscannable = [];
