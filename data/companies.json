@@ -1162,5 +1162,118 @@
       }
     ],
     "handCheckedAt": {}
+  },
+  {
+    "id": "goldplaza",
+    "name": "ゴールドプラザ",
+    "officialUrl": "https://goldplaza.jp/gold",
+    "priceSourceUrl": "https://goldplaza.jp/gold/rate",
+    "tier": "midsize",
+    "storeCount": 13,
+    "regions": [
+      "関東",
+      "近畿"
+    ],
+    "trustScore": 3,
+    "trustNotes": "株式会社Clarisse(東京都新宿区)が運営。関東9・関西4の計13店舗。創業2002年。",
+    "priceData": {
+      "prices": {
+        "k24": 22398,
+        "k22": 20340,
+        "k21_6": 19973,
+        "k20": 18586,
+        "k18": 17082,
+        "k14": 12698,
+        "k10": 8821,
+        "k9": 7851,
+        "pt1000": 8904,
+        "pt950": 8445,
+        "pt900": 8124,
+        "pt850": 7664
+      },
+      "updatedAt": "2026-10-13",
+      "fetchedAt": "2026-10-13T18:19:57.912Z"
+    },
+    "scrapeMethod": "html",
+    "notes": "価格は「金価格・今日の1g買取相場と推移」ページの table.p-rate-table から取得(金・プラチナの2表)。インゴットの行は宝飾品と基準が違うため除外。同社はK12・K8も公表しているが、当サイトが扱う純度の範囲外。シルバーの公表はない。店舗数は店舗一覧ページで【閉店】表示の3店を除いて数えた。古物商許可は東京都公安委員会 第304362320013号。",
+    "handCheckedAt": {
+      "regions": "2026-10-14",
+      "storeCount": "2026-10-14",
+      "trustNotes": "2026-10-14"
+    }
+  },
+  {
+    "id": "brandcom",
+    "name": "鑑定空間",
+    "officialUrl": "https://brandcom.co.jp/",
+    "priceSourceUrl": "https://brandcom.co.jp/kikinzoku/gold-kaitori/",
+    "tier": "boutique",
+    "storeCount": 1,
+    "regions": [
+      "関東"
+    ],
+    "trustScore": 2,
+    "trustNotes": "株式会社ホーム・コムが運営する横浜市中区の1店舗。宅配買取とLINE査定が中心。",
+    "priceData": {
+      "prices": {
+        "k24": 22407,
+        "k22": 20309,
+        "k21_6": 19940,
+        "k20": 18557,
+        "k18": 17105,
+        "k14": 12679,
+        "k10": 8806,
+        "k9": 7838,
+        "pt1000": 8911,
+        "pt950": 8452,
+        "pt900": 8149,
+        "pt850": 7690,
+        "ag": 309
+      },
+      "updatedAt": "2026-10-13",
+      "fetchedAt": "2026-10-13T18:20:00.568Z"
+    },
+    "scrapeMethod": "html",
+    "notes": "価格は貴金属買取相場ページの table.gold_type_price(金)と table.scrap(プラチナ・銀)から取得。別掲の table.ingot_price_table はインゴット建てのため除外。ホワイトゴールドの行(K18WG等)は同じ品位の重複なので採らない。パラジウム(Pd1000)も公表しているが、当サイトは純度の型に持っていないため未収録。古物営業法許可は神奈川県公安委員会 第451310004198号。小規模事業者である点に注意。",
+    "handCheckedAt": {
+      "regions": "2026-10-14",
+      "storeCount": "2026-10-14",
+      "trustNotes": "2026-10-14"
+    }
+  },
+  {
+    "id": "sanoya",
+    "name": "さのや",
+    "officialUrl": "https://www.sanoya.co.jp/",
+    "priceSourceUrl": "https://www.sanoya.co.jp/gold/",
+    "tier": "boutique",
+    "storeCount": 8,
+    "regions": [
+      "関東"
+    ],
+    "trustScore": 3,
+    "trustNotes": "株式会社山貴佐野屋。大正10年創業の老舗質屋で、東京都豊島区に8店舗。質屋許可あり。",
+    "priceData": {
+      "prices": {
+        "k24": 21980,
+        "k22": 20340,
+        "k20": 18540,
+        "k18": 17190,
+        "k14": 12710,
+        "pt1000": 8720,
+        "pt950": 8370,
+        "pt900": 8260,
+        "pt850": 7800
+      },
+      "updatedAt": "2026-10-13",
+      "fetchedAt": "2026-10-13T18:20:03.944Z"
+    },
+    "scrapeMethod": "html",
+    "notes": "価格は金買取ページの表から、**買取金額の列**だけを取得(隣に質預り金額の列があるため取り違えに注意)。同ページ上部の「国内公表価格」は建値であって同社の買取価格ではないので採らない。会社案内に創立1983年8月、法人化前の佐野屋質店は大正10年創業、資本金5000万円、従業員45名、都内8店舗と記載。店舗はすべて豊島区(大塚・巣鴨)で、地域は関東としている。手数料・減額なしを明記。",
+    "handCheckedAt": {
+      "regions": "2026-10-14",
+      "storeCount": "2026-10-14",
+      "trustNotes": "2026-10-14"
+    }
   }
 ]

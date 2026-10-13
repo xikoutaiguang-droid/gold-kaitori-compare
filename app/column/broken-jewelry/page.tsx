@@ -10,6 +10,7 @@ import {
   PREMIUM_QUOTES,
   REASON_QUOTES,
   SAME_PRICE_QUOTES,
+  SURVEYED_SHOPS,
   countQuotedShops,
   measureShopGap,
   type BrokenQuote,
@@ -94,7 +95,7 @@ export default function BrokenJewelryPage() {
       <p className="mb-8 text-base leading-relaxed">
         <strong>地金として売るぶんには、形は金額に関係しません</strong>
         。これは当サイトの推測ではなく、各社が自分の公式サイトに書いていることです。
-        {BROKEN_CHECKED_AT}に掲載25社のページを読んで、{shops}
+        {BROKEN_CHECKED_AT}に、その時点で掲載していた{SURVEYED_SHOPS}社のページを読んで、{shops}
         社の記載を引きました。そのうえで、では何で額が変わるのかを後半に書きます。
       </p>
 
@@ -234,7 +235,7 @@ export default function BrokenJewelryPage() {
         <h2 className="font-serif-jp mb-2 text-base font-semibold">この記事について</h2>
         <p className="text-xs leading-relaxed text-muted">
           各社の記載は{BROKEN_CHECKED_AT}
-          に公式サイトから引きました。掲載25社の価格表のページと公式トップを機械的に読み、「壊れ」「変形」「歪」「切れ」「片方」「欠け」を含む文を拾ったうえで、金・プラチナの買取についてはっきり書いてある文だけを載せています。要約ではなく原文のままです。引用した文が出典から消えていないかは、当サイトの日次の点検で毎日取り直して照合しています。
+          に公式サイトから引きました。その時点で掲載していた{SURVEYED_SHOPS}社の価格表のページと公式トップを機械的に読み、「壊れ」「変形」「歪」「切れ」「片方」「欠け」を含む文を拾ったうえで、金・プラチナの買取についてはっきり書いてある文だけを載せています。要約ではなく原文のままです。引用した文が出典から消えていないかは、当サイトの日次の点検で毎日取り直して照合しています。
         </p>
         <p className="mt-2 text-xs leading-relaxed text-muted">
           単価の差は毎日取得している各社の公表値から、このページを作るたびに計算しています。

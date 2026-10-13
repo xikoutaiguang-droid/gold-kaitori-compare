@@ -9,6 +9,7 @@ import {
   KINPARA_COMPOSITION,
   MATERIAL_PRICE,
   MATERIAL_QUOTES,
+  SURVEYED_SHOPS,
   SHOP_QUOTES,
   measureDental,
   type DentalQuote,
@@ -180,7 +181,11 @@ export default function DentalGoldPage() {
         <h2 className="font-serif-jp mb-3 text-lg font-semibold">では、買取価格はいくらなのか</h2>
         <p className="mb-3 text-base leading-relaxed">
           ここが調べにくいところです。{DENTAL_CHECKED_AT}
-          に掲載25社の価格表を読んだところ、歯科材の1gあたりの金額を数字で出していたのは1社だけでした。
+          に、その時点で掲載していた{SURVEYED_SHOPS}社の価格表を読んだところ、歯科材の1gあたりの金額を数字で出していたのは1社だけでした。
+        </p>
+        <p className="mb-3 text-base leading-relaxed">
+          この調査のあとに掲載を始めたゴールドプラザは、買い取るものの一覧に「金などの歯科材」「樹脂などがある金歯」を挙げ、参考価格の欄にも「K18
+          金歯」の行があります。ただし金額はページを開いたあとに読み込まれる作りで、文字としては出てきません。やはり、持っていく前に単価を比べられる品目ではないということです。
         </p>
         {m ? (
           <>

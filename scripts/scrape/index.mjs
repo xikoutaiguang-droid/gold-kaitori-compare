@@ -44,6 +44,9 @@ import * as urucoco from "./sources/urucoco.mjs";
 import * as rodeodrive from "./sources/rodeodrive.mjs";
 import * as refasta from "./sources/refasta.mjs";
 import * as netoff from "./sources/netoff.mjs";
+import * as goldplaza from "./sources/goldplaza.mjs";
+import * as brandcom from "./sources/brandcom.mjs";
+import * as sanoya from "./sources/sanoya.mjs";
 
 const SOURCES = [
   otakaraya,
@@ -71,6 +74,9 @@ const SOURCES = [
   rodeodrive,
   refasta,
   netoff,
+  goldplaza,
+  brandcom,
+  sanoya,
 ];
 
 /** --stale で対象が0件のときは、取得も書き込みもせずに終える */
