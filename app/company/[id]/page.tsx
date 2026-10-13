@@ -11,6 +11,7 @@ import {
   PLATINUM_PURITIES,
   PURITY_LABELS,
   SILVER_PURITIES,
+  type Company,
   type Purity,
 } from "@/lib/types";
 import { getCampaignsForCompany } from "@/lib/campaigns";
@@ -26,6 +27,22 @@ import { getPriceHistory } from "@/lib/priceHistory";
 import { feeDisclosureFor, FEE_MODEL_LABEL } from "@/lib/fees";
 import RelatedColumns from "@/components/RelatedColumns";
 import CompanyCta from "@/components/CompanyCta";
+
+/**
+ * その社を代表する純度。公表している中で、いちばん上に当たったものを使う。
+ *
+ * K24があれば必ずK24になるので、ほとんどの社では今までと変わらない。
+ * 効くのはK24を公表していない社で、いまのところ高山質店(K18とPt900)だけである。
+ *
+ * この並びは説明文(generateMetadata)だけが持っていて、本文は別に "k24" と
+ * 書いていた。そのため高山質店のページでは、週次の値動きがいつまでも出なかった。
+ * 同じ判断を2か所に書くと、片方だけ直る。1つに寄せる。
+ */
+const HEADLINE_ORDER: Purity[] = ["k24", "k18", "pt900", "pt850", "k22", "k20", "k14", "ag"];
+
+function headlinePurityOf(company: Company): Purity | undefined {
+  return HEADLINE_ORDER.find((p) => company.priceData.prices[p] !== undefined);
+}
 
 /** 本文に混ぜる日付。ISO表記のままだと文章の中で浮く */
 function jaDate(iso: string): string {
@@ -52,8 +69,7 @@ export async function generateMetadata({
   // 「高山質店 金相場 1g 今日」で3か月に41回表示されて1クリックだったのは、
   // 探している物が無いと書いてあったのだから当然だった。
   // K24が無い社は、その社が公表している純度のうち代表的なものを出す。
-  const HEADLINE_ORDER: Purity[] = ["k24", "k18", "pt900", "pt850", "k22", "k20", "k14", "ag"];
-  const headlinePurity = HEADLINE_ORDER.find((p) => company.priceData.prices[p] !== undefined);
+  const headlinePurity = headlinePurityOf(company);
   const headlinePrice = headlinePurity ? company.priceData.prices[headlinePurity] : undefined;
   const s = headlinePurity ? getStandings(company, [headlinePurity])[0] : undefined;
 
@@ -202,7 +218,12 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
   const campaigns = getCampaignsForCompany(company.id);
   // この店自身の価格が1週間でどう動いたか。各社の公式サイトは今日の値しか
   // 載せないので、ある店の推移を出せるのは日次で記録しているこちら側だけ。
-  const weekChange = companyPriceChange(company.id, "k24", 7);
+  //
+  // 見る純度はその社の代表的なものにする。"k24" と書いていたときは、
+  // K24を公表していない高山質店でここが必ず空になっていた。
+  // 「高山質店 金相場」で表示され続けているのはそのページなので、
+  // いちばん出したい社でいちばん出ていなかったことになる。
+  const weekChange = companyPriceChange(company.id, headlinePurityOf(company) ?? "k24", 7);
   const links = getAffiliateLinks(company);
   const related = getRelatedCompanies(company);
   // 価格を公表していない社のページでだけ使う
@@ -305,7 +326,7 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
               <p className="mb-3 text-sm leading-relaxed text-foreground/80">
                 {/* 記録が飛ぶ日があるので「1週間前」と決め打ちにしない。
                     実際に何日前と比べたかを書く。 */}
-                {company.name}のK24は、
+                {company.name}の{PURITY_LABELS[weekChange.purity]}は、
                 {weekChange.daysCompared === 7 ? "1週間前" : `${weekChange.daysCompared}日前`}（
                 {jaDate(weekChange.since)}）の
                 {weekChange.past.toLocaleString("ja-JP")}円/gから
