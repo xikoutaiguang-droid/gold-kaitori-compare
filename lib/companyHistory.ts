@@ -86,3 +86,76 @@ export function companyPriceChange(
     daysCompared,
   };
 }
+
+export interface CompanySeriesPoint {
+  date: string;
+  price: number;
+}
+
+export interface CompanySeries {
+  purity: Purity;
+  points: CompanySeriesPoint[];
+  /** 記録がある日数 */
+  recorded: number;
+  /** 最初の記録から最後の記録までの暦日数 */
+  spanDays: number;
+  first: CompanySeriesPoint;
+  last: CompanySeriesPoint;
+  high: CompanySeriesPoint;
+  low: CompanySeriesPoint;
+  /** 最初の記録からの差額(円/g) */
+  diff: number;
+}
+
+/**
+ * ある社の、ある純度の記録を古い順に並べて返す。
+ *
+ * 各社の公式サイトは自社の今日の値しか載せないので、「その店が先週いくらだったか」を
+ * 出せるのは日次で記録しているこちら側だけになる。/company/* の中心に置くのはこれ。
+ *
+ * 大事な点: 日付は飛ぶ。店が休みの日は公表されないし、取得に失敗した日も記録が増えない。
+ * だから件数(recorded)と期間(spanDays)の両方を返す。描く側はこの2つが違うことを
+ * 前提にして、点を等間隔に並べず日付どおりの位置に置くこと。等間隔に並べると、
+ * 土日を挟んだ動きが「毎日少しずつ動いた」ように見えてしまう。
+ *
+ * 点が少ないうちは線にしても読めないので、minPoints を満たさなければ null を返す。
+ */
+export function companyPriceSeries(
+  companyId: string,
+  purity: Purity,
+  { minPoints = 5 }: { minPoints?: number } = {},
+): CompanySeries | null {
+  const { entries } = getCompanyPriceHistory();
+  const points: CompanySeriesPoint[] = [];
+  for (const e of entries) {
+    const price = e.companies[companyId]?.[purity];
+    if (typeof price === "number" && price > 0) points.push({ date: e.date, price });
+  }
+  if (points.length < minPoints) return null;
+
+  const first = points[0];
+  const last = points[points.length - 1];
+  let high = first;
+  let low = first;
+  for (const p of points) {
+    if (p.price > high.price) high = p;
+    if (p.price < low.price) low = p;
+  }
+
+  const spanDays =
+    Math.round(
+      (new Date(last.date).getTime() - new Date(first.date).getTime()) / 86_400_000,
+    ) + 1;
+
+  return {
+    purity,
+    points,
+    recorded: points.length,
+    spanDays,
+    first,
+    last,
+    high,
+    low,
+    diff: last.price - first.price,
+  };
+}

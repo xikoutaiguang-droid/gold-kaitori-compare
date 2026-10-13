@@ -4,7 +4,8 @@ import { notFound } from "next/navigation";
 import { getCompanies, formatFetchedAt, formatPriceDay } from "@/lib/companies";
 import { serviceRecord, SERVICE_LABEL, type ServiceId } from "@/lib/services";
 import { getCompanyById, getRelatedCompanies, getStandings, getMarketToday } from "@/lib/companyPages";
-import { companyPriceChange } from "@/lib/companyHistory";
+import { companyPriceChange, companyPriceSeries } from "@/lib/companyHistory";
+import CompanyTrendChart from "@/components/CompanyTrendChart";
 import { getAffiliateLinks } from "@/lib/outboundLink";
 import {
   GOLD_PURITIES,
@@ -223,7 +224,11 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
   // K24を公表していない高山質店でここが必ず空になっていた。
   // 「高山質店 金相場」で表示され続けているのはそのページなので、
   // いちばん出したい社でいちばん出ていなかったことになる。
-  const weekChange = companyPriceChange(company.id, headlinePurityOf(company) ?? "k24", 7);
+  const changePurity = headlinePurityOf(company) ?? "k24";
+  const weekChange = companyPriceChange(company.id, changePurity, 7);
+  // 記録が少ないうちは線にしても読めないので、点が揃ってから出す。
+  // 揃うまでは下の「1週間で何円動いたか」の1行だけになる。
+  const series = companyPriceSeries(company.id, changePurity);
   const links = getAffiliateLinks(company);
   const related = getRelatedCompanies(company);
   // 価格を公表していない社のページでだけ使う
@@ -322,7 +327,32 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
             <StandingRows title="金" standings={gold} />
             <StandingRows title="プラチナ" standings={platinum} />
             <StandingRows title="シルバー" standings={silver} />
-            {weekChange && (
+            {/* その店自身の推移。各社の公式サイトは今日の値しか載せないので、
+                ここはこのサイトにしか無い。グラフが出るときは下の1行は出さない
+                (同じことを2回書くことになる)。 */}
+            {series && (
+              <div className="mb-4 rounded-xl border border-border bg-background p-4">
+                <h3 className="font-serif-jp mb-3 text-sm font-semibold">
+                  {company.name}の{PURITY_LABELS[series.purity]}は、こう動いてきました
+                </h3>
+                <CompanyTrendChart
+                  series={series}
+                  companyName={company.name}
+                  purityLabel={PURITY_LABELS[series.purity]}
+                />
+                <p className="mt-2 text-xs leading-relaxed text-muted">
+                  相場そのものの動きと、この社の値付けの両方が含まれます。両方を切り分けた話は
+                  <Link
+                    href="/column/timing-vs-shop"
+                    className="underline underline-offset-2"
+                  >
+                    売る日と売る店、どちらが金額を動かすのか
+                  </Link>
+                  にまとめています。
+                </p>
+              </div>
+            )}
+            {!series && weekChange && (
               <p className="mb-3 text-sm leading-relaxed text-foreground/80">
                 {/* 記録が飛ぶ日があるので「1週間前」と決め打ちにしない。
                     実際に何日前と比べたかを書く。 */}
