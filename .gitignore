@@ -23,6 +23,13 @@
 # misc
 .DS_Store
 *.pem
+# 中間証明書だけは例外。公開されている証明書で、秘密鍵ではない。
+#
+# これを除外したままにしていたせいで、scripts/scrape/lib/ca/ の中間証明書が
+# 手元のPCにしか無く、GitHub Actions には渡っていなかった。リファスタの取得は
+# 手元の実行では毎回成功し、CIの実行では毎回失敗する、という形で7日間続いていた。
+# 直近21回のCI実行がすべて同じTLSエラーで、原因はここ1行だった。
+!scripts/scrape/lib/ca/*.pem
 
 # debug
 npm-debug.log*

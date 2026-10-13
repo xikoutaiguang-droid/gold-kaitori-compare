@@ -37,6 +37,21 @@ const EXTRA_CA = readdirSync(CA_DIR)
   .filter((f) => f.endsWith(".pem"))
   .map((f) => readFileSync(join(CA_DIR, f), "utf8"));
 
+// 1枚も読めなかったら、その場で言う。
+//
+// .gitignore の `*.pem` がこのディレクトリにも掛かっていたため、中間証明書は
+// 手元のPCにしか無く、GitHub Actions には渡っていなかった。結果、リファスタの取得は
+// 手元では毎回成功し、CIでは毎回失敗する、という形で7日間(CI21回)続いた。
+// 取得エラーは「一時的な不通」に見えるので、失敗の側からは気づけない。
+// 補うはずの証明書が入っていないことは、ここでしか分からない。
+if (EXTRA_CA.length === 0) {
+  console.warn(
+    `[警告] ${CA_DIR} に中間証明書(.pem)が1枚もありません。` +
+      "中間証明書を送ってこないサイト(リファスタ等)の取得が、TLSの検証で失敗します。" +
+      "ファイルが版管理から外れていないか確かめてください(lib/ca/README.md)。",
+  );
+}
+
 const dispatcher = new Agent({
   connect: { ca: [...rootCertificates, ...EXTRA_CA] },
 });
