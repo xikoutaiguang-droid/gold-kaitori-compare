@@ -722,6 +722,15 @@
     "handCheckedAt": {
       "regions": "2026-10-04",
       "storeCount": "2026-10-04"
+    },
+    "googleReview": {
+      "avgRating": 2.8,
+      "totalReviewCount": 6,
+      "sampleSize": 1,
+      "sampledAt": "2026-10-14",
+      "sampledStores": [
+        "（有）高山質店"
+      ]
     }
   },
   {
@@ -882,6 +891,15 @@
     "handCheckedAt": {
       "regions": "2026-10-04",
       "storeCount": "2026-10-04"
+    },
+    "googleReview": {
+      "avgRating": 4.9,
+      "totalReviewCount": 42,
+      "sampleSize": 1,
+      "sampledAt": "2026-10-14",
+      "sampledStores": [
+        "大蔵屋"
+      ]
     }
   },
   {

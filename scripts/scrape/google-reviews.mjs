@@ -65,7 +65,28 @@ function isKnownFalsePositive(companyId, label) {
   return patterns.some((p) => label.includes(p));
 }
 
+/**
+ * 地域の代表都市では見つからない社の、実際の所在地。
+ *
+ * 上の REGION_TO_CITIES は地方ごとの大都市しか見ない。全国チェーンならそれでいいが、
+ * 店が1つしかない社の店は大都市に無いことがある。
+ *   ・大蔵屋は三重県鈴鹿市。東海の代表都市(名古屋・静岡)では出てこない
+ *   ・高山質店は福岡県筑紫野市。「高山質店 福岡」で出てくるのは同名の別会社(後述)
+ * どちらも「該当店舗が見つかりませんでした」で、2026年10月まで口コミが空のままだった。
+ *
+ * 高山質店について: 福岡には創業100年・多店舗の「高山質店」(takayama78.jp)があり、
+ * 当サイトが掲載しているのは筑紫野市の「有限会社高山質店」(takayama78.co.jp)で、別の会社である。
+ * 市名で引かないと、名前が同じなだけの店の口コミを拾うことになる。
+ * (ドメイン照合があるので実際には弾かれるが、そもそも探しに行く先が違う)
+ */
+const CITY_OVERRIDES = {
+  okuraya: ["鈴鹿"],
+  takayama78: ["筑紫野"],
+};
+
 function pickCities(company) {
+  const override = CITY_OVERRIDES[company.id];
+  if (override) return override;
   const cities = new Set();
   for (const region of company.regions) {
     for (const city of REGION_TO_CITIES[region] ?? []) cities.add(city);
