@@ -44,9 +44,9 @@ function Quote({ entry, highlight }: { entry: LawQuote; highlight?: boolean }) {
 
 export function generateMetadata(): Metadata {
   return {
-    title: "買取店のはかりは、信用してよいのか",
+    title: "金買取の計量は信用してよいのか ― はかりと検定",
     description:
-      "金は重さで金額が決まります。店のはかりが正しいかどうかは法律が決めていて、" +
+      "金買取は重さで金額が決まります。店のはかりが正しいかどうかは計量法が決めていて、" +
       "取引に使うはかりは検定に合格したものに限られ、2年に1回の定期検査もあります。" +
       "計量法と施行令の条文で確かめ、売る人が自分の目で確かめられることもまとめました。",
     alternates: { canonical: PATH },
@@ -71,7 +71,7 @@ export default function ScalePage() {
       </p>
 
       <h1 className="font-serif-jp mb-3 text-2xl font-semibold leading-snug sm:text-3xl">
-        買取店のはかりは、信用してよいのか
+        金買取の計量は信用してよいのか ― はかりと検定
       </h1>
 
       <ColumnHero href={PATH} />

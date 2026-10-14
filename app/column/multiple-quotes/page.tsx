@@ -6,9 +6,9 @@ import OtherColumns from "@/components/OtherColumns";
 import ColumnHero from "@/components/ColumnHero";
 
 export const metadata: Metadata = {
-  title: "査定額を上げるコツ｜売る前にできる準備まとめ",
+  title: "金買取の相見積もり ― 売る前にできる5つの準備",
   description:
-    "金・貴金属の査定額は、ちょっとした準備で変わることがあります。相見積もりの重要性や、査定に出す前にできる準備をやさしくまとめました。",
+    "金買取の査定額は、売る前のちょっとした準備で変わることがあります。相見積もりの取り方を中心に、品物の扱いや持ち込み方など、誰でもできる5つの準備をまとめました。",
   alternates: { canonical: "/column/multiple-quotes" },
 };
 
@@ -44,7 +44,9 @@ export default function MultipleQuotesColumnPage() {
           コラム
         </Link>
       </p>
-      <h1 className="font-serif-jp mb-2 text-xl font-semibold sm:text-2xl">査定額を上げるコツ</h1>
+      <h1 className="font-serif-jp mb-2 text-xl font-semibold leading-snug sm:text-2xl">
+        金買取の相見積もり ― 売る前にできる5つの準備
+      </h1>
 
       <ColumnHero href="/column/multiple-quotes" />
       <p className="mb-8 text-base leading-relaxed text-muted">

@@ -24,7 +24,7 @@ export const COLUMNS: ColumnEntry[] = [
   },
   {
     href: "/column/scale",
-    title: "買取店のはかりは、信用してよいのか",
+    title: "金買取の計量は信用してよいのか ― はかりと検定",
     desc: "取引に使うはかりは検定に合格したものに限られ、2年に1回の検査もあります。計量法の条文と、その場で見られること",
   },
   {
@@ -120,8 +120,8 @@ export const COLUMNS: ColumnEntry[] = [
   },
   {
     href: "/column/multiple-quotes",
-    title: "査定額を上げるコツ",
-    desc: "相見積もりをはじめ、売る前にできる準備をまとめました",
+    title: "金買取の相見積もり ― 売る前にできる5つの準備",
+    desc: "同じ品物でも店で査定額は違います。相見積もりの取り方を中心に、売る前にできる5つの準備",
   },
   {
     href: "/column/price-factors",
