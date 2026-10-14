@@ -49,6 +49,19 @@ const LOG_DIR = path.join(ROOT, ".local");
 const LOG = path.join(LOG_DIR, "local-refresh.log");
 /** その日に全社取得を済ませたかどうかの目印。日付を1行だけ書く */
 const FULL_MARK = path.join(LOG_DIR, "last-full-sweep.txt");
+/**
+ * 口コミを取り直した月の目印(YYYY-MM を1行)。
+ *
+ * 価格と違って口コミは日単位では動かないので、月に1回でいい。
+ * それでも取り直す必要があるのは、件数が増えて初めて平均が出せるようになる社が
+ * あるため。鑑定空間は掲載した時点でGoogleの口コミが1件しかなく、
+ * lib/companies.ts の MIN_REVIEWS_TO_SHOW に満たないので星を出していない。
+ * 増えたかどうかは、取り直さないと分からない。
+ *
+ * 費用: Places APIは月5,000件まで無料。全28社で1回あたり240件ほどなので、
+ * 月1回なら枠の5%程度に収まる。
+ */
+const REVIEW_MARK = path.join(LOG_DIR, "last-review-sweep.txt");
 
 /** 1日1回。全社を取りに行き、履歴や先物の見通しもまとめて更新する */
 const FULL_STEPS = [
@@ -73,6 +86,27 @@ const CATCH_UP_STEPS = [
 /** 日本時間の日付。UTCで切ると朝9時より前が前日になってしまう */
 function todayJst() {
   return new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
+}
+
+function thisMonth() {
+  return todayJst().slice(0, 7);
+}
+
+function reviewSweepDoneThisMonth() {
+  try {
+    return readFileSync(REVIEW_MARK, "utf8").trim() === thisMonth();
+  } catch {
+    return false; // 目印が無い = まだ
+  }
+}
+
+function markReviewSweep() {
+  try {
+    mkdirSync(LOG_DIR, { recursive: true });
+    writeFileSync(REVIEW_MARK, `${thisMonth()}\n`, "utf8");
+  } catch {
+    // 書けなければ次回も取り直すだけで、害は無い
+  }
 }
 
 function fullSweepDoneToday() {
@@ -175,6 +209,16 @@ function main() {
   // 取得できた社が1社でもあれば、その日の全社取得は済んだものとして扱う。
   // ここで失敗していても、次の回が --stale で拾いに行く。
   if (full) markFullSweep();
+
+  // 口コミは月に1回だけ取り直す。価格と違って日単位では動かないし、
+  // Places APIの無料枠を毎日削る理由もない。
+  // 目印は「取りに行った月」で、結果が取れたかどうかは見ない。
+  // 失敗した月に毎日リトライし続けると、枠のほうが先に尽きる。
+  if (full && !reviewSweepDoneThisMonth()) {
+    log("実行: scripts/scrape/google-reviews.mjs (月1回)");
+    run(process.execPath, ["scripts/scrape/google-reviews.mjs"], { allowFail: true });
+    markReviewSweep();
+  }
 
   // 壊れたJSONをコミットしない。衝突マーカーが残っていれば、ここで止める。
   // (リベースは上で中断しているはずだが、確かめるのは1秒で済む)
