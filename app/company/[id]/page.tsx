@@ -77,13 +77,17 @@ export async function generateMetadata({
   // 価格を公開していない社のページには価格表が無い。それなのに説明文で
   // 「比較できます」と書くと、検索結果の文言と中身が食い違うので分ける。
   const day = company.priceData.updatedAt ? jaDate(company.priceData.updatedAt) : null;
+  // 口コミは、件数が少ない社では出していない(lib/companies.ts の MIN_REVIEWS_TO_SHOW)。
+  // 出していないものを説明文で「まとめています」と書くと、検索結果と中身が食い違う。
+  const hasReview = Boolean(company.googleReview);
+  const alsoList = `対応地域・店舗数・買取方法${hasReview ? "・Google口コミの評価" : ""}`;
   const description = headlinePrice
     ? `${company.name}の金・プラチナ買取価格を、掲載中の買取店と横並びで比較できます。` +
       `${day ? `${day}時点の` : ""}${PURITY_LABELS[headlinePurity as Purity]}の買取参考価格は1gあたり${headlinePrice.toLocaleString("ja-JP")}円` +
       `${s ? `(掲載${s.total}社中${s.rank}位)` : ""}。` +
-      `対応地域・店舗数・買取方法・Google口コミの評価もまとめています。`
+      `${alsoList}もまとめています。`
     : `${company.name}は1gあたりの買取価格を公開していないため、当サイトでは価格を掲載していません。` +
-      `対応地域・店舗数・買取方法・Google口コミの評価と、価格を公開している買取店との比較へのご案内をまとめています。`;
+      `${alsoList}と、価格を公開している買取店との比較へのご案内をまとめています。`;
 
   // 検索されている言い方に合わせる。Search Console で各社ページに付いている
   // クエリは「ネクサス 金相場」「おたからや 金相場」「コメ兵 金買取価格 今日」の形が
@@ -96,7 +100,7 @@ export async function generateMetadata({
     title: {
       absolute: headlinePrice
         ? `${company.name}の金相場・買取価格は今日いくら？他社と比較`
-        : `${company.name}の金買取｜対応地域・店舗数・口コミ`,
+        : `${company.name}の金買取｜対応地域・店舗数${hasReview ? "・口コミ" : ""}`,
     },
     description,
     alternates: { canonical: `/company/${company.id}` },

@@ -14,7 +14,7 @@ export const PAWN_CHECKED_AT = "2026年10月4日";
 
 // 照合スクリプトは構文解析をしない素朴な読み取りなので、URLは組み立てずに
 // 1件ずつそのまま書く。変数で組むと、照合の対象から外れて気づけなくなる。
-/** 質に預けるページ(高山質店)。当サイトが価格を見ている社の中では数少ない質屋 */
+/** 質に預けるページ(有限会社高山質店)。当サイトが価格を見ている社の中では数少ない質屋 */
 export const TAKAYAMA_PAWN_URL = "https://takayama78.co.jp/%e8%b3%aa%e3%81%ab%e9%a0%90%e3%81%91%e3%82%8b/";
 
 export const PAWN_QUOTES: Record<string, LawQuote> = {
@@ -65,40 +65,40 @@ export const PAWN_QUOTES: Record<string, LawQuote> = {
   // ---- 実際の店の記載 ----
   shopLoan: {
     sourceId: "takayama-loan",
-    label: "高山質店「質に預ける」",
+    label: "有限会社高山質店「質に預ける」",
     quote: "質はお客様の大事な品物を一旦お預かりし、その品物の価値に合わせてご融資をさせていただきます。",
     sourceUrl: "https://takayama78.co.jp/%e8%b3%aa%e3%81%ab%e9%a0%90%e3%81%91%e3%82%8b/",
   },
   shopNoScreening: {
     sourceId: "takayama-screening",
-    label: "高山質店「質に預ける」",
+    label: "有限会社高山質店「質に預ける」",
     quote: "審査・信用調査は一切行いません。",
     sourceUrl: "https://takayama78.co.jp/%e8%b3%aa%e3%81%ab%e9%a0%90%e3%81%91%e3%82%8b/",
   },
   shopThreeMonths: {
     sourceId: "takayama-three-months",
-    label: "高山質店「質に預ける」",
+    label: "有限会社高山質店「質に預ける」",
     quote:
       "お預かり期間は3ヶ月間で、期限内に元金と保管料をお支払い頂ければ、お預かりした品物はお客様の手元に戻ってきます。",
     sourceUrl: "https://takayama78.co.jp/%e8%b3%aa%e3%81%ab%e9%a0%90%e3%81%91%e3%82%8b/",
   },
   shopExtend: {
     sourceId: "takayama-extend",
-    label: "高山質店「質に預ける」",
+    label: "有限会社高山質店「質に預ける」",
     quote:
       "期間内に返済できなそうな場合は保管料を追加で支払うことでお預かり期間を延長することが可能です。",
     sourceUrl: "https://takayama78.co.jp/%e8%b3%aa%e3%81%ab%e9%a0%90%e3%81%91%e3%82%8b/",
   },
   shopForfeit: {
     sourceId: "takayama-forfeit",
-    label: "高山質店「質に預ける」",
+    label: "有限会社高山質店「質に預ける」",
     quote: "保管期間内に期間の延長やお手元に戻されない場合、お預かりした品物の所有権が当社へ移ります。",
     sourceUrl: "https://takayama78.co.jp/%e8%b3%aa%e3%81%ab%e9%a0%90%e3%81%91%e3%82%8b/",
   },
   // 原文のまま。「返済済義務」は同社の表記で、こちらで直していない。
   shopNoDebt: {
     sourceId: "takayama-no-debt",
-    label: "高山質店「質に預ける」",
+    label: "有限会社高山質店「質に預ける」",
     quote: "その場合でも 元金の返済済義務はなく、取り立てなどない安心なシステムです。",
     sourceUrl: "https://takayama78.co.jp/%e8%b3%aa%e3%81%ab%e9%a0%90%e3%81%91%e3%82%8b/",
   },
