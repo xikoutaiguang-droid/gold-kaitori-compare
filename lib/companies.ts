@@ -56,9 +56,31 @@ function daysBetween(iso: string, today: Date): number | null {
   return Math.round((t - d) / 86400000);
 }
 
+/**
+ * これ未満のレビュー件数では、平均を出さない。
+ *
+ * 2026年10月14日に鑑定空間(横浜の1店舗)を掲載したとき、Googleの口コミが
+ * 1件だけで、その1件が★1だった。収集スクリプトはそのまま「平均1.0」として
+ * 書き込む。件数が少ないことを注記で添えても、画面には★1が出る。
+ *
+ * 1件の平均は平均ではない。実在する店に当サイトの判断で★1を掲げることになり、
+ * それは当たっているかもしれないし外れているかもしれない。分からないものを
+ * 分からないまま出さないという扱いは、価格のほうで既にやっている(PRICE_MAX_AGE_DAYS)。
+ * 口コミにも同じ線を引く。
+ *
+ * 件数そのものは data/companies.json に残す。取り直す手間を増やさないためと、
+ * あとで線を引き直せるようにするため。消すのは表示だけ。
+ */
+export const MIN_REVIEWS_TO_SHOW = 10;
+
 export function getCompanies(): Company[] {
   const today = new Date();
-  return (rawCompanies as Company[]).map((c) => {
+  return (rawCompanies as Company[]).map((raw) => {
+    // 口コミが薄すぎる社は、平均を持たせない。件数で判断し、星は出さない
+    const c =
+      raw.googleReview && raw.googleReview.totalReviewCount < MIN_REVIEWS_TO_SHOW
+        ? { ...raw, googleReview: undefined }
+        : raw;
     if (!c.priceData.updatedAt) return c;
     const age = daysBetween(c.priceData.updatedAt, today);
     if (age === null || age <= PRICE_MAX_AGE_DAYS) return c;

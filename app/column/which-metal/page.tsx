@@ -162,7 +162,8 @@ export default function WhichMetalPage() {
           </p>
         )}
         <p className="text-base leading-relaxed">
-          選べる店が少ないほど、相場から離れた値のままでも成り立ってしまう、という見方ができます。金のように20社近くが毎日値を出していると、そこから大きく外れた店は選ばれません。
+          選べる店が少ないほど、相場から離れた値のままでも成り立ってしまう、という見方ができます。
+          {most.label}のように{most.publishing}社が毎日値を出していると、そこから大きく外れた店は選ばれません。
         </p>
       </section>
 

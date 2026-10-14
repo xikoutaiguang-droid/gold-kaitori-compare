@@ -1200,6 +1200,21 @@
       "regions": "2026-10-14",
       "storeCount": "2026-10-14",
       "trustNotes": "2026-10-14"
+    },
+    "googleReview": {
+      "avgRating": 4.83,
+      "totalReviewCount": 4034,
+      "sampleSize": 7,
+      "sampledAt": "2026-10-14",
+      "sampledStores": [
+        "ゴールドプラザ銀座本店",
+        "ゴールドプラザ西新宿店",
+        "ゴールドプラザ吉祥寺店",
+        "ゴールドプラザ横浜店",
+        "ゴールドプラザ大阪梅田本店",
+        "ゴールドプラザなんば心斎橋店",
+        "ゴールドプラザ天王寺あべの店"
+      ]
     }
   },
   {
@@ -1239,6 +1254,15 @@
       "regions": "2026-10-14",
       "storeCount": "2026-10-14",
       "trustNotes": "2026-10-14"
+    },
+    "googleReview": {
+      "avgRating": 1,
+      "totalReviewCount": 1,
+      "sampleSize": 1,
+      "sampledAt": "2026-10-14",
+      "sampledStores": [
+        "鑑定空間"
+      ]
     }
   },
   {
@@ -1274,6 +1298,15 @@
       "regions": "2026-10-14",
       "storeCount": "2026-10-14",
       "trustNotes": "2026-10-14"
+    },
+    "googleReview": {
+      "avgRating": 4.7,
+      "totalReviewCount": 101,
+      "sampleSize": 1,
+      "sampledAt": "2026-10-14",
+      "sampledStores": [
+        "大塚質屋さのや本店"
+      ]
     }
   }
 ]
