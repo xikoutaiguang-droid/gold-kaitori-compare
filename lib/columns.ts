@@ -125,8 +125,8 @@ export const COLUMNS: ColumnEntry[] = [
   },
   {
     href: "/column/price-factors",
-    title: "金相場はなぜ変動するのか",
-    desc: "国際価格・為替・世界情勢との関係をやさしく解説",
+    title: "金相場はなぜ動くのか ― 円建ての値動きを為替とそれ以外に分ける",
+    desc: "円建ての金価格は「ドル建ての価格×ドル円」。その日の値動きを為替の分とそれ以外に分けて、毎日の記録から出しました",
   },
   {
     href: "/column/estate-cleanup",
