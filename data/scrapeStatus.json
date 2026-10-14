@@ -1,13 +1,13 @@
 {
-  "ranAt": "2026-10-13T17:11:10.851Z",
-  "ok": 19,
+  "ranAt": "2026-10-14T04:35:17.886Z",
+  "ok": 23,
   "ng": 0,
   "sources": [
     {
       "id": "otakaraya",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-13",
+      "updatedAt": "2026-10-14",
       "warning": null
     },
     {
@@ -21,7 +21,7 @@
       "id": "kaitori-daikichi",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-13",
+      "updatedAt": "2026-10-14",
       "warning": null
     },
     {
@@ -34,14 +34,14 @@
       "id": "nanboya",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-13",
+      "updatedAt": "2026-10-14",
       "warning": null
     },
     {
       "id": "jewel-cafe",
       "ok": true,
       "priceCount": 5,
-      "updatedAt": "2026-10-13",
+      "updatedAt": "2026-10-14",
       "warning": null
     },
     {
@@ -55,7 +55,7 @@
       "id": "kingram",
       "ok": true,
       "priceCount": 12,
-      "updatedAt": "2026-10-13",
+      "updatedAt": "2026-10-14",
       "warning": null
     },
     {
@@ -83,42 +83,42 @@
       "id": "galleryrare",
       "ok": true,
       "priceCount": 12,
-      "updatedAt": "2026-10-13",
+      "updatedAt": "2026-10-14",
       "warning": null
     },
     {
       "id": "manekiya",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-13",
+      "updatedAt": "2026-10-14",
       "warning": null
     },
     {
       "id": "takayama78",
       "ok": true,
       "priceCount": 2,
-      "updatedAt": "2026-10-13",
+      "updatedAt": "2026-10-14",
       "warning": null
     },
     {
       "id": "goldmrs",
-      "ok": false,
-      "skipped": true,
-      "ciBlocked": true,
-      "error": "CIからは取得できないソースです(GitHub Actionsから31回中0回成功。手元のPCからは5回中5回成功)。手元のPCの定期実行で取得します。"
+      "ok": true,
+      "priceCount": 12,
+      "updatedAt": "2026-10-14",
+      "warning": null
     },
     {
       "id": "nexus13",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-13",
+      "updatedAt": "2026-10-14",
       "warning": null
     },
     {
       "id": "ginzaya",
       "ok": true,
       "priceCount": 1,
-      "updatedAt": "2026-10-12",
+      "updatedAt": "2026-10-14",
       "warning": null
     },
     {
@@ -156,21 +156,42 @@
       "id": "rodeodrive",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-13",
+      "updatedAt": "2026-10-14",
       "warning": null
     },
     {
       "id": "refasta",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-13",
+      "updatedAt": "2026-10-14",
       "warning": null
     },
     {
       "id": "netoff",
       "ok": true,
       "priceCount": 8,
-      "updatedAt": "2026-10-13",
+      "updatedAt": "2026-10-14",
+      "warning": null
+    },
+    {
+      "id": "goldplaza",
+      "ok": true,
+      "priceCount": 12,
+      "updatedAt": "2026-10-14",
+      "warning": null
+    },
+    {
+      "id": "brandcom",
+      "ok": true,
+      "priceCount": 13,
+      "updatedAt": "2026-10-14",
+      "warning": null
+    },
+    {
+      "id": "sanoya",
+      "ok": true,
+      "priceCount": 9,
+      "updatedAt": "2026-10-14",
       "warning": null
     }
   ]
