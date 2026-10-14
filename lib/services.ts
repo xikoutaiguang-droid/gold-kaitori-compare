@@ -289,6 +289,14 @@ export const SERVICE_RECORDS: ServiceRecord[] = [
     shipping: { quote: "発送に必要なキットなど無料でご利用いただけます。" },
   },
   {
+    // 福岡・熊本の質屋チェーン。出張買取の案内は見つからなかったので欄を作らない。
+    companyId: "takayama-kk",
+    sourceUrl: "https://takayama78.jp/buys",
+    checkedAt: "2026-10-14",
+    storefront: { quote: "お店で直接買取査定 (福岡・熊本)" },
+    shipping: { quote: "宅配キット 店舗に行けない忙しい あなたのために" },
+  },
+  {
     companyId: "sanoya",
     sourceUrl: "https://www.sanoya.co.jp/gold/",
     checkedAt: "2026-10-14",

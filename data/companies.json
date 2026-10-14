@@ -708,7 +708,7 @@
       "九州・沖縄"
     ],
     "trustScore": 3,
-    "trustNotes": "福岡県筑紫野市の1店舗のみで営業する老舗質屋。福岡県内に多店舗を構える同名の「高山質店」(takayama78.jp)とは別の会社です。",
+    "trustNotes": "福岡県筑紫野市の1店舗のみで営業する老舗質屋。",
     "priceData": {
       "prices": {
         "k18": 17040,
@@ -732,7 +732,8 @@
       "sampledStores": [
         "（有）高山質店"
       ]
-    }
+    },
+    "confusableWith": "takayama-kk"
   },
   {
     "id": "goldmrs",
@@ -1321,5 +1322,46 @@
         "大塚質屋さのや本店"
       ]
     }
+  },
+  {
+    "id": "takayama-kk",
+    "name": "株式会社タカヤマ（髙山質店）",
+    "officialUrl": "https://takayama78.jp/",
+    "priceSourceUrl": "https://takayama78.jp/buys/listing?large_product_category_id=19",
+    "tier": "midsize",
+    "storeCount": 21,
+    "regions": [
+      "九州・沖縄"
+    ],
+    "trustScore": 4,
+    "trustNotes": "創業大正5年、福岡・熊本に質と買取で21店舗を構える老舗。",
+    "priceData": {
+      "prices": {},
+      "updatedAt": null
+    },
+    "scrapeMethod": "pending",
+    "notes": "1gあたりの買取価格表を公表していないため、当サイトでは価格を掲載していない。買取カテゴリに「地金品」はあるが、中身は個別の買取実績(「Ｋ１８製『喜平ネックレス』買取価格: 861,543円」など)で、重量の記載がなく1g単価を逆算できない。金製品の記事ページも買取価格の欄が空で「※ 買取価格は相場によって変動いたします」とだけある。/gold・/souba・/rate などのパスはいずれも404で、robots.txtは全面許可(Disallow無し)なので、取得を拒まれているのではなく価格表が存在しない。会社概要(2026-10-14確認)は株式会社タカヤマ、屋号「髙山質店」、本社 福岡市西区姪浜、創業大正5年・設立昭和37年5月、資本金1億円、従業員270名、質・買取21店舗+販売4店舗の計25店舗、福岡県23・熊本県2。店舗数は買取ができる21店舗を採った(販売専門の4店舗を含めると25)。掲載名に法人名を併記しているのは、筑紫野市の有限会社高山質店と検索で取り違えられるため。",
+    "handCheckedAt": {
+      "regions": "2026-10-14",
+      "storeCount": "2026-10-14",
+      "trustNotes": "2026-10-14",
+      "name": "2026-10-14"
+    },
+    "googleReview": {
+      "avgRating": 2.33,
+      "totalReviewCount": 268,
+      "sampleSize": 7,
+      "sampledAt": "2026-10-14",
+      "sampledStores": [
+        "高山質店 質・買取 天神店",
+        "高山質店 質・買取 春日店",
+        "高山質店 質・買取 小倉店",
+        "高山質店 質・買取 小倉東インター店",
+        "高山質店 質・買取 黒崎店",
+        "高山質店 質・買取 久留米店",
+        "高山質店 質・買取 上津バイパス店"
+      ]
+    },
+    "confusableWith": "takayama78"
   }
 ]

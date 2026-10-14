@@ -235,6 +235,8 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
   const series = companyPriceSeries(company.id, changePurity);
   const links = getAffiliateLinks(company);
   const related = getRelatedCompanies(company);
+  // 名前が紛らわしい社。掲載から外れていれば出さない
+  const confusable = company.confusableWith ? getCompanyById(company.confusableWith) : undefined;
   // 価格を公表していない社のページでだけ使う
   const marketToday = hasPrice ? null : getMarketToday("k24");
 
@@ -308,7 +310,19 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
       {/* 価格のすぐ下。公式への出口はこれまでページの下だけにあった */}
       <CompanyCta company={company} source="company_top" />
 
-      <p className="mb-6 text-base leading-relaxed">{company.trustNotes}</p>
+      <p className="mb-3 text-base leading-relaxed">{company.trustNotes}</p>
+
+      {/* 名前が紛らわしい別会社があるときだけ出す。
+          名前を分けただけでは、間違ったほうに着いた人が移動できない。 */}
+      {confusable && (
+        <p className="mb-6 rounded-xl border border-accent/30 bg-accent-soft/40 p-4 text-sm leading-relaxed">
+          お探しの店が{confusable.name}でしたら、
+          <Link href={`/company/${confusable.id}`} className="underline underline-offset-2">
+            そちらのページ
+          </Link>
+          をご覧ください。名前が似ていますが、別の会社です。
+        </p>
+      )}
 
       {campaigns.length > 0 && (
         <section className="mb-8">

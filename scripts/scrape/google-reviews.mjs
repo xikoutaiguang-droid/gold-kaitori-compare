@@ -58,6 +58,10 @@ const REGION_TO_CITIES = {
 // 見つかり次第、会社ID: 除外したい店舗名の一部 の形で追記する。
 const KNOWN_FALSE_POSITIVES = {
   ginzaya: ["田中貴金属"],
+  // 髙山質店は「質・買取◯◯店」と「販売◯◯店」を分けている。
+  // 販売専門の店に付いた口コミは買い物の体験であって、買取の応対ではない。
+  // ネットオフの物流センターを除いたのと同じ理由。
+  "takayama-kk": ["販売"],
 };
 
 function isKnownFalsePositive(companyId, label) {
@@ -82,6 +86,17 @@ function isKnownFalsePositive(companyId, label) {
 const CITY_OVERRIDES = {
   okuraya: ["鈴鹿"],
   takayama78: ["筑紫野"],
+  // 福岡県内に21店舗ある。1都市だと上位3件しか返らず、偏る
+  "takayama-kk": ["福岡", "北九州", "久留米"],
+};
+
+/**
+ * 検索に使う名前。掲載名が法人名まで入っていると、Googleの場所の名前と合わない。
+ * 掲載名は読む人が取り違えないためのもので、店に貼られている看板の名前とは別である。
+ */
+const SEARCH_NAME_OVERRIDES = {
+  "takayama-kk": "高山質店",
+  takayama78: "有限会社高山質店",
 };
 
 function pickCities(company) {
@@ -148,7 +163,8 @@ async function sampleCompany(company) {
   const candidates = new Map(); // placeId -> displayName(候補、まだ未検証)
 
   for (const city of cities) {
-    const query = city ? `${company.name} ${city}` : company.name;
+    const searchName = SEARCH_NAME_OVERRIDES[company.id] ?? company.name;
+    const query = city ? `${searchName} ${city}` : searchName;
     try {
       const places = await textSearch(query);
       for (const place of places) {
@@ -168,11 +184,18 @@ async function sampleCompany(company) {
   let reviewSum = 0;
   const sampledStores = [];
   const rejected = [];
+  const excluded = [];
 
   for (const [placeId, label] of candidates) {
     try {
       const detail = await placeDetails(placeId);
-      if (!isVerifiedMatch(company, detail.websiteUri) || isKnownFalsePositive(company.id, label)) {
+      // 除外の理由は分けて出す。「ドメインが違う」と「名前で弾いた」では、
+      // 直すときに見るところが違う(前者は先方の設定、後者はこちらの除外リスト)。
+      if (isKnownFalsePositive(company.id, label)) {
+        excluded.push(label);
+        continue;
+      }
+      if (!isVerifiedMatch(company, detail.websiteUri)) {
         rejected.push(label);
         continue;
       }
@@ -187,6 +210,9 @@ async function sampleCompany(company) {
     await sleep(200);
   }
 
+  if (excluded.length > 0) {
+    console.log(`  [除外] 除外リストに一致: ${excluded.join("、")}`);
+  }
   if (rejected.length > 0) {
     console.log(`  [除外] 公式ドメイン不一致のため除外: ${rejected.join("、")}`);
   }

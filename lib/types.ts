@@ -86,6 +86,14 @@ export interface Company {
   /** 1-5。店舗数・上場有無・資本提携・運営年数など公開情報からの目安。安全性を保証するものではない */
   trustScore: number;
   trustNotes: string;
+  /**
+   * 名前が紛らわしい別会社の掲載ID。
+   *
+   * 福岡には「高山質店」が2つある(筑紫野市の有限会社と、福岡市の株式会社タカヤマ)。
+   * 検索から来た人は、自分がどちらを見ているのか分からないまま単価を読む。
+   * 名前を変えるだけでは、間違ったほうに着いた人がもう一方へ行けない。
+   */
+  confusableWith?: string;
   priceData: PriceSet;
   scrapeMethod: "html" | "json" | "js-embed" | "manual" | "pending";
   notes?: string;
