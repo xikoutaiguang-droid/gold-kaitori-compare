@@ -4,6 +4,37 @@ import JsonLd from "@/components/JsonLd";
 import { articleJsonLd, columnBreadcrumb } from "@/lib/structuredData";
 import OtherColumns from "@/components/OtherColumns";
 import ColumnHero from "@/components/ColumnHero";
+import { INHERITANCE_CHECKED_AT, INHERITANCE_QUOTES } from "@/lib/inheritanceLaw";
+import type { LawQuote } from "@/lib/taxLaw";
+
+/**
+ * 条文は lib/inheritanceLaw.ts に置いてある。
+ * 以前この節は出典を持っていなかった。相続は読む人がいちばん不安な部分なので、
+ * 当サイトの他の法律記事と同じく、原文を引いて日次で照合する。
+ */
+function Quote({ entry, highlight }: { entry: LawQuote; highlight?: boolean }) {
+  return (
+    <blockquote
+      className={`mb-3 rounded-xl border p-4 text-sm leading-relaxed ${
+        highlight ? "border-accent/30 bg-accent-soft/40" : "border-border bg-surface"
+      }`}
+    >
+      <p>「{entry.quote}」</p>
+      <footer className="mt-2 text-xs text-muted">
+        出典:{" "}
+        <a
+          href={entry.sourceUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline underline-offset-2"
+        >
+          {entry.label}
+        </a>
+        （e-Gov法令検索、{INHERITANCE_CHECKED_AT}に確認）
+      </footer>
+    </blockquote>
+  );
+}
 
 export const metadata: Metadata = {
   title: "遺品整理・生前整理で貴金属を手放すときの心構え｜査定に出す前に知っておきたいこと",
@@ -39,9 +70,24 @@ export default function EstateCleanupColumnPage() {
         </section>
 
         <section>
-          <h2 className="font-serif-jp mb-2 text-lg font-semibold">相続財産の場合は、相続人全員の合意を</h2>
+          <h2 className="font-serif-jp mb-2 text-lg font-semibold">
+            相続人が複数いるなら、一人では決められません
+          </h2>
+          <p className="mb-3">
+            気持ちの話とは別に、ここだけは条文を確かめておいたほうがいい部分です。故人の持ち物は、亡くなった時点で相続人のものになります。
+          </p>
+          <Quote entry={INHERITANCE_QUOTES.succession} />
+          <p className="mb-3">そして、相続人が複数いる場合の持ち方はこうなっています。</p>
+          <Quote entry={INHERITANCE_QUOTES.coOwned} highlight />
+          <p className="mb-3">
+            <strong>共有</strong>
+            なので、指輪1つであっても一人の持ち物ではありません。遺産分割が済む前に誰かが売ってしまった場合の扱いも、条文に書かれています。
+          </p>
+          <Quote entry={INHERITANCE_QUOTES.disposedBefore} />
+          <Quote entry={INHERITANCE_QUOTES.disposerExcluded} />
           <p>
-            故人の遺品を売却する場合、その品物は原則として相続財産にあたります。遺産分割協議が終わっていない段階で、相続人の一人が独断で売却してしまうと、後から他の相続人とのトラブルにつながることがあります。売却前に、他の相続人にも一声かけておくと安心です。
+            読み合わせると、<strong>売ってしまった本人の同意は要らない</strong>
+            、という形になっています。つまり他の相続人だけで「売られた品物は、まだ遺産にあるものとして分ける」と決められます。売った人が受け取った代金はその人の取り分から差し引かれる、という向きに働くということです。あとから揉めない順番は、分割の話を先に済ませることです。
           </p>
         </section>
 
@@ -59,8 +105,14 @@ export default function EstateCleanupColumnPage() {
         <section>
           <h2 className="font-serif-jp mb-2 text-lg font-semibold">まとめて査定に出す</h2>
           <p>
-            遺品整理・生前整理では、指輪やネックレスが何点もまとまって出てくることがよくあります。
-            1点ずつ別の店に持ち込むより、まとめて査定に出した方が手間も少なく、店によってはまとめて査定することで評価してもらえる場合もあります。
+            遺品整理・生前整理では、指輪やネックレスが何点もまとまって出てくることがよくあります。1回にまとめたほうがいいのは、手間の問題だけではありません。引かれる額が品物ごと・1回ごとに決まっている社があり、何回かに分けるとその回数だけ引かれるためです。社ごとの条件と、相見積もりの取り方は{" "}
+            <Link
+              href="/column/multiple-quotes"
+              className="font-semibold text-accent-strong hover:underline"
+            >
+              金買取の相見積もり
+            </Link>
+            にまとめています。
           </p>
         </section>
 

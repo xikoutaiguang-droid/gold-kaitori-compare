@@ -134,6 +134,7 @@ async function main() {
     "lib/sellPrep.ts",
     "lib/identityLaw.ts",
     "lib/weekendQuotes.ts",
+    "lib/inheritanceLaw.ts",
   ];
   const pairs = [];
   const unscannable = [];
