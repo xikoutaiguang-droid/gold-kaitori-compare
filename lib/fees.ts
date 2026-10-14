@@ -227,6 +227,44 @@ export const FEE_DISCLOSURES: FeeDisclosure[] = [
     sourceUrl: "https://okuraya.jp/",
     checkedAt: "2026-10-01",
   },
+  // ここから下は2026-10-14に掲載を始めた3社。同じ日に各社の公式サイトを読んだ。
+  {
+    // 同じページの中で、2か所の書き方が食い違って読める社。
+    // インゴットの相場表の注記には相場から手数料を取ると書いてあり、
+    // 「選ばれる理由」のほうには査定金額がそのまま支払われると書いてある。
+    // 両方を並べて、読む人が自分で突き合わせられるようにする。
+    // 当サイトが採っているのは純度別のレート表のほうで、注記はインゴットの欄にある。
+    companyId: "goldplaza",
+    checkedScope: "price",
+    model: "builtIn",
+    quote: "上記の金相場価格からお手数料を頂いております。",
+    condition:
+      "インゴットの参考買取相場の注記。相場から手数料を取ったあとの額が表示価格になる、という意味に読める。当サイトが採っているのは純度別のレート表のほうで、そちらに同じ注記は無い。",
+    contrast: {
+      quote:
+        "査定金額から各種手数料が引かれて実際にもらえる金額と異なる買取店もございますがゴールドプラザでは査定金額がそのままお支払い金額となります。",
+      sourceUrl: "https://goldplaza.jp/gold",
+    },
+    sourceUrl: "https://goldplaza.jp/gold",
+    checkedAt: "2026-10-14",
+  },
+  {
+    companyId: "brandcom",
+    checkedScope: "terms",
+    model: "free",
+    quote:
+      "手数料等は一切無料ですのでお気軽にご利用ください。 宅配キット、査定料、キャンセル料、また宅配買取の送料等もすべて弊社で負担いたします。",
+    sourceUrl: "https://brandcom.co.jp/faq/",
+    checkedAt: "2026-10-14",
+  },
+  {
+    companyId: "sanoya",
+    checkedScope: "price",
+    model: "free",
+    quote: "手数料を差し引いたり、お品物によって買取単価を下げたりすることはありません。",
+    sourceUrl: "https://www.sanoya.co.jp/gold/",
+    checkedAt: "2026-10-14",
+  },
 ];
 
 /**

@@ -267,6 +267,42 @@ export const SERVICE_RECORDS: ServiceRecord[] = [
       quote: "希望日時に、ご自宅へ宅配業者が無料で集荷に伺います。コンビニへの持込もOK！",
     },
   },
+  // ここから下は2026-10-14に掲載を始めた3社。同じ日に各社の公式サイトを読んだ。
+  //
+  // この表に無い社は、買取方法の一覧(/nearby・/compare・トップなど)から丸ごと
+  // 外れる。価格だけ入れても「店舗に行かずに売れる社」には出てこないので、
+  // 社を足したらここも足すこと。3社とも、載せた時点では出ていなかった。
+  {
+    companyId: "goldplaza",
+    sourceUrl: "https://goldplaza.jp/gold",
+    checkedAt: "2026-10-14",
+    storefront: { quote: "店舗で「査定・買取」" },
+    // 出張買取の案内は見つからなかったので欄を作らない。「非対応」とは書かない。
+    shipping: { quote: "ご自宅にいながら簡単「査定・買取」" },
+  },
+  {
+    companyId: "brandcom",
+    sourceUrl: "https://brandcom.co.jp/",
+    checkedAt: "2026-10-14",
+    storefront: { quote: "査定額にご満足頂きましたらその場で現金化致します！" },
+    shipping: { quote: "発送に必要なキットなど無料でご利用いただけます。" },
+  },
+  {
+    companyId: "sanoya",
+    sourceUrl: "https://www.sanoya.co.jp/gold/",
+    checkedAt: "2026-10-14",
+    storefront: {
+      quote: "お客様に「さのや」へご来店して頂き、目の前で査定をさせて頂きます。",
+    },
+    // 出張の対応エリアは書かれていないので area を付けない。
+    // 宅配は「全国完全無料」と明記しているが、area は出張の欄にしかないので入れない。
+    visit: {
+      quote: "お客様のご自宅まで「さのや」買取専門スタッフがお伺いし、買取させて頂きます。",
+    },
+    shipping: {
+      quote: "送料無料の宅配キットにお品物を入れ返送していただき、到着次第査定させて頂きます。",
+    },
+  },
 ];
 
 export type ServiceId = "storefront" | "visit" | "shipping";
