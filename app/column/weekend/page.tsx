@@ -6,7 +6,40 @@ import { articleJsonLd, columnBreadcrumb } from "@/lib/structuredData";
 import OtherColumns from "@/components/OtherColumns";
 import ColumnHero from "@/components/ColumnHero";
 
+import {
+  BENCHMARK_QUOTES,
+  SHIPPING_DAY_QUOTE,
+  WEEKEND_CHECKED_AT,
+  type WeekendQuote,
+} from "@/lib/weekendQuotes";
+
 const PATH = "/column/weekend";
+
+/**
+ * 引用は lib/weekendQuotes.ts に置いてある。
+ * 以前はこのページに直接書いていて、日次の照合の対象外だった。
+ * 確認日も価格の最終記録日を流用していたので、誰も読み直していない日が
+ * 「確認した日」として出ていた。読んだ日を書く。
+ */
+function Quote({ entry }: { entry: WeekendQuote }) {
+  return (
+    <blockquote className="mb-3 rounded-xl border border-border bg-surface p-4 text-sm leading-relaxed">
+      <p>「{entry.quote}」</p>
+      <footer className="mt-2 text-xs text-muted">
+        出典:{" "}
+        <a
+          href={entry.sourceUrl}
+          target="_blank"
+          rel="noopener noreferrer nofollow"
+          className="underline underline-offset-2"
+        >
+          {entry.label}
+        </a>
+        （当サイトが{WEEKEND_CHECKED_AT}に確認）
+      </footer>
+    </blockquote>
+  );
+}
 
 // 見出しの数字も測った結果から作る。記録が伸びれば日曜が0%でなくなる日も来るので、
 // 「日曜は動かない」と決め打ちで書かない。
@@ -127,22 +160,9 @@ export default function WeekendPage() {
         <p className="mb-3 text-base leading-relaxed">
           各社が単価を決めるときの目安になっている田中貴金属の地金価格が、土日・祝日には更新されません。同社のページにこう書かれています。
         </p>
-        <blockquote className="mb-3 rounded-xl border border-border bg-surface p-4 text-sm leading-relaxed">
-          <p>「※前日比は、土日・祝日を除く前営業日の9:30の価格と比較して算出しています。」</p>
-          <p className="mt-2">「※土日・祝日の地金価格は、マーケット市況情報をご参照ください。」</p>
-          <footer className="mt-2 text-xs text-muted">
-            出典:{" "}
-            <a
-              href="https://gold.tanaka.co.jp/commodity/souba/"
-              target="_blank"
-              rel="noopener noreferrer nofollow"
-              className="underline underline-offset-2"
-            >
-              田中貴金属「貴金属価格情報」
-            </a>
-            （当サイトが{jaDate(m.lastDate)}に確認）
-          </footer>
-        </blockquote>
+        {BENCHMARK_QUOTES.map((q) => (
+          <Quote key={q.sourceId} entry={q} />
+        ))}
         <p className="text-base leading-relaxed">
           つまり土日に見えている数字は、金曜に出た基準のまま置かれているものです。各社が公表している社数そのものも、土日は減ります。
         </p>
@@ -222,21 +242,7 @@ export default function WeekendPage() {
         <p className="mb-3 text-base leading-relaxed">
           店頭に持ち込むなら、その場の金額を見てから決められます。宅配買取は、申し込んだ日ではなく品物が届いた日の価格で査定すると書いている社があります。
         </p>
-        <blockquote className="mb-3 rounded-xl border border-border bg-surface p-4 text-sm leading-relaxed">
-          <p>「宅配買取をご利用の場合、到着日の買取価格で査定致します。」</p>
-          <footer className="mt-2 text-xs text-muted">
-            出典:{" "}
-            <a
-              href="https://www.nexus13.co.jp/buy2/notice.php"
-              target="_blank"
-              rel="noopener noreferrer nofollow"
-              className="underline underline-offset-2"
-            >
-              ネクサス「宅配買取の注意事項」
-            </a>
-            （当サイトが{jaDate(m.lastDate)}に確認）
-          </footer>
-        </blockquote>
+        <Quote entry={SHIPPING_DAY_QUOTE} />
         <p className="mb-3 text-base leading-relaxed">
           金曜の夕方に出すと、着くのは週明けになります。そのあいだに上の表のぶんだけ動いていることがある、ということです。どの日の価格を使うかは店によって違うので、送る前にその社の記載を確かめてください。返送料や少額のときの差し引きは
           <Link href="/column/mail-in-purchase" className="underline underline-offset-2 hover:text-accent">
