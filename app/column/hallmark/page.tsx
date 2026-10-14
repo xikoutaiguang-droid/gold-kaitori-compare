@@ -307,7 +307,7 @@ export default function HallmarkPage() {
           <li>
             磁石にはっきりくっつくなら、土台が鉄やニッケルの可能性があります。ただし逆は言えません。詳しくは{" "}
             <Link href="/column/plating-check" className="underline underline-offset-2">
-              メッキと金の簡単な見分け方
+              メッキと金の見分け方
             </Link>
             にまとめています。
           </li>

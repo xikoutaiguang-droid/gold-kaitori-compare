@@ -50,7 +50,7 @@ export default function EstateCleanupColumnPage() {
           <p>
             「K18」「Pt900」などの刻印があれば、査定の際の目安になります。刻印が見当たらない場合の簡易チェックについては、
             <Link href="/column/plating-check" className="font-semibold text-accent-strong hover:underline">
-              メッキと金の簡単な見分け方
+              メッキと金の見分け方
             </Link>
             もあわせてご覧ください。
           </p>

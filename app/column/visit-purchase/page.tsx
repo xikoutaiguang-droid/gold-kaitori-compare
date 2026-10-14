@@ -231,7 +231,7 @@ export default function VisitPurchasePage() {
           </li>
           <li>
             <Link href="/column/multiple-quotes" className="font-medium text-accent-strong hover:underline">
-              査定額を上げるコツ →
+              金買取の相見積もり →
             </Link>
           </li>
         </ul>

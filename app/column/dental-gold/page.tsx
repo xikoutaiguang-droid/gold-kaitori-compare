@@ -298,7 +298,7 @@ export default function DentalGoldPage() {
             <strong>1本が何グラムかは、ここでは言えません。</strong>
             形も大きさも治療ごとに違います。当サイトは1gあたりの数字しか持っていないので、重さは店のはかりで量ってもらうことになります。はかりの決まりは
             <Link href="/column/scale" className="underline underline-offset-2">
-              買取店のはかりは、信用してよいのか
+              金買取の計量は信用してよいのか
             </Link>
             にまとめています。
           </li>
