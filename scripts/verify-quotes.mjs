@@ -131,6 +131,7 @@ async function main() {
     "lib/brokenItems.ts",
     "lib/hallmarkMint.ts",
     "lib/densityTest.ts",
+    "lib/sellPrep.ts",
   ];
   const pairs = [];
   const unscannable = [];
