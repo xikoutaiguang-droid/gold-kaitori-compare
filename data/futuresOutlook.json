@@ -291,10 +291,10 @@
     },
     {
       "date": "2026-10-15",
-      "spotPrice": 21160,
+      "spotPrice": 21010,
       "nearestContract": "FUT_GLD_261027",
       "nearestTargetDate": "2026-10-27",
-      "nearestPrice": 21145
+      "nearestPrice": 20977
     }
   ]
 }
