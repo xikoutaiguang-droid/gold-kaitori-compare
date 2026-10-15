@@ -2,22 +2,22 @@
   "source": "田中貴金属",
   "sourceUrl": "https://gold.tanaka.co.jp/commodity/souba/",
   "prices": {
-    "k24": 22974
+    "k24": 22884
   },
   "updatedAt": "2026-10-15",
   "notes": "田中貴金属が公表する「店頭買取価格(税込)」。地金(インゴット等)の買取基準値であり、各社の宝飾品スクラップ買取価格とは前提が異なる参考値。",
   "spread": {
     "gold": {
-      "retail": 23331,
-      "purchase": 22974
+      "retail": 23433,
+      "purchase": 22884
     },
     "platinum": {
-      "retail": 9205,
-      "purchase": 8783
+      "retail": 9282,
+      "purchase": 8733
     },
     "silver": {
-      "retail": 327.03,
-      "purchase": 309.98
+      "retail": 332.2,
+      "purchase": 299.2
     }
   }
 }
