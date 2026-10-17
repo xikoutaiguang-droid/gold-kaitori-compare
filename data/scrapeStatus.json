@@ -1,5 +1,5 @@
 {
-  "ranAt": "2026-10-16T14:22:07.762Z",
+  "ranAt": "2026-10-17T07:03:31.308Z",
   "ok": 22,
   "ng": 0,
   "sources": [
@@ -14,7 +14,7 @@
       "id": "komehyo",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-16",
+      "updatedAt": "2026-10-17",
       "warning": null
     },
     {
@@ -48,7 +48,7 @@
       "id": "kaitori-elite",
       "ok": true,
       "priceCount": 8,
-      "updatedAt": "2026-10-16",
+      "updatedAt": "2026-10-17",
       "warning": null
     },
     {
@@ -62,14 +62,14 @@
       "id": "best-life",
       "ok": true,
       "priceCount": 12,
-      "updatedAt": "2026-10-16",
+      "updatedAt": "2026-10-17",
       "warning": null
     },
     {
       "id": "brand-revalue",
       "ok": true,
       "priceCount": 8,
-      "updatedAt": "2026-10-16",
+      "updatedAt": "2026-10-17",
       "warning": null
     },
     {
@@ -90,14 +90,14 @@
       "id": "manekiya",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-16",
+      "updatedAt": "2026-10-17",
       "warning": null
     },
     {
       "id": "takayama78",
       "ok": true,
       "priceCount": 2,
-      "updatedAt": "2026-10-16",
+      "updatedAt": "2026-10-17",
       "warning": null
     },
     {
@@ -118,14 +118,14 @@
       "id": "ginzaya",
       "ok": true,
       "priceCount": 1,
-      "updatedAt": "2026-10-15",
+      "updatedAt": "2026-10-17",
       "warning": null
     },
     {
       "id": "okuraya",
       "ok": true,
       "priceCount": 6,
-      "updatedAt": "2026-10-16",
+      "updatedAt": "2026-10-17",
       "warning": null
     },
     {
@@ -156,14 +156,14 @@
       "id": "rodeodrive",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-16",
+      "updatedAt": "2026-10-17",
       "warning": null
     },
     {
       "id": "refasta",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-16",
+      "updatedAt": "2026-10-17",
       "warning": null
     },
     {
@@ -191,7 +191,7 @@
       "id": "sanoya",
       "ok": true,
       "priceCount": 9,
-      "updatedAt": "2026-10-16",
+      "updatedAt": "2026-10-17",
       "warning": null
     }
   ]
