@@ -12,12 +12,12 @@
       "purchase": 23004
     },
     "platinum": {
-      "retail": 9394,
-      "purchase": 8971
+      "retail": 9449,
+      "purchase": 9026
     },
     "silver": {
-      "retail": 333.19,
-      "purchase": 316.14
+      "retail": 336.16,
+      "purchase": 319.11
     }
   }
 }
