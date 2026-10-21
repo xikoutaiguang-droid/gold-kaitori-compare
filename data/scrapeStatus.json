@@ -1,7 +1,7 @@
 {
-  "ranAt": "2026-10-21T07:48:54.581Z",
-  "ok": 22,
-  "ng": 0,
+  "ranAt": "2026-10-21T12:02:28.389Z",
+  "ok": 21,
+  "ng": 1,
   "sources": [
     {
       "id": "otakaraya",
@@ -12,10 +12,9 @@
     },
     {
       "id": "komehyo",
-      "ok": true,
-      "priceCount": 13,
-      "updatedAt": "2026-10-21",
-      "warning": null
+      "ok": false,
+      "skipped": false,
+      "error": "https://komehyo.jp/kaitori/gold/souba/ を 5回試して取得できませんでした: 504 Gateway Time-out / 504 Gateway Time-out / 504 Gateway Time-out / 504 Gateway Time-out / 504 Gateway Time-out"
     },
     {
       "id": "kaitori-daikichi",
