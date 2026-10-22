@@ -1,27 +1,27 @@
 {
-  "ranAt": "2026-10-21T14:53:46.234Z",
-  "ok": 17,
-  "ng": 5,
+  "ranAt": "2026-10-22T07:44:44.915Z",
+  "ok": 20,
+  "ng": 2,
   "sources": [
     {
       "id": "otakaraya",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-21",
+      "updatedAt": "2026-10-22",
       "warning": null
     },
     {
       "id": "komehyo",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-21",
+      "updatedAt": "2026-10-22",
       "warning": null
     },
     {
       "id": "kaitori-daikichi",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-21",
+      "updatedAt": "2026-10-22",
       "warning": null
     },
     {
@@ -32,62 +32,64 @@
     },
     {
       "id": "nanboya",
-      "ok": false,
-      "skipped": false,
-      "error": "https://nanboya.com/ajax/todays-prices.json を 5回試して取得できませんでした: 503 Service Temporarily Unavailable / 503 Service Temporarily Unavailable / 503 Service Temporarily Unavailable / 503 Service Temporarily Unavailable / 503 Service Temporarily Unavailable"
+      "ok": true,
+      "priceCount": 13,
+      "updatedAt": "2026-10-22",
+      "warning": null
     },
     {
       "id": "jewel-cafe",
       "ok": true,
       "priceCount": 5,
-      "updatedAt": "2026-10-21",
+      "updatedAt": "2026-10-22",
       "warning": null
     },
     {
       "id": "kaitori-elite",
       "ok": true,
       "priceCount": 8,
-      "updatedAt": "2026-10-21",
+      "updatedAt": "2026-10-22",
       "warning": null
     },
     {
       "id": "kingram",
       "ok": true,
       "priceCount": 12,
-      "updatedAt": "2026-10-21",
+      "updatedAt": "2026-10-22",
       "warning": null
     },
     {
       "id": "best-life",
       "ok": true,
       "priceCount": 12,
-      "updatedAt": "2026-10-21",
+      "updatedAt": "2026-10-22",
       "warning": null
     },
     {
       "id": "brand-revalue",
-      "ok": false,
-      "skipped": false,
-      "error": "https://brandrevalue.com/cat/gold/souba を 5回試して取得できませんでした: The operation was aborted due to timeout (23) / The operation was aborted due to timeout (23) / The operation was aborted due to timeout (23) / The operation was aborted due to timeout (23) / The operation was aborted due to timeout (23)"
+      "ok": true,
+      "priceCount": 8,
+      "updatedAt": "2026-10-22",
+      "warning": null
     },
     {
       "id": "gem-sigma",
       "ok": true,
       "priceCount": 12,
-      "updatedAt": "2026-10-21",
+      "updatedAt": "2026-10-22",
       "warning": null
     },
     {
       "id": "galleryrare",
       "ok": false,
       "skipped": false,
-      "error": "https://galleryrare.jp/goldplatinum/ を 5回試して取得できませんでした: 502 Bad Gateway / 502 Bad Gateway / 502 Bad Gateway / 502 Bad Gateway / 502 Bad Gateway"
+      "error": "galleryrare: 価格を1件も取得できませんでした(ページ構造が変わった可能性)"
     },
     {
       "id": "manekiya",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-21",
+      "updatedAt": "2026-10-22",
       "warning": null
     },
     {
@@ -107,7 +109,7 @@
       "id": "nexus13",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-21",
+      "updatedAt": "2026-10-22",
       "warning": null
     },
     {
@@ -121,7 +123,7 @@
       "id": "okuraya",
       "ok": true,
       "priceCount": 6,
-      "updatedAt": "2026-10-20",
+      "updatedAt": "2026-10-22",
       "warning": null
     },
     {
@@ -150,15 +152,16 @@
     },
     {
       "id": "rodeodrive",
-      "ok": false,
-      "skipped": false,
-      "error": "https://kaitori.rodeodrive.co.jp/gold/ を 5回試して取得できませんでした: 503 Service Unavailable / 503 Service Unavailable / 503 Service Unavailable / 503 Service Unavailable / 503 Service Unavailable"
+      "ok": true,
+      "priceCount": 13,
+      "updatedAt": "2026-10-22",
+      "warning": null
     },
     {
       "id": "refasta",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-21",
+      "updatedAt": "2026-10-22",
       "warning": null
     },
     {
@@ -172,21 +175,21 @@
       "id": "goldplaza",
       "ok": true,
       "priceCount": 12,
-      "updatedAt": "2026-10-21",
+      "updatedAt": "2026-10-22",
       "warning": null
     },
     {
       "id": "brandcom",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-21",
+      "updatedAt": "2026-10-22",
       "warning": null
     },
     {
       "id": "sanoya",
       "ok": true,
       "priceCount": 9,
-      "updatedAt": "2026-10-21",
+      "updatedAt": "2026-10-22",
       "warning": null
     }
   ]
