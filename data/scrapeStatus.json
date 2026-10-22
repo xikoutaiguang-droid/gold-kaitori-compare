@@ -1,5 +1,5 @@
 {
-  "ranAt": "2026-10-22T07:44:44.915Z",
+  "ranAt": "2026-10-22T12:00:28.161Z",
   "ok": 20,
   "ng": 2,
   "sources": [
@@ -12,10 +12,9 @@
     },
     {
       "id": "komehyo",
-      "ok": true,
-      "priceCount": 13,
-      "updatedAt": "2026-10-22",
-      "warning": null
+      "ok": false,
+      "skipped": false,
+      "error": "komehyo: 価格を1件も取得できませんでした(ページ構造が変わった可能性)"
     },
     {
       "id": "kaitori-daikichi",
@@ -94,9 +93,10 @@
     },
     {
       "id": "takayama78",
-      "ok": false,
-      "skipped": false,
-      "error": "https://takayama78.co.jp/%E8%B2%B7%E5%8F%96%E3%82%AB%E3%83%86%E3%82%B4%E3%83%AA/ を 5回試して取得できませんでした: fetch failed (ECONNREFUSED: connect ECONNREFUSED 60.43.137.225:443) / fetch failed (ECONNREFUSED: connect ECONNREFUSED 60.43.137.225:443) / fetch failed (ECONNREFUSED: connect ECONNREFUSED 60.43.137.225:443) / fetch failed (ECONNREFUSED: connect ECONNREFUSED 60.43.137.225:443) / fetch failed (ECONNREFUSED: connect ECONNREFUSED 60.43.137.225:443)"
+      "ok": true,
+      "priceCount": 2,
+      "updatedAt": "2026-10-21",
+      "warning": null
     },
     {
       "id": "goldmrs",
