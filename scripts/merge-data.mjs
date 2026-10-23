@@ -77,8 +77,24 @@ function theirVersion(file) {
   return JSON.parse(r.stdout);
 }
 
+/**
+ * 手元の版。無ければ null を返す。
+ *
+ * 1つでも読めないと最後まで走らずに終わっていた。このスクリプトが呼ばれるのは
+ * push が詰まったときだけなので、ここで落ちると詰まったまま戻れなくなる。
+ * 片方にしか無いファイルは、片方を使えばよいだけのこと。
+ */
 async function ourVersion(file) {
-  return JSON.parse(await readFile(path.join(ROOT, "data", file), "utf8"));
+  try {
+    return JSON.parse(await readFile(path.join(ROOT, "data", file), "utf8"));
+  } catch (err) {
+    if (err?.code === "ENOENT") return null;
+    throw err;
+  }
+}
+
+async function writeData(file, value) {
+  await writeFile(path.join(ROOT, "data", file), `${JSON.stringify(value, null, 2)}\n`, "utf8");
 }
 
 /** その純度の数。取れている項目が多いほうを「中身がある」とみなす */
@@ -149,9 +165,15 @@ const PICKERS = {
 async function mergeDateSeries(file, mode) {
   const theirs = theirVersion(file);
   const ours = await ourVersion(file);
+  if (!theirs && !ours) return false;
   if (!theirs) {
     console.log(`  ${file}: ${REF} に無いため、手元のものをそのまま使います`);
     return false;
+  }
+  if (!ours) {
+    console.log(`  ${file}: 手元に無いため、${REF} のものを使います`);
+    if (!DRY_RUN) await writeData(file, theirs);
+    return true;
   }
   const { merged, notes } = unionByDate(ours.entries, theirs.entries, PICKERS[mode]);
   const next = { ...ours, entries: merged };
@@ -167,7 +189,7 @@ async function mergeDateSeries(file, mode) {
     console.log(`      両方にあって中身が違った日: ${notes.bothChanged.join(", ")}`);
 
   if (!DRY_RUN && changed) {
-    await writeFile(path.join(ROOT, "data", file), `${JSON.stringify(next, null, 2)}\n`, "utf8");
+    await writeData(file, next);
   }
   return changed;
 }
@@ -176,7 +198,13 @@ async function mergeCompanies() {
   const file = "companies.json";
   const theirs = theirVersion(file);
   const ours = await ourVersion(file);
+  if (!theirs && !ours) return false;
   if (!theirs) return false;
+  if (!ours) {
+    console.log(`  ${file}: 手元に無いため、${REF} のものを使います`);
+    if (!DRY_RUN) await writeData(file, theirs);
+    return true;
+  }
 
   const theirById = new Map(theirs.map((c) => [c.id, c]));
   let tookTheirs = 0;
@@ -204,7 +232,7 @@ async function mergeCompanies() {
   );
   const changed = JSON.stringify(next) !== JSON.stringify(ours);
   if (!DRY_RUN && changed) {
-    await writeFile(path.join(ROOT, "data", file), `${JSON.stringify(next, null, 2)}\n`, "utf8");
+    await writeData(file, next);
   }
   return changed;
 }
@@ -213,12 +241,17 @@ async function mergeNewestWins(file, timeKey) {
   const theirs = theirVersion(file);
   const ours = await ourVersion(file);
   if (!theirs) return false;
+  if (!ours) {
+    console.log(`  ${file}: 手元に無いため、${REF} のものを使います`);
+    if (!DRY_RUN) await writeData(file, theirs);
+    return true;
+  }
   const mineAt = ours?.[timeKey] ?? "";
   const yoursAt = theirs?.[timeKey] ?? "";
   if (yoursAt > mineAt) {
     console.log(`  ${file}: ${REF} のほうが新しいので差し替えます (${yoursAt} > ${mineAt})`);
     if (!DRY_RUN) {
-      await writeFile(path.join(ROOT, "data", file), `${JSON.stringify(theirs, null, 2)}\n`, "utf8");
+      await writeData(file, theirs);
     }
     return true;
   }
