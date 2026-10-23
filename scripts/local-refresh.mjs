@@ -194,6 +194,75 @@ function syncWithOrigin() {
   return false;
 }
 
+/**
+ * リベースでは直せない食い違いを、中身を統合して解く。
+ *
+ * なぜ要るか:
+ * 2026年10月15日から23日まで、このタスクは8日間ずっと push できていなかった。
+ * push が弾かれる → リベースする → 10月15日のコミットで衝突する → 中断して
+ * 「次の回で取り直します」と書いて終わる。次の回も同じところで止まるので、
+ * 毎時それを繰り返していた。「次回やり直す」で直るのは一時的な失敗だけで、
+ * 中身が食い違っているときは、何度やっても同じ結果になる。
+ *
+ * この間サイトが無事だったのは Actions 側が入れ続けていたからで、
+ * 気づく手がかりはログの中だけにあった。
+ *
+ * 解き方は、どちらかを捨てるのではなく日付ごとに和を取ること。実際、
+ * origin にしかない日と手元にしかない日の両方があり、同じ日でも取れている
+ * 社数が違った(10/21 は手元11社・origin21社・統合後22社)。
+ * 規則は scripts/merge-data.mjs に書いてある。
+ *
+ * ここでは積み上がった手元のコミットを1本にまとめ直す。価格データの
+ * コミットは履歴として意味を持たないので、何本あっても困らない。
+ */
+function reconcileWithOrigin() {
+  log("  リベースでは解けないので、中身を統合します");
+  if (!git(["fetch", "origin", "main"], { allowFail: true })) {
+    log("  fetch できませんでした。次の回で取り直します");
+    return false;
+  }
+  if (!run(process.execPath, ["scripts/merge-data.mjs", "--ref", "origin/main"], { allowFail: true })) {
+    log("  統合に失敗しました。data/ は触らずに終わります");
+    return false;
+  }
+  // 手元にしかないコミットが data/ 以外に触っていたら、この先へ進まない。
+  // --soft で乗せ直すと、そういうコミットは「価格取得」1本に畳まれてしまう。
+  // 価格のコミットは畳んでかまわないが、人が書いたものを黙って混ぜてはいけない。
+  // 3点(origin/main...HEAD)ではなく2点で比べる。3点だと「向こうにも同じものが
+  // 入っている」ファイルまで手元の変更として挙がり、cherry-pick で先に出した
+  // 変更があるだけで統合できなくなる。見たいのは中身が今まだ違うかどうか。
+  const localOnly = spawnSync("git", ["diff", "--name-only", "origin/main", "HEAD"], {
+    cwd: ROOT,
+    encoding: "utf8",
+  });
+  const outsideData = (localOnly.stdout ?? "")
+    .split(/\r?\n/)
+    .filter(Boolean)
+    .filter((f) => !f.startsWith("data/"));
+  if (outsideData.length) {
+    log(`  手元に data/ 以外の変更があります。統合はしません: ${outsideData.join(", ")}`);
+    return false;
+  }
+
+  // 統合した data/ を作業ツリーに残したまま、origin の先頭に乗せ直す。
+  // --soft なので、いま取ったばかりの価格は消えない。
+  if (!git(["reset", "--soft", "origin/main"], { allowFail: true })) return false;
+  if (!dataFilesAreValid()) {
+    log("  統合後の data/ が壊れています。コミットしません");
+    return false;
+  }
+  git(["add", "data/"], { allowFail: true });
+  const diff = spawnSync("git", ["diff", "--cached", "--quiet"], { cwd: ROOT });
+  if (diff.status === 0) {
+    log("  統合の結果、originと同じ中身になりました");
+    return true;
+  }
+  const day = new Date().toISOString().slice(0, 10);
+  return git(["commit", "-m", `chore: 手元から価格取得 ${day}（originと統合）`], {
+    allowFail: true,
+  });
+}
+
 function main() {
   const full = !fullSweepDoneToday();
   log(full ? "開始 (全社取得)" : "開始 (遅れている社だけ)");
@@ -240,12 +309,15 @@ function main() {
     let pushed = false;
     for (let i = 1; i <= 3 && !pushed; i++) {
       pushed = git(["push", "origin", "main"], { allowFail: true });
-      if (!pushed) {
-        log(`push に失敗しました。リベースして再試行します (${i}/3)`);
-        if (!syncWithOrigin()) {
-          log("  衝突したため、この回の push はあきらめます。次の回で取り直します");
-          break;
-        }
+      if (pushed) break;
+      log(`push に失敗しました。リベースして再試行します (${i}/3)`);
+      // まずは素直にリベース。向こうが進んだだけなら、これで足りる。
+      if (syncWithOrigin()) continue;
+      // 衝突した。同じことを次の回に繰り返しても結果は変わらないので、
+      // ここで中身を統合して決着させる。
+      if (!reconcileWithOrigin()) {
+        log("  統合できませんでした。次の回で取り直します");
+        break;
       }
     }
     log(pushed ? "push しました" : "push できませんでした。次回の実行で再試行されます");
