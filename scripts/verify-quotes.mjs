@@ -20,7 +20,7 @@
  * このスクリプトはジョブを落とさない。落とすと「取れないだけ」で毎回赤くなり、
  * 本当の食い違いが埋もれる。報告だけして、人が読む。
  */
-import { readFile } from "node:fs/promises";
+import { readFile, readdir } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 
@@ -120,22 +120,30 @@ function unscannableLines(src, file) {
   return out;
 }
 
+/**
+ * 引用を持っているファイルを lib/ から自分で見つける。
+ *
+ * 以前はここに13本のファイル名を手で並べていた。並べ忘れると、そのファイルの
+ * 引用は照合されないまま「全部一致しました」と出る。lib/pawnLaw.ts のときに
+ * 6件がそうなり、2026年10月23日に lib/unitLaw.ts を足したときも同じことが起きた。
+ * 同じ間違いが2回起きたので、一覧を持つのをやめる。
+ *
+ * 拾う条件は「quote: を持っていること」。引用を持たないファイルを読んでも
+ * 組は作られないので、多めに読んでも害は無い。
+ */
+async function filesWithQuotes() {
+  const dir = path.join(ROOT, "lib");
+  const names = (await readdir(dir)).filter((n) => n.endsWith(".ts")).sort();
+  const out = [];
+  for (const n of names) {
+    const src = await readFile(path.join(dir, n), "utf8");
+    if (/^\s*quote:/m.test(src)) out.push(`lib/${n}`);
+  }
+  return out;
+}
+
 async function main() {
-  const files = [
-    "lib/fees.ts",
-    "lib/services.ts",
-    "lib/taxLaw.ts",
-    "lib/pawnLaw.ts",
-    "lib/scaleLaw.ts",
-    "lib/dentalGold.ts",
-    "lib/brokenItems.ts",
-    "lib/hallmarkMint.ts",
-    "lib/densityTest.ts",
-    "lib/sellPrep.ts",
-    "lib/identityLaw.ts",
-    "lib/weekendQuotes.ts",
-    "lib/inheritanceLaw.ts",
-  ];
+  const files = await filesWithQuotes();
   const pairs = [];
   const unscannable = [];
   const sources = [];

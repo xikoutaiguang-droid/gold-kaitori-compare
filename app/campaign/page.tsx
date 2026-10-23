@@ -12,6 +12,18 @@ import { getCompanyById } from "@/lib/companyPages";
 import CampaignNotice from "@/components/CampaignNotice";
 import CompanyLogo from "@/components/CompanyLogo";
 
+/**
+ * 確認できている実施中の企画が0件のときは、このページを検索結果に出さない。
+ *
+ * このページは中身を各社のページから人が転記していて、確認が14日途絶えたものは
+ * 自動的に消える(CAMPAIGN_MAX_VERIFY_AGE_DAYS)。その結果、0件になると
+ * 「0社で実施を確認しています」とだけ書かれたページが公開され続ける。
+ * 実際、2026年10月23日のAdSense審査は「有用性の低いコンテンツ」で通らず、
+ * そのとき公開中で最も本文が短かったのがこのページ(659字)だった。
+ *
+ * 消すのではなく、中身が戻れば自動で検索結果にも戻るようにしている。
+ * sitemap 側(app/sitemap.ts)も同じ条件で出し入れしている。
+ */
 export function generateMetadata(): Metadata {
   const n = getActiveCampaigns().length;
   return {
@@ -21,6 +33,7 @@ export function generateMetadata(): Metadata {
       (n ? `現在${n}社で確認しています。` : "") +
       `全員が対象のものと抽選のものを分けて載せています。`,
     alternates: { canonical: "/campaign" },
+    ...(n === 0 ? { robots: { index: false, follow: true } } : {}),
   };
 }
 

@@ -4,6 +4,7 @@ import { REGION_PAGES } from "@/lib/regionPages";
 import { PURITY_PAGES } from "@/lib/purityPages";
 import { getCompanies } from "@/lib/companies";
 import { COLUMNS } from "@/lib/columns";
+import { getActiveCampaigns } from "@/lib/campaigns";
 import articleDates from "@/data/articleDates.json";
 
 /**
@@ -47,9 +48,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/about",
     "/privacy",
     "/company",
-    "/campaign",
     "/column",
   ];
+  // /campaign は中身が0件になることがある。各社のページを人が見て転記していて、
+  // 確認が14日途絶えたものは自動的に消えるため(lib/campaigns.ts)。
+  // 0件のときは「0社で実施を確認しています」とだけ書かれたページになるので、
+  // sitemap に載せず、ページ側も noindex にする(app/campaign/page.tsx)。
+  // 中身が戻れば、次のビルドで両方とも自動的に戻る。
+  if (getActiveCampaigns().length > 0) staticPages.push("/campaign");
   // コラムは一覧(lib/columns.ts)から引く。sitemapに手書きで並べると、
   // 記事を足したときにどちらかが漏れて、載せたのに登録されない状態になる。
   const columnPages = COLUMNS.map((c) => c.href);

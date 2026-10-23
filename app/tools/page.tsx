@@ -82,6 +82,54 @@ export default function ToolsPage() {
           </p>
         </div>
       </section>
+
+      {/* 係数だけなら他のどこにでもある。この2つのツールで差が出るとすれば、
+          その数字がどこから来ていて、どこが揺れるのかを書いてあるかどうか。 */}
+      <section className="mt-10 border-t border-border pt-8">
+        <h2 className="font-serif-jp mb-3 text-lg font-semibold">計算に使っている数字の出どころ</h2>
+        <div className="flex flex-col gap-5 text-sm leading-relaxed text-foreground/80">
+          <div>
+            <h3 className="mb-1 font-semibold text-foreground">重さの単位は、政令に定義があります</h3>
+            <p>
+              1匁 = 3.75g、1トロイオンス = 31.1035g は業界の慣習ではなく、
+              <strong>計量単位令の別表第六</strong>
+              に書かれている定義です。同じ表には「その単位を何の計量に使ってよいか」も書かれていて、匁は真珠、トロイオンスは金貨、カラットは宝石に限られています。金やプラチナの買取価格が例外なく1gあたりで示されるのはこのためです。条文は
+              <Link
+                href="/tools/weight-converter"
+                className="underline underline-offset-2 hover:text-accent"
+              >
+                g・匁・オンス換算
+              </Link>
+              のページで引いています。
+            </p>
+          </div>
+          <div>
+            <h3 className="mb-1 font-semibold text-foreground">
+              純度の品位には、揺れるものが1つあります
+            </h3>
+            <p>
+              K18なら75%、Pt900なら90%というように、刻印に対する品位は決まっています。ただし
+              <strong>K20だけは基準が2つ</strong>
+              あります。カラットの定義どおりなら20/24で83.3%ですが、日本で使われていたホールマークの表示は835、つまり83.5%です。国内の品物は後者の刻印を持つことがあるため当サイトは83.5%を採っていますが、「K20」としか刻印が無い品では83.3%のほうが近いこともあります。差は0.2ポイントで、10gなら純金の量が0.02g変わります。採用している品位は計算画面にも表示しています。
+            </p>
+          </div>
+          <div>
+            <h3 className="mb-1 font-semibold text-foreground">
+              含有量が分かっても、買取価格は含有量どおりにはなりません
+            </h3>
+            <p>
+              これらのツールが出すのは物理的な重さであって、金額ではありません。各社が公表しているのは純度別の単価で、その比率は品位の比率と一致しないことがあります。実際の公表価格で確かめたものを
+              <Link
+                href="/column/karat-and-price"
+                className="underline underline-offset-2 hover:text-accent"
+              >
+                「K18は『金75%』。では値段も75%になるのか」
+              </Link>
+              に書いています。
+            </p>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
