@@ -5,6 +5,7 @@ import { getCompanies, formatFetchedAt, formatPriceDay } from "@/lib/companies";
 import { serviceRecord, SERVICE_LABEL, type ServiceId } from "@/lib/services";
 import { getCompanyById, getRelatedCompanies, getStandings, getMarketToday } from "@/lib/companyPages";
 import { companyPriceChange, companyPriceSeries } from "@/lib/companyHistory";
+import { measureTrackRecord } from "@/lib/companyTrackRecord";
 import CompanyTrendChart from "@/components/CompanyTrendChart";
 import { getAffiliateLinks } from "@/lib/outboundLink";
 import {
@@ -233,6 +234,9 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
   // 記録が少ないうちは線にしても読めないので、点が揃ってから出す。
   // 揃うまでは下の「1週間で何円動いたか」の1行だけになる。
   const series = companyPriceSeries(company.id, changePurity);
+  // 記録を通して見たときのこの社の位置。今日の順位は日によって入れ替わるので、
+  // 「いつもどのあたりにいる社なのか」は記録を数えないと言えない。
+  const track = measureTrackRecord(company.id, changePurity);
   const links = getAffiliateLinks(company);
   const related = getRelatedCompanies(company);
   // 名前が紛らわしい社。掲載から外れていれば出さない
@@ -365,6 +369,61 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
                     className="underline underline-offset-2"
                   >
                     売る日と売る店、どちらが金額を動かすのか
+                  </Link>
+                  にまとめています。
+                </p>
+              </div>
+            )}
+            {/* 記録を通して見たときのこの社の位置。今日の順位は毎日入れ替わるので、
+                1日の数字だけでは「いつもどのあたりの店なのか」が分からない。
+                各社の公式サイトは自社の今日の値しか載せないため、ここも当サイトにしか無い。 */}
+            {track && (
+              <div className="mb-4 rounded-xl border border-border bg-background p-4">
+                <h3 className="font-serif-jp mb-3 text-sm font-semibold">
+                  記録を通して見ると、{company.name}はこういう位置にいました
+                </h3>
+                <p className="mb-3 text-sm leading-relaxed text-foreground/80">
+                  当サイトは掲載各社の価格を毎日記録しています。{company.name}の
+                  {PURITY_LABELS[track.purity]}について記録があるのは、{jaDate(track.firstDate)}から
+                  {jaDate(track.lastDate)}までの{track.spanDays}日間のうち{track.days}日です。その
+                  {track.days}日を数えると、次のようになります。
+                </p>
+                <dl className="mb-3 grid grid-cols-2 gap-3 text-sm sm:grid-cols-4">
+                  {[
+                    {
+                      label: "中央値より高かった日",
+                      value: `${track.aboveMedianDays}日`,
+                      sub: `${Math.round((track.aboveMedianDays / track.days) * 100)}%`,
+                    },
+                    {
+                      label: "いちばん高かった日",
+                      value: `${track.topDays}日`,
+                      sub: track.topDays === 0 ? "なし" : `${Math.round((track.topDays / track.days) * 100)}%`,
+                    },
+                    {
+                      label: "順位の平均",
+                      value: `${track.averageRank.toFixed(1)}位`,
+                      sub: `最良${track.bestRank}位・最悪${track.worstRank}位`,
+                    },
+                    {
+                      label: "価格を動かした回数",
+                      value: `${track.movedDays}回`,
+                      sub: `記録${track.moveChances}回中`,
+                    },
+                  ].map((item) => (
+                    <div key={item.label} className="rounded-lg border border-border bg-surface p-3">
+                      <dt className="mb-1 text-xs leading-snug text-muted">{item.label}</dt>
+                      <dd className="font-semibold tabular-nums">{item.value}</dd>
+                      <dd className="text-xs tabular-nums text-muted">{item.sub}</dd>
+                    </div>
+                  ))}
+                </dl>
+                <p className="text-xs leading-relaxed text-muted">
+                  順位の母数は、その日に{PURITY_LABELS[track.purity]}
+                  を公表していた社数です。{track.fieldMin}社から{track.fieldMax}
+                  社まで日によって変わります（取得できなかった社がある日は母数が小さくなります）。そのため順位そのものより、中央値より上にいた日の割合のほうが日ごとの揺れに強い見方です。また、ここで見ているのは公表されている1gあたりの単価だけで、手取りはこのあと差し引かれるもので変わります。何がいくら引かれるかは
+                  <Link href="/column/fees" className="underline underline-offset-2">
+                    金買取の手数料は、どこでいくら引かれるのか
                   </Link>
                   にまとめています。
                 </p>
