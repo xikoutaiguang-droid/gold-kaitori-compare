@@ -1,26 +1,27 @@
 {
-  "ranAt": "2026-10-23T01:44:07.785Z",
+  "ranAt": "2026-10-23T07:41:26.359Z",
   "ok": 20,
-  "ng": 3,
+  "ng": 2,
   "sources": [
     {
       "id": "otakaraya",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-22",
+      "updatedAt": "2026-10-23",
       "warning": null
     },
     {
       "id": "komehyo",
-      "ok": false,
-      "skipped": false,
-      "error": "komehyo: 価格を1件も取得できませんでした(ページ構造が変わった可能性)"
+      "ok": true,
+      "priceCount": 13,
+      "updatedAt": "2026-10-23",
+      "warning": null
     },
     {
       "id": "kaitori-daikichi",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-22",
+      "updatedAt": "2026-10-23",
       "warning": null
     },
     {
@@ -88,7 +89,7 @@
       "id": "manekiya",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-22",
+      "updatedAt": "2026-10-23",
       "warning": null
     },
     {
@@ -98,14 +99,14 @@
       "updatedAt": "2026-10-23",
       "warning": null,
       "rejected": true,
-      "rejectReason": "この社だけ-8.8%動きました(同じ日の他社は-3.6%)。差が5.2%あり、別の表を拾った可能性があるため書き込みませんでした。前回(2026-10-21)の値を残しています。"
+      "rejectReason": "-8.8%動きました。この回に動いた社が3社しか無く(5社必要)、市場がどう動いたかを決められないため、幅そのもので判定しています(6%まで)。前回(2026-10-21)の値を残しています。ページを見て正しければ、1社だけ実行すれば書き込めます。"
     },
     {
       "id": "goldmrs",
-      "ok": true,
-      "priceCount": 12,
-      "updatedAt": "2026-10-23",
-      "warning": null
+      "ok": false,
+      "skipped": true,
+      "ciBlocked": true,
+      "error": "CIからは取得できないソースです(GitHub Actionsから31回中0回成功。手元のPCからは5回中5回成功)。手元のPCの定期実行で取得します。"
     },
     {
       "id": "nexus13",
@@ -169,8 +170,10 @@
       "id": "netoff",
       "ok": true,
       "priceCount": 8,
-      "updatedAt": "2026-10-21",
-      "warning": null
+      "updatedAt": "2026-10-23",
+      "warning": null,
+      "rejected": true,
+      "rejectReason": "-6.7%動きました。この回に動いた社が3社しか無く(5社必要)、市場がどう動いたかを決められないため、幅そのもので判定しています(6%まで)。前回(2026-10-21)の値を残しています。ページを見て正しければ、1社だけ実行すれば書き込めます。"
     },
     {
       "id": "goldplaza",
