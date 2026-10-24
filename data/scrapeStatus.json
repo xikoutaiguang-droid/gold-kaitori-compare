@@ -1,6 +1,6 @@
 {
-  "ranAt": "2026-10-24T00:54:59.792Z",
-  "ok": 21,
+  "ranAt": "2026-10-24T07:26:31.466Z",
+  "ok": 20,
   "ng": 2,
   "sources": [
     {
@@ -89,7 +89,7 @@
       "id": "manekiya",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-23",
+      "updatedAt": "2026-10-24",
       "warning": null
     },
     {
@@ -99,20 +99,20 @@
       "updatedAt": "2026-10-23",
       "warning": null,
       "rejected": true,
-      "rejectReason": "-8.8%動きました。この回に動いた社が3社しか無く(5社必要)、市場がどう動いたかを決められないため、幅そのもので判定しています(6%まで)。前回(2026-10-21)の値を残しています。ページを見て正しければ、1社だけ実行すれば書き込めます。"
+      "rejectReason": "-8.8%動きました。この回に動いた社が2社しか無く(5社必要)、市場がどう動いたかを決められないため、幅そのもので判定しています(6%まで)。前回(2026-10-21)の値を残しています。ページを見て正しければ、1社だけ実行すれば書き込めます。"
     },
     {
       "id": "goldmrs",
-      "ok": true,
-      "priceCount": 12,
-      "updatedAt": "2026-10-23",
-      "warning": null
+      "ok": false,
+      "skipped": true,
+      "ciBlocked": true,
+      "error": "CIからは取得できないソースです(GitHub Actionsから31回中0回成功。手元のPCからは5回中5回成功)。手元のPCの定期実行で取得します。"
     },
     {
       "id": "nexus13",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-23",
+      "updatedAt": "2026-10-24",
       "warning": null
     },
     {
@@ -125,7 +125,7 @@
       "id": "okuraya",
       "ok": true,
       "priceCount": 6,
-      "updatedAt": "2026-10-23",
+      "updatedAt": "2026-10-24",
       "warning": null
     },
     {
@@ -156,7 +156,7 @@
       "id": "rodeodrive",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-23",
+      "updatedAt": "2026-10-24",
       "warning": null
     },
     {
