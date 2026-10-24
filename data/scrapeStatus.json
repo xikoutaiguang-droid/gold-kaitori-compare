@@ -1,6 +1,6 @@
 {
-  "ranAt": "2026-10-23T14:30:02.937Z",
-  "ok": 20,
+  "ranAt": "2026-10-24T00:54:59.792Z",
+  "ok": 21,
   "ng": 2,
   "sources": [
     {
@@ -14,7 +14,7 @@
       "id": "komehyo",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-23",
+      "updatedAt": "2026-10-24",
       "warning": null
     },
     {
@@ -48,7 +48,7 @@
       "id": "kaitori-elite",
       "ok": true,
       "priceCount": 8,
-      "updatedAt": "2026-10-23",
+      "updatedAt": "2026-10-24",
       "warning": null
     },
     {
@@ -62,14 +62,14 @@
       "id": "best-life",
       "ok": true,
       "priceCount": 12,
-      "updatedAt": "2026-10-23",
+      "updatedAt": "2026-10-24",
       "warning": null
     },
     {
       "id": "brand-revalue",
       "ok": true,
       "priceCount": 8,
-      "updatedAt": "2026-10-23",
+      "updatedAt": "2026-10-24",
       "warning": null
     },
     {
@@ -99,14 +99,14 @@
       "updatedAt": "2026-10-23",
       "warning": null,
       "rejected": true,
-      "rejectReason": "-8.8%動きました。この回に動いた社が2社しか無く(5社必要)、市場がどう動いたかを決められないため、幅そのもので判定しています(6%まで)。前回(2026-10-21)の値を残しています。ページを見て正しければ、1社だけ実行すれば書き込めます。"
+      "rejectReason": "-8.8%動きました。この回に動いた社が3社しか無く(5社必要)、市場がどう動いたかを決められないため、幅そのもので判定しています(6%まで)。前回(2026-10-21)の値を残しています。ページを見て正しければ、1社だけ実行すれば書き込めます。"
     },
     {
       "id": "goldmrs",
-      "ok": false,
-      "skipped": true,
-      "ciBlocked": true,
-      "error": "CIからは取得できないソースです(GitHub Actionsから31回中0回成功。手元のPCからは5回中5回成功)。手元のPCの定期実行で取得します。"
+      "ok": true,
+      "priceCount": 12,
+      "updatedAt": "2026-10-23",
+      "warning": null
     },
     {
       "id": "nexus13",
@@ -119,7 +119,7 @@
       "id": "ginzaya",
       "ok": false,
       "skipped": false,
-      "error": "ginzaya: 掲載値が0でした(取得したHTMLの表示日: 本日の相場(2026年10月22日))。ブラウザでは正しい値が出るため、同社側のキャッシュが壊れている可能性があります。"
+      "error": "ginzaya: 掲載値が0でした(取得したHTMLの表示日: 本日の相場(2026年10月23日))。ブラウザでは正しい値が出るため、同社側のキャッシュが壊れている可能性があります。"
     },
     {
       "id": "okuraya",
@@ -163,7 +163,7 @@
       "id": "refasta",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-23",
+      "updatedAt": "2026-10-24",
       "warning": null
     },
     {
@@ -171,9 +171,7 @@
       "ok": true,
       "priceCount": 8,
       "updatedAt": "2026-10-23",
-      "warning": null,
-      "rejected": true,
-      "rejectReason": "-6.7%動きました。この回に動いた社が2社しか無く(5社必要)、市場がどう動いたかを決められないため、幅そのもので判定しています(6%まで)。前回(2026-10-21)の値を残しています。ページを見て正しければ、1社だけ実行すれば書き込めます。"
+      "warning": null
     },
     {
       "id": "goldplaza",
@@ -193,7 +191,7 @@
       "id": "sanoya",
       "ok": true,
       "priceCount": 9,
-      "updatedAt": "2026-10-23",
+      "updatedAt": "2026-10-24",
       "warning": null
     }
   ]
