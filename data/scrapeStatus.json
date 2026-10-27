@@ -1,5 +1,5 @@
 {
-  "ranAt": "2026-10-27T12:20:08.254Z",
+  "ranAt": "2026-10-27T15:35:30.838Z",
   "ok": 21,
   "ng": 1,
   "sources": [
@@ -14,7 +14,7 @@
       "id": "komehyo",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-27",
+      "updatedAt": "2026-10-28",
       "warning": null
     },
     {
@@ -48,7 +48,7 @@
       "id": "kaitori-elite",
       "ok": true,
       "priceCount": 8,
-      "updatedAt": "2026-10-27",
+      "updatedAt": "2026-10-28",
       "warning": null
     },
     {
@@ -62,21 +62,21 @@
       "id": "best-life",
       "ok": true,
       "priceCount": 12,
-      "updatedAt": "2026-10-27",
+      "updatedAt": "2026-10-28",
       "warning": null
     },
     {
       "id": "brand-revalue",
       "ok": true,
       "priceCount": 8,
-      "updatedAt": "2026-10-27",
+      "updatedAt": "2026-10-28",
       "warning": null
     },
     {
       "id": "gem-sigma",
       "ok": true,
       "priceCount": 12,
-      "updatedAt": "2026-10-27",
+      "updatedAt": "2026-10-28",
       "warning": null
     },
     {
@@ -99,7 +99,7 @@
       "updatedAt": "2026-10-27",
       "warning": null,
       "rejected": true,
-      "rejectReason": "-7.9%動きました。この回に動いた社が1社しか無く(5社必要)、市場がどう動いたかを決められないため、幅そのもので判定しています(6%まで)。前回(2026-10-21)の値を残しています。ページを見て正しければ、1社だけ実行すれば書き込めます。"
+      "rejectReason": "この社だけ-7.9%動きました(同じ日の他社は0.0%)。差が7.9%あり、別の表を拾った可能性があるため書き込みませんでした。前回(2026-10-21)の値を残しています。"
     },
     {
       "id": "goldmrs",
