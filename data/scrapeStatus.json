@@ -1,13 +1,13 @@
 {
-  "ranAt": "2026-10-26T16:21:01.462Z",
-  "ok": 20,
-  "ng": 2,
+  "ranAt": "2026-10-27T08:00:57.777Z",
+  "ok": 21,
+  "ng": 1,
   "sources": [
     {
       "id": "otakaraya",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-26",
+      "updatedAt": "2026-10-27",
       "warning": null
     },
     {
@@ -21,7 +21,7 @@
       "id": "kaitori-daikichi",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-26",
+      "updatedAt": "2026-10-27",
       "warning": null
     },
     {
@@ -34,14 +34,14 @@
       "id": "nanboya",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-26",
+      "updatedAt": "2026-10-27",
       "warning": null
     },
     {
       "id": "jewel-cafe",
       "ok": true,
       "priceCount": 5,
-      "updatedAt": "2026-10-26",
+      "updatedAt": "2026-10-27",
       "warning": null
     },
     {
@@ -89,17 +89,17 @@
       "id": "manekiya",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-26",
+      "updatedAt": "2026-10-27",
       "warning": null
     },
     {
       "id": "takayama78",
       "ok": true,
       "priceCount": 2,
-      "updatedAt": "2026-10-26",
+      "updatedAt": "2026-10-27",
       "warning": null,
       "rejected": true,
-      "rejectReason": "この社だけ-7.0%動きました(同じ日の他社は0.0%)。差が7.0%あり、別の表を拾った可能性があるため書き込みませんでした。前回(2026-10-21)の値を残しています。"
+      "rejectReason": "-7.9%動きました。この回に動いた社が2社しか無く(5社必要)、市場がどう動いたかを決められないため、幅そのもので判定しています(6%まで)。前回(2026-10-21)の値を残しています。ページを見て正しければ、1社だけ実行すれば書き込めます。"
     },
     {
       "id": "goldmrs",
@@ -112,20 +112,21 @@
       "id": "nexus13",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-26",
+      "updatedAt": "2026-10-27",
       "warning": null
     },
     {
       "id": "ginzaya",
-      "ok": false,
-      "skipped": false,
-      "error": "ginzaya: 掲載値が0でした(取得したHTMLの表示日: 本日の相場(2026年10月25日))。ブラウザでは正しい値が出るため、同社側のキャッシュが壊れている可能性があります。"
+      "ok": true,
+      "priceCount": 1,
+      "updatedAt": "2026-10-21",
+      "warning": null
     },
     {
       "id": "okuraya",
       "ok": true,
       "priceCount": 6,
-      "updatedAt": "2026-10-26",
+      "updatedAt": "2026-10-27",
       "warning": null
     },
     {
@@ -156,28 +157,28 @@
       "id": "rodeodrive",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-26",
+      "updatedAt": "2026-10-27",
       "warning": null
     },
     {
       "id": "refasta",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-26",
+      "updatedAt": "2026-10-27",
       "warning": null
     },
     {
       "id": "netoff",
       "ok": true,
       "priceCount": 8,
-      "updatedAt": "2026-10-26",
+      "updatedAt": "2026-10-27",
       "warning": null
     },
     {
       "id": "goldplaza",
       "ok": true,
       "priceCount": 12,
-      "updatedAt": "2026-10-26",
+      "updatedAt": "2026-10-27",
       "warning": null
     },
     {
@@ -191,7 +192,7 @@
       "id": "sanoya",
       "ok": true,
       "priceCount": 9,
-      "updatedAt": "2026-10-26",
+      "updatedAt": "2026-10-27",
       "warning": null
     }
   ]
