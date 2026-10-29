@@ -1,13 +1,13 @@
 {
-  "ranAt": "2026-10-28T23:50:55.014Z",
-  "ok": 22,
+  "ranAt": "2026-10-29T08:39:23.056Z",
+  "ok": 21,
   "ng": 1,
   "sources": [
     {
       "id": "otakaraya",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-28",
+      "updatedAt": "2026-10-29",
       "warning": null
     },
     {
@@ -21,7 +21,7 @@
       "id": "kaitori-daikichi",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-28",
+      "updatedAt": "2026-10-29",
       "warning": null
     },
     {
@@ -34,14 +34,14 @@
       "id": "nanboya",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-28",
+      "updatedAt": "2026-10-29",
       "warning": null
     },
     {
       "id": "jewel-cafe",
       "ok": true,
       "priceCount": 5,
-      "updatedAt": "2026-10-28",
+      "updatedAt": "2026-10-29",
       "warning": null
     },
     {
@@ -55,7 +55,7 @@
       "id": "kingram",
       "ok": true,
       "priceCount": 12,
-      "updatedAt": "2026-10-22",
+      "updatedAt": "2026-10-29",
       "warning": null
     },
     {
@@ -89,30 +89,28 @@
       "id": "manekiya",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-28",
+      "updatedAt": "2026-10-29",
       "warning": null
     },
     {
       "id": "takayama78",
       "ok": true,
       "priceCount": 2,
-      "updatedAt": "2026-10-28",
-      "warning": null,
-      "rejected": true,
-      "rejectReason": "この社だけ-7.3%動きました(同じ日の他社は0.0%)。差が7.3%あり、別の表を拾った可能性があるため書き込みませんでした。前回(2026-10-21)の値を残しています。"
+      "updatedAt": "2026-10-29",
+      "warning": null
     },
     {
       "id": "goldmrs",
-      "ok": true,
-      "priceCount": 12,
-      "updatedAt": "2026-10-28",
-      "warning": null
+      "ok": false,
+      "skipped": true,
+      "ciBlocked": true,
+      "error": "CIからは取得できないソースです(GitHub Actionsから31回中0回成功。手元のPCからは5回中5回成功)。手元のPCの定期実行で取得します。"
     },
     {
       "id": "nexus13",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-28",
+      "updatedAt": "2026-10-29",
       "warning": null
     },
     {
@@ -126,7 +124,7 @@
       "id": "okuraya",
       "ok": true,
       "priceCount": 6,
-      "updatedAt": "2026-10-27",
+      "updatedAt": "2026-10-29",
       "warning": null
     },
     {
@@ -157,42 +155,42 @@
       "id": "rodeodrive",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-28",
+      "updatedAt": "2026-10-29",
       "warning": null
     },
     {
       "id": "refasta",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-28",
+      "updatedAt": "2026-10-29",
       "warning": null
     },
     {
       "id": "netoff",
       "ok": true,
       "priceCount": 8,
-      "updatedAt": "2026-10-28",
+      "updatedAt": "2026-10-29",
       "warning": null
     },
     {
       "id": "goldplaza",
       "ok": true,
       "priceCount": 12,
-      "updatedAt": "2026-10-28",
+      "updatedAt": "2026-10-29",
       "warning": null
     },
     {
       "id": "brandcom",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-28",
+      "updatedAt": "2026-10-29",
       "warning": null
     },
     {
       "id": "sanoya",
       "ok": true,
       "priceCount": 9,
-      "updatedAt": "2026-10-28",
+      "updatedAt": "2026-10-29",
       "warning": null
     }
   ]
