@@ -1,5 +1,5 @@
 {
-  "ranAt": "2026-10-30T08:46:16.036Z",
+  "ranAt": "2026-10-30T13:03:30.338Z",
   "ok": 21,
   "ng": 1,
   "sources": [
@@ -117,7 +117,7 @@
       "id": "ginzaya",
       "ok": true,
       "priceCount": 1,
-      "updatedAt": "2026-10-21",
+      "updatedAt": "2026-10-30",
       "warning": null
     },
     {
