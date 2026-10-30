@@ -1,6 +1,6 @@
 {
-  "ranAt": "2026-10-29T16:27:34.957Z",
-  "ok": 21,
+  "ranAt": "2026-10-30T00:31:20.480Z",
+  "ok": 22,
   "ng": 1,
   "sources": [
     {
@@ -101,10 +101,10 @@
     },
     {
       "id": "goldmrs",
-      "ok": false,
-      "skipped": true,
-      "ciBlocked": true,
-      "error": "CIからは取得できないソースです(GitHub Actionsから31回中0回成功。手元のPCからは5回中5回成功)。手元のPCの定期実行で取得します。"
+      "ok": true,
+      "priceCount": 12,
+      "updatedAt": "2026-10-29",
+      "warning": null
     },
     {
       "id": "nexus13",
