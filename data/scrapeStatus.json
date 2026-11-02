@@ -1,6 +1,6 @@
 {
-  "ranAt": "2026-11-02T01:38:54.400Z",
-  "ok": 22,
+  "ranAt": "2026-11-02T09:39:14.429Z",
+  "ok": 21,
   "ng": 1,
   "sources": [
     {
@@ -21,7 +21,7 @@
       "id": "kaitori-daikichi",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-30",
+      "updatedAt": "2026-11-02",
       "warning": null
     },
     {
@@ -35,9 +35,7 @@
       "ok": true,
       "priceCount": 13,
       "updatedAt": "2026-11-02",
-      "warning": null,
-      "rejected": true,
-      "rejectReason": "この社だけ-7.3%動きました(同じ日の他社は0.0%)。差が7.3%あり、別の表を拾った可能性があるため書き込みませんでした。前回(2026-10-30)の値を残しています。"
+      "warning": null
     },
     {
       "id": "jewel-cafe",
@@ -57,7 +55,7 @@
       "id": "kingram",
       "ok": true,
       "priceCount": 12,
-      "updatedAt": "2026-10-30",
+      "updatedAt": "2026-11-02",
       "warning": null
     },
     {
@@ -103,10 +101,10 @@
     },
     {
       "id": "goldmrs",
-      "ok": true,
-      "priceCount": 12,
-      "updatedAt": "2026-11-02",
-      "warning": null
+      "ok": false,
+      "skipped": true,
+      "ciBlocked": true,
+      "error": "CIからは取得できないソースです(GitHub Actionsから31回中0回成功。手元のPCからは5回中5回成功)。手元のPCの定期実行で取得します。"
     },
     {
       "id": "nexus13",
@@ -185,7 +183,7 @@
       "id": "brandcom",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-30",
+      "updatedAt": "2026-11-02",
       "warning": null
     },
     {
