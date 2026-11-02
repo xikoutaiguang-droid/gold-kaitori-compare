@@ -1,13 +1,13 @@
 {
-  "ranAt": "2026-11-01T16:29:23.926Z",
-  "ok": 20,
-  "ng": 2,
+  "ranAt": "2026-11-02T01:38:54.400Z",
+  "ok": 22,
+  "ng": 1,
   "sources": [
     {
       "id": "otakaraya",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-30",
+      "updatedAt": "2026-11-02",
       "warning": null
     },
     {
@@ -34,14 +34,16 @@
       "id": "nanboya",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-30",
-      "warning": null
+      "updatedAt": "2026-11-02",
+      "warning": null,
+      "rejected": true,
+      "rejectReason": "この社だけ-7.3%動きました(同じ日の他社は0.0%)。差が7.3%あり、別の表を拾った可能性があるため書き込みませんでした。前回(2026-10-30)の値を残しています。"
     },
     {
       "id": "jewel-cafe",
       "ok": true,
       "priceCount": 5,
-      "updatedAt": "2026-10-30",
+      "updatedAt": "2026-11-02",
       "warning": null
     },
     {
@@ -89,27 +91,28 @@
       "id": "manekiya",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-11-01",
+      "updatedAt": "2026-11-02",
       "warning": null
     },
     {
       "id": "takayama78",
-      "ok": false,
-      "skipped": false,
-      "error": "takayama78: 価格を取得できませんでした(ページ構造が変わった可能性)"
+      "ok": true,
+      "priceCount": 2,
+      "updatedAt": "2026-11-02",
+      "warning": null
     },
     {
       "id": "goldmrs",
-      "ok": false,
-      "skipped": true,
-      "ciBlocked": true,
-      "error": "CIからは取得できないソースです(GitHub Actionsから31回中0回成功。手元のPCからは5回中5回成功)。手元のPCの定期実行で取得します。"
+      "ok": true,
+      "priceCount": 12,
+      "updatedAt": "2026-11-02",
+      "warning": null
     },
     {
       "id": "nexus13",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-10-31",
+      "updatedAt": "2026-11-02",
       "warning": null
     },
     {
@@ -123,7 +126,7 @@
       "id": "okuraya",
       "ok": true,
       "priceCount": 6,
-      "updatedAt": "2026-10-31",
+      "updatedAt": "2026-11-02",
       "warning": null
     },
     {
@@ -154,14 +157,14 @@
       "id": "rodeodrive",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-11-01",
+      "updatedAt": "2026-11-02",
       "warning": null
     },
     {
       "id": "refasta",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-11-01",
+      "updatedAt": "2026-11-02",
       "warning": null
     },
     {
@@ -175,7 +178,7 @@
       "id": "goldplaza",
       "ok": true,
       "priceCount": 12,
-      "updatedAt": "2026-10-30",
+      "updatedAt": "2026-11-02",
       "warning": null
     },
     {
@@ -189,7 +192,7 @@
       "id": "sanoya",
       "ok": true,
       "priceCount": 9,
-      "updatedAt": "2026-11-01",
+      "updatedAt": "2026-11-02",
       "warning": null
     }
   ]
