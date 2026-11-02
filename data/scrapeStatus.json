@@ -1,5 +1,5 @@
 {
-  "ranAt": "2026-11-02T16:05:54.483Z",
+  "ranAt": "2026-11-02T19:52:04.503Z",
   "ok": 21,
   "ng": 1,
   "sources": [
@@ -162,7 +162,7 @@
       "id": "refasta",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-11-02",
+      "updatedAt": "2026-11-03",
       "warning": null
     },
     {
