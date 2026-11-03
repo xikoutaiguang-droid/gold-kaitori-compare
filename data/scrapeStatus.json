@@ -1,7 +1,7 @@
 {
-  "ranAt": "2026-11-03T00:57:24.907Z",
-  "ok": 22,
-  "ng": 1,
+  "ranAt": "2026-11-03T17:24:56.526Z",
+  "ok": 20,
+  "ng": 2,
   "sources": [
     {
       "id": "otakaraya",
@@ -14,7 +14,7 @@
       "id": "komehyo",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-11-03",
+      "updatedAt": "2026-11-04",
       "warning": null
     },
     {
@@ -48,7 +48,7 @@
       "id": "kaitori-elite",
       "ok": true,
       "priceCount": 8,
-      "updatedAt": "2026-11-03",
+      "updatedAt": "2026-11-04",
       "warning": null
     },
     {
@@ -62,21 +62,20 @@
       "id": "best-life",
       "ok": true,
       "priceCount": 12,
-      "updatedAt": "2026-11-03",
+      "updatedAt": "2026-11-04",
       "warning": null
     },
     {
       "id": "brand-revalue",
-      "ok": true,
-      "priceCount": 8,
-      "updatedAt": "2026-11-03",
-      "warning": null
+      "ok": false,
+      "skipped": false,
+      "error": "https://brandrevalue.com/cat/gold/souba を 5回試して取得できませんでした: 503 Service Temporarily Unavailable / 503 Service Temporarily Unavailable / 503 Service Temporarily Unavailable / 503 Service Temporarily Unavailable / 503 Service Temporarily Unavailable"
     },
     {
       "id": "gem-sigma",
       "ok": true,
       "priceCount": 12,
-      "updatedAt": "2026-11-03",
+      "updatedAt": "2026-11-04",
       "warning": null
     },
     {
@@ -89,7 +88,7 @@
       "id": "manekiya",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-11-02",
+      "updatedAt": "2026-11-03",
       "warning": null
     },
     {
@@ -101,10 +100,10 @@
     },
     {
       "id": "goldmrs",
-      "ok": true,
-      "priceCount": 12,
-      "updatedAt": "2026-11-02",
-      "warning": null
+      "ok": false,
+      "skipped": true,
+      "ciBlocked": true,
+      "error": "CIからは取得できないソースです(GitHub Actionsから31回中0回成功。手元のPCからは5回中5回成功)。手元のPCの定期実行で取得します。"
     },
     {
       "id": "nexus13",
@@ -155,7 +154,7 @@
       "id": "rodeodrive",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-11-02",
+      "updatedAt": "2026-11-03",
       "warning": null
     },
     {
