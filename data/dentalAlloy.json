@@ -7,11 +7,11 @@
   "dental": {
     "label": "歯科材",
     "detail": "Au12Pd20歯科材銀歯要問合せ",
-    "pricePerGram": 3085
+    "pricePerGram": 2936
   },
   "palladium": {
     "label": "Pd1000,999",
     "detail": "パラジウム1000,999CIBJO",
-    "pricePerGram": 4640
+    "pricePerGram": 4428
   }
 }
