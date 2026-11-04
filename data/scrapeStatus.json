@@ -1,5 +1,5 @@
 {
-  "ranAt": "2026-11-03T17:24:56.526Z",
+  "ranAt": "2026-11-04T09:30:25.577Z",
   "ok": 20,
   "ng": 2,
   "sources": [
@@ -7,7 +7,7 @@
       "id": "otakaraya",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-11-02",
+      "updatedAt": "2026-11-04",
       "warning": null
     },
     {
@@ -21,7 +21,7 @@
       "id": "kaitori-daikichi",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-11-02",
+      "updatedAt": "2026-11-04",
       "warning": null
     },
     {
@@ -34,14 +34,14 @@
       "id": "nanboya",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-11-02",
+      "updatedAt": "2026-11-04",
       "warning": null
     },
     {
       "id": "jewel-cafe",
       "ok": true,
       "priceCount": 5,
-      "updatedAt": "2026-11-02",
+      "updatedAt": "2026-11-04",
       "warning": null
     },
     {
@@ -55,7 +55,7 @@
       "id": "kingram",
       "ok": true,
       "priceCount": 12,
-      "updatedAt": "2026-11-02",
+      "updatedAt": "2026-11-04",
       "warning": null
     },
     {
@@ -88,14 +88,14 @@
       "id": "manekiya",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-11-03",
+      "updatedAt": "2026-11-04",
       "warning": null
     },
     {
       "id": "takayama78",
       "ok": true,
       "priceCount": 2,
-      "updatedAt": "2026-11-02",
+      "updatedAt": "2026-11-04",
       "warning": null
     },
     {
@@ -109,14 +109,14 @@
       "id": "nexus13",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-11-02",
+      "updatedAt": "2026-11-04",
       "warning": null
     },
     {
       "id": "ginzaya",
       "ok": true,
       "priceCount": 1,
-      "updatedAt": "2026-11-02",
+      "updatedAt": "2026-11-03",
       "warning": null
     },
     {
@@ -154,42 +154,46 @@
       "id": "rodeodrive",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-11-03",
-      "warning": null
+      "updatedAt": "2026-11-04",
+      "warning": null,
+      "rejected": true,
+      "rejectReason": "7.6%動きました。この回に動いた社が4社しか無く(5社必要)、市場がどう動いたかを決められないため、幅そのもので判定しています(6%まで)。前回(2026-11-03)の値を残しています。ページを見て正しければ、1社だけ実行すれば書き込めます。"
     },
     {
       "id": "refasta",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-11-03",
-      "warning": null
+      "updatedAt": "2026-11-04",
+      "warning": null,
+      "rejected": true,
+      "rejectReason": "6.2%動きました。この回に動いた社が4社しか無く(5社必要)、市場がどう動いたかを決められないため、幅そのもので判定しています(6%まで)。前回(2026-11-03)の値を残しています。ページを見て正しければ、1社だけ実行すれば書き込めます。"
     },
     {
       "id": "netoff",
       "ok": true,
       "priceCount": 8,
-      "updatedAt": "2026-10-30",
+      "updatedAt": "2026-11-04",
       "warning": null
     },
     {
       "id": "goldplaza",
       "ok": true,
       "priceCount": 12,
-      "updatedAt": "2026-11-02",
+      "updatedAt": "2026-11-04",
       "warning": null
     },
     {
       "id": "brandcom",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-11-02",
+      "updatedAt": "2026-11-04",
       "warning": null
     },
     {
       "id": "sanoya",
       "ok": true,
       "priceCount": 9,
-      "updatedAt": "2026-11-03",
+      "updatedAt": "2026-11-04",
       "warning": null
     }
   ]
