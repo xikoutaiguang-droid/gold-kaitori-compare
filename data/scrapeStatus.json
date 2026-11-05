@@ -1,7 +1,7 @@
 {
-  "ranAt": "2026-11-04T17:37:34.800Z",
-  "ok": 20,
-  "ng": 2,
+  "ranAt": "2026-11-05T00:45:21.932Z",
+  "ok": 22,
+  "ng": 1,
   "sources": [
     {
       "id": "otakaraya",
@@ -41,7 +41,7 @@
       "id": "jewel-cafe",
       "ok": true,
       "priceCount": 5,
-      "updatedAt": "2026-11-04",
+      "updatedAt": "2026-11-05",
       "warning": null
     },
     {
@@ -63,15 +63,14 @@
       "ok": true,
       "priceCount": 12,
       "updatedAt": "2026-11-05",
-      "warning": null,
-      "rejected": true,
-      "rejectReason": "6.4%動きました。この回に動いた社が3社しか無く(5社必要)、市場がどう動いたかを決められないため、幅そのもので判定しています(6%まで)。前回(2026-11-03)の値を残しています。ページを見て正しければ、1社だけ実行すれば書き込めます。"
+      "warning": null
     },
     {
       "id": "brand-revalue",
-      "ok": false,
-      "skipped": false,
-      "error": "https://brandrevalue.com/cat/gold/souba を 5回試して取得できませんでした: 503 Service Temporarily Unavailable / 503 Service Temporarily Unavailable / 503 Service Temporarily Unavailable / 503 Service Temporarily Unavailable / 503 Service Temporarily Unavailable"
+      "ok": true,
+      "priceCount": 8,
+      "updatedAt": "2026-11-05",
+      "warning": null
     },
     {
       "id": "gem-sigma",
@@ -102,10 +101,10 @@
     },
     {
       "id": "goldmrs",
-      "ok": false,
-      "skipped": true,
-      "ciBlocked": true,
-      "error": "CIからは取得できないソースです(GitHub Actionsから31回中0回成功。手元のPCからは5回中5回成功)。手元のPCの定期実行で取得します。"
+      "ok": true,
+      "priceCount": 12,
+      "updatedAt": "2026-11-04",
+      "warning": null
     },
     {
       "id": "nexus13",
@@ -118,7 +117,7 @@
       "id": "ginzaya",
       "ok": true,
       "priceCount": 1,
-      "updatedAt": "2026-11-03",
+      "updatedAt": "2026-11-04",
       "warning": null
     },
     {
@@ -157,9 +156,7 @@
       "ok": true,
       "priceCount": 13,
       "updatedAt": "2026-11-04",
-      "warning": null,
-      "rejected": true,
-      "rejectReason": "7.6%動きました。この回に動いた社が3社しか無く(5社必要)、市場がどう動いたかを決められないため、幅そのもので判定しています(6%まで)。前回(2026-11-03)の値を残しています。ページを見て正しければ、1社だけ実行すれば書き込めます。"
+      "warning": null
     },
     {
       "id": "refasta",
@@ -193,7 +190,7 @@
       "id": "sanoya",
       "ok": true,
       "priceCount": 9,
-      "updatedAt": "2026-11-04",
+      "updatedAt": "2026-11-05",
       "warning": null
     }
   ]
