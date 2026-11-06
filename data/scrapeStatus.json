@@ -1,5 +1,5 @@
 {
-  "ranAt": "2026-11-05T17:43:04.471Z",
+  "ranAt": "2026-11-06T09:31:39.654Z",
   "ok": 21,
   "ng": 1,
   "sources": [
@@ -7,7 +7,7 @@
       "id": "otakaraya",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-11-05",
+      "updatedAt": "2026-11-06",
       "warning": null
     },
     {
@@ -21,7 +21,7 @@
       "id": "kaitori-daikichi",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-11-05",
+      "updatedAt": "2026-11-06",
       "warning": null
     },
     {
@@ -34,14 +34,14 @@
       "id": "nanboya",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-11-05",
+      "updatedAt": "2026-11-06",
       "warning": null
     },
     {
       "id": "jewel-cafe",
       "ok": true,
       "priceCount": 5,
-      "updatedAt": "2026-11-05",
+      "updatedAt": "2026-11-06",
       "warning": null
     },
     {
@@ -55,7 +55,7 @@
       "id": "kingram",
       "ok": true,
       "priceCount": 12,
-      "updatedAt": "2026-11-05",
+      "updatedAt": "2026-11-06",
       "warning": null
     },
     {
@@ -89,14 +89,14 @@
       "id": "manekiya",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-11-05",
+      "updatedAt": "2026-11-06",
       "warning": null
     },
     {
       "id": "takayama78",
       "ok": true,
       "priceCount": 2,
-      "updatedAt": "2026-11-05",
+      "updatedAt": "2026-11-06",
       "warning": null
     },
     {
@@ -110,21 +110,21 @@
       "id": "nexus13",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-11-05",
+      "updatedAt": "2026-11-06",
       "warning": null
     },
     {
       "id": "ginzaya",
       "ok": true,
       "priceCount": 1,
-      "updatedAt": "2026-11-04",
+      "updatedAt": "2026-11-06",
       "warning": null
     },
     {
       "id": "okuraya",
       "ok": true,
       "priceCount": 6,
-      "updatedAt": "2026-11-05",
+      "updatedAt": "2026-11-06",
       "warning": null
     },
     {
@@ -155,28 +155,28 @@
       "id": "rodeodrive",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-11-05",
+      "updatedAt": "2026-11-06",
       "warning": null
     },
     {
       "id": "refasta",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-11-05",
+      "updatedAt": "2026-11-06",
       "warning": null
     },
     {
       "id": "netoff",
       "ok": true,
       "priceCount": 8,
-      "updatedAt": "2026-11-04",
+      "updatedAt": "2026-11-06",
       "warning": null
     },
     {
       "id": "goldplaza",
       "ok": true,
       "priceCount": 12,
-      "updatedAt": "2026-11-05",
+      "updatedAt": "2026-11-06",
       "warning": null
     },
     {
@@ -190,7 +190,7 @@
       "id": "sanoya",
       "ok": true,
       "priceCount": 9,
-      "updatedAt": "2026-11-05",
+      "updatedAt": "2026-11-06",
       "warning": null
     }
   ]
