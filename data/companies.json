@@ -141,8 +141,8 @@
         "pt850": 5979,
         "ag": 167
       },
-      "updatedAt": "2026-11-07",
-      "fetchedAt": "2026-11-07T00:49:47.516Z"
+      "updatedAt": "2026-11-08",
+      "fetchedAt": "2026-11-07T15:57:12.400Z"
     },
     "scrapeMethod": "html",
     "notes": "価格は<select id=\"js-simulation-metal\">内option要素のdata-price属性(円)から取得。他社と比べやや低めの水準だったため、次回スクレイパー実行時に再確認すること。",
@@ -352,8 +352,8 @@
         "k10": 8880,
         "k9": 7929
       },
-      "updatedAt": "2026-11-07",
-      "fetchedAt": "2026-11-07T00:49:58.182Z"
+      "updatedAt": "2026-11-08",
+      "fetchedAt": "2026-11-07T15:57:25.919Z"
     },
     "scrapeMethod": "html",
     "notes": "Cloudflare content-signalでClaudeBot等を個別Disallow。scraper実装時は要注意。",
@@ -467,8 +467,8 @@
         "pt850": 6924,
         "ag": 267
       },
-      "updatedAt": "2026-11-07",
-      "fetchedAt": "2026-11-07T00:50:04.638Z"
+      "updatedAt": "2026-11-08",
+      "fetchedAt": "2026-11-07T15:57:32.391Z"
     },
     "scrapeMethod": "html",
     "notes": "キングラムと価格が完全一致。価格は静的HTMLに直接出力されており取得しやすい。「ベストライフ」は同名の介護・保険会社が多数存在し、Google口コミの公式ドメイン照合では信頼できる一致が得られなかったため、googleReviewは未設定のままにしている。",
@@ -509,8 +509,8 @@
         "k10": 8452,
         "k9": 7523
       },
-      "updatedAt": "2026-11-07",
-      "fetchedAt": "2026-11-07T00:50:06.698Z"
+      "updatedAt": "2026-11-08",
+      "fetchedAt": "2026-11-07T15:57:34.499Z"
     },
     "scrapeMethod": "html",
     "googleReview": {
