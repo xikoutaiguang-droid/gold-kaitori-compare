@@ -1,6 +1,6 @@
 {
-  "ranAt": "2026-11-07T00:50:53.474Z",
-  "ok": 22,
+  "ranAt": "2026-11-07T08:56:14.495Z",
+  "ok": 21,
   "ng": 1,
   "sources": [
     {
@@ -89,28 +89,28 @@
       "id": "manekiya",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-11-06",
+      "updatedAt": "2026-11-07",
       "warning": null
     },
     {
       "id": "takayama78",
       "ok": true,
-      "priceCount": 2,
-      "updatedAt": "2026-11-06",
+      "priceCount": 1,
+      "updatedAt": "2026-11-07",
       "warning": null
     },
     {
       "id": "goldmrs",
-      "ok": true,
-      "priceCount": 12,
-      "updatedAt": "2026-11-06",
-      "warning": null
+      "ok": false,
+      "skipped": true,
+      "ciBlocked": true,
+      "error": "CIからは取得できないソースです(GitHub Actionsから31回中0回成功。手元のPCからは5回中5回成功)。手元のPCの定期実行で取得します。"
     },
     {
       "id": "nexus13",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-11-06",
+      "updatedAt": "2026-11-07",
       "warning": null
     },
     {
@@ -155,7 +155,7 @@
       "id": "rodeodrive",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-11-06",
+      "updatedAt": "2026-11-07",
       "warning": null
     },
     {
