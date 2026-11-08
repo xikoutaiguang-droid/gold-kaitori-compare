@@ -1,5 +1,5 @@
 {
-  "ranAt": "2026-11-07T15:58:17.349Z",
+  "ranAt": "2026-11-08T09:09:31.429Z",
   "ok": 21,
   "ng": 1,
   "sources": [
@@ -89,7 +89,7 @@
       "id": "manekiya",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-11-07",
+      "updatedAt": "2026-11-08",
       "warning": null
     },
     {
@@ -155,14 +155,14 @@
       "id": "rodeodrive",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-11-07",
+      "updatedAt": "2026-11-08",
       "warning": null
     },
     {
       "id": "refasta",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-11-07",
+      "updatedAt": "2026-11-08",
       "warning": null
     },
     {
@@ -190,7 +190,7 @@
       "id": "sanoya",
       "ok": true,
       "priceCount": 9,
-      "updatedAt": "2026-11-07",
+      "updatedAt": "2026-11-08",
       "warning": null
     }
   ]
