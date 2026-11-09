@@ -2,16 +2,16 @@
   "companyId": "refasta",
   "companyName": "リファスタ",
   "sourceUrl": "https://kinkaimasu.jp/",
-  "updatedAt": "2026-11-08",
+  "updatedAt": "2026-11-09",
   "recordedAt": "2026-11-09",
   "dental": {
     "label": "歯科材",
     "detail": "Au12Pd20歯科材銀歯要問合せ",
-    "pricePerGram": 3184
+    "pricePerGram": 3248
   },
   "palladium": {
     "label": "Pd1000,999",
     "detail": "パラジウム1000,999CIBJO",
-    "pricePerGram": 4721
+    "pricePerGram": 4904
   }
 }
