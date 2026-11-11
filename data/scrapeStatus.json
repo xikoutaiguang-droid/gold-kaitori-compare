@@ -1,6 +1,6 @@
 {
-  "ranAt": "2026-11-11T00:31:08.110Z",
-  "ok": 22,
+  "ranAt": "2026-11-11T09:35:37.796Z",
+  "ok": 21,
   "ng": 1,
   "sources": [
     {
@@ -20,7 +20,7 @@
       "id": "kaitori-daikichi",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-11-10",
+      "updatedAt": "2026-11-11",
       "warning": null
     },
     {
@@ -33,14 +33,14 @@
       "id": "nanboya",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-11-10",
+      "updatedAt": "2026-11-11",
       "warning": null
     },
     {
       "id": "jewel-cafe",
       "ok": true,
       "priceCount": 5,
-      "updatedAt": "2026-11-10",
+      "updatedAt": "2026-11-11",
       "warning": null
     },
     {
@@ -54,7 +54,7 @@
       "id": "kingram",
       "ok": true,
       "priceCount": 12,
-      "updatedAt": "2026-11-10",
+      "updatedAt": "2026-11-11",
       "warning": null
     },
     {
@@ -82,35 +82,35 @@
       "id": "galleryrare",
       "ok": true,
       "priceCount": 12,
-      "updatedAt": "2026-11-09",
+      "updatedAt": "2026-11-11",
       "warning": null
     },
     {
       "id": "manekiya",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-11-10",
+      "updatedAt": "2026-11-11",
       "warning": null
     },
     {
       "id": "takayama78",
       "ok": true,
       "priceCount": 2,
-      "updatedAt": "2026-11-10",
+      "updatedAt": "2026-11-11",
       "warning": null
     },
     {
       "id": "goldmrs",
-      "ok": true,
-      "priceCount": 12,
-      "updatedAt": "2026-11-10",
-      "warning": null
+      "ok": false,
+      "skipped": true,
+      "ciBlocked": true,
+      "error": "CIからは取得できないソースです(GitHub Actionsから31回中0回成功。手元のPCからは5回中5回成功)。手元のPCの定期実行で取得します。"
     },
     {
       "id": "nexus13",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-11-10",
+      "updatedAt": "2026-11-11",
       "warning": null
     },
     {
@@ -155,28 +155,28 @@
       "id": "rodeodrive",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-11-10",
+      "updatedAt": "2026-11-11",
       "warning": null
     },
     {
       "id": "refasta",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-11-10",
+      "updatedAt": "2026-11-11",
       "warning": null
     },
     {
       "id": "netoff",
       "ok": true,
       "priceCount": 8,
-      "updatedAt": "2026-11-10",
+      "updatedAt": "2026-11-11",
       "warning": null
     },
     {
       "id": "goldplaza",
       "ok": true,
       "priceCount": 12,
-      "updatedAt": "2026-11-10",
+      "updatedAt": "2026-11-11",
       "warning": null
     },
     {
@@ -190,7 +190,7 @@
       "id": "sanoya",
       "ok": true,
       "priceCount": 9,
-      "updatedAt": "2026-11-10",
+      "updatedAt": "2026-11-11",
       "warning": null
     }
   ]
