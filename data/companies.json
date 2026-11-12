@@ -288,14 +288,14 @@
     "trustNotes": "全国258〜300店舗、海外10ヵ国83店舗を展開する業界最大級チェーン。",
     "priceData": {
       "prices": {
-        "k24": 21995,
-        "k22": 19930,
-        "k20": 18180,
-        "k18": 16766,
-        "k14": 12345
+        "k24": 21801,
+        "k22": 19754,
+        "k20": 18019,
+        "k18": 16618,
+        "k14": 12236
       },
-      "updatedAt": "2026-11-11",
-      "fetchedAt": "2026-11-12T00:30:36.994Z"
+      "updatedAt": "2026-11-12",
+      "fetchedAt": "2026-11-12T03:30:08.172Z"
     },
     "scrapeMethod": "html",
     "notes": "Cloudflare content-signalでClaudeBot/GPTBot等AI系クローラーを個別Disallow。scraper実装時はUser-Agentと利用規約に要注意。",
