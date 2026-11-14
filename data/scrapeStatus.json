@@ -1,13 +1,14 @@
 {
-  "ranAt": "2026-11-14T01:09:25.882Z",
-  "ok": 22,
+  "ranAt": "2026-11-14T09:05:55.284Z",
+  "ok": 21,
   "ng": 1,
   "sources": [
     {
       "id": "otakaraya",
-      "ok": false,
-      "skipped": false,
-      "error": "otakaraya: 価格を1件も取得できませんでした(ページ構造が変わった可能性)"
+      "ok": true,
+      "priceCount": 13,
+      "updatedAt": "2026-11-13",
+      "warning": null
     },
     {
       "id": "komehyo",
@@ -89,22 +90,21 @@
       "id": "manekiya",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-11-13",
+      "updatedAt": "2026-11-14",
       "warning": null
     },
     {
       "id": "takayama78",
-      "ok": true,
-      "priceCount": 2,
-      "updatedAt": "2026-11-13",
-      "warning": null
+      "ok": false,
+      "skipped": false,
+      "error": "takayama78: 価格を取得できませんでした(ページ構造が変わった可能性)"
     },
     {
       "id": "goldmrs",
-      "ok": true,
-      "priceCount": 12,
-      "updatedAt": "2026-11-13",
-      "warning": null
+      "ok": false,
+      "skipped": true,
+      "ciBlocked": true,
+      "error": "CIからは取得できないソースです(GitHub Actionsから31回中0回成功。手元のPCからは5回中5回成功)。手元のPCの定期実行で取得します。"
     },
     {
       "id": "nexus13",
@@ -124,7 +124,7 @@
       "id": "okuraya",
       "ok": true,
       "priceCount": 6,
-      "updatedAt": "2026-11-13",
+      "updatedAt": "2026-11-14",
       "warning": null
     },
     {
@@ -155,7 +155,7 @@
       "id": "rodeodrive",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-11-13",
+      "updatedAt": "2026-11-14",
       "warning": null
     },
     {
