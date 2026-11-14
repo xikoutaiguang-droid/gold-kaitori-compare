@@ -4,8 +4,10 @@ import { parseJaDate } from "../lib/date.mjs";
 
 const URL = "https://www.otakaraya.jp/gold/souba/";
 
-// ページ内の計算ツール <select id="rateSimulation--select"> の option ラベルを
-// このアプリの純度キーへマッピングする。
+// 相場表(ul.pm-rate-tables-block の li)の「24金(K24･純金)」「プラチナ900(Pt900)」の
+// 括弧内の純度コードを、このアプリの純度キーへマッピングする。
+// 以前は計算ツールの <select> を読んでいたが、2026年11月にページから無くなった。
+// 「国内インゴット(金)」のようにコードを持たない行は対象外(宝飾品基準のみ採用)。
 const LABEL_TO_PURITY = {
   K24: "k24",
   "K21.6": "k21_6",
@@ -29,11 +31,12 @@ export async function scrape() {
   const $ = cheerio.load(html);
 
   const prices = {};
-  $("#rateSimulation--select option").each((_, el) => {
-    const label = $(el).text().trim();
-    const purity = LABEL_TO_PURITY[label];
-    const value = Number($(el).attr("value"));
-    if (purity && Number.isFinite(value) && value > 0) {
+  $("ul.pm-rate-tables-block li").each((_, el) => {
+    const label = $(el).find(".purity-type").text();
+    const code = label.match(/\((K\d+(?:\.\d+)?|Pt\d+|Sv\d+)(?=[)･])/)?.[1];
+    const purity = code ? LABEL_TO_PURITY[code] : undefined;
+    const value = Number($(el).find(".rate-price").first().text().replace(/[^\d]/g, ""));
+    if (purity && Number.isFinite(value) && value > 0 && !(purity in prices)) {
       prices[purity] = value;
     }
   });
