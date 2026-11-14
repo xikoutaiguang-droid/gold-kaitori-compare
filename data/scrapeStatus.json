@@ -1,7 +1,7 @@
 {
-  "ranAt": "2026-11-14T09:05:55.284Z",
-  "ok": 21,
-  "ng": 1,
+  "ranAt": "2026-11-14T13:38:47.921Z",
+  "ok": 20,
+  "ng": 2,
   "sources": [
     {
       "id": "otakaraya",
@@ -67,10 +67,9 @@
     },
     {
       "id": "brand-revalue",
-      "ok": true,
-      "priceCount": 8,
-      "updatedAt": "2026-11-14",
-      "warning": null
+      "ok": false,
+      "skipped": false,
+      "error": "brand-revalue: 価格を1件も取得できませんでした(ページ構造が変わった可能性)"
     },
     {
       "id": "gem-sigma",
