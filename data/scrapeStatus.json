@@ -1,6 +1,6 @@
 {
-  "ranAt": "2026-11-13T17:25:42.459Z",
-  "ok": 21,
+  "ranAt": "2026-11-14T01:09:25.882Z",
+  "ok": 22,
   "ng": 1,
   "sources": [
     {
@@ -101,23 +101,23 @@
     },
     {
       "id": "goldmrs",
-      "ok": false,
-      "skipped": true,
-      "ciBlocked": true,
-      "error": "CIからは取得できないソースです(GitHub Actionsから31回中0回成功。手元のPCからは5回中5回成功)。手元のPCの定期実行で取得します。"
+      "ok": true,
+      "priceCount": 12,
+      "updatedAt": "2026-11-13",
+      "warning": null
     },
     {
       "id": "nexus13",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-11-13",
+      "updatedAt": "2026-11-14",
       "warning": null
     },
     {
       "id": "ginzaya",
       "ok": true,
       "priceCount": 1,
-      "updatedAt": "2026-11-12",
+      "updatedAt": "2026-11-13",
       "warning": null
     },
     {
@@ -162,7 +162,7 @@
       "id": "refasta",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-11-13",
+      "updatedAt": "2026-11-14",
       "warning": null
     },
     {
@@ -190,7 +190,7 @@
       "id": "sanoya",
       "ok": true,
       "priceCount": 9,
-      "updatedAt": "2026-11-13",
+      "updatedAt": "2026-11-14",
       "warning": null
     }
   ]
