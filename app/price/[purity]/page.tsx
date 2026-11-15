@@ -10,12 +10,16 @@ import { contextForPurity } from "@/lib/relatedColumns";
 import { getCompanies, formatPriceDay } from "@/lib/companies";
 import { breadcrumbJsonLd } from "@/lib/structuredData";
 import { PURITY_PAGES, getPurityPageBySlug, measurePurity } from "@/lib/purityPages";
+import { measureCompanyKarat } from "@/lib/karat";
+import { PURITY_FINENESS } from "@/lib/units";
+import { GOLD_PURITIES } from "@/lib/types";
 
 export function generateStaticParams() {
   return PURITY_PAGES.map((p) => ({ purity: p.slug }));
 }
 
 const yen = (n: number) => n.toLocaleString("ja-JP");
+const pct = (v: number) => `${(v * 100).toFixed(1)}%`;
 
 /** 概算を出す重さ。品物として現実的な範囲にとどめる */
 const WEIGHTS = [1, 5, 10, 30];
@@ -55,6 +59,19 @@ export default async function PurityPricePage({
 
   const m = measurePurity(config.purity);
   const companies = getCompanies();
+
+  // K24以外の金だけ。K24そのものと比べても意味がなく、プラチナと銀は基準が別
+  const karatRows =
+    config.purity !== "k24" && GOLD_PURITIES.includes(config.purity) ? measureCompanyKarat(config.purity) : [];
+  const showKarat = karatRows.length >= 3;
+  const fineness = PURITY_FINENESS[config.purity];
+  const k24Top = companies
+    .filter((c) => c.priceData.prices.k24 !== undefined)
+    .sort((a, b) => (b.priceData.prices.k24 ?? 0) - (a.priceData.prices.k24 ?? 0))[0];
+  const k24TopRow = k24Top ? karatRows.find((r) => r.id === k24Top.id) : undefined;
+  const purityTop = [...karatRows].sort((a, b) => a.rank - b.rank)[0];
+  const ratioHigh = karatRows[0];
+  const ratioLow = karatRows[karatRows.length - 1];
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-6 sm:py-10">
@@ -140,7 +157,7 @@ export default async function PurityPricePage({
                       {yen(m.high * w)}円
                     </td>
                     <td className="py-2 text-right tabular-nums">{yen(m.median * w)}円</td>
-                    <td className="py-2 text-right tabular-nums text-muted">
+                    <td className="whitespace-nowrap py-2 text-right tabular-nums text-muted">
                       {yen((m.high - m.median) * w)}円
                     </td>
                   </tr>
@@ -152,6 +169,79 @@ export default async function PurityPricePage({
             <Link href="/simulator" className="font-medium text-accent-strong hover:underline">
               手元の重さで計算する →
             </Link>
+          </p>
+        </section>
+      )}
+
+      {/* ---- K24に対する掛け率 ---- */}
+      {showKarat && (
+        <section className="mb-10">
+          <h2 className="font-serif-jp mb-3 text-lg font-semibold">
+            {config.label}は、K24の何%で買われているか
+          </h2>
+          <p className="mb-3 text-sm leading-relaxed text-foreground/80">
+            刻印どおりなら、{config.label}に入っている金はK24の{pct(fineness)}です。各社が公表している{config.label}の価格を、同じ社が同じ日に出しているK24の価格で割ると、
+            {karatRows.length}社で{pct(ratioLow.ratio)}({ratioLow.name})から{pct(ratioHigh.ratio)}({ratioHigh.name})まで開きがあります。
+          </p>
+          {k24Top && purityTop && (
+            <p className="mb-3 text-sm leading-relaxed text-foreground/80">
+              {k24TopRow ? (
+                k24TopRow.rank === 1 ? (
+                  <>K24でいちばん高い{k24Top.name}は、{config.label}でも1位です。</>
+                ) : (
+                  <>
+                    K24でいちばん高い{k24Top.name}は、{config.label}では{k24TopRow.rank}位です。
+                  </>
+                )
+              ) : (
+                <>K24でいちばん高い{k24Top.name}は、{config.label}の価格を公表していません。</>
+              )}
+              {purityTop.k24Rank !== 1 && (
+                <>
+                  {config.label}でいちばん高い{purityTop.name}は、K24では{purityTop.k24Rank}位です。
+                </>
+              )}
+              {(!k24TopRow || k24TopRow.rank !== 1 || purityTop.k24Rank !== 1) && (
+                <>
+                  広告や見出しによく出るK24の価格で店を選ぶと、{config.label}では順番が入れ替わることがあります。手元の品物の刻印の価格で比べてください。
+                </>
+              )}
+            </p>
+          )}
+          <div className="overflow-x-auto">
+            <table className="w-full text-xs sm:text-sm">
+              <thead>
+                <tr className="border-b border-border text-left text-xs text-muted">
+                  <th className="py-2 pr-2 font-medium">社名</th>
+                  <th className="py-2 pr-2 text-right font-medium">{config.label}</th>
+                  <th className="py-2 pr-2 text-right font-medium">K24比</th>
+                  <th className="py-2 text-right font-medium">順位(K24→{config.label})</th>
+                </tr>
+              </thead>
+              <tbody>
+                {karatRows.map((r) => (
+                  <tr key={r.id} className="border-b border-border/60">
+                    <td className="py-2 pr-2">
+                      <Link href={`/company/${r.id}`} className="hover:text-accent hover:underline">
+                        {r.name}
+                      </Link>
+                    </td>
+                    <td className="whitespace-nowrap py-2 pr-2 text-right tabular-nums">{yen(r.value)}円</td>
+                    <td className="py-2 pr-2 text-right tabular-nums font-semibold">{pct(r.ratio)}</td>
+                    <td className="whitespace-nowrap py-2 text-right tabular-nums text-muted">
+                      {r.k24Rank}位→{r.rank}位
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="mt-3 text-xs leading-relaxed text-muted">
+            K24比の高い順。比は各社の1gあたりの公表価格どうしの割り算で、当サイトが日次で集めている値から毎回計算しています。順位はK24・{config.label}それぞれ、価格を公表している掲載社の中での順番です(同じ金額は同じ順位)。純度ごとの全体の傾向は
+            <Link href="/column/karat-and-price" className="underline underline-offset-2 hover:text-accent">
+              K18は「金75%」。では値段も75%になるのか
+            </Link>
+            にまとめています。
           </p>
         </section>
       )}
