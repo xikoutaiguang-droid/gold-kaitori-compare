@@ -1,5 +1,5 @@
 {
-  "ranAt": "2026-11-15T14:01:48.577Z",
+  "ranAt": "2026-11-15T16:39:47.329Z",
   "ok": 20,
   "ng": 2,
   "sources": [
@@ -14,7 +14,7 @@
       "id": "komehyo",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-11-15",
+      "updatedAt": "2026-11-16",
       "warning": null
     },
     {
@@ -48,7 +48,7 @@
       "id": "kaitori-elite",
       "ok": true,
       "priceCount": 8,
-      "updatedAt": "2026-11-15",
+      "updatedAt": "2026-11-16",
       "warning": null
     },
     {
@@ -62,7 +62,7 @@
       "id": "best-life",
       "ok": true,
       "priceCount": 12,
-      "updatedAt": "2026-11-15",
+      "updatedAt": "2026-11-16",
       "warning": null
     },
     {
@@ -75,7 +75,7 @@
       "id": "gem-sigma",
       "ok": true,
       "priceCount": 12,
-      "updatedAt": "2026-11-13",
+      "updatedAt": "2026-11-16",
       "warning": null
     },
     {
