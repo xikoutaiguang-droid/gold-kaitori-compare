@@ -13,6 +13,7 @@ import { PURITY_PAGES, getPurityPageBySlug, measurePurity } from "@/lib/purityPa
 import { measureCompanyKarat } from "@/lib/karat";
 import { PURITY_FINENESS } from "@/lib/units";
 import { GOLD_PURITIES } from "@/lib/types";
+import { measurePurityWeekly } from "@/lib/purityWeekly";
 
 export function generateStaticParams() {
   return PURITY_PAGES.map((p) => ({ purity: p.slug }));
@@ -72,6 +73,14 @@ export default async function PurityPricePage({
   const purityTop = [...karatRows].sort((a, b) => a.rank - b.rank)[0];
   const ratioHigh = karatRows[0];
   const ratioLow = karatRows[karatRows.length - 1];
+
+  // この4週間。全時点で値がある社だけで数えるので、今日の欄と社数が違うことがある
+  const weekly = measurePurityWeekly(config.purity);
+  const wNow = weekly?.points[0];
+  const wOld = weekly?.points[weekly.points.length - 1];
+  const medianMove = wNow && wOld ? wNow.median - wOld.median : 0;
+  const shopGap = wNow ? wNow.high - wNow.low : 0;
+  const leaders = weekly ? new Set(weekly.points.map((p) => p.highName)) : new Set<string>();
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-6 sm:py-10">
@@ -169,6 +178,67 @@ export default async function PurityPricePage({
             <Link href="/simulator" className="font-medium text-accent-strong hover:underline">
               手元の重さで計算する →
             </Link>
+          </p>
+        </section>
+      )}
+
+      {/* ---- この4週間 ---- */}
+      {weekly && wNow && wOld && (
+        <section className="mb-10">
+          <h2 className="font-serif-jp mb-3 text-lg font-semibold">この4週間、{config.label}の買取価格はどう動いたか</h2>
+          <p className="mb-3 text-sm leading-relaxed text-foreground/80">
+            当サイトは各社の公表価格を毎日記録しています。その記録から、1週間おきに{weekly.count}社の最高値・中央値・最安値を並べました。4週間前({formatPriceDay(wOld.date)})と比べて、中央値は1gあたり
+            {medianMove === 0 ? (
+              <>変わっていません</>
+            ) : (
+              <>
+                {yen(Math.abs(medianMove))}円{medianMove > 0 ? "上がって" : "下がって"}います
+              </>
+            )}
+            。一方、今日の同じ{weekly.count}社のあいだでは、最高値と最安値に1gあたり{yen(shopGap)}円の差があります。
+            {Math.abs(medianMove) < shopGap ? (
+              <>4週間の値動きより、同じ日の店の差のほうが大きいということです。</>
+            ) : (
+              <>この期間は、店の差より値動きのほうが大きくなっています。</>
+            )}
+          </p>
+          <div className="overflow-x-auto">
+            <table className="w-full text-xs sm:text-sm">
+              <thead>
+                <tr className="border-b border-border text-left text-xs text-muted">
+                  <th className="py-2 pr-2 font-medium">日付</th>
+                  <th className="py-2 pr-2 text-right font-medium">最高値</th>
+                  <th className="py-2 pr-2 text-right font-medium">中央値</th>
+                  <th className="py-2 text-right font-medium">最安値</th>
+                </tr>
+              </thead>
+              <tbody>
+                {weekly.points.map((p) => (
+                  <tr key={p.date} className="border-b border-border/60">
+                    <td className="whitespace-nowrap py-2 pr-2">{formatPriceDay(p.date)}</td>
+                    <td className="py-2 pr-2 text-right tabular-nums">
+                      <span className="font-semibold text-accent-strong">{yen(p.high)}円</span>
+                      <span className="block break-keep text-xs text-muted [overflow-wrap:anywhere]">{p.highName}</span>
+                    </td>
+                    <td className="whitespace-nowrap py-2 pr-2 text-right tabular-nums">{yen(p.median)}円</td>
+                    <td className="whitespace-nowrap py-2 text-right tabular-nums">{yen(p.low)}円</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="mt-3 text-xs leading-relaxed text-muted">
+            1gあたりの公表価格。各日付の値は、その日以前の3日以内に各社が公表したいちばん新しい値です(土日など公表の無い日を越えるため)。顔ぶれの入れ替わりで中央値が動かないよう、5つの日付すべてで値がある{weekly.count}社だけで数えています。そのため、上の「今日の数字」と社数や値が違うことがあります。
+            {leaders.size > 1 && <>この5時点で最高値を付けた店は{leaders.size}社ありました。</>}
+            売る時期と店選びのどちらが効くかは
+            <Link href="/column/timing-vs-shop" className="underline underline-offset-2 hover:text-accent">
+              売る日と売る店、どちらが金額を動かすのか
+            </Link>
+            、相場全体の推移は
+            <Link href="/trend" className="underline underline-offset-2 hover:text-accent">
+              買取相場の推移
+            </Link>
+            にあります。
           </p>
         </section>
       )}
