@@ -6,8 +6,8 @@ import ColumnHero from "@/components/ColumnHero";
 import { articleJsonLd, columnBreadcrumb } from "@/lib/structuredData";
 import { SCALE_CHECKED_AT, SCALE_QUOTES } from "@/lib/scaleLaw";
 import type { LawQuote } from "@/lib/taxLaw";
-import { measureSpread } from "@/lib/spread";
-import { PURITY_LABELS } from "@/lib/types";
+import { getMeasuredOn, measureSpread } from "@/lib/spread";
+import { PURITY_LABELS, type Purity } from "@/lib/types";
 
 const PATH = "/column/scale";
 
@@ -59,6 +59,13 @@ export default function ScalePage() {
   const meta = generateMetadata();
   // 0.1gの差がいくらになるか。いちばん高い値ではなく、掲載社の中央値で出す
   const k24 = measureSpread("k24");
+  // 店の単価の差を、重さに直す。上下1社を外した差(trimmedRange)で比べ、極端な1社に引っぱられないようにする
+  const GAP_PURITIES: Purity[] = ["k24", "k18", "k14", "k10", "pt900"];
+  const gaps = GAP_PURITIES.map((p) => measureSpread(p))
+    .filter((g): g is NonNullable<typeof g> => g !== null)
+    .map((g) => ({ ...g, gramsPer10g: (g.trimmedRange * 10) / g.median }));
+  const k18Gap = gaps.find((g) => g.purity === "k18");
+  const measuredOn = getMeasuredOn();
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-6 sm:py-10">
@@ -171,8 +178,53 @@ export default function ScalePage() {
       <section className="mb-10">
         <h2 className="font-serif-jp mb-3 text-lg font-semibold">金額が変わるのは、重さだけではありません</h2>
         <p className="mb-3 text-base leading-relaxed">
-          はかりが正しくても、受け取る額は店で変わります。1gあたりの単価が社ごとに違い、そこから差し引かれるものがある社もあるためです。重さの正確さより、こちらのほうが金額への影響は大きくなります。
+          はかりが正しくても、受け取る額は店で変わります。1gあたりの単価が社ごとに違い、そこから差し引かれるものがある社もあるためです。
         </p>
+        {gaps.length > 0 && (
+          <>
+            <p className="mb-3 text-base leading-relaxed">
+              どのくらい違うのかを、重さと同じ物差しで比べました。当サイトが毎日記録している各社の公表単価{measuredOn && `(${measuredOn}時点)`}から、上下1社ずつを外した残りの最高値と最安値の差を出し、それが<strong>何g分の重さにあたるか</strong>に直しています。極端な1社に引っぱられないよう、外してから比べています。
+            </p>
+            <div className="mb-3 overflow-x-auto">
+              <table className="w-full border-collapse text-sm">
+                <thead>
+                  <tr className="border-b border-border text-left text-xs text-muted">
+                    <th className="py-2 pr-2 font-medium">純度</th>
+                    <th className="py-2 pr-2 text-right font-medium">0.1g分</th>
+                    <th className="py-2 pr-2 text-right font-medium">店の差<br />(1gあたり)</th>
+                    <th className="py-2 text-right font-medium">10gの品なら<br />何g分か</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {gaps.map((g) => (
+                    <tr key={g.purity} className="border-b border-border/60">
+                      <td className="py-2 pr-2">
+                        {PURITY_LABELS[g.purity]}
+                        <span className="block text-xs text-muted">{g.count}社</span>
+                      </td>
+                      <td className="whitespace-nowrap py-2 pr-2 text-right tabular-nums">{yen(g.median / 10)}円</td>
+                      <td className="whitespace-nowrap py-2 pr-2 text-right tabular-nums">{yen(g.trimmedRange)}円</td>
+                      <td className="whitespace-nowrap py-2 text-right tabular-nums">
+                        <strong>{g.gramsPer10g.toFixed(1)}g分</strong>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p className="mb-3 text-xs leading-relaxed text-muted">
+              0.1g分は各純度の掲載社の中央値の10分の1。重さに直した値は、店の単価の差×10gを中央値で割ったもの。
+            </p>
+            {k18Gap && (
+              <p className="mb-3 text-base leading-relaxed">
+                たとえば10gの{PURITY_LABELS.k18}のネックレスなら、はかりが0.1gずれたときの違いは{yen(k18Gap.median / 10)}円です。一方、同じ日の店の単価の差は、上下1社を外しても{yen(k18Gap.trimmedRange * 10)}円になります。<strong>高い店と安い店の差は、はかりが{k18Gap.gramsPer10g.toFixed(1)}g軽く出るのと同じ</strong>です。
+              </p>
+            )}
+            <p className="mb-3 text-base leading-relaxed">
+              はかりを気にするのは大事ですが、金額を大きく動かすのは、どの店の単価で売るかのほうです。なお、単価の基準(地金か宝飾品か、石の重さを含めるか)は店によって違うので、並んだ数字がそのまま受け取る額になるとは限りません。
+            </p>
+          </>
+        )}
         <p className="text-base leading-relaxed">
           同じ日の各社の単価は{" "}
           <Link href="/compare" className="underline underline-offset-2">
@@ -193,7 +245,7 @@ export default function ScalePage() {
       <section className="mb-10 rounded-xl border border-border bg-surface p-4">
         <h2 className="font-serif-jp mb-2 text-base font-semibold">この記事について</h2>
         <p className="text-xs leading-relaxed text-muted">
-          条文は e-Gov 法令検索の原文から、{SCALE_CHECKED_AT}に読んで転記しました。要約ではなく、書かれている文をそのまま引いています。引用した文が出典から消えていないかは、当サイトの日次の点検で毎日取り直して照合しています。0.1gあたりの金額は、当日の掲載社の中央値から計算して表示しています。
+          条文は e-Gov 法令検索の原文から、{SCALE_CHECKED_AT}に読んで転記しました。要約ではなく、書かれている文をそのまま引いています。引用した文が出典から消えていないかは、当サイトの日次の点検で毎日取り直して照合しています。0.1gあたりの金額と、店の単価の差を重さに直した表は、当日の各社の公表単価から計算して表示しています。
         </p>
         <p className="mt-2 text-xs leading-relaxed text-muted">
           当サイトは法律の専門家ではありません。ここに書いたのは「条文に何と書いてあるか」であって、特定の店の計量が適法かどうかの判断ではありません。計量器の種類によって扱いは異なり、法令は改正されることがあります。実際に疑いがある場合は、都道府県の計量検定所にご相談ください。
