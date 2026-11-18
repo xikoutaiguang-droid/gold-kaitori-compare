@@ -1,5 +1,5 @@
 {
-  "ranAt": "2026-11-17T18:48:00.107Z",
+  "ranAt": "2026-11-18T10:20:20.807Z",
   "ok": 22,
   "ng": 0,
   "sources": [
@@ -7,7 +7,7 @@
       "id": "otakaraya",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-11-17",
+      "updatedAt": "2026-11-18",
       "warning": null
     },
     {
@@ -21,7 +21,7 @@
       "id": "kaitori-daikichi",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-11-17",
+      "updatedAt": "2026-11-18",
       "warning": null
     },
     {
@@ -34,14 +34,14 @@
       "id": "nanboya",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-11-17",
+      "updatedAt": "2026-11-18",
       "warning": null
     },
     {
       "id": "jewel-cafe",
       "ok": true,
       "priceCount": 5,
-      "updatedAt": "2026-11-17",
+      "updatedAt": "2026-11-18",
       "warning": null
     },
     {
@@ -55,7 +55,7 @@
       "id": "kingram",
       "ok": true,
       "priceCount": 12,
-      "updatedAt": "2026-11-17",
+      "updatedAt": "2026-11-18",
       "warning": null
     },
     {
@@ -83,21 +83,21 @@
       "id": "galleryrare",
       "ok": true,
       "priceCount": 12,
-      "updatedAt": "2026-11-17",
+      "updatedAt": "2026-11-18",
       "warning": null
     },
     {
       "id": "manekiya",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-11-17",
+      "updatedAt": "2026-11-18",
       "warning": null
     },
     {
       "id": "takayama78",
       "ok": true,
       "priceCount": 2,
-      "updatedAt": "2026-11-17",
+      "updatedAt": "2026-11-18",
       "warning": null
     },
     {
@@ -111,7 +111,7 @@
       "id": "nexus13",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-11-17",
+      "updatedAt": "2026-11-18",
       "warning": null
     },
     {
@@ -156,42 +156,42 @@
       "id": "rodeodrive",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-11-17",
+      "updatedAt": "2026-11-18",
       "warning": null
     },
     {
       "id": "refasta",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-11-17",
+      "updatedAt": "2026-11-18",
       "warning": null
     },
     {
       "id": "netoff",
       "ok": true,
       "priceCount": 8,
-      "updatedAt": "2026-11-17",
+      "updatedAt": "2026-11-18",
       "warning": null
     },
     {
       "id": "goldplaza",
       "ok": true,
       "priceCount": 12,
-      "updatedAt": "2026-11-17",
+      "updatedAt": "2026-11-18",
       "warning": null
     },
     {
       "id": "brandcom",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-11-17",
+      "updatedAt": "2026-11-18",
       "warning": null
     },
     {
       "id": "sanoya",
       "ok": true,
       "priceCount": 9,
-      "updatedAt": "2026-11-17",
+      "updatedAt": "2026-11-18",
       "warning": null
     }
   ]
