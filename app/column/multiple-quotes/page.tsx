@@ -6,6 +6,7 @@ import OtherColumns from "@/components/OtherColumns";
 import ColumnHero from "@/components/ColumnHero";
 import { measureTimingVsShop } from "@/lib/timingVsShop";
 import { measureSpread } from "@/lib/spread";
+import { measureQuoteCounts, QUOTE_COUNTS } from "@/lib/quoteCount";
 import { FEE_DEDUCTIONS, deductionFor } from "@/lib/feeDeductions";
 import { getCompanies } from "@/lib/companies";
 import {
@@ -57,7 +58,7 @@ export const metadata: Metadata = {
   title: "金買取の相見積もり ― 売る前にできる5つの準備",
   description:
     "同じ日の同じ品物でも、店によって1gあたりの金額は違います。その差を毎日の記録から測り、" +
-    "相見積もりにどれだけの意味があるかを数字で出しました。" +
+    "相見積もりにどれだけの意味があるか、何社に聞けば最高値に近づくかを数字で出しました。" +
     "磨いても単価が上がらないことなど、やっても効かない準備も各社の記載から区別しています。",
   alternates: { canonical: PATH },
 };
@@ -71,6 +72,11 @@ const jaDate = (iso: string) => {
 export default function MultipleQuotesColumnPage() {
   const k18 = measureSpread("k18");
   const t = measureTimingVsShop("k18");
+  const qc = measureQuoteCounts();
+  const qcK18 = qc?.rows.find((r) => r.purity === "k18");
+  // 1社→2社で縮む幅と、2社→3社で縮む幅。「2社目がいちばん効く」と書けるかを測った値で決める
+  const gain12 = qcK18 ? qcK18.shortfall[0] - qcK18.shortfall[1] : 0;
+  const gain23 = qcK18 ? qcK18.shortfall[1] - qcK18.shortfall[2] : 0;
 
   // 少額だと引かれる割合が大きい、という話に使う実例。
   // 店頭でも効く差し引きだけを採る(宅配だけの負担金は条件が違う)。
@@ -159,6 +165,82 @@ export default function MultipleQuotesColumnPage() {
           </p>
         )}
       </section>
+
+      {/* ---- 1.5 何社に聞けばよいか ---- */}
+      {qc && qcK18 && (
+        <section className="mb-10">
+          <h2 className="font-serif-jp mb-3 text-lg font-semibold">
+            何社に見積もりを取れば、いちばん高い店に近づくか
+          </h2>
+          <p className="mb-3 text-base leading-relaxed">
+            では、何社に聞けば足りるのか。{jaDate(qc.from)}から{jaDate(qc.to)}
+            までの毎日の公表価格で計算しました。その日に価格を出していた全社（
+            {PURITY_LABELS.k18}で{qcK18.minCompanies}〜{qcK18.maxCompanies}
+            社）の中から、店を決めずに偶然選んだ何社かに聞いたとして、そのうちの最高値が、その日いちばん高い店より平均でいくら低くなるかです。
+          </p>
+          <div className="mb-3 overflow-hidden rounded-xl border border-border">
+            <table className="w-full table-fixed text-xs sm:text-sm">
+              <thead>
+                <tr className="border-b border-border bg-surface text-left">
+                  <th className="px-2 py-2 font-medium">社数</th>
+                  {qc.rows.map((r) => (
+                    <th key={r.purity} className="px-2 py-2 text-right font-medium">
+                      {r.purity === "k24" ? "K24" : PURITY_LABELS[r.purity]}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {QUOTE_COUNTS.map((n, i) => (
+                  <tr key={n} className="border-b border-border last:border-0">
+                    <td className="px-2 py-2">{n}社</td>
+                    {qc.rows.map((r) => (
+                      <td key={r.purity} className="px-2 py-2 text-right tabular-nums">
+                        −{yen(r.shortfall[i])}
+                      </td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="mb-3 text-xs leading-relaxed text-muted">
+            単位は円/g。その日の最高値との差の平均です。15社以上が価格を出していた日だけを数えています（
+            {PURITY_LABELS.k18}は{qcK18.days}日）。
+          </p>
+          <p className="mb-3 text-base leading-relaxed">
+            {PURITY_LABELS.k18}を{EXAMPLE_GRAMS}gで見ると、1社だけなら最高値の店より平均
+            {yen(qcK18.shortfall[0] * EXAMPLE_GRAMS)}円低く、2社に聞けば
+            {yen(qcK18.shortfall[1] * EXAMPLE_GRAMS)}円、3社で
+            {yen(qcK18.shortfall[2] * EXAMPLE_GRAMS)}円、5社で
+            {yen(qcK18.shortfall[3] * EXAMPLE_GRAMS)}円まで縮みます。
+          </p>
+          <p className="mb-3 text-base leading-relaxed">
+            {gain12 > gain23 ? (
+              <>
+                縮み方がいちばん大きいのは、<strong>1社から2社に増やしたとき</strong>
+                です（1gあたり{yen(gain12)}円。2社から3社では{yen(gain23)}
+                円）。
+                {gain12 * 2 > qcK18.shortfall[0]
+                  ? "1軒で決めずにもう1軒に聞くだけで、差の半分以上が埋まります。"
+                  : "1軒で決めずにもう1軒に聞くのが、いちばん効きます。"}
+                そこから先は、聞く手間に対して縮む幅が小さくなります。
+              </>
+            ) : (
+              <>
+                1社から2社では1gあたり{yen(gain12)}円、2社から3社では{yen(gain23)}
+                円縮みました。この期間は、3社目まで聞く意味がはっきりあります。
+              </>
+            )}
+          </p>
+          <p className="text-base leading-relaxed">
+            ここでの「偶然選んだ」は、店の価格を知らずに選んだ場合です。<Link href="/compare" className="underline underline-offset-2">
+              買取価格の比較
+            </Link>
+            で今日の公表価格を見てから選べば、聞く前に高い側の店に絞れます。ただし公表価格は品物を見る前の参考値で、実際の査定額は状態や店の基準によります。だから最後は、絞った2社以上に実際に見せて決めてください。
+          </p>
+        </section>
+      )}
 
       {/* ---- 2. 1位は固定ではない ---- */}
       {t && (
@@ -384,7 +466,7 @@ export default function MultipleQuotesColumnPage() {
       <section className="mb-10 rounded-xl border border-border bg-surface p-4">
         <h2 className="font-serif-jp mb-2 text-base font-semibold">この記事について</h2>
         <p className="text-xs leading-relaxed text-muted">
-          店による差と、1位の入れ替わりは、当サイトが毎日取得している各社の公表価格から、このページを作るたびに計算しています。
+          店による差と、1位の入れ替わり、何社に聞けばどこまで近づくかは、当サイトが毎日取得している各社の公表価格から、このページを作るたびに計算しています。
           {EXAMPLE_GRAMS}gという重さと{yen(SMALL_LOT_YEN)}
           円という金額は、桁を見せるために置いた例で、それ以上の意味はありません。
         </p>
