@@ -1,7 +1,7 @@
 {
-  "ranAt": "2026-11-19T10:30:42.322Z",
-  "ok": 22,
-  "ng": 0,
+  "ranAt": "2026-11-19T15:50:46.834Z",
+  "ok": 21,
+  "ng": 1,
   "sources": [
     {
       "id": "otakaraya",
@@ -12,10 +12,9 @@
     },
     {
       "id": "komehyo",
-      "ok": true,
-      "priceCount": 13,
-      "updatedAt": "2026-11-19",
-      "warning": null
+      "ok": false,
+      "skipped": false,
+      "error": "komehyo: 価格を1件も取得できませんでした(ページ構造が変わった可能性)"
     },
     {
       "id": "kaitori-daikichi",
@@ -48,7 +47,7 @@
       "id": "kaitori-elite",
       "ok": true,
       "priceCount": 8,
-      "updatedAt": "2026-11-19",
+      "updatedAt": "2026-11-20",
       "warning": null
     },
     {
@@ -62,21 +61,21 @@
       "id": "best-life",
       "ok": true,
       "priceCount": 12,
-      "updatedAt": "2026-11-19",
+      "updatedAt": "2026-11-20",
       "warning": null
     },
     {
       "id": "brand-revalue",
       "ok": true,
       "priceCount": 8,
-      "updatedAt": "2026-11-19",
+      "updatedAt": "2026-11-20",
       "warning": null
     },
     {
       "id": "gem-sigma",
       "ok": true,
       "priceCount": 12,
-      "updatedAt": "2026-11-19",
+      "updatedAt": "2026-11-20",
       "warning": null
     },
     {
