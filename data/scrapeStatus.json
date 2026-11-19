@@ -1,7 +1,7 @@
 {
-  "ranAt": "2026-11-19T15:50:46.834Z",
-  "ok": 21,
-  "ng": 1,
+  "ranAt": "2026-11-19T18:44:24.080Z",
+  "ok": 22,
+  "ng": 0,
   "sources": [
     {
       "id": "otakaraya",
@@ -12,9 +12,10 @@
     },
     {
       "id": "komehyo",
-      "ok": false,
-      "skipped": false,
-      "error": "komehyo: 価格を1件も取得できませんでした(ページ構造が変わった可能性)"
+      "ok": true,
+      "priceCount": 13,
+      "updatedAt": "2026-11-20",
+      "warning": null
     },
     {
       "id": "kaitori-daikichi",
