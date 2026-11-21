@@ -1,5 +1,5 @@
 {
-  "ranAt": "2026-11-20T18:03:58.797Z",
+  "ranAt": "2026-11-21T09:58:46.638Z",
   "ok": 22,
   "ng": 0,
   "sources": [
@@ -90,7 +90,7 @@
       "id": "manekiya",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-11-20",
+      "updatedAt": "2026-11-21",
       "warning": null
     },
     {
@@ -100,7 +100,7 @@
       "updatedAt": "2026-11-20",
       "warning": null,
       "rejected": true,
-      "rejectReason": "-14.4%動きました。この回に動いた社が1社しか無く(5社必要)、市場がどう動いたかを決められないため、幅そのもので判定しています(6%まで)。前回(2026-11-19)の値を残しています。ページを見て正しければ、1社だけ実行すれば書き込めます。"
+      "rejectReason": "-14.4%動きました。この回に動いた社が2社しか無く(5社必要)、市場がどう動いたかを決められないため、幅そのもので判定しています(6%まで)。前回(2026-11-19)の値を残しています。ページを見て正しければ、1社だけ実行すれば書き込めます。"
     },
     {
       "id": "goldmrs",
@@ -113,7 +113,7 @@
       "id": "nexus13",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-11-20",
+      "updatedAt": "2026-11-21",
       "warning": null
     },
     {
@@ -158,14 +158,14 @@
       "id": "rodeodrive",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-11-20",
+      "updatedAt": "2026-11-21",
       "warning": null
     },
     {
       "id": "refasta",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-11-20",
+      "updatedAt": "2026-11-21",
       "warning": null
     },
     {
@@ -193,7 +193,7 @@
       "id": "sanoya",
       "ok": true,
       "priceCount": 9,
-      "updatedAt": "2026-11-20",
+      "updatedAt": "2026-11-21",
       "warning": null
     }
   ]
