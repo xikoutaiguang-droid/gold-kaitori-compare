@@ -7,6 +7,7 @@ import RemoteBuyers from "@/components/RemoteBuyers";
 import { articleJsonLd, columnBreadcrumb } from "@/lib/structuredData";
 import { onlyVia, serviceCounts, shippingBuyers, SERVICE_RECORDS } from "@/lib/services";
 import { FEE_DISCLOSURES } from "@/lib/fees";
+import { RETURN_SHIPPING_NOTES, companiesWithoutReturnNote, type ReturnShippingNote } from "@/lib/returnShipping";
 import { PURITY_LABELS } from "@/lib/types";
 import rawCompanies from "@/data/companies.json";
 import type { Company } from "@/lib/types";
@@ -34,6 +35,34 @@ function companyName(id: string): string {
   return (rawCompanies as Company[]).find((c) => c.id === id)?.name ?? id;
 }
 
+/** 2026-10-02 のような記録上の日付を、文章に混ぜられる形にする */
+function jpDate(iso: string): string {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso);
+  return m ? `${m[1]}年${Number(m[2])}月${Number(m[3])}日` : iso;
+}
+
+function ReturnNoteItem({ r }: { r: ReturnShippingNote }) {
+  return (
+    <li className="rounded-xl border border-border bg-surface p-3.5">
+      <Link href={`/company/${r.companyId}`} className="text-sm font-semibold hover:underline">
+        {companyName(r.companyId)}
+      </Link>
+      <p className="mt-1.5 text-sm leading-relaxed text-foreground/80">「{r.quote}」</p>
+      {r.note && <p className="mt-1.5 text-sm leading-relaxed text-foreground/80">{r.note}</p>}
+      <p className="mt-1.5 text-xs text-muted">
+        {r.sourceUrl ? (
+          <a href={r.sourceUrl} target="_blank" rel="noopener noreferrer" className="underline hover:no-underline">
+            同社の記載
+          </a>
+        ) : (
+          "同社のよくある質問"
+        )}
+        （{jpDate(r.checkedAt)}に確認）
+      </p>
+    </li>
+  );
+}
+
 export default function MailInPurchasePage() {
   const n = serviceCounts();
   const buyers = shippingBuyers("k24");
@@ -47,6 +76,11 @@ export default function MailInPurchasePage() {
   // 引かれるものはないと明記している社のうち、宅配に対応している社
   const freeIds = new Set(buyers.map((b) => b.id));
   const freeOnShipping = FEE_DISCLOSURES.filter((d) => d.model === "free" && freeIds.has(d.companyId));
+
+  // 返してもらうときの送料。記載のある社と、読んだ範囲で見当たらなかった社
+  const returnFee = RETURN_SHIPPING_NOTES.filter((r) => r.mention === "returnFee");
+  const cancelOnly = RETURN_SHIPPING_NOTES.filter((r) => r.mention === "cancelOnly");
+  const withoutNote = companiesWithoutReturnNote().map(companyName);
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-6 sm:py-10">
@@ -176,15 +210,35 @@ export default function MailInPurchasePage() {
 
       {/* ---- 返送とキャンセル ---- */}
       <section className="mb-10">
-        <h2 className="font-serif-jp mb-3 text-lg font-semibold">返してもらうときの条件は社ごとに違う</h2>
+        <h2 className="font-serif-jp mb-3 text-lg font-semibold">返してもらうときの返送料は、誰が払うか</h2>
         <p className="mb-4 text-sm leading-relaxed text-foreground/80">
-          返送料を会社が持つのか、こちらが着払いで払うのか。ここは各社がそれぞれ決めています。たとえばリファスタは、よくある質問でこう書いています。
+          査定額に納得できずに返してもらうとき、返送料を会社が持つのか、こちらが着払いで払うのか。ここは法律ではなく、各社がそれぞれ決めています。当サイトが手数料と買取方法を調べたときに読んだ記載のうち、返送やキャンセルに触れていたものを、宅配に対応している{n.shipping}社について分けました。
         </p>
-        <blockquote className="mb-4 rounded-xl border-l-4 border-accent/40 bg-surface px-4 py-3 text-sm leading-relaxed">
-          査定後のキャンセル料、返送料は無料。返却は一部、全品どちらも対応しております。なお、お送りいただいたお品物すべてにお値段が付かなかった場合のみ着払いにて返送いたしております。
-        </blockquote>
-        <p className="text-sm leading-relaxed text-foreground/80">
-          「値段が付かなかった場合だけ着払い」という線引きです。条件のある社とない社があるので、送る前にその社のページで確かめてください。
+
+        <h3 className="mb-2 text-base font-semibold">返送料について書いている社（{returnFee.length}社）</h3>
+        <ul className="mb-5 flex flex-col gap-3">
+          {returnFee.map((r) => (
+            <ReturnNoteItem key={r.companyId} r={r} />
+          ))}
+        </ul>
+
+        <h3 className="mb-2 text-base font-semibold">キャンセル料は無料と書いているが、返送料という言葉は無い社（{cancelOnly.length}社）</h3>
+        <ul className="mb-3 flex flex-col gap-3">
+          {cancelOnly.map((r) => (
+            <ReturnNoteItem key={r.companyId} r={r} />
+          ))}
+        </ul>
+        <p className="mb-5 text-sm leading-relaxed text-foreground/80">
+          キャンセル料と返送料は別の費用です。「キャンセル無料」とだけある社では、返してもらうときの送料がどうなるかを、申し込む前に問い合わせておくと確実です。
+        </p>
+
+        {withoutNote.length > 0 && (
+          <p className="mb-4 text-sm leading-relaxed text-foreground/80">
+            残りの{withoutNote.length}社（{withoutNote.join("・")}）は、当サイトが読んだページには返送料の記載がありませんでした。無料だという意味でも、有料だという意味でもありません。利用規約やよくある質問に書かれている場合もあるので、送る前にそちらも確かめてください。
+          </p>
+        )}
+        <p className="text-xs leading-relaxed text-muted">
+          引用は各社の記載そのままで、読んだ日を併記しています。記載は予告なく変わるため、送る前に各社のページでもお確かめください。
         </p>
       </section>
 
