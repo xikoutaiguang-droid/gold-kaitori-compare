@@ -10,6 +10,8 @@ import {
   formatGrams,
   gramsOfGold,
 } from "@/lib/taxThresholds";
+import { getMeasuredOn, measureSpread } from "@/lib/spread";
+import { PURITY_LABELS, type Purity } from "@/lib/types";
 import { NTA_3105, NTA_3152, NTA_3161, NTA_AS_OF, TAX_CHECKED_AT, TAX_QUOTES } from "@/lib/taxLaw";
 import ColumnHero from "@/components/ColumnHero";
 
@@ -68,7 +70,7 @@ export function generateMetadata(): Metadata {
     description:
       "金の売却で出てくる30万円・50万円・200万円は、それぞれ非課税の線・特別控除・税務署に調書が出る線で、どれも別のことを指しています。" +
       "所得税法と同施行令の条文、国税庁タックスアンサーの原文で確かめました。" +
-      "宝飾品と地金で扱いが違うこと、200万円が課税の基準ではないことも整理しています。",
+      "宝飾品と地金で扱いが違うこと、宝石や指輪が何gで1点30万円を超えるか、200万円が課税の基準ではないことも整理しています。",
     alternates: { canonical: PATH },
   };
 }
@@ -77,6 +79,19 @@ export default function TaxPage() {
   const meta = generateMetadata();
   const g30 = gramsOfGold(NON_TAXABLE_ITEM_LIMIT);
   const g200 = gramsOfGold(PAYMENT_RECORD_LIMIT);
+  // 宝飾品の1点が30万円に届く重さ。田中の地金価格ではなく、各社が宝飾品に付けている公表単価で出す。
+  // 最高値の1社は日付の古い値のこともあるので外し(trimmedHigh)、中央値と並べる
+  const ITEM_PURITIES: Purity[] = ["k24", "k18", "k14", "k10", "pt900"];
+  const itemGrams = ITEM_PURITIES.map((p) => measureSpread(p))
+    .filter((s): s is NonNullable<typeof s> => s !== null)
+    .map((s) => ({
+      purity: s.purity,
+      count: s.count,
+      atMedian: NON_TAXABLE_ITEM_LIMIT / s.median,
+      atHigh: NON_TAXABLE_ITEM_LIMIT / s.trimmedHigh.price,
+    }));
+  const k18Item = itemGrams.find((r) => r.purity === "k18");
+  const measuredOn = getMeasuredOn();
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-6 sm:py-10">
@@ -148,6 +163,55 @@ export default function TaxPage() {
           ただし前提として、条文は「生活の用に供する」資産と書いています。値上がりを見込んで買ったインゴットは、身につけていた指輪とは扱いが違います。手元の品がどちらなのかは書類や経緯で決まるので、迷う場合は税務署か税理士に確認してください。
         </p>
       </section>
+
+      {/* ---- 1b. 宝飾品が30万円に届く重さ ---- */}
+      {itemGrams.length > 0 && (
+        <section className="mb-10">
+          <h2 className="font-serif-jp mb-3 text-lg font-semibold">
+            指輪やネックレスは、何gで1点30万円を超えるか
+          </h2>
+          <p className="mb-3 text-base leading-relaxed">
+            宝石や貴金属の品を売ったときに課税されうるかは、まず1個(1組)の値段が{man(NON_TAXABLE_ITEM_LIMIT)}を超えるかどうかで分かれます。地金の部分だけで見るなら、それが何gの品にあたるかは、純度と売る店の単価で決まります。当サイトが毎日記録している各社の公表単価{measuredOn && `(${jpDate(measuredOn)}時点)`}で換算しました。
+          </p>
+          <div className="mb-3 overflow-x-auto">
+            <table className="w-full border-collapse text-sm">
+              <thead>
+                <tr className="border-b border-border text-left text-xs text-muted">
+                  <th className="py-2 pr-2 font-medium">純度</th>
+                  <th className="py-2 pr-2 text-right font-medium">中央値の店で</th>
+                  <th className="py-2 text-right font-medium">高い店で<br />(最高値の1社を除く)</th>
+                </tr>
+              </thead>
+              <tbody>
+                {itemGrams.map((r) => (
+                  <tr key={r.purity} className="border-b border-border/60">
+                    <td className="py-2 pr-2">
+                      {PURITY_LABELS[r.purity]}
+                      <span className="block text-xs text-muted">{r.count}社</span>
+                    </td>
+                    <td className="whitespace-nowrap py-2 pr-2 text-right tabular-nums">約{r.atMedian.toFixed(1)}g</td>
+                    <td className="whitespace-nowrap py-2 text-right tabular-nums">約{r.atHigh.toFixed(1)}g</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="mb-3 text-xs leading-relaxed text-muted">
+            {man(NON_TAXABLE_ITEM_LIMIT)}を、各純度の掲載社の公表単価(1gあたり)の中央値と、最高値の1社を外した次に高い値で割ったもの。公表単価は査定前の参考値です。
+          </p>
+          {k18Item && (
+            <p className="mb-3 text-base leading-relaxed">
+              {PURITY_LABELS.k18}なら、1点で約{k18Item.atHigh.toFixed(1)}〜{k18Item.atMedian.toFixed(1)}gを超える品から、この線に届きはじめます。高い店で売るほど、軽い品でも届きます。
+            </p>
+          )}
+          <p className="mb-3 text-base leading-relaxed">
+            ダイヤなどの石が付いた品は、この表では判断できません。石は地金とは別に値が付く(あるいは付かない)ので、同じ重さでも1点の金額が大きく変わります。売ったあとの買取明細に1点ごとの金額が出ていれば、それが目安になります。
+          </p>
+          <p className="text-base leading-relaxed">
+            30万円を超えた品でも、すぐに税金がかかるわけではありません。課税されるのは買ったときより高く売れたぶんで、そこから次の節以降の特別控除などが引かれます。
+          </p>
+        </section>
+      )}
 
       {/* ---- 2. 地金 ---- */}
       <section className="mb-10">
