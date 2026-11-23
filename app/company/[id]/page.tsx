@@ -476,8 +476,20 @@ export default async function CompanyPage({ params }: { params: Promise<{ id: st
           </>
         ) : company.priceData.staleDays !== undefined ? (
           <p className="text-sm text-muted">
-            {company.name}の価格は公表されていますが、当サイトが取得できている数値が
-            {company.priceData.updatedAt}時点のもので、{company.priceData.staleDays}日が経過しています。金相場は日々動くため、今日の価格として他社と並べると{company.name}を実態より高くも低くも見せてしまいます。そのため順位を出していません。取得先の見直しができ次第、掲載を再開します。最新の価格は
+            {company.priceData.unconfirmed ? (
+              <>
+                {company.name}の価格は公表されていますが、当サイトが最後に{company.name}のページを読めたのは
+                {formatFetchedAt(company.priceData.fetchedAt)}で、{company.priceData.unconfirmed.days}日たっています。その間に金相場(大阪取引所の金限日先物)が
+                {company.priceData.unconfirmed.marketMovePct > 0 ? "+" : ""}
+                {company.priceData.unconfirmed.marketMovePct}%動いており、手元にある
+                {formatPriceDay(company.priceData.updatedAt)}の価格を今日の他社の価格と並べると、{company.name}を実態より高くも低くも見せてしまいます。そのため順位を出していません。取得でき次第、掲載を再開します。最新の価格は
+              </>
+            ) : (
+              <>
+                {company.name}の価格は公表されていますが、当サイトが取得できている数値が
+                {company.priceData.updatedAt}時点のもので、{company.priceData.staleDays}日が経過しています。金相場は日々動くため、今日の価格として他社と並べると{company.name}を実態より高くも低くも見せてしまいます。そのため順位を出していません。取得先の見直しができ次第、掲載を再開します。最新の価格は
+              </>
+            )}
             <a
               href={company.priceSourceUrl}
               target="_blank"

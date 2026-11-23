@@ -63,6 +63,11 @@ export interface PriceSet {
    * これが付いている社は prices が空になり、順位・中央値の計算から外れる。
    */
   staleDays?: number;
+  /**
+   * 公表日は新しくても、当サイトがその社のページを何日も読めておらず、
+   * その間に金相場が大きく動いたために比較から外した場合の内訳。getCompanies() が付ける。
+   */
+  unconfirmed?: { days: number; marketMovePct: number };
 }
 
 export interface Company {

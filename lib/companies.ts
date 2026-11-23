@@ -1,5 +1,6 @@
 import rawCompanies from "@/data/companies.json";
 import rawReferenceRate from "@/data/referenceRate.json";
+import rawOutlook from "@/data/futuresOutlook.json";
 import type { Company, Purity, Region } from "@/lib/types";
 
 export interface ReferenceRate {
@@ -57,6 +58,54 @@ function daysBetween(iso: string, today: Date): number | null {
 }
 
 /**
+ * 当サイトがその社のページを最後に読めてから、これより日が経ち、かつ
+ * その間に金相場が UNCONFIRMED_MARKET_MOVE_PCT 以上動いていたら、
+ * PRICE_MAX_AGE_DAYS 以内でも比較から外す。
+ *
+ * きっかけ: ゴールドミセスは手元のPCでしか取得できず、その定期実行が
+ * 2026-11-16 から止まった。11/20 に金が1日で約5%下がり(大阪取引所の限日先物
+ * 19,062→18,043円/g)、11/23 には 11/16 時点から -8.1%。他社は下がった値を
+ * 出しているのに、ゴールドミセスだけ下がる前の値のまま残り、K24・K18・Pt900 の
+ * すべてで1位に見えていた(Pt900 は2位より約1,300円/g高い)。
+ *
+ * 公表日(updatedAt)ではなく取得日(fetchedAt)で見るのは、店が週末や連休に
+ * 価格を更新しないのは「その価格で今も買っている」ことだから。今日ページを読めて
+ * 公表日が3日前なら、それが店の今の価格。読めていないときだけ、今も同じかが分からない。
+ *
+ * 3日・3%の根拠: 記録している先物(2026-09-04〜、81日)で、3日あけの値動きは
+ * 中央値1.6%、90%点4.0%。店どうしの上位の差はK18で1g数百円(1〜2%)なので、
+ * 3%動けば順位が入れ替わりうる。週末に1回取れなかった程度では外れない。
+ */
+export const UNCONFIRMED_MAX_DAYS = 3;
+export const UNCONFIRMED_MARKET_MOVE_PCT = 3;
+
+/** 先物の記録のうち、その日以前でいちばん新しい日の値 */
+function spotOnOrBefore(date: string): number | null {
+  const entries = (rawOutlook as { entries: { date: string; spotPrice: number }[] }).entries;
+  let found: number | null = null;
+  for (const e of entries) {
+    if (e.date <= date && typeof e.spotPrice === "number") found = e.spotPrice;
+  }
+  return found;
+}
+
+/** 取得が止まってから金相場がどれだけ動いたか(%)。比べられなければ null */
+function marketMoveSinceFetch(fetchedAt: string | undefined, today: Date): { days: number; pct: number } | null {
+  if (!fetchedAt) return null;
+  const t = new Date(fetchedAt);
+  if (Number.isNaN(t.getTime())) return null;
+  // 取得日は日本時間の日付で見る(先物の記録日も日本時間)
+  const fetchedDay = new Date(t.getTime() + 9 * 3600 * 1000).toISOString().slice(0, 10);
+  const days = daysBetween(fetchedDay, today);
+  if (days === null || days <= UNCONFIRMED_MAX_DAYS) return null;
+  const entries = (rawOutlook as { entries: { date: string; spotPrice: number }[] }).entries;
+  const latest = entries[entries.length - 1];
+  const before = spotOnOrBefore(fetchedDay);
+  if (!latest || !before) return null;
+  return { days, pct: ((latest.spotPrice - before) / before) * 100 };
+}
+
+/**
  * これ未満のレビュー件数では、平均を出さない。
  *
  * 2026年10月14日に鑑定空間(横浜の1店舗)を掲載したとき、Googleの口コミが
@@ -83,7 +132,20 @@ export function getCompanies(): Company[] {
         : raw;
     if (!c.priceData.updatedAt) return c;
     const age = daysBetween(c.priceData.updatedAt, today);
-    if (age === null || age <= PRICE_MAX_AGE_DAYS) return c;
+    if (age !== null && age <= PRICE_MAX_AGE_DAYS) {
+      const move = marketMoveSinceFetch(c.priceData.fetchedAt, today);
+      if (!move || Math.abs(move.pct) < UNCONFIRMED_MARKET_MOVE_PCT) return c;
+      return {
+        ...c,
+        priceData: {
+          ...c.priceData,
+          prices: {},
+          staleDays: age,
+          unconfirmed: { days: move.days, marketMovePct: Math.round(move.pct * 10) / 10 },
+        },
+      };
+    }
+    if (age === null) return c;
     // 価格そのものは捨てるが、更新日と経過日数は残す。
     // 「公表していない」のではなく「取得できている値が古い」ことを
     // ページ側で正しく説明できるようにするため。
