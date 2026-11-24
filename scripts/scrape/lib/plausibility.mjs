@@ -28,6 +28,23 @@
  * 99%点は4.36%・4.77%で、6%以上は既知の誤取得しか無い。
  * 日数で緩める必要は無かったので、一律6%にしている。
  *
+ * 前回の値のほうがずれていた社について(2026-11-24に追加):
+ * 上の判定は「前回の値から今回の値への変化」を見るので、前回の値そのものが
+ * 他社よりずれていると、正しい値に戻った回が却下される。2026-11-24のロデオドライブがそれで、
+ * 11/21に-5.6%(他社は-1〜-4%)と大きめに下げ、11/24に+7.3%で戻ったところを却下された。
+ * 11/20→11/24で見ると同社は約+1.2%、他社の中央値は約+1.3%で、今回の値は正しいとみられる。
+ * 却下が続くと、他社より約7%低い古い値が比較表に残り続ける(前回値が7日より古くなるまで)。
+ * そこで、変化で引っかかった社は、もう一度「今回の値が、他社に対していつもの位置にあるか」を見る。
+ * 今日の他社の中央値に対する比(純度ごとの中央値)と、日次の記録の直近28日でのその社のいつもの比の差が
+ * MAX_LEVEL_PCT 未満なら書き込む。記録している日次の値(1200件)で試すと、
+ * この差の中央値は0.35%、99%点は4.71%。
+ * 日次の記録を9/5〜11/24まで1日ずつ流し直すと、変化で止まるのは9件。うち位置のずれは
+ * リファスタ 9/24(記録不足で判定不可)・9/27(-12.1%)・9/28(+4.7%)・10/03(-6.7%)が大きく、
+ * 残る ロデオドライブ 11/04(0.0%)・11/19(0.9%)・11/24、コメ兵 11/24(0.7%)、
+ * ベストライフ 11/04(-0.1%)、大蔵屋 11/02(-2.8%)、ネットオフ 11/04(0.3%)、リファスタ 10/08(-0.3%)は小さい。
+ * 冒頭のリファスタ 9/28 を今までどおり止めるため、上限は両者の間の3%にした。
+ * どちらの見方でもずれているときだけ止める。
+ *
  * 本当にその社が基準を変えた場合は、ここが邪魔になる。そのときは
  *   node scripts/scrape/index.mjs <会社ID>
  * と1社だけ実行すれば書き込める。以前はこれが「1社だけだと標本が足りない」
@@ -67,6 +84,19 @@ const MAX_PREV_AGE_DAYS = 7;
  */
 const MAX_UNVERIFIED_PCT = 6;
 
+/**
+ * 変化で引っかかった社に、もう一度だけ見る「他社に対する位置」のずれの上限(%)。
+ * 上の説明のとおり、通したい側の最大が2.8%、止めたい側の最小が4.7%。
+ */
+const MAX_LEVEL_PCT = 3;
+
+/** いつもの位置を決めるのに見る日数と、最低限必要な日数 */
+const LEVEL_LOOKBACK_DAYS = 28;
+const LEVEL_MIN_DAYS = 5;
+
+/** 今日の他社として数える、公表日の古さの上限(日)。止まっている社を混ぜない */
+const LEVEL_MAX_PEER_AGE_DAYS = 3;
+
 function median(values) {
   if (!values.length) return null;
   const a = [...values].sort((x, y) => x - y);
@@ -79,6 +109,52 @@ function ageInDays(iso, now) {
   const d = Date.UTC(Number(m[1]), Number(m[2]) - 1, Number(m[3]));
   const t = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
   return Math.round((t - d) / 86400000);
+}
+
+/**
+ * prices の、他社(peers: 価格の配列)の中央値に対する比(%)。純度ごとに出して中央値を取る。
+ * 他社が MIN_SAMPLE 社に満たない純度は使わない。比べられなければ null。
+ */
+function levelPct(prices, peers) {
+  const pcts = [];
+  for (const [purity, v] of Object.entries(prices ?? {})) {
+    if (typeof v !== "number" || v <= 0) continue;
+    const others = peers.map((p) => p?.[purity]).filter((x) => typeof x === "number" && x > 0);
+    if (others.length < MIN_SAMPLE) continue;
+    pcts.push((v / median(others) - 1) * 100);
+  }
+  return median(pcts);
+}
+
+/**
+ * 今回の値が、他社に対していつもの位置からどれだけずれているか(%)。決められなければ null。
+ * history は companyPriceHistory.json の entries(日付の昇順)。
+ */
+function levelShift(companies, history, id, now) {
+  const target = companies.find((c) => c.id === id);
+  const peersNow = companies
+    .filter((c) => c.id !== id)
+    .filter((c) => {
+      const age = ageInDays(c.priceData?.updatedAt, now);
+      return age !== null && age <= LEVEL_MAX_PEER_AGE_DAYS;
+    })
+    .map((c) => c.priceData.prices);
+  const current = levelPct(target?.priceData?.prices, peersNow);
+  if (current === null) return null;
+
+  const usual = [];
+  for (const e of history) {
+    const age = ageInDays(e.date, now);
+    // 今日の記録には今回の値がもう入っていることがあるので、昨日まで
+    if (age === null || age < 1 || age > LEVEL_LOOKBACK_DAYS) continue;
+    const mine = e.companies?.[id];
+    if (!mine) continue;
+    const peers = Object.entries(e.companies).filter(([k]) => k !== id).map(([, v]) => v);
+    const pct = levelPct(mine, peers);
+    if (pct !== null) usual.push(pct);
+  }
+  if (usual.length < LEVEL_MIN_DAYS) return null;
+  return current - median(usual);
 }
 
 /** その社の純度ごとの変化率の中央値。比べられる純度が無ければ null */
@@ -99,10 +175,12 @@ function changePct(before, after) {
  * @param before 取得前の値 Map<id, {prices, updatedAt}>
  * @param options.singleSource 1社だけを指定して実行したとき true。
  *        人が意図して上書きしに来た場合なので、判定しない(上の抜け道)。
+ * @param options.history companyPriceHistory.json の entries(日付の昇順)。
+ *        変化で引っかかった社が、他社に対していつもの位置にあるかを見るのに使う。
  * @returns { rejected, market, sample } 却下した社の一覧と、何を基準に判定したか
  */
 export function rejectImplausible(companies, before, options = {}) {
-  const now = new Date();
+  const now = options.now ?? new Date();
 
   const moves = new Map();
   for (const c of companies) {
@@ -125,12 +203,21 @@ export function rejectImplausible(companies, before, options = {}) {
   const canCompare = moves.size >= MIN_SAMPLE;
   const market = canCompare ? median([...moves.values()]) : null;
   const rejected = [];
+  const recovered = [];
+  const history = Array.isArray(options.history) ? options.history : [];
 
   for (const [id, pct] of moves) {
     // 市場が分かるなら市場との差、分からないなら動いた幅そのものを見る。
     const measured = canCompare ? pct - market : pct;
     const limit = canCompare ? MAX_RESIDUAL_PCT : MAX_UNVERIFIED_PCT;
     if (Math.abs(measured) < limit) continue;
+
+    // 前回の値のほうがずれていただけなら、今回の値は他社に対していつもの位置にある。
+    const shift = levelShift(companies, history, id, now);
+    if (shift !== null && Math.abs(shift) < MAX_LEVEL_PCT) {
+      recovered.push({ id, pct, shift });
+      continue;
+    }
 
     const c = companies.find((x) => x.id === id);
     const prev = before.get(id);
@@ -143,14 +230,22 @@ export function rejectImplausible(companies, before, options = {}) {
       reason: canCompare
         ? `この社だけ${pct.toFixed(1)}%動きました(同じ日の他社は${market.toFixed(1)}%)。` +
           `差が${Math.abs(measured).toFixed(1)}%あり、別の表を拾った可能性があるため書き込みませんでした。` +
-          `前回(${prev.updatedAt})の値を残しています。`
+          `前回(${prev.updatedAt})の値を残しています。` +
+          levelNote(shift)
         : `${pct.toFixed(1)}%動きました。この回に動いた社が${moves.size}社しか無く` +
           `(${MIN_SAMPLE}社必要)、市場がどう動いたかを決められないため、` +
           `幅そのもので判定しています(${MAX_UNVERIFIED_PCT}%まで)。` +
           `前回(${prev.updatedAt})の値を残しています。` +
-          `ページを見て正しければ、1社だけ実行すれば書き込めます。`,
+          `ページを見て正しければ、1社だけ実行すれば書き込めます。` +
+          levelNote(shift),
     });
   }
 
-  return { rejected, market, sample: moves.size };
+  return { rejected, recovered, market, sample: moves.size };
+}
+
+function levelNote(shift) {
+  return shift === null
+    ? `(他社に対する位置は、比べられる記録が足りず確かめられませんでした)`
+    : `(他社に対する位置も、いつもより${shift.toFixed(1)}%ずれています)`;
 }

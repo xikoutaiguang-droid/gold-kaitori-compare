@@ -2,7 +2,7 @@ import { loadCompanies, saveCompanies, applyPriceUpdate } from "./lib/store.mjs"
 import { rejectImplausible } from "./lib/plausibility.mjs";
 import { sleep } from "./lib/fetchHtml.mjs";
 import { todayJst } from "./lib/date.mjs";
-import { writeFile } from "node:fs/promises";
+import { readFile, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 
@@ -13,6 +13,15 @@ const STATUS_PATH = path.join(
   "..",
   "data",
   "scrapeStatus.json",
+);
+
+/** 各社の価格の日次の記録。却下の判定で、他社に対するいつもの位置を見るのに使う */
+const HISTORY_PATH = path.join(
+  path.dirname(fileURLToPath(import.meta.url)),
+  "..",
+  "..",
+  "data",
+  "companyPriceHistory.json",
 );
 
 async function writeStatus(status) {
@@ -208,8 +217,15 @@ async function main() {
   // 例: リファスタは9月28日に全純度が一斉に+13.7%動いた(市場は-1.45%)。
   // ページ上の別の表を拾っていた疑いが強く、そのまま載せると順位が入れ替わる。
   // 怪しい値は書き込まず、前回の値を残す。古い値のほうが、嘘の値よりましなので。
-  const { rejected, market, sample } = rejectImplausible(companies, before, {
+  let history = [];
+  try {
+    history = JSON.parse(await readFile(HISTORY_PATH, "utf8")).entries ?? [];
+  } catch (err) {
+    console.error(`[判定] 日次の記録を読めませんでした(${err.message})。他社に対する位置は見ません。`);
+  }
+  const { rejected, recovered, market, sample } = rejectImplausible(companies, before, {
     singleSource: Boolean(only),
+    history,
   });
   // 判定できたのか、できなかったのかを必ず書く。黙っているのと
   // 「調べて問題なし」は読む側から見分けが付かない。
@@ -222,6 +238,12 @@ async function main() {
     );
   } else {
     console.log(`[判定] この回に動いた${sample}社の中央値は${market.toFixed(1)}%。これを基準にしました。`);
+  }
+  for (const r of recovered ?? []) {
+    console.log(
+      `[判定] ${r.id}: 前回から${r.pct.toFixed(1)}%動きましたが、他社に対する位置はいつもと` +
+        `${r.shift.toFixed(1)}%しか違わないので書き込みました(前回の値のほうがずれていたとみられます)。`,
+    );
   }
   for (const r of rejected) {
     console.error(`[却下] ${r.id}: ${r.reason}`);
