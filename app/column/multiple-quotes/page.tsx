@@ -4,6 +4,7 @@ import JsonLd from "@/components/JsonLd";
 import { articleJsonLd, columnBreadcrumb } from "@/lib/structuredData";
 import OtherColumns from "@/components/OtherColumns";
 import ColumnHero from "@/components/ColumnHero";
+import RankingCard from "@/components/RankingCard";
 import { measureTimingVsShop } from "@/lib/timingVsShop";
 import { measureSpread } from "@/lib/spread";
 import { measureQuoteCounts, QUOTE_COUNTS } from "@/lib/quoteCount";
@@ -454,6 +455,15 @@ export default function MultipleQuotesColumnPage() {
             単価は重さと純度で決まります。手を加えても上がりません。
           </li>
         </ol>
+        <div className="mb-4">
+          <p className="mb-3 text-base leading-relaxed">
+            見積もりを取る先の候補として、{PURITY_LABELS.k18}の公表価格が高い順に5社を並べます。価格を見ずに偶然選ぶより、公表価格の高い側から2〜3社に聞くほうが、その日の最高値に近づきます。ただし手数料を引くかどうかは社によって違うので、手順3のとおり手取りでも確かめてください。
+          </p>
+          <RankingCard companies={companies} purity="k18" limit={5} source="column-multiple-quotes" />
+          <p className="mt-2 text-xs leading-relaxed text-muted">
+            並び順は公表価格だけで決めています。「PR」の印がある社は、当サイトが広告の提携をしている社で、押すとその社の申し込みページに移ります。印の無い社は当サイトの会社ページに移り、そこから公式サイトへ行けます。
+          </p>
+        </div>
         <p className="text-base leading-relaxed">
           出張や宅配で売る場合、断れる期間が売り方によって違います。
           <Link href="/column/visit-purchase" className="underline underline-offset-2">

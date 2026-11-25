@@ -29,10 +29,13 @@ export default function RankingCard({
   companies,
   purity,
   limit = 5,
+  source = "ranking",
 }: {
   companies: Company[];
   purity: Purity;
   limit?: number;
+  /** 計測(outbound_click / affiliate_click)の source。置いた場所ごとに分けて、どこから押されたかを見る */
+  source?: string;
 }) {
   const ranked = companies
     .filter((c) => c.priceData.prices[purity] !== undefined)
@@ -108,7 +111,7 @@ export default function RankingCard({
                         shopId: c.id,
                         shopName: c.name,
                         hasAffiliate: true,
-                        source: "ranking",
+                        source,
                       })
                     }
                     className={rowClass}
