@@ -12,6 +12,24 @@ import RelatedColumns from "@/components/RelatedColumns";
 import RemoteBuyers from "@/components/RemoteBuyers";
 import { remoteBuyers } from "@/lib/services";
 import { PURITY_LABELS } from "@/lib/types";
+import type { Purity } from "@/lib/types";
+import { measureSpread, getMeasuredOn } from "@/lib/spread";
+import { measureShopChoice } from "@/lib/shopChoice";
+
+// 「金 買取 比較」で来た人に、表を眺める前に「比べると何円変わるのか」を先に渡す。
+// 数字は本文に書かず、毎ビルド今日の公表値から測る(lib/spread.ts と同じ方針)。
+const SPREAD_PURITIES: Purity[] = ["k24", "k18", "pt900"];
+/** 換算に使う重さ。指輪・ネックレス1点くらいの目安 */
+const EXAMPLE_GRAMS = 10;
+
+function yen(n: number): string {
+  return n.toLocaleString("ja-JP");
+}
+
+function jaDate(iso: string): string {
+  const [, m, d] = iso.slice(0, 10).split("-").map(Number);
+  return `${m}月${d}日`;
+}
 
 export const metadata: Metadata = {
   title: "金・貴金属買取相場比較｜純度・地域別に主要買取店の価格を一覧比較",
@@ -24,7 +42,7 @@ export const metadata: Metadata = {
 const faq = [
   {
     q: "K24とK18では、買取価格はどのくらい違いますか？",
-    a: "K24(純金)が最も高く、K18はその純度分(約75%)だけ単価が下がります。ただし単純な掛け算にはならない店もあるため、正確には当ページの表で純度ごとの実際の価格を確認してください。",
+    a: k18Answer(),
   },
   {
     q: "なぜ店によって買取価格が違うのですか？",
@@ -35,6 +53,16 @@ const faq = [
     a: "当サイトは各社の公式サイトが公表している価格を毎日自動で取得し、このページに反映しています。価格を公表していない店や、取得が一時的に止まっている店は、その旨を明記したうえで掲載しています。",
   },
 ];
+
+function k18Answer(): string {
+  const k24 = measureSpread("k24");
+  const k18 = measureSpread("k18");
+  const base =
+    "K24(純金)が最も高く、K18は金の含有量(75%)に近い割合まで単価が下がります。ただし掛け率は店によって違い、K24で高い店がK18でも高いとは限りません。";
+  if (!k24 || !k18) return base + "正確には当ページの表で純度ごとの実際の価格を確認してください。";
+  const pct = Math.round((k18.median / k24.median) * 1000) / 10;
+  return `${base}今日の各社の中央値では、K24が1gあたり${yen(k24.median)}円、K18が${yen(k18.median)}円で、K18はK24の${pct}%でした(当サイトが毎日記録している公表価格から計算)。`;
+}
 
 const faqJsonLd = {
   "@context": "https://schema.org",
@@ -69,6 +97,8 @@ export default function ComparePage() {
       </p>
       <MarketClosedNotice />
       <CompanyTable companies={companies} />
+
+      <SpreadSummary />
 
       <section className="mt-12 border-t border-border pt-8">
         <h2 className="font-serif-jp mb-3 text-lg font-semibold">買取店ごとに見る</h2>
@@ -132,5 +162,73 @@ export default function ComparePage() {
         </dl>
       </section>
     </div>
+  );
+}
+
+/**
+ * 表の下に置く「比べると、いくら違うのか」。
+ * 表は社ごとの値の一覧で、差の大きさは読む人が自分で引き算しないと分からない。
+ */
+function SpreadSummary() {
+  const spreads = SPREAD_PURITIES.map((p) => measureSpread(p)).filter(
+    (s): s is NonNullable<typeof s> => s !== null,
+  );
+  if (spreads.length === 0) return null;
+  const measuredOn = getMeasuredOn();
+  const k18 = spreads.find((s) => s.purity === "k18");
+  const leaders = measureShopChoice("k24");
+
+  return (
+    <section className="mt-10 border-t border-border pt-8">
+      <h2 className="font-serif-jp mb-3 text-lg font-semibold">比べると、いくら違うのか</h2>
+      <p className="mb-4 text-sm leading-relaxed text-foreground/80">
+        上の表の{measuredOn ? `${jaDate(measuredOn)}までに各社が公表した` : "各社が公表している"}
+        1gあたりの価格を、純度ごとに最高・まん中(中央値)・最安で並べました。
+      </p>
+      <div className="overflow-x-auto">
+        <table className="w-full min-w-[20rem] text-sm">
+          <thead>
+            <tr className="border-b border-border text-left text-muted">
+              <th className="py-2 pr-2 font-medium">純度</th>
+              <th className="py-2 pr-2 text-right font-medium">最高</th>
+              <th className="py-2 pr-2 text-right font-medium">中央値</th>
+              <th className="py-2 pr-2 text-right font-medium">最安</th>
+              <th className="py-2 text-right font-medium">社数</th>
+            </tr>
+          </thead>
+          <tbody>
+            {spreads.map((s) => (
+              <tr key={s.purity} className="border-b border-border/60">
+                <td className="py-2 pr-2">{PURITY_LABELS[s.purity]}</td>
+                <td className="py-2 pr-2 text-right tabular-nums">{yen(s.high.price)}円</td>
+                <td className="py-2 pr-2 text-right tabular-nums">{yen(s.median)}円</td>
+                <td className="py-2 pr-2 text-right tabular-nums">{yen(s.low.price)}円</td>
+                <td className="py-2 text-right tabular-nums">{s.count}社</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      {k18 && (
+        <p className="mt-4 text-sm leading-relaxed text-foreground/80">
+          たとえばK18の品が{EXAMPLE_GRAMS}gなら、中央値の店と最高値の店で約{yen(k18.upside * EXAMPLE_GRAMS)}円の差になります。最高と最安の両端の1社ずつを外しても、1gあたり{yen(k18.trimmedRange)}円、{EXAMPLE_GRAMS}gで約
+          {yen(k18.trimmedRange * EXAMPLE_GRAMS)}円の開きがありました(公表されている参考価格どうしの差です。実際の査定額は品物の状態や手数料で変わります)。
+        </p>
+      )}
+      {leaders && (
+        <p className="mt-3 text-sm leading-relaxed text-foreground/80">
+          いちばん高い店も決まっていません。K24で1位を数えられた{leaders.days}日のうち、1位は{leaders.changes}回入れ替わり、
+          {leaders.leaders.length}社が1位になりました。「前に高かった店」を覚えておくより、売る日に比べ直すほうが確かです。
+        </p>
+      )}
+      <p className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-sm">
+        <Link href="/column/multiple-quotes" className="text-accent-strong hover:underline">
+          何社に見積もりを取ればいいか →
+        </Link>
+        <Link href="/column/how-to-choose" className="text-accent-strong hover:underline">
+          1位の入れ替わりと口コミの関係 →
+        </Link>
+      </p>
+    </section>
   );
 }
