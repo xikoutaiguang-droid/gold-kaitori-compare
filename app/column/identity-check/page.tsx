@@ -11,7 +11,8 @@ import {
   SHOP_RULE_QUOTES,
   type ShopRuleQuote,
 } from "@/lib/identityLaw";
-import type { LawQuote } from "@/lib/taxLaw";
+import { TAX_CHECKED_AT, TAX_QUOTES, type LawQuote } from "@/lib/taxLaw";
+import { PAYMENT_RECORD_LIMIT, formatGrams, gramsOfGold } from "@/lib/taxThresholds";
 
 const PATH = "/column/identity-check";
 
@@ -23,7 +24,15 @@ const PATH = "/column/identity-check";
  * 法令が改正されても各社が規約を書き換えても気づけない状態だったので、向こうに移した。
  */
 
-function Quote({ entry, highlight }: { entry: LawQuote; highlight?: boolean }) {
+function Quote({
+  entry,
+  highlight,
+  checkedAt = IDENTITY_CHECKED_AT,
+}: {
+  entry: LawQuote;
+  highlight?: boolean;
+  checkedAt?: string;
+}) {
   return (
     <blockquote
       className={`mb-3 rounded-xl border p-4 text-sm leading-relaxed ${
@@ -41,7 +50,7 @@ function Quote({ entry, highlight }: { entry: LawQuote; highlight?: boolean }) {
         >
           {entry.label}
         </a>
-        （e-Gov法令検索、{IDENTITY_CHECKED_AT}に確認）
+        （e-Gov法令検索、{checkedAt}に確認）
       </footer>
     </blockquote>
   );
@@ -74,13 +83,15 @@ export function generateMetadata(): Metadata {
     description:
       "金を売るとき身分証を求められるのはなぜか。古物営業法第15条の条文と、国家公安委員会規則の金額(1万円)、" +
       "その例外から外される古物の一覧を e-Gov の原文で確認しました。貴金属はその一覧に入っていません。" +
-      "宅配買取のeKYC、18歳未満が売れない理由、口座が本人名義に限られることも各社の規約から整理しています。",
+      "宅配買取のeKYC、18歳未満が売れない理由、口座が本人名義に限られることも各社の規約から整理しています。" +
+      "売ったことが税務署に伝わるのはどんなときか(地金・金貨で200万円超の支払調書)も条文で確かめました。",
     alternates: { canonical: PATH },
   };
 }
 
 export default function IdentityCheckPage() {
   const meta = generateMetadata();
+  const recordGrams = gramsOfGold(PAYMENT_RECORD_LIMIT);
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-6 sm:py-10">
@@ -198,12 +209,55 @@ export default function IdentityCheckPage() {
         </p>
       </section>
 
+      {/* ---- 6. 記録が残るところ ---- */}
+      <section className="mb-10">
+        <h2 className="font-serif-jp mb-3 text-lg font-semibold">売ったことは、どこに記録が残るか</h2>
+        <p className="mb-3 text-base leading-relaxed">
+          「家族や税務署に知られずに売れるか」を気にする人もいます。ここまでの条文から、記録が残るところを並べると次の3つです。
+        </p>
+        <ol className="mb-4 list-decimal space-y-2 pl-6 text-base leading-relaxed">
+          <li>
+            <strong>店の帳簿。</strong>
+            上で書いたとおり、買い取った相手を記録する義務が店にあります（古物営業法第16条）。
+          </li>
+          <li>
+            <strong>振込先の口座。</strong>
+            振込で受け取るなら本人名義の口座に限られるので、その口座の入金記録に残ります。
+          </li>
+          <li>
+            <strong>税務署（地金・金貨を200万円を超えて売ったときだけ）。</strong>
+            所得税法に、金の地金と金貨に限った決まりがあります。
+          </li>
+        </ol>
+        <Quote entry={TAX_QUOTES.noticeActWho} checkedAt={TAX_CHECKED_AT} />
+        <Quote entry={TAX_QUOTES.noticeLimit} checkedAt={TAX_CHECKED_AT} highlight />
+        <Quote entry={TAX_QUOTES.paymentRecord} checkedAt={TAX_CHECKED_AT} />
+        <p className="mb-3 text-base leading-relaxed">
+          地金・金貨の対価が200万円を超えると、売る人は店に氏名・住所などを告げ、店は税務署に支払調書を出します。対象は「金若しくは白金の地金又は金貨若しくは白金貨」で、
+          <strong>指輪やネックレスなどの宝飾品はこの決まりの対象に入っていません。</strong>
+          {recordGrams && (
+            <>
+              200万円は、{recordGrams.source}の店頭買取価格（{recordGrams.updatedAt}、1gあたり
+              {recordGrams.unitPrice.toLocaleString("ja-JP")}円）で純金約{formatGrams(recordGrams.grams)}
+              gにあたります。
+            </>
+          )}
+        </p>
+        <p className="text-base leading-relaxed">
+          ただし、税務署に調書が届くかどうかと、税金がかかるかどうかは別の話です。調書が出ない宝飾品でも1点30万円を超えれば課税の対象になりえますし、地金は金額にかかわらず譲渡所得になります。どこからが申告の対象かは
+          <Link href="/column/tax" className="underline underline-offset-2 hover:text-accent">
+            税金の記事
+          </Link>
+          にまとめています。上の条文に、家族へ知らせる仕組みは出てきません。
+        </p>
+      </section>
+
       <section className="mb-10 rounded-xl border border-border bg-surface p-4">
         <h2 className="font-serif-jp mb-2 text-base font-semibold">この記事について</h2>
         <p className="text-xs leading-relaxed text-muted">
           法令の引用は e-Gov 法令検索の原文から、各社の記載は公式サイトから、いずれも
           {IDENTITY_CHECKED_AT}
-          に読んで転記したものです。要約ではなく、書かれている文をそのまま引いています。引用した文が出典から消えていないかは、当サイトの日次の点検で毎日取り直して照合しています。
+          に読んで転記したものです（所得税法と施行令の引用は{TAX_CHECKED_AT}）。要約ではなく、書かれている文をそのまま引いています。引用した文が出典から消えていないかは、当サイトの日次の点検で毎日取り直して照合しています。
         </p>
         <p className="mt-2 text-xs leading-relaxed text-muted">
           法令は改正されることがあり、各社の規約も予告なく変わります。当サイトは法律の専門家ではないため、個別の事情については店や専門家にご確認ください。ここに書いたのは「条文に何と書いてあるか」であって、特定の取引が適法かどうかの判断ではありません。
