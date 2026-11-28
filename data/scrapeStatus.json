@@ -1,7 +1,7 @@
 {
-  "ranAt": "2026-11-28T10:38:09.831Z",
-  "ok": 22,
-  "ng": 0,
+  "ranAt": "2026-11-28T15:42:07.813Z",
+  "ok": 21,
+  "ng": 1,
   "sources": [
     {
       "id": "otakaraya",
@@ -14,7 +14,7 @@
       "id": "komehyo",
       "ok": true,
       "priceCount": 13,
-      "updatedAt": "2026-11-28",
+      "updatedAt": "2026-11-29",
       "warning": null
     },
     {
@@ -48,7 +48,7 @@
       "id": "kaitori-elite",
       "ok": true,
       "priceCount": 8,
-      "updatedAt": "2026-11-28",
+      "updatedAt": "2026-11-29",
       "warning": null
     },
     {
@@ -62,14 +62,14 @@
       "id": "best-life",
       "ok": true,
       "priceCount": 12,
-      "updatedAt": "2026-11-28",
+      "updatedAt": "2026-11-29",
       "warning": null
     },
     {
       "id": "brand-revalue",
       "ok": true,
       "priceCount": 8,
-      "updatedAt": "2026-11-28",
+      "updatedAt": "2026-11-29",
       "warning": null
     },
     {
@@ -161,10 +161,9 @@
     },
     {
       "id": "refasta",
-      "ok": true,
-      "priceCount": 13,
-      "updatedAt": "2026-11-28",
-      "warning": null
+      "ok": false,
+      "skipped": false,
+      "error": "https://kinkaimasu.jp/ を 5回試して取得できませんでした: The operation was aborted due to timeout (23) / The operation was aborted due to timeout (23) / The operation was aborted due to timeout (23) / The operation was aborted due to timeout (23) / The operation was aborted due to timeout (23)"
     },
     {
       "id": "netoff",
