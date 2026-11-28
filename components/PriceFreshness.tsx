@@ -22,6 +22,9 @@ export default function PriceFreshness({ className = "" }: { className?: string 
         {s.byDate.map((d, i) => (
           <span key={d.date}>
             {i > 0 && "／"}
+            {/* 年を付ける。同じページの下に出張・宅配の確認日(年つき)が出るので、
+                年の無い「11月27日」と並ぶと、どちらが新しいのか読み違えやすい */}
+            {i === 0 && /^\d{4}-/.test(d.date) && `${d.date.slice(0, 4)}年`}
             {formatPriceDay(d.date)}
             {s.byDate.length > 1 && ` ${d.count}社`}
           </span>

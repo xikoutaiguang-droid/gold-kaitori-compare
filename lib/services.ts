@@ -333,9 +333,12 @@ export interface RemoteOption {
   price: number | null;
   /** price が null の理由。公表していないのと、取れた値が古いのとは別のこと */
   priceNote: "unpublished" | "stale" | null;
+  /** price の公表日(YYYY-MM-DD)。checkedAt(方法を確認した日)とは別の日付 */
+  priceDate: string | null;
   visit?: VisitEvidence;
   shipping?: ServiceEvidence;
   sourceUrl: string;
+  /** 出張・宅配の対応と引用を、公式サイトで読んだ日。価格の日付ではない */
   checkedAt: string;
   /** この状況(近くに店舗が無い)で押すべきリンク */
   ctaUrl: string;
@@ -372,6 +375,7 @@ export function buyersFor(services: ServiceId[], purity: Purity = "k24"): Remote
       name: base.name,
       price,
       priceNote: price !== null ? null : current?.priceData.staleDays ? "stale" : "unpublished",
+      priceDate: price !== null ? (current?.priceData.updatedAt ?? null) : null,
       visit: rec.visit,
       shipping: rec.shipping,
       sourceUrl: rec.sourceUrl,

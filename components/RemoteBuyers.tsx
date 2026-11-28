@@ -10,11 +10,16 @@ import type { RemoteOption } from "@/lib/services";
 const INITIAL = 6;
 
 /**
- * 「いつ読んだものか」の表示。社ごとに確認日が違ってくるので、
- * 代表1社の日付ではなく実際の範囲を出す。古い方を隠さない。
+ * 日付の範囲を年つきで出す。社ごとに日付が違うので、代表1社ではなく実際の範囲を出す。
+ * 古い方を隠さない。
+ *
+ * 2026-11-28: 以前は出張・宅配の確認日だけを「読んだ日は2026年9月25日〜10月14日」と
+ * 書いていて、すぐ上の単価(11月の公表値)まで9〜10月の値に見えていた。
+ * 単価の公表日と、方法を確認した日を、別々に名前を付けて出す。
  */
-function checkedLabel(options: RemoteOption[]): string {
-  const dates = [...new Set(options.map((o) => o.checkedAt))].sort();
+function dateRangeLabel(isoDates: (string | null)[]): string | null {
+  const dates = [...new Set(isoDates.filter((d): d is string => !!d))].sort();
+  if (!dates.length) return null;
   const first = jpDate(dates[0]);
   const last = jpDate(dates[dates.length - 1]);
   return first === last ? first : `${first}〜${last}`;
@@ -67,6 +72,8 @@ export default function RemoteBuyers({
   const shown = expanded ? options : options.slice(0, INITIAL);
   const rest = options.length - shown.length;
   const priced = options.filter((o) => o.price !== null).length;
+  const priceDates = dateRangeLabel(options.map((o) => o.priceDate));
+  const checkedDates = dateRangeLabel(options.map((o) => o.checkedAt));
 
   return (
     <section className="mt-6 rounded-2xl border border-border bg-surface p-4">
@@ -151,7 +158,7 @@ export default function RemoteBuyers({
       )}
 
       <p className="mt-3 text-xs leading-relaxed text-muted">
-        出張の対応エリアは社ごとに違います。上に「全国」と書いていない社は、当サイトでは全国対応かどうかを確認できていません(対応していないという意味ではありません)。申し込む前に各社のサイトでお住まいの地域が対象か確認してください。引用は各社の公式サイトの記載で、読んだ日は{checkedLabel(options)}です。手数料の扱いは店によって違うので、
+        出張の対応エリアは社ごとに違います。上に「全国」と書いていない社は、当サイトでは全国対応かどうかを確認できていません(対応していないという意味ではありません)。申し込む前に各社のサイトでお住まいの地域が対象か確認してください。{priceDates && <>単価は各社の公表価格で、公表日は{priceDates}です(毎日更新)。</>}出張・宅配の対応と「」の引用は各社の公式サイトの記載で、当サイトがその店舗情報を確認した日は{checkedDates}です(単価の日付とは別です)。手数料の扱いは店によって違うので、
         <Link href="/column/fees" className="underline hover:no-underline">
           手数料の記事
         </Link>
